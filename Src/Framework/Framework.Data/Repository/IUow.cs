@@ -2,7 +2,7 @@
 
 namespace Framework.Data.Repository
 {
-    public interface ILaPazUow : IDisposable
+    public interface IUow : IDisposable
     {
         void Commit();
     }

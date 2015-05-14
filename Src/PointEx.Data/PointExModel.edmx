@@ -1,0 +1,772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PointEx.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Benefit">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="ShopId" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EducationalInstitution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="Location" Type="geography" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PointsExchange">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PrizeId" />
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="ExchangeDate" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PrizeId" Type="int" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="ExchangeDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="PurchaseDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RewardCatalogId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="RewardCatalog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Location" Type="geography" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EducationalInstitutionId" Type="int" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Benefit_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Card_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EducationalInstitution_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EducationalInstitution">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsExchange_Reward">
+          <End Role="Reward" Type="Self.Reward" Multiplicity="1" />
+          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="PrizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsExchange_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Card">
+          <End Role="Card" Type="Self.Card" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Card">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reward_RewardCatalog">
+          <End Role="RewardCatalog" Type="Self.RewardCatalog" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardCatalog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="RewardCatalogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shop_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_EducationalInstitution">
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalInstitution">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="EducationalInstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PointExDataStoreContainer">
+          <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reward" EntityType="Self.Reward" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RewardCatalog" EntityType="Self.RewardCatalog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benefit" EntityType="Self.Benefit" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Benefit].[Id] AS [Id], 
+    [Benefit].[Description] AS [Description], 
+    [Benefit].[ShopId] AS [ShopId], 
+    [Benefit].[CreatedDate] AS [CreatedDate], 
+    [Benefit].[ModifiedDate] AS [ModifiedDate]
+    FROM [dbo].[Benefit] AS [Benefit]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PointsExchange" EntityType="Self.PointsExchange" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PointsExchange].[Id] AS [Id], 
+    [PointsExchange].[PrizeId] AS [PrizeId], 
+    [PointsExchange].[StudentId] AS [StudentId], 
+    [PointsExchange].[ExchangeDate] AS [ExchangeDate]
+    FROM [dbo].[PointsExchange] AS [PointsExchange]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Benefit" EntitySet="Benefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EducationalInstitution_Town" Association="Self.FK_EducationalInstitution_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsExchange_Reward" Association="Self.FK_PointsExchange_Reward">
+            <End Role="Reward" EntitySet="Reward" />
+            <End Role="PointsExchange" EntitySet="PointsExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsExchange_Student" Association="Self.FK_PointsExchange_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="PointsExchange" EntitySet="PointsExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
+            <End Role="Card" EntitySet="Card" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Shop" Association="Self.FK_Purchase_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reward_RewardCatalog" Association="Self.FK_Reward_RewardCatalog">
+            <End Role="RewardCatalog" EntitySet="RewardCatalog" />
+            <End Role="Reward" EntitySet="Reward" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="Shop" EntitySet="Shop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_EducationalInstitution" Association="Self.FK_Student_EducationalInstitution">
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Town" Association="Self.FK_Student_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PointEx.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Card_Student" FromRole="Card" ToRole="Student" />
+          <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Card" FromRole="Card" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="EducationalInstitution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="Geography" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Town" Relationship="Self.FK_EducationalInstitution_Town" FromRole="EducationalInstitution" ToRole="Town" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Card" Relationship="Self.FK_Purchase_Card" FromRole="Purchase" ToRole="Card" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_Purchase_Shop" FromRole="Purchase" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RewardCatalogId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="PointsExchanges" Relationship="Self.FK_PointsExchange_Reward" FromRole="Reward" ToRole="PointsExchange" />
+          <NavigationProperty Name="RewardCatalog" Relationship="Self.FK_Reward_RewardCatalog" FromRole="Reward" ToRole="RewardCatalog" />
+        </EntityType>
+        <EntityType Name="RewardCatalog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_RewardCatalog" FromRole="RewardCatalog" ToRole="Reward" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="Geography" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Shop" FromRole="Shop" ToRole="Purchase" />
+          <NavigationProperty Name="Benefits" Relationship="Self.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
+          <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EducationalInstitutionId" Type="Int32" Nullable="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Cards" Relationship="Self.FK_Card_Student" FromRole="Student" ToRole="Card" />
+          <NavigationProperty Name="EducationalInstitution" Relationship="Self.FK_Student_EducationalInstitution" FromRole="Student" ToRole="EducationalInstitution" />
+          <NavigationProperty Name="PointsExchanges" Relationship="Self.FK_PointsExchange_Student" FromRole="Student" ToRole="PointsExchange" />
+          <NavigationProperty Name="Town" Relationship="Self.FK_Student_Town" FromRole="Student" ToRole="Town" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EducationalInstitutions" Relationship="Self.FK_EducationalInstitution_Town" FromRole="Town" ToRole="EducationalInstitution" />
+          <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_Town" FromRole="Town" ToRole="Shop" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Town" FromRole="Town" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Benefit">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="ShopId" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="PointsExchange">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PrizeId" />
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="ExchangeDate" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PrizeId" Type="Int32" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="ExchangeDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Reward" Relationship="Self.FK_PointsExchange_Reward" FromRole="PointsExchange" ToRole="Reward" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_PointsExchange_Student" FromRole="PointsExchange" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Card_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Card">
+          <End Role="Card" Type="Self.Card" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Card">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EducationalInstitution_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EducationalInstitution">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_EducationalInstitution">
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalInstitution">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="EducationalInstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsExchange_Reward">
+          <End Role="Reward" Type="Self.Reward" Multiplicity="1" />
+          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="PrizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reward_RewardCatalog">
+          <End Role="RewardCatalog" Type="Self.RewardCatalog" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardCatalog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="RewardCatalogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benefit_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shop_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsExchange_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PointExDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cards" EntityType="Self.Card" />
+          <EntitySet Name="EducationalInstitutions" EntityType="Self.EducationalInstitution" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchase" />
+          <EntitySet Name="Rewards" EntityType="Self.Reward" />
+          <EntitySet Name="RewardCatalogs" EntityType="Self.RewardCatalog" />
+          <EntitySet Name="Shops" EntityType="Self.Shop" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Towns" EntityType="Self.Town" />
+          <EntitySet Name="Benefits" EntityType="Self.Benefit" />
+          <EntitySet Name="PointsExchanges" EntityType="Self.PointsExchange" />
+          <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
+            <End Role="Card" EntitySet="Cards" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EducationalInstitution_Town" Association="Self.FK_EducationalInstitution_Town">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitutions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_EducationalInstitution" Association="Self.FK_Student_EducationalInstitution">
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitutions" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Shop" Association="Self.FK_Purchase_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsExchange_Reward" Association="Self.FK_PointsExchange_Reward">
+            <End Role="Reward" EntitySet="Rewards" />
+            <End Role="PointsExchange" EntitySet="PointsExchanges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reward_RewardCatalog" Association="Self.FK_Reward_RewardCatalog">
+            <End Role="RewardCatalog" EntitySet="RewardCatalogs" />
+            <End Role="Reward" EntitySet="Rewards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Benefit" EntitySet="Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsExchange_Student" Association="Self.FK_PointsExchange_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="PointsExchange" EntitySet="PointsExchanges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Town" Association="Self.FK_Student_Town">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PointExDataStoreContainer" CdmEntityContainer="PointExDbContext">
+          <EntitySetMapping Name="Cards">
+            <EntityTypeMapping TypeName="PointEx.Data.Card">
+              <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EducationalInstitutions">
+            <EntityTypeMapping TypeName="PointEx.Data.EducationalInstitution">
+              <MappingFragment StoreEntitySet="EducationalInstitution">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="PointEx.Data.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rewards">
+            <EntityTypeMapping TypeName="PointEx.Data.Reward">
+              <MappingFragment StoreEntitySet="Reward">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RewardCatalogId" ColumnName="RewardCatalogId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RewardCatalogs">
+            <EntityTypeMapping TypeName="PointEx.Data.RewardCatalog">
+              <MappingFragment StoreEntitySet="RewardCatalog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="PointEx.Data.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="PointEx.Data.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EducationalInstitutionId" ColumnName="EducationalInstitutionId" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Towns">
+            <EntityTypeMapping TypeName="PointEx.Data.Town">
+              <MappingFragment StoreEntitySet="Town">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benefits">
+            <EntityTypeMapping TypeName="PointEx.Data.Benefit">
+              <MappingFragment StoreEntitySet="Benefit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PointsExchanges">
+            <EntityTypeMapping TypeName="PointEx.Data.PointsExchange">
+              <MappingFragment StoreEntitySet="PointsExchange">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PrizeId" ColumnName="PrizeId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ExchangeDate" ColumnName="ExchangeDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
