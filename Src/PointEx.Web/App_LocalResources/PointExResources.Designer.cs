@@ -70,7 +70,7 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Editar Shop.
+        ///   Looks up a localized string similar to Editar Comercio.
         /// </summary>
         public static string EditShopTitle {
             get {

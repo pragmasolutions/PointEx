@@ -19,5 +19,10 @@ namespace PointEx.Service
         {
             return Uow.Towns.GetAll();
         }
+
+        public Town GetById(int id)
+        {
+            return Uow.Towns.Get(id);
+        }
     }
 }

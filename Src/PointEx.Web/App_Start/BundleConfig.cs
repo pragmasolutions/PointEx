@@ -23,6 +23,8 @@ namespace PointEx.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/lib").Include("~/Scripts/underscore.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory("~/Scripts/app/utilities", "*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

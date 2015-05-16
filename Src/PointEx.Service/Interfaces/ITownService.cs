@@ -6,5 +6,7 @@ namespace PointEx.Service
     public interface ITownService
     {
         IQueryable<Town> GetAll();
+
+        Town GetById(int id);
     }
 }

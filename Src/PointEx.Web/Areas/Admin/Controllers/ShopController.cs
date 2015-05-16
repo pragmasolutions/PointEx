@@ -28,7 +28,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return View(shops);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Detail(int id)
         {
             var shop = _shopService.GetById(id);
             var shopForm = ShopForm.FromShop(shop);
@@ -60,7 +60,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var shop = _shopService.GetById(id);
+            var shopForm = ShopForm.FromShop(shop);
+            return View(shopForm);
         }
 
         [HttpPost, ValidateAntiForgeryToken]

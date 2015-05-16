@@ -13,7 +13,7 @@ namespace PointEx.Service
     {
         private readonly IClock _clock;
 
-        public ShopService(IPointExUow uow,IClock clock)
+        public ShopService(IPointExUow uow, IClock clock)
         {
             _clock = clock;
             Uow = uow;
@@ -32,7 +32,7 @@ namespace PointEx.Service
             Uow.Shops.Edit(shop);
             Uow.Commit();
         }
-        
+
         public void Delete(int shopId)
         {
             Uow.Shops.Delete(shopId);
@@ -41,7 +41,7 @@ namespace PointEx.Service
 
         public IQueryable<Shop> GetAll()
         {
-            return Uow.Shops.GetAll();
+            return Uow.Shops.GetAll(whereClause: null,includes: s => s.Town);
         }
 
         public Shop GetById(int id)
