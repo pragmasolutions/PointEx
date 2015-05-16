@@ -1,0 +1,10 @@
+﻿@model DateTime?
+@{
+    var date = (Model.HasValue && Model.GetValueOrDefault().ToShortDateString() != "01/01/0001") 
+                    ? String.Format("{0:d}", ((DateTime)Model).ToShortDateString()) 
+                    : string.Empty;
+}
+<div class="input-group date bootstrap-datepicker form-group-date" data-date="@(date)" data-date-format="dd/mm/yyyy">
+    @Html.TextBox("", date, new { @class = "form-control" })
+    <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+</div>

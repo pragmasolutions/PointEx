@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Framework.Common.Web.Alerts;
+using Microsoft.AspNet.Identity;
 using PointEx.Service;
 using PointEx.Web.Controllers;
 using PointEx.Entities;
+using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
@@ -21,26 +24,34 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var shops = _shopService.GetAll();
+            return View(shops);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Detail(int id)
         {
-            return View();
+            var shop = _shopService.GetById(id);
+            var shopForm = ShopForm.FromShop(shop);
+            return View(shopForm);
         }
 
         public ActionResult Create()
         {
-            return View();
+            var shopForm = new ShopForm();
+            return View(shopForm);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(Entities.Shop shop)
+        public ActionResult Create(ShopForm shopForm)
         {
             if (!ModelState.IsValid)
             {
-                return View(shop);
+                return View(shopForm);
             }
+
+            var shop = shopForm.ToShop();
+
+            shop.UserId = this.User.Identity.GetUserId();
 
             _shopService.Create(shop);
 
@@ -49,18 +60,20 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var shop = _shopService.GetById(id);
+            var shopForm = ShopForm.FromShop(shop);
+            return View(shopForm);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Entities.Shop shop)
+        public ActionResult Edit(int id, ShopForm shopForm)
         {
             if (!ModelState.IsValid)
             {
-                return View(shop);
+                return View(shopForm);
             }
 
-            _shopService.Edit(shop);
+            _shopService.Edit(shopForm.ToShop());
 
             return RedirectToAction<ShopController>(c => c.Index()).WithSuccess("Comercio Editado");
         }

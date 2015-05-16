@@ -1,0 +1,20 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model string
+@{
+    string errorMessange = "Email invalido";
+    
+    var property = ViewData.ModelMetadata.ContainerType.GetProperties()
+        .FirstOrDefault(p => p.Name == ViewData.ModelMetadata.PropertyName);
+
+    if (property != null)
+    {
+        var dataTypeAttr = property.GetCustomAttributes(true)
+                               .FirstOrDefault(a => a is DataTypeAttribute) as DataTypeAttribute;
+
+        if (dataTypeAttr != null)
+        {
+            errorMessange = dataTypeAttr.ErrorMessage;
+        }
+    }
+}
+@Html.TextBox("", Model, new { @class = "form-control", type = "email", data_val = "true", data_val_email = errorMessange })
