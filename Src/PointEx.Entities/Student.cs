@@ -31,5 +31,6 @@ namespace PointEx.Entities
         public virtual EducationalInstitution EducationalInstitution { get; set; }
         public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
         public virtual Town Town { get; set; }
+        public virtual User User { get; set; }
     }
 }

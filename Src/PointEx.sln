@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D3486F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Web", "Framework\Framework.Common.Web\Framework.Common.Web.csproj", "{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointEx.Security", "PointEx.Security\PointEx.Security.csproj", "{218D008B-8761-432A-A871-D044F1859DC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{218D008B-8761-432A-A871-D044F1859DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218D008B-8761-432A-A871-D044F1859DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

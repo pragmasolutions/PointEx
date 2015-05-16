@@ -7,7 +7,7 @@
       <Diagram DiagramId="290005ad6fa84c40a6ade0b2def98923" Name="Main">
         <EntityTypeShape EntityType="PointEx.Data.Card" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.EducationalInstitution" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointEx.Data.Purchase" Width="1.5" PointX="9.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointEx.Data.Purchase" Width="1.5" PointX="8.5" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Reward" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.RewardCatalog" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Shop" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
@@ -26,6 +26,10 @@
         <AssociationConnector Association="PointEx.Data.FK_Shop_Town" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_PointsExchange_Student" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Student_Town" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PointEx.Data.Role" Width="1.5" PointX="10.875" PointY="7.125" />
+        <EntityTypeShape EntityType="PointEx.Data.User" Width="1.5" PointX="10.75" PointY="1.875" />
+        <AssociationConnector Association="PointEx.Data.FK_Student_AspNetUsers" />
+        <AssociationConnector Association="PointEx.Data.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -77,6 +77,9 @@
     <Compile Include="RewardCatalog.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Shop.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -84,6 +87,9 @@
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Town.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

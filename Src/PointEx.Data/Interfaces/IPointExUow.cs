@@ -9,5 +9,7 @@ namespace PointEx.Data.Interfaces
         IRepository<Student> Students { get; }
         IRepository<Shop> Shops { get; }
         IRepository<Town> Towns { get; }
+        IRepository<User> Users { get; }
+        IRepository<Role> Roles { get; }
     }
 }

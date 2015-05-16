@@ -21,6 +21,8 @@ namespace PointEx.Data
         public IRepository<Student> Students { get { return GetStandardRepo<Student>(); } }
         public IRepository<Shop> Shops { get { return GetStandardRepo<Shop>(); } }
         public IRepository<Town> Towns { get { return GetStandardRepo<Town>(); } }
+        public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
+        public IRepository<Role> Roles { get { return GetStandardRepo<Role>(); } }
 
         public string ConnectionString
         {
