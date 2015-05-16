@@ -14,6 +14,11 @@ namespace Framework.Ioc.Ninject
             _kernel = new StandardKernel();
         }
 
+        public NinjectControllerFactory(IKernel kernel)
+        {
+            _kernel = kernel;
+        }
+
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             return controllerType == null

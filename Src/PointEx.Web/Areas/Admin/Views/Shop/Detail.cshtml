@@ -1,0 +1,29 @@
+﻿@model PointEx.Entities.Shop
+
+@{
+    ViewBag.Title = PointExResources.ShopDetailTitle;
+}
+
+<h2>@PointExResources.ShopDetailTitle</h2>
+@Html.DisplayForModel()
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @using (Html.BeginForm("Delete", "Shop", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <a class="btn btn-primary">Edit</a>
+            <button type="submit" class="btn btn-warning">Delete Issue</button>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#delete-form").on("submit", function () {
+                return confirm("Esta seguro que desea eliminar este comercio?  Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

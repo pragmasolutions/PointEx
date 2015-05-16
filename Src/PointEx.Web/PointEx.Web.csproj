@@ -107,8 +107,20 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.Futures.5.0.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -171,12 +183,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_LocalResources\PointExResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PointExResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
+    <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,6 +227,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Shop\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shop\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -261,12 +289,67 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ReadOnly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ReadOnly.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Shop\Controllers\" />
+    <Folder Include="Areas\Shop\Models\" />
+    <Folder Include="Areas\Shop\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.Common.Web\Framework.Common.Web.csproj">
+      <Project>{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}</Project>
+      <Name>Framework.Common.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Common\Framework.Common.csproj">
+      <Project>{492B8264-0C10-4AFE-A15F-8A82E60ADE68}</Project>
+      <Name>Framework.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Data.EntityFramework\Framework.Data.EntityFramework.csproj">
+      <Project>{20259EAA-C937-4BF2-913A-F4531796FE5B}</Project>
+      <Name>Framework.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Data\Framework.Data.csproj">
+      <Project>{CB41F702-99FB-49AE-8BC0-1B7F0193EFAB}</Project>
+      <Name>Framework.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Ioc.Ninject\Framework.Ioc.Ninject.csproj">
+      <Project>{E764FE19-BDC2-4D35-9A83-F29FBA4B61B2}</Project>
+      <Name>Framework.Ioc.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Data\PointEx.Data.csproj">
+      <Project>{570C2383-FDD9-4400-A2D1-7FA382CB2CB0}</Project>
+      <Name>PointEx.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
+      <Project>{A68B9035-3037-4A58-88A8-38478B967681}</Project>
+      <Name>PointEx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Service\PointEx.Service.csproj">
+      <Project>{236AF5FE-1F55-4D99-AD46-5AF15BC77A4E}</Project>
+      <Name>PointEx.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_LocalResources\PointExResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PointExResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
