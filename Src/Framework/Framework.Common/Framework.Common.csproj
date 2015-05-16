@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\SharedContext.cs" />
-    <Compile Include="Extentensions\DateTimeExtensions.cs" />
-    <Compile Include="Extentensions\StringExtensions.cs" />
-    <Compile Include="Extentensions\EnumerableExtensions.cs" />
-    <Compile Include="Extentensions\RectangleExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\RectangleExtensions.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\PaymentHelper.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />

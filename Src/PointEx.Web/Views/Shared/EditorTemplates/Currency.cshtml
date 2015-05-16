@@ -1,0 +1,8 @@
+﻿@model decimal?
+@{
+    var currency = Model == 0 ? string.Empty : Model.GetValueOrDefault().ToString("N2");
+}
+<div class="input-group input-group-currency">
+    <span class="input-group-addon">$</span>
+    @Html.TextBox("", currency, new { @class = "form-control autonumeric", data_a_sep = "." , data_a_dec="," })
+</div>

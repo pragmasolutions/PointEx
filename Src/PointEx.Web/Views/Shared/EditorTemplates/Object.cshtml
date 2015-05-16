@@ -14,7 +14,7 @@
             @Html.BootstrapLabel(prop.PropertyName)
             <div class="col-md-10">
                 @Html.Editor(prop.PropertyName)
-                @Html.ValidationMessage(prop.PropertyName)
+                @Html.ValidationMessage(prop.PropertyName,new { @class = "text-danger" })
             </div>
         </div>
     }

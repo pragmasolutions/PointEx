@@ -17,7 +17,7 @@ namespace PointEx.Web.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "Shop", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

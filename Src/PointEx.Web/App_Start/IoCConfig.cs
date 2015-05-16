@@ -23,7 +23,8 @@ namespace PointEx.Web
             kernel.Bind<IClock>().To<Clock>().InSingletonScope();
             kernel.Bind<IRepositoryProvider>().To<RepositoryProvider>();
             kernel.Bind<IPointExUow>().To<PointExUow>().InRequestScope();
-            kernel.Bind<IShopService>().To<ShopService>().InRequestScope(); 
+            kernel.Bind<IShopService>().To<ShopService>().InRequestScope();
+            kernel.Bind<ITownService>().To<TownService>().InRequestScope(); 
         }
     }
 }
