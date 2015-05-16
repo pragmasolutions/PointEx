@@ -1,0 +1,26 @@
+﻿.menu-superior-container {
+  width: 100%;
+}
+.menu-superior-container .menu {
+  background-color: cadetblue;
+  width: 75%;
+  padding: 10px;
+  float: left;
+}
+.menu-superior-container .menu ul li {
+  display: inline;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 110%;
+}
+.menu-superior-container .menu ul li a {
+  color: white;
+}
+.menu-superior-container .buscador {
+  background-color: yellowgreen;
+  padding: 10px;
+  float: right;
+  width: 25%;
+  height: 51px;
+}
+/*# sourceMappingURL=Site.Beneficiary.css.map */

@@ -61,6 +61,8 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deploy" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\RewardCatalog.sql" />
@@ -84,6 +86,6 @@
     <None Include="PointEx.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment.sql" />
+    <PostDeploy Include="Scripts\Post-Deploy\Roles.Data.sql" />
   </ItemGroup>
 </Project>

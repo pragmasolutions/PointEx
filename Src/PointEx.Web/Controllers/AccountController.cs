@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -82,7 +83,15 @@ namespace PointEx.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (User.IsInRole("Administrador"))
+                    {
+                        return RedirectToLocal("/Admin/Home/Index");
+                    }
+                    else if (User.IsInRole("Beneficiario"))
+                    {
+                        return RedirectToLocal("/Beneficiary/Home/Index");
+                    }
+                    return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

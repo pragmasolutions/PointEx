@@ -1,0 +1,16 @@
+﻿<div class="menu-superior-container">
+    <div class="menu">
+        <ul>
+            <li><a href="/Beneficiary/Profile/Index">Home</a></li>
+            <li><a href="/Beneficiary/Profile/Index">Mi Cuenta</a></li>
+            <li><a href="/Beneficiary/Profile/Index">Catálogo</a></li>
+        </ul>
+    </div>
+    <div class="buscador">
+        @using (Html.BeginForm("/Busqueda"))
+        {
+            <input type="text" id="txtBuscar"/>            
+            <input type="submit" value="Buscar en catálogo"/>
+        }
+    </div>
+</div>
