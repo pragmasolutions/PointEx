@@ -5,6 +5,8 @@
         //  and cache that since we'll be using it a few times.
         var $input = $(el);
 
+        var $container = $input.closest('div');
+
         // Create the map div and insert it into the page.
         var $map = $('<div>', {
             css: {
@@ -12,7 +14,9 @@
                 height: '400px',
                 margin: '5px 0 0 0'
             }
-        }).insertAfter($input);
+        });
+
+        $container.append($map);
 
         // Attempt to parse the lat/long coordinates out of this input element.
         var latLong = parseLatLong(this.value);
@@ -62,6 +66,8 @@
             $input.on('change', function () {
                 var latLong = parseLatLong(this.value);
 
+                if (!latLong) {return;}
+
                 latLong = new google.maps.LatLng(latLong.latitude, latLong.longitude);
 
                 updateMarker({ latLng: latLong });
@@ -73,6 +79,8 @@
         if (!value) { return undefined; }
 
         var latLong = value.match(/-?\d+\.\d+/g);
+
+        if (!latLong) { return undefined; }
 
         return {
             latitude: latLong[0],

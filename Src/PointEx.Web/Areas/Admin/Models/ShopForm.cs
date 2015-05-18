@@ -22,12 +22,15 @@ namespace PointEx.Web.Models
 
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
+        [Required(ErrorMessage = "El campo Localidad es requerido")]
         public int TownId { get; set; }
 
         [HiddenInput]
         public string UserId { get; set; }
 
         [Display(Name = "Ubicación")]
+        [RegularExpression(@"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$", 
+            ErrorMessage = "La Ubicación no es valida")]
         public System.Data.Entity.Spatial.DbGeography Location { get; set; }
 
         public Shop ToShop()
