@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Spatial;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
@@ -9,6 +11,11 @@ namespace PointEx.Web.Models
 {
     public class ShopForm : IMapFrom<Shop>
     {
+        public ShopForm()
+        {
+            Categories = Enumerable.Empty<int>();
+        }
+
         [HiddenInput]
         public int Id { get; set; }
 
@@ -29,18 +36,25 @@ namespace PointEx.Web.Models
         public string UserId { get; set; }
 
         [Display(Name = "Ubicación")]
-        [RegularExpression(@"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$", 
-            ErrorMessage = "La Ubicación no es valida")]
-        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
+        public DbGeography Location { get; set; }
+        
+        [UIHint("Categories")]
+        [Display(Name = "Categorias")]
+        public IEnumerable<int> Categories { get; set; } 
 
         public Shop ToShop()
         {
-            return Mapper.Map<ShopForm, Entities.Shop>(this);
+            return Mapper.Map<ShopForm, Shop>(this);
+        }
+
+        public Shop PopulateShop(Shop shop)
+        {
+            return Mapper.Map<ShopForm, Shop>(this, shop);
         }
 
         public static ShopForm FromShop(Shop shop)
         {
-            return Mapper.Map<Entities.Shop, ShopForm>(shop);
+            return Mapper.Map<Shop, ShopForm>(shop);
         }
     }
 }

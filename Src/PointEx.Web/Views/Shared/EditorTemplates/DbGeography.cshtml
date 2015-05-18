@@ -1,10 +1,22 @@
 ﻿@using System.Globalization
+@using Framework.Common.Validation
 @model System.Data.Entity.Spatial.DbGeography
+
+@{
+    var htmlAttributes = new
+                         {
+                             @class = "editor-for-dbgeography form-control",
+                             data_val ="true",
+                             data_val_regex = "La Ubicación no es valida",
+                             data_val_regex_pattern = RegexPatterns.Location
+                         };
+}
+
 @if (Model != null && Model.Latitude.HasValue && Model.Longitude.HasValue)
 {
-    @Html.TextBox("", Model.Latitude.Value.ToString(CultureInfo.InvariantCulture) + "," + Model.Longitude.Value.ToString(CultureInfo.InvariantCulture), new { @class = "editor-for-dbgeography form-control" })
+    @Html.TextBox("", Model.Latitude.Value.ToString(CultureInfo.InvariantCulture) + "," + Model.Longitude.Value.ToString(CultureInfo.InvariantCulture), htmlAttributes)
 }
 else
 {
-    @Html.TextBox("", "", new { @class = "editor-for-dbgeography form-control" })
+    @Html.TextBox("", "", htmlAttributes)
 }

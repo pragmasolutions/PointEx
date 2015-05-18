@@ -61,8 +61,7 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
-    <Folder Include="Scripts" />
-    <Folder Include="Scripts\Post-Deploy" />
+    <Folder Include="ReferenceData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\RewardCatalog.sql" />
@@ -81,11 +80,15 @@
     <Build Include="dbo\Tables\AspNetUserClaims.sql" />
     <Build Include="dbo\Tables\AspNetUserLogins.sql" />
     <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\ShopCategory.sql" />
+    <Build Include="dbo\Tables\Category.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
+    <None Include="ReferenceData\Roles.Data.sql" />
+    <None Include="ReferenceData\Categories.Data.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Post-Deploy\Roles.Data.sql" />
+    <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

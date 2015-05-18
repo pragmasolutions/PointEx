@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Framework.Common.Validation;
 
 namespace Framework.Common.Web.ModelBinders
 {
@@ -13,9 +15,15 @@ namespace Framework.Common.Web.ModelBinders
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+            if(!Regex.IsMatch(valueProviderResult.AttemptedValue, RegexPatterns.Location))
+            {
+                bindingContext.ModelState.AddModelError(bindingContext.ModelName,"The Location is not valid");
+                return null;
+            }
+
             string[] latLongStr = valueProviderResult.AttemptedValue.Split(',');
             string point = string.Format("POINT ({0} {1})", latLongStr[1], latLongStr[0]);
-            //4326 format puts LONGITUDE first then LATITUDE
             DbGeography result = valueProviderResult == null ? null :
                 DbGeography.FromText(point, 4326);
             return result;

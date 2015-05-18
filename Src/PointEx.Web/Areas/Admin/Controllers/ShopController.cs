@@ -73,7 +73,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 return View(shopForm);
             }
 
-            _shopService.Edit(shopForm.ToShop());
+            var currentShop = _shopService.GetById(shopForm.Id);
+
+            _shopService.Edit(shopForm.PopulateShop(currentShop));
 
             return RedirectToAction<ShopController>(c => c.Index()).WithSuccess("Comercio Editado");
         }

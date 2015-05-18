@@ -24,7 +24,8 @@ namespace PointEx.Web
             kernel.Bind<IRepositoryProvider>().To<RepositoryProvider>();
             kernel.Bind<IPointExUow>().To<PointExUow>().InRequestScope();
             kernel.Bind<IShopService>().To<ShopService>().InRequestScope();
-            kernel.Bind<ITownService>().To<TownService>().InRequestScope(); 
+            kernel.Bind<ITownService>().To<TownService>().InRequestScope();
+            kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope(); 
         }
     }
 }

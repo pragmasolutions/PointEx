@@ -61,6 +61,13 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IssueDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="EducationalInstitution">
           <Key>
             <PropertyRef Name="Id" />
@@ -125,6 +132,14 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="Location" Type="geography" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ShopCategory">
+          <Key>
+            <PropertyRef Name="ShopId" />
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -280,6 +295,30 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ShopCategory_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="ShopCategory" Type="Self.ShopCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopCategory_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="ShopCategory" Type="Self.ShopCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopCategory">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Student_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
@@ -321,11 +360,13 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reward" EntityType="Self.Reward" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RewardCatalog" EntityType="Self.RewardCatalog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benefit" EntityType="Self.Benefit" store:Type="Tables" store:Schema="dbo">
@@ -388,6 +429,14 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
             <End Role="Town" EntitySet="Town" />
             <End Role="Shop" EntitySet="Shop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopCategory_Category" Association="Self.FK_ShopCategory_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="ShopCategory" EntitySet="ShopCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopCategory_Shop" Association="Self.FK_ShopCategory_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ShopCategory" EntitySet="ShopCategory" />
           </AssociationSet>
           <AssociationSet Name="FK_Student_AspNetUsers" Association="Self.FK_Student_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -477,6 +526,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Shop" FromRole="Shop" ToRole="Purchase" />
           <NavigationProperty Name="Benefits" Relationship="Self.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
+          <NavigationProperty Name="Categories" Relationship="PointEx.Data.ShopCategory" FromRole="Shop" ToRole="Category" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -729,6 +779,11 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="AspNetRole" EntitySet="Roles" />
             <End Role="AspNetUser" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Categories" EntityType="PointEx.Data.Category" />
+          <AssociationSet Name="ShopCategory" Association="PointEx.Data.ShopCategory">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -772,6 +827,18 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
         <Association Name="AspNetUserRoles">
           <End Type="PointEx.Data.Role" Role="AspNetRole" Multiplicity="*" />
           <End Type="PointEx.Data.User" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shops" Relationship="PointEx.Data.ShopCategory" FromRole="Category" ToRole="Shop" />
+        </EntityType>
+        <Association Name="ShopCategory">
+          <End Type="PointEx.Data.Category" Role="Category" Multiplicity="*" />
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -918,6 +985,22 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </EndProperty>
             <EndProperty Name="AspNetRole">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="PointEx.Data.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ShopCategory" TypeName="PointEx.Data.ShopCategory" StoreEntitySet="ShopCategory">
+            <EndProperty Name="Shop">
+              <ScalarProperty Name="Id" ColumnName="ShopId" />
+            </EndProperty>
+            <EndProperty Name="Category">
+              <ScalarProperty Name="Id" ColumnName="CategoryId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

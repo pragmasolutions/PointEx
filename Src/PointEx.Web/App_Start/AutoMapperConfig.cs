@@ -4,6 +4,9 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using Framework.Common.Mapping;
+using PointEx.Entities;
+using PointEx.Service;
+using PointEx.Web.Mapping;
 
 namespace PointEx.Web
 {
@@ -20,12 +23,19 @@ namespace PointEx.Web
 
             var typesCurrentAssembly = Assembly.GetExecutingAssembly().GetExportedTypes();
 
-            var types = typesCurrentAssembly.Concat(typesReference);
+            var types = typesCurrentAssembly.Concat(typesReference).ToArray();
 
 			LoadStandardMappings(types);
 
 			LoadCustomMappings(types);
+
+		    LoadProfileMapping();
 		}
+
+        private static void LoadProfileMapping()
+        {
+            Mapper.AddProfile<ShopMappingProfile>();
+        }
 
 		private static void LoadCustomMappings(IEnumerable<Type> types)
 		{
