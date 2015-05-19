@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using PointEx.Entities;
 
@@ -8,34 +9,48 @@ namespace PointEx.Security
     {
         public User User
         {
-            get { return PointExIdentity.User; }
-        }
-
-        private PointExIdentity PointExIdentity
-        {
             get
             {
-                var PointExPrincipal = Thread.CurrentPrincipal as PointExPrincipal;
-                return PointExPrincipal != null ? PointExPrincipal.Identity as PointExIdentity : null;
-            }
-        }
-
-        private PointExPrincipal PointExPrincipal
-        {
-            get
-            {
-                return Thread.CurrentPrincipal as PointExPrincipal;
+                if (System.Web.HttpContext.Current.Session["User"] != null)
+                    return System.Web.HttpContext.Current.Session["User"] as User;
+                return null;
             }
         }
 
         public bool IsInRole(string role)
         {
-            return PointExPrincipal.IsInRole(role);
+            return Role == role;
         }
         
-        Role IPointExContext.Role
+        public string Role
         {
-            get { return User.Roles.FirstOrDefault(); }
+            get
+            {
+                if (User != null && User.Roles != null)
+                {
+                    return User.Roles.FirstOrDefault().Name;
+                }
+                return null;
+            }
+        }
+
+        private Beneficiary _beneficiary;
+        public Beneficiary Beneficiary
+        {
+            get
+            {
+                if (_beneficiary != null)
+                    return _beneficiary;
+                if (Role == RolesNames.Beneficiario)
+                {
+                    
+                    //TODO:
+                    //var repo = new Framework.Data.EntityFramework.Repository.EFRepository<Beneficiary>();
+                }
+                return null;
+            }
         }
     }
+
+    
 }

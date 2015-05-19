@@ -386,6 +386,10 @@
       <Project>{A68B9035-3037-4A58-88A8-38478B967681}</Project>
       <Name>PointEx.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PointEx.Security\PointEx.Security.csproj">
+      <Project>{218d008b-8761-432a-a871-d044f1859dc7}</Project>
+      <Name>PointEx.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointEx.Service\PointEx.Service.csproj">
       <Project>{236AF5FE-1F55-4D99-AD46-5AF15BC77A4E}</Project>
       <Name>PointEx.Service</Name>
