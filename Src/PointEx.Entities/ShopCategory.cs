@@ -12,16 +12,13 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ShopCategory
     {
-        public Category()
-        {
-            this.ShopCategories = new HashSet<ShopCategory>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int ShopId { get; set; }
+        public int CategoryId { get; set; }
     
-        public virtual ICollection<ShopCategory> ShopCategories { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

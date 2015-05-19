@@ -31,7 +31,9 @@
         <AssociationConnector Association="PointEx.Data.FK_Student_AspNetUsers" />
         <AssociationConnector Association="PointEx.Data.AspNetUserRoles" />
         <EntityTypeShape EntityType="PointEx.Data.Category" Width="1.5" PointX="0.75" PointY="0.875" />
-        <AssociationConnector Association="PointEx.Data.ShopCategory" />
+        <EntityTypeShape EntityType="PointEx.Data.ShopCategory" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Category" />
+        <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Shop" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

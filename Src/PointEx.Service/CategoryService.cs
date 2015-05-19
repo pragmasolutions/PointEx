@@ -24,7 +24,7 @@ namespace PointEx.Service
 
         public IQueryable<Category> GetAllByShopId(int shopId)
         {
-            return Uow.Categories.GetAll(c => c.Shops.Any(s => s.Id == shopId));
+            return Uow.Categories.GetAll(c => c.ShopCategories.Any(s => s.ShopId == shopId));
         }
 
         public Category GetById(int id)

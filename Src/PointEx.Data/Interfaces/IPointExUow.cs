@@ -12,5 +12,6 @@ namespace PointEx.Data.Interfaces
         IRepository<User> Users { get; }
         IRepository<Role> Roles { get; }
         IRepository<Category> Categories { get; }
+        IRepository<ShopCategory> ShopCategories { get; }
     }
 }

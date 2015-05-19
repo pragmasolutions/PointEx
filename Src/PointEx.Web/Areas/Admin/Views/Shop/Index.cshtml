@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PointEx.Entities.Shop>
+﻿@using PagedList.Mvc
+@model PointEx.Web.Areas.Admin.Models.ShopListModel
 
 <h3>Comercios</h3>
 @Html.ActionLink("Crear Comercio", "Create", "Shop", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
@@ -12,14 +13,15 @@
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
-        @foreach (var shop in Model)
+        @foreach (var shop in Model.List)
         {
             <tr>
                 <td>@Html.ActionLink(shop.Name, "Detail", "Shop", routeValues: new { area = "Admin", shop.Id }, htmlAttributes: null)</td>
                 <td>@shop.Address</td>
-                <td>@shop.Town.Name</td>
-                <td>TODO</td>
+                <td>@shop.TownName</td>
+                <td>@string.Join(",",shop.Categories)</td>
             </tr>
         }
     </tbody>
 </table>
+@Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))

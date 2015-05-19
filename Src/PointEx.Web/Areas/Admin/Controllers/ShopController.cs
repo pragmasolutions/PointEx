@@ -6,9 +6,12 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using PointEx.Service;
 using PointEx.Web.Controllers;
 using PointEx.Entities;
+using PointEx.Entities.Dto;
+using PointEx.Web.Areas.Admin.Models;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
@@ -22,10 +25,17 @@ namespace PointEx.Web.Areas.Admin.Controllers
             _shopService = shopService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(ShopListFiltersModel filters)
         {
-            var shops = _shopService.GetAll();
-            return View(shops);
+            int pageTotal;
+
+            var shops = _shopService.GetAll("CreatedDate", "DESC", null, null, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<ShopDto>(shops, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new ShopListModel(pagedList, filters);
+
+            return View(listModel);
         }
 
         public ActionResult Detail(int id)
@@ -55,7 +65,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             _shopService.Create(shop);
 
-            return RedirectToAction<ShopController>(c => c.Index()).WithSuccess("Comercio Creado");
+            return RedirectToAction("Index", new ShopListFiltersModel().GetRouteValues()).WithSuccess("Comercio Creado");
         }
 
         public ActionResult Edit(int id)
@@ -73,11 +83,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 return View(shopForm);
             }
 
-            var currentShop = _shopService.GetById(shopForm.Id);
+            _shopService.Edit(shopForm.ToShop());
 
-            _shopService.Edit(shopForm.PopulateShop(currentShop));
-
-            return RedirectToAction<ShopController>(c => c.Index()).WithSuccess("Comercio Editado");
+            return RedirectToAction("Index", new ShopListFiltersModel().GetRouteValues()).WithSuccess("Comercio Editado");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -85,7 +93,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             _shopService.Delete(id);
 
-            return RedirectToAction<ShopController>(c => c.Index()).WithSuccess("Comercio Eliminado");
+            return RedirectToAction("Index", new ShopListFiltersModel().GetRouteValues()).WithSuccess("Comercio Eliminado");
         }
     }
 }

@@ -135,9 +135,9 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
         </EntityType>
         <EntityType Name="ShopCategory">
           <Key>
-            <PropertyRef Name="ShopId" />
-            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
@@ -526,7 +526,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Shop" FromRole="Shop" ToRole="Purchase" />
           <NavigationProperty Name="Benefits" Relationship="Self.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
-          <NavigationProperty Name="Categories" Relationship="PointEx.Data.ShopCategory" FromRole="Shop" ToRole="Category" />
+          <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -780,9 +780,14 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="AspNetUser" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="Categories" EntityType="PointEx.Data.Category" />
-          <AssociationSet Name="ShopCategory" Association="PointEx.Data.ShopCategory">
+          <EntitySet Name="ShopCategories" EntityType="PointEx.Data.ShopCategory" />
+          <AssociationSet Name="FK_ShopCategory_Category" Association="PointEx.Data.FK_ShopCategory_Category">
             <End Role="Category" EntitySet="Categories" />
+            <End Role="ShopCategory" EntitySet="ShopCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopCategory_Shop" Association="PointEx.Data.FK_ShopCategory_Shop">
             <End Role="Shop" EntitySet="Shops" />
+            <End Role="ShopCategory" EntitySet="ShopCategories" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -834,11 +839,41 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Shops" Relationship="PointEx.Data.ShopCategory" FromRole="Category" ToRole="Shop" />
+          <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Category" FromRole="Category" ToRole="ShopCategory" />
         </EntityType>
-        <Association Name="ShopCategory">
-          <End Type="PointEx.Data.Category" Role="Category" Multiplicity="*" />
-          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="*" />
+        <EntityType Name="ShopCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="PointEx.Data.FK_ShopCategory_Category" FromRole="ShopCategory" ToRole="Category" />
+          <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="ShopCategory" ToRole="Shop" />
+        </EntityType>
+        <Association Name="FK_ShopCategory_Category">
+          <End Type="PointEx.Data.Category" Role="Category" Multiplicity="1" />
+          <End Type="PointEx.Data.ShopCategory" Role="ShopCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopCategory_Shop">
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
+          <End Type="PointEx.Data.ShopCategory" Role="ShopCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopCategory">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -995,14 +1030,15 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ShopCategory" TypeName="PointEx.Data.ShopCategory" StoreEntitySet="ShopCategory">
-            <EndProperty Name="Shop">
-              <ScalarProperty Name="Id" ColumnName="ShopId" />
-            </EndProperty>
-            <EndProperty Name="Category">
-              <ScalarProperty Name="Id" ColumnName="CategoryId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="ShopCategories">
+            <EntityTypeMapping TypeName="PointEx.Data.ShopCategory">
+              <MappingFragment StoreEntitySet="ShopCategory">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -23,6 +23,7 @@ namespace PointEx.Data
         public IRepository<Town> Towns { get { return GetStandardRepo<Town>(); } }
         public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
         public IRepository<Role> Roles { get { return GetStandardRepo<Role>(); } }
+        public IRepository<ShopCategory> ShopCategories { get { return GetStandardRepo<ShopCategory>(); } }
         public IRepository<Category> Categories { get { return GetStandardRepo<Category>(); } }
 
         public string ConnectionString

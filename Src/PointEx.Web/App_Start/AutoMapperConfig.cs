@@ -4,9 +4,6 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using Framework.Common.Mapping;
-using PointEx.Entities;
-using PointEx.Service;
-using PointEx.Web.Mapping;
 
 namespace PointEx.Web
 {
@@ -34,7 +31,7 @@ namespace PointEx.Web
 
         private static void LoadProfileMapping()
         {
-            Mapper.AddProfile<ShopMappingProfile>();
+            //Mapper.AddProfile<CategoryMappingProfile>();
         }
 
 		private static void LoadCustomMappings(IEnumerable<Type> types)

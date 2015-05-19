@@ -18,8 +18,6 @@ namespace PointEx.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            AutoMapperConfig.Config();
-
             var kernel = new StandardKernel();
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(kernel));
@@ -29,6 +27,8 @@ namespace PointEx.Web
             IocContainer.Initialize(new NinjectIocContainer(kernel));
 
             ModelBinderProviders.BinderProviders.Add(new EFModelBinderProvider());
+
+            AutoMapperConfig.Config();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ namespace PointEx.Web.Models
     {
         public ShopForm()
         {
-            Categories = Enumerable.Empty<int>();
+            CategoriesSelected = Enumerable.Empty<int>();
         }
 
         [HiddenInput]
@@ -30,31 +31,30 @@ namespace PointEx.Web.Models
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
         [Required(ErrorMessage = "El campo Localidad es requerido")]
+        
         public int TownId { get; set; }
-
-        [HiddenInput]
-        public string UserId { get; set; }
-
-        [Display(Name = "Ubicación")]
-        public DbGeography Location { get; set; }
         
         [UIHint("Categories")]
         [Display(Name = "Categorias")]
-        public IEnumerable<int> Categories { get; set; } 
+        [NotMapped]
+        public IEnumerable<int> CategoriesSelected { get; set; } 
+
+        [Display(Name = "Ubicación")]
+        public DbGeography Location { get; set; }
 
         public Shop ToShop()
         {
-            return Mapper.Map<ShopForm, Shop>(this);
-        }
-
-        public Shop PopulateShop(Shop shop)
-        {
-            return Mapper.Map<ShopForm, Shop>(this, shop);
+            var shop = Mapper.Map<ShopForm, Shop>(this);
+            shop.ShopCategories =
+                this.CategoriesSelected.Select(categoryId => new ShopCategory() {CategoryId = categoryId, ShopId = this.Id}).ToArray();
+            return shop;
         }
 
         public static ShopForm FromShop(Shop shop)
         {
-            return Mapper.Map<Shop, ShopForm>(shop);
+            var form = Mapper.Map<Shop, ShopForm>(shop);
+            form.CategoriesSelected = shop.ShopCategories.Select(sc => sc.CategoryId);
+            return form;
         }
     }
 }
