@@ -18,7 +18,7 @@ namespace PointEx.Data
             RepositoryProvider = repositoryProvider;
         }
 
-        public IRepository<Student> Students { get { return GetStandardRepo<Student>(); } }
+        public IRepository<Beneficiary> Beneficiaries { get { return GetStandardRepo<Beneficiary>(); } }
         public IRepository<Shop> Shops { get { return GetStandardRepo<Shop>(); } }
         public IRepository<Town> Towns { get { return GetStandardRepo<Town>(); } }
         public IRepository<User> Users { get { return GetStandardRepo<User>(); } }

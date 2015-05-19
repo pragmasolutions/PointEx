@@ -16,8 +16,8 @@ namespace PointEx.Entities
     {
         public User()
         {
-            this.Students = new HashSet<Student>();
             this.Roles = new HashSet<Role>();
+            this.Beneficiaries = new HashSet<Beneficiary>();
         }
     
         public string Id { get; set; }
@@ -33,7 +33,7 @@ namespace PointEx.Entities
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
     
-        public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
     }
 }

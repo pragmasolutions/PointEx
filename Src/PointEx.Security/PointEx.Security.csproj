@@ -47,9 +47,9 @@
     <Compile Include="IPointExContext.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\IEncryptionService.cs" />
-    <Compile Include="LaPazContext.cs" />
-    <Compile Include="LaPazIdentity.cs" />
-    <Compile Include="LaPazPrincipal.cs" />
+    <Compile Include="PointExContext.cs" />
+    <Compile Include="PointExIdentity.cs" />
+    <Compile Include="PointExPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesNames.cs" />
   </ItemGroup>

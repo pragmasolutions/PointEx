@@ -20,11 +20,11 @@ namespace PointEx.Entities
         }
     
         public int Id { get; set; }
-        public int StudentId { get; set; }
         public string Number { get; set; }
         public System.DateTime IssueDate { get; set; }
+        public int BeneficiaryId { get; set; }
     
-        public virtual Student Student { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual Beneficiary Beneficiary { get; set; }
     }
 }

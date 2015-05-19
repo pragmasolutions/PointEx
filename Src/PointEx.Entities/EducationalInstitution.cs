@@ -16,7 +16,7 @@ namespace PointEx.Entities
     {
         public EducationalInstitution()
         {
-            this.Students = new HashSet<Student>();
+            this.Beneficiaries = new HashSet<Beneficiary>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual Town Town { get; set; }
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
     }
 }

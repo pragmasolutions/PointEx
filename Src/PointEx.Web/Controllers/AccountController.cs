@@ -89,7 +89,7 @@ namespace PointEx.Web.Controllers
                     }
                     else if (User.IsInRole("Beneficiario"))
                     {
-                        return RedirectToLocal("/Beneficiary/Home/Index");
+                        return RedirectToLocal("/Beneficiary/Profile/Index");
                     }
                     return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:

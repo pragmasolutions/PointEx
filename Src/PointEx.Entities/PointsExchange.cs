@@ -16,10 +16,10 @@ namespace PointEx.Entities
     {
         public int Id { get; set; }
         public int PrizeId { get; set; }
-        public int StudentId { get; set; }
         public System.DateTime ExchangeDate { get; set; }
+        public int BeneficiaryId { get; set; }
     
         public virtual Reward Reward { get; set; }
-        public virtual Student Student { get; set; }
+        public virtual Beneficiary Beneficiary { get; set; }
     }
 }
