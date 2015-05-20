@@ -1,0 +1,9 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model int?
+@{
+    var service = IocContainer.GetContainer().Get<IEducationalInstitutionService>();
+    var educationalInstitution = Model.HasValue ? service.GetById(Model.Value).Name : string.Empty;
+}
+
+@Html.TextBox("", educationalInstitution, new { @class = "form-control", @readonly = true })

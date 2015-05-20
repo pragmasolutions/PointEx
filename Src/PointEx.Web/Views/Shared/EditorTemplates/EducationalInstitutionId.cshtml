@@ -6,4 +6,4 @@
     var selectList = service.GetAll().ToSelectListItem(Model, e => e.Id, e => e.Name, e => e.Id.ToString());
 }
 
-@Html.DropDownList("", selectList, "Seleccione Establecimiento Educativo", new { @class = "form-control select2-control" })
+@Html.DropDownList("", selectList, "Seleccione Est. Educativo", new { @class = "form-control select2-control" })

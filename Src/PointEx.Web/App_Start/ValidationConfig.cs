@@ -24,7 +24,7 @@ namespace PointEx.Web
             : base(metadata, context, attribute)
         {
             attribute.ErrorMessageResourceType = typeof(PointExGlobalResources);
-            attribute.ErrorMessageResourceName = "PropertyValueRequired";
+            attribute.ErrorMessageResourceName = "Required";
         }
     }
 }

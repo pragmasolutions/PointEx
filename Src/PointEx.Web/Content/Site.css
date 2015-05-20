@@ -33,6 +33,10 @@ textarea {
     height: 5px;
 }
 
+.select2-container {
+  display: block;
+}
+
 .select2-container .select2-selection--single {
     height: 34px;
 }

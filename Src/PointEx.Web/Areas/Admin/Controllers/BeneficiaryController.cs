@@ -1,8 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities.Dto;
+using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service;
 using PointEx.Web.Areas.Admin.Models;
@@ -14,10 +16,12 @@ namespace PointEx.Web.Areas.Admin.Controllers
     public class BeneficiaryController : BaseController
     {
         private readonly IBeneficiaryService _beneficiaryService;
+        private readonly ApplicationUserManager _userManager;
 
-        public BeneficiaryController(IBeneficiaryService beneficiaryService)
+        public BeneficiaryController(IBeneficiaryService beneficiaryService,ApplicationUserManager userManager)
         {
             _beneficiaryService = beneficiaryService;
+            _userManager = userManager;
         }
 
         public ActionResult Index(BeneficiaryListFiltersModel filters)
@@ -36,7 +40,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Detail(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);
-            var beneficiaryForm = BeneficiaryForm.FromBeneficiary(beneficiary);
+            
+            var beneficiaryForm = BeneficiaryForm.Create(beneficiary, new ApplicationUser());
+            
             return View(beneficiaryForm);
         }
 
@@ -47,7 +53,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(BeneficiaryForm beneficiaryForm)
+        public async Task<ActionResult> Create(BeneficiaryForm beneficiaryForm)
         {
             if (!ModelState.IsValid)
             {
@@ -58,9 +64,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             var user = new ApplicationUser { UserName = beneficiaryForm.RegisterViewModel.Email, Email = beneficiaryForm.RegisterViewModel.Email };
 
-            //beneficiary.UserId = this.User.Identity.GetUserId();
-
-            _beneficiaryService.Create(beneficiary, user, beneficiaryForm.RegisterViewModel.Password);
+            await _beneficiaryService.Create(beneficiary, user, beneficiaryForm.RegisterViewModel.Password);
 
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Creado");
         }
@@ -68,7 +72,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);
-            var beneficiaryForm = BeneficiaryForm.FromBeneficiary(beneficiary);
+            var user = _userManager.FindById(beneficiary.UserId);
+            var beneficiaryForm = BeneficiaryForm.Create(beneficiary, user);
             return View(beneficiaryForm);
         }
 

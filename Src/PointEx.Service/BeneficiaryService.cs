@@ -31,14 +31,28 @@ namespace PointEx.Service
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                await _userManager.CreateAsync(applicationUser, password);
-                var createdUser = await _userManager.FindByNameAsync(applicationUser.UserName);
-                beneficiary.CreatedDate = _clock.Now;
-                beneficiary.UserId = createdUser.Id;
-                Uow.Beneficiaries.Add(beneficiary);
-                await Uow.CommitAsync();
+                try
+                {
+                    var result = await _userManager.CreateAsync(applicationUser, password);
 
-                trasactionScope.Complete();
+                    if (!result.Succeeded)
+                    {
+                        throw new ApplicationException(result.Errors.FirstOrDefault());
+                    }
+
+                    beneficiary.CreatedDate = _clock.Now;
+                    beneficiary.UserId = applicationUser.Id;
+                    Uow.Beneficiaries.Add(beneficiary);
+
+                    await Uow.CommitAsync();
+
+                    trasactionScope.Complete();
+                }
+                catch (Exception)
+                {
+                    trasactionScope.Dispose();
+                    throw;
+                }
             }
         }
 
