@@ -10,11 +10,22 @@
     }
     else
     {
-        <div class="form-group">
-            @Html.BootstrapLabel(prop.PropertyName)
-            <div class="col-md-10">
-                @Html.Display(prop.PropertyName)
+        if (prop.IsComplexType)
+        {
+            <fieldset>
+                <legend>@prop.DisplayName</legend>
+            </fieldset>
+
+            @Html.Display(prop.PropertyName)
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.BootstrapLabel(prop.PropertyName)
+                <div class="col-md-10">
+                    @Html.Display(prop.PropertyName)
+                </div>
             </div>
-        </div>
+        }
     }
 }
