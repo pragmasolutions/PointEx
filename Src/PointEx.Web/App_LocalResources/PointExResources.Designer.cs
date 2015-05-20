@@ -61,11 +61,38 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detalle Beneficiario.
+        /// </summary>
+        public static string BeneficiaryDetailTitle {
+            get {
+                return ResourceManager.GetString("BeneficiaryDetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crear Beneficiario.
+        /// </summary>
+        public static string CreateBeneficiaryTitle {
+            get {
+                return ResourceManager.GetString("CreateBeneficiaryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear Comercio.
         /// </summary>
         public static string CreateShopTitle {
             get {
                 return ResourceManager.GetString("CreateShopTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Beneficiario.
+        /// </summary>
+        public static string EditBeneficiaryTitle {
+            get {
+                return ResourceManager.GetString("EditBeneficiaryTitle", resourceCulture);
             }
         }
         

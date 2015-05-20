@@ -5,6 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using PointEx.Security.Managers;
+using PointEx.Security.Model;
 using PointEx.Web.Models;
 
 namespace PointEx.Web

@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Security.Model;
 
 namespace PointEx.Service
 {
-    public interface IBeneficiaryService
+    public interface IBeneficiaryService : IServive
     {
-        void Create(Beneficiary student);
-        void Edit(Beneficiary student);
-        void Delete(int studentId);
+        Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string password);
+        void Edit(Beneficiary beneficiary);
+        void Delete(int beneficiaryId);
         IQueryable<Beneficiary> GetAll();
-        List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex,
+        List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex,
             int pageSize, out int pageTotal);
         Beneficiary GetById(int id);
-        void Dispose();
     }
 }

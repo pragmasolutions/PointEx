@@ -14,6 +14,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PointEx.Web.Models;
 using PointEx.Security.Interfaces;
+using PointEx.Security.Managers;
+using PointEx.Security.Model;
 
 namespace PointEx.Web.Controllers
 {

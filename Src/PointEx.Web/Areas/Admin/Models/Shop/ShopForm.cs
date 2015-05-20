@@ -20,17 +20,17 @@ namespace PointEx.Web.Models
         [HiddenInput]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "El campo Nombre es requerido")]
+        [Required]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "El campo Dirección es requerido")]
+        [Required]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
-        [Required(ErrorMessage = "El campo Localidad es requerido")]
+        [Required]
         public int TownId { get; set; }
         
         [UIHint("Categories")]

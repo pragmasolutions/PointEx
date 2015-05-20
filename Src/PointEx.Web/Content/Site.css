@@ -32,3 +32,22 @@ textarea {
 .spacer {
     height: 5px;
 }
+
+.select2-container .select2-selection--single {
+    height: 34px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 3px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.form-group-date {
+     max-width: 280px;
+}

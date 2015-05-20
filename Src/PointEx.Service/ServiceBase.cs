@@ -4,7 +4,7 @@ using PointEx.Data.Interfaces;
 
 namespace PointEx.Service
 {
-    public class ServiceBase : IDisposable
+    public class ServiceBase : IServive
     {
         protected IPointExUow Uow { get; set; }
 

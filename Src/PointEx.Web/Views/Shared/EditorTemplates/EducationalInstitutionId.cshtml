@@ -1,0 +1,9 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model int?
+@{
+    var service = IocContainer.GetContainer().Get<IEducationalInstitutionService>();
+    var selectList = service.GetAll().ToSelectListItem(Model, e => e.Id, e => e.Name, e => e.Id.ToString());
+}
+
+@Html.DropDownList("", selectList, "Seleccione Establecimiento Educativo", new { @class = "form-control select2-control" })

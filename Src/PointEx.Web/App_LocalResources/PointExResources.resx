@@ -126,4 +126,13 @@
   <data name="ShopDetailTitle" xml:space="preserve">
     <value>Detalle Comercio</value>
   </data>
+  <data name="EditBeneficiaryTitle" xml:space="preserve">
+    <value>Editar Beneficiario</value>
+  </data>
+  <data name="BeneficiaryDetailTitle" xml:space="preserve">
+    <value>Detalle Beneficiario</value>
+  </data>
+  <data name="CreateBeneficiaryTitle" xml:space="preserve">
+    <value>Crear Beneficiario</value>
+  </data>
 </root>

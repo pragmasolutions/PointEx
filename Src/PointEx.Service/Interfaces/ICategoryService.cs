@@ -3,11 +3,10 @@ using PointEx.Entities;
 
 namespace PointEx.Service
 {
-    public interface ICategoryService
+    public interface ICategoryService : IServive
     {
         IQueryable<Category> GetAll();
         IQueryable<Category> GetAllByShopId(int shopId);
         Category GetById(int id);
-        void Dispose();
     }
 }

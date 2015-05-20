@@ -1,0 +1,32 @@
+﻿@model PointEx.Web.Models.BeneficiaryForm
+
+@{
+    ViewBag.Title = PointExResources.BeneficiaryDetailTitle;
+}
+
+<h2>@PointExResources.BeneficiaryDetailTitle</h2>
+<div class="form-horizontal">
+    @Html.DisplayForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @using (Html.BeginForm("Delete", "Beneficiary", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ActionLink("Editar Beneficiario", "Edit", "Beneficiary", routeValues: new { area = "Admin" , Model.Id}, htmlAttributes: new { @class = "btn btn-primary" })
+                <button type="submit" class="btn btn-warning">Eliminar Beneficiario</button>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#delete-form").on("submit", function () {
+                return confirm("Esta seguro que desea eliminar este beneficiario?  Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

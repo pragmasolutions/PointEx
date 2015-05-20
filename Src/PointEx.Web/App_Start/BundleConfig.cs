@@ -11,8 +11,21 @@ namespace PointEx.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            bundles.Add(new ScriptBundle("~/bundles/globalize").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/globalize")
+                         .Include(
+                             "~/Scripts/globalize.js",
+                             "~/Scripts/globalize.culture.es-AR.js",
+                             "~/Scripts/globalize.init.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate.js",
+                        "~/Scripts/jquery.validate.unobtrusive.js",
+                        "~/Scripts/jquery.validate.unobtrusive.extensions.js",
+                        "~/Scripts/jquery.validate.unobtrusive.custom.js",
+                        "~/Scripts/jquery.validate.fixes.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -21,6 +34,8 @@ namespace PointEx.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-datepicker.js",
+                      "~/Scripts/bootstrap-datepicker.es.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/lib")
@@ -32,6 +47,7 @@ namespace PointEx.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-datepicker.css",
                       "~/Content/select2.css",
                       "~/Content/site.css"));
         }

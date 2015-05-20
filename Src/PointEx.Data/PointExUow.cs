@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.Entity.Core.EntityClient;
+using System.Threading.Tasks;
 using Framework.Data.EntityFramework.Helpers;
 using Framework.Data.Repository;
 using PointEx.Data.Interfaces;
@@ -25,6 +26,7 @@ namespace PointEx.Data
         public IRepository<Role> Roles { get { return GetStandardRepo<Role>(); } }
         public IRepository<ShopCategory> ShopCategories { get { return GetStandardRepo<ShopCategory>(); } }
         public IRepository<Category> Categories { get { return GetStandardRepo<Category>(); } }
+        public IRepository<EducationalInstitution> EducationalInstitutions { get { return GetStandardRepo<EducationalInstitution>(); } }
 
         public string ConnectionString
         {
@@ -44,6 +46,11 @@ namespace PointEx.Data
         public void Commit()
         {
             DbContext.SaveChanges();
+        }
+
+        public Task CommitAsync()
+        {
+            return DbContext.SaveChangesAsync();
         }
 
         protected void CreateDbContext()

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PointEx.Security.Managers;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Controllers

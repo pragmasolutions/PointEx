@@ -1,23 +1,23 @@
 ﻿
 var controls = function () {
 
-     var parse = function (container) {
+    var parse = function (container) {
 
-         var context = null;
+        var context = null;
 
-         if (container && container instanceof jQuery) {
-             context = container;
-         } else {
-             context = $(container);
-         }
+        if (container && container instanceof jQuery) {
+            context = container;
+        } else {
+            context = $(container);
+        }
 
-         $.each($('.select2-control', context), function (i, item) {
-             var placeholder = $(item).attr('placeholder');
-             var options = {
-                 placeholder: placeholder
-             }
-             $(item).select2(options);
-         });
+        $.each($('.select2-control', context), function (i, item) {
+            var placeholder = $(item).attr('placeholder');
+            var options = {
+                placeholder: placeholder
+            }
+            $(item).select2(options);
+        });
 
         // $.each($('select[data-searchable]', context), function (i, item) {
         //    var options = { allowClear: true };
@@ -42,21 +42,21 @@ var controls = function () {
         //        });
         //});
 
-        ////Parse datepicker.
-        // $.each($('div.bootstrap-datepicker', context), function (i, item) {
-        //    $(item).datepicker({
-        //        autoclose: true,
-        //        todayHighlight: true,
-        //        language: "es-AR"
-        //    }).on('changeDate', function (ev) {
-        //        $(this).datepicker('hide');
-                
-        //        if ($(this).find('input[type="text"]').valid) {
-        //            $(this).find('input[type="text"]').valid();
-        //        }
-        //    });
-        //});
-        
+        //Parse datepicker.
+        $.each($('div.bootstrap-datepicker', context), function (i, item) {
+            $(item).datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                language: "es-AR"
+            }).on('changeDate', function (ev) {
+                $(this).datepicker('hide');
+
+                if ($(this).find('input[type="text"]').valid) {
+                    $(this).find('input[type="text"]').valid();
+                }
+            });
+        });
+
         ////Parse auto-submit-input.
         // $.each($('input.auto-submit-input', context), function (i, item) {
         //    var $input = $(item);
@@ -66,7 +66,7 @@ var controls = function () {
         //        }
         //    });
         //});
-        
+
         ////Parse autocomplete.
         // $.each($('form', context), function (i, item) {
         //    $(this).attr('autocomplete', 'off');
@@ -103,10 +103,10 @@ var controls = function () {
         //        $input.data('selected-value', data[$input.data('value-key')]);
         //    });
         //});
-        
-     };
 
-     parse($(document));
+    };
+
+    parse($(document));
 
     return {
         parse: parse

@@ -22,7 +22,7 @@ namespace PointEx.Web.Models
         public override RouteValueDictionary GetRouteValues(int page = 1)
         {
             var routeValues = base.GetRouteValues(page);
-            routeValues.Add("CategoryId", this.CategoryId);
+            routeValues.Add("TownId", this.TownId);
             routeValues.Add("Criteria", this.Criteria);
             return routeValues;
         }

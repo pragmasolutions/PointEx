@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Puntos Admin</title>
+    <title>@ViewBag.Title Puntos Admin</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -17,27 +17,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Administración", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "Admin" })</li>
                     <li>@Html.ActionLink("Comercios", "Index", "Shop", new { area = "Admin" })</li>
+                    <li>@Html.ActionLink("Beneficiarios", "Index", "Beneficiary", new { area = "Admin" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-<div class="container body-content">
-    <div class="container alert-container"></div>
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        <div class="container alert-container"></div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; Admin</p>
+        </footer>
+    </div>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/globalize")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/lib")

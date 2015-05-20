@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PointEx.Service</RootNamespace>
     <AssemblyName>PointEx.Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,8 +39,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,12 +58,15 @@
   <ItemGroup>
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBeneficiaryService.cs" />
+    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\IEducationalInstitutionService.cs" />
     <Compile Include="Interfaces\ITownService.cs" />
     <Compile Include="Interfaces\IShopService.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CategoryService.cs" />
-    <Compile Include="StudentService.cs" />
+    <Compile Include="BeneficiaryService.cs" />
+    <Compile Include="EducationalInstitutionService.cs" />
     <Compile Include="TownService.cs" />
     <Compile Include="ShopService.cs" />
   </ItemGroup>
@@ -75,6 +87,10 @@
     <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
       <Project>{A68B9035-3037-4A58-88A8-38478B967681}</Project>
       <Name>PointEx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Security\PointEx.Security.csproj">
+      <Project>{218D008B-8761-432A-A871-D044F1859DC7}</Project>
+      <Name>PointEx.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
