@@ -13,6 +13,9 @@ using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PointEx.Data;
+using PointEx.Data.Interfaces;
+using PointEx.Security;
 using PointEx.Web.Models;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
@@ -24,16 +27,18 @@ namespace PointEx.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IPointExUow _uow;
 
         public AccountController()
         {
             
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationService authService)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPointExUow uow)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _uow = uow;
         }
 
         public ApplicationSignInManager SignInManager
@@ -89,14 +94,24 @@ namespace PointEx.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = _uow.Users.Get(u => u.UserName == model.Email, u => u.Roles);
                     if (User.IsInRole("Administrador"))
                     {
+                        PointExContext.SetIdentity(user);
                         return RedirectToLocal("/Admin/Home/Index");
                     }
                     else if (User.IsInRole("Beneficiario"))
                     {
+                        var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == user.Id, b => b.User, b => b.Town,
+                                                                                b => b.Cards, b => b.EducationalInstitution,
+                                                                                b => b.PointsExchanges);
+                        PointExContext.SetIdentity(user, beneficiary);
                         return RedirectToLocal("/Beneficiary/Profile/Index");
                     }
+                    var shop = _uow.Shops.Get(s => s.UserId == user.Id, s => s.User, s => s.Benefits,
+                                                                                s => s.Purchases, s => s.ShopCategories,
+                                                                                s => s.Town);
+                        PointExContext.SetIdentity(user, shop);
                     return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
