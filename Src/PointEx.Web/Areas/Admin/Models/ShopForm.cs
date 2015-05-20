@@ -31,7 +31,6 @@ namespace PointEx.Web.Models
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
         [Required(ErrorMessage = "El campo Localidad es requerido")]
-        
         public int TownId { get; set; }
         
         [UIHint("Categories")]

@@ -48,11 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\IStudentService.cs" />
     <Compile Include="Interfaces\ITownService.cs" />
     <Compile Include="Interfaces\IShopService.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CategoryService.cs" />
+    <Compile Include="StudentService.cs" />
     <Compile Include="TownService.cs" />
     <Compile Include="ShopService.cs" />
   </ItemGroup>

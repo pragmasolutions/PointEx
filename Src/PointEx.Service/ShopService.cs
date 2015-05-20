@@ -76,7 +76,7 @@ namespace PointEx.Service
             return Uow.Shops.Get(s => s.Id == id, s => s.ShopCategories.Select(cs => cs.Category));
         }
 
-        public List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int pageIndex, int pageSize, out int pageTotal)
+        public List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -86,7 +86,8 @@ namespace PointEx.Service
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
             Expression<Func<Shop, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
-                                                      (!category.HasValue || x.ShopCategories.Any(c => c.Id == category)));
+                                                      (!category.HasValue || x.ShopCategories.Any(c => c.Id == category)) &&
+                                                      (!townId.HasValue || x.TownId == townId));
 
             var results = Uow.Shops.GetAll(pagingCriteria,
                                                     where,

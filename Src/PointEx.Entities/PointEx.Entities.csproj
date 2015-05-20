@@ -63,6 +63,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\StudentDto.cs" />
     <Compile Include="Dto\ShopDto.cs" />
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>

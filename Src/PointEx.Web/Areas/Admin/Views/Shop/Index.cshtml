@@ -2,7 +2,21 @@
 @model PointEx.Web.Areas.Admin.Models.ShopListModel
 
 <h3>Comercios</h3>
+
 @Html.ActionLink("Crear Comercio", "Create", "Shop", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
+
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filter-container" aria-expanded="false" aria-controls="filter-container">
+    Mostrar/Ocultar Filtros
+</button>
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_Filters", Model.Filters)
+
+<div class="spacer">
+</div>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -19,7 +33,7 @@
                 <td>@Html.ActionLink(shop.Name, "Detail", "Shop", routeValues: new { area = "Admin", shop.Id }, htmlAttributes: null)</td>
                 <td>@shop.Address</td>
                 <td>@shop.TownName</td>
-                <td>@string.Join(",",shop.Categories)</td>
+                <td>@string.Join(",", shop.Categories)</td>
             </tr>
         }
     </tbody>

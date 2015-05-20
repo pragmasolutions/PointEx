@@ -8,12 +8,15 @@ namespace PointEx.Web.Models
 {
     public class ShopListFiltersModel : FilterBaseModel
     {
-        public Guid CurrentRowId { get; set; } 
+        public Guid CurrentRowId { get; set; }
 
         [Display(Name = "Categoria")]
         public int? CategoryId { get; set; }
 
-        [Display(Name = "Palabra a Buscar")]
+        [UIHint("TownId")]
+        public int? TownId { get; set; }
+
+        [Display(Name = "Palabra a Buscar", Prompt = "Palabra a Buscar")]
         public string Criteria { get; set; }
 
         public override RouteValueDictionary GetRouteValues(int page = 1)

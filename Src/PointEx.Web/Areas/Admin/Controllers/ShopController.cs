@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
 using PagedList;
-using PointEx.Service;
-using PointEx.Web.Controllers;
-using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Service;
 using PointEx.Web.Areas.Admin.Models;
+using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
@@ -29,7 +23,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var shops = _shopService.GetAll("CreatedDate", "DESC", null, null, filters.Page, DefaultPageSize, out pageTotal);
+            var shops = _shopService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.CategoryId, filters.TownId, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<ShopDto>(shops, filters.Page, DefaultPageSize, pageTotal);
 

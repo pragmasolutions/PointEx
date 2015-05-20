@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#filter-container input,
+#filter-container select,
+#filter-container textarea {
+    max-width: none;
+}
+
+.spacer {
+    height: 5px;
+}

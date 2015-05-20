@@ -1,0 +1,18 @@
+﻿@model PointEx.Web.Models.ShopListFiltersModel
+
+<div id="filter-container" class="collapse">
+    @using (Html.BeginForm("Index", "Shop", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.Criteria)
+            </div>
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.TownId)
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-default pull-left"><span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Actualizar</button>
+            </div>
+        </div>
+    }
+</div>
