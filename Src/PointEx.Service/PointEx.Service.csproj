@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ICategoryService.cs" />
-    <Compile Include="Interfaces\IStudentService.cs" />
+    <Compile Include="Interfaces\IBeneficiaryService.cs" />
     <Compile Include="Interfaces\ITownService.cs" />
     <Compile Include="Interfaces\IShopService.cs" />
     <Compile Include="ServiceBase.cs" />

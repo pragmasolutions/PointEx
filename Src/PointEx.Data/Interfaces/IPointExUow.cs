@@ -6,7 +6,7 @@ namespace PointEx.Data.Interfaces
 {
     public interface IPointExUow : IUow
     {
-        IRepository<Student> Students { get; }
+        IRepository<Beneficiary> Beneficiaries { get; }
         IRepository<Shop> Shops { get; }
         IRepository<Town> Towns { get; }
         IRepository<User> Users { get; }

@@ -11,48 +11,48 @@ using PointEx.Entities.Dto;
 
 namespace PointEx.Service
 {
-    public class StudentService : ServiceBase, IStudentService
+    public class BeneficiaryService : ServiceBase, IBeneficiaryService
     {
         private readonly IClock _clock;
 
-        public StudentService(IPointExUow uow, IClock clock)
+        public BeneficiaryService(IPointExUow uow, IClock clock)
         {
             _clock = clock;
             Uow = uow;
         }
 
-        public void Create(Student student)
+        public void Create(Beneficiary student)
         {
             student.CreatedDate = _clock.Now;
-            Uow.Students.Add(student);
+            Uow.Beneficiaries.Add(student);
             Uow.Commit();
         }
 
-        public void Edit(Student student)
+        public void Edit(Beneficiary student)
         {
             student.ModifiedDate = _clock.Now;
-            Uow.Students.Edit(student);
+            Uow.Beneficiaries.Edit(student);
             Uow.Commit();
         }
 
         public void Delete(int shopId)
         {
             var student = this.GetById(shopId);
-            Uow.Students.Delete(student);
+            Uow.Beneficiaries.Delete(student);
             Uow.Commit();
         }
 
-        public IQueryable<Student> GetAll()
+        public IQueryable<Beneficiary> GetAll()
         {
-            return Uow.Students.GetAll(whereClause: null, includes: s => s.Town);
+            return Uow.Beneficiaries.GetAll(whereClause: null, includes: s => s.Town);
         }
 
-        public Student GetById(int id)
+        public Beneficiary GetById(int id)
         {
-            return Uow.Students.Get(s => s.Id == id, s => s.Town, s => s.EducationalInstitution);
+            return Uow.Beneficiaries.Get(s => s.Id == id, s => s.Town, s => s.EducationalInstitution);
         }
 
-        public List<StudentDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex, int pageSize, out int pageTotal)
+        public List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -61,17 +61,17 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<Student, bool>> where = x => (
-                //((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
+            Expression<Func<Beneficiary, bool>> where = x => (
+                                                         //((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
                                                          (!townId.HasValue || x.TownId == townId));
 
-            var results = Uow.Students.GetAll(pagingCriteria,
+            var results = Uow.Beneficiaries.GetAll(pagingCriteria,
                                                     where,
                                                      s => s.Town, s => s.EducationalInstitution);
 
             pageTotal = results.PagedMetadata.TotalItemCount;
 
-            return results.Entities.Project().To<StudentDto>().ToList();
+            return results.Entities.Project().To<BeneficiaryDto>().ToList();
         }
     }
 }

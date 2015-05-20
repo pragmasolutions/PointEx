@@ -70,7 +70,7 @@
     <Build Include="dbo\Tables\Shop.sql" />
     <Build Include="dbo\Tables\Benefit.sql" />
     <Build Include="dbo\Tables\EducationalInstitution.sql" />
-    <Build Include="dbo\Tables\Student.sql" />
+    <Build Include="dbo\Tables\Beneficiary.sql" />
     <Build Include="dbo\Tables\PointsExchange.sql" />
     <Build Include="dbo\Tables\Card.sql" />
     <Build Include="dbo\Tables\Purchase.sql" />
@@ -90,5 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
+    <None Include="ReferenceData\Schema.sql" />
   </ItemGroup>
 </Project>

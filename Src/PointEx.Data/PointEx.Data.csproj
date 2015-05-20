@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\PointExRepositoryFactories.cs" />
     <Compile Include="Interfaces\IPointExUow.cs" />
     <Compile Include="PointExDbContext.cs" />
     <Compile Include="PointExUow.cs" />
@@ -79,6 +78,10 @@
       <Project>{cb41f702-99fb-49ae-8bc0-1b7f0193efab}</Project>
       <Name>Framework.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Ioc\Framework.Ioc.csproj">
+      <Project>{9f222811-5858-42ed-958f-96c228d67808}</Project>
+      <Name>Framework.Ioc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
       <Project>{a68b9035-3037-4a58-88a8-38478b967681}</Project>
       <Name>PointEx.Entities</Name>
@@ -102,6 +105,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

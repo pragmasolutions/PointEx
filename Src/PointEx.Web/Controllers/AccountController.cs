@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PointEx.Web.Models;
+using PointEx.Security.Interfaces;
 
 namespace PointEx.Web.Controllers
 {
@@ -24,9 +25,10 @@ namespace PointEx.Web.Controllers
 
         public AccountController()
         {
+            
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationService authService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -89,7 +91,7 @@ namespace PointEx.Web.Controllers
                     }
                     else if (User.IsInRole("Beneficiario"))
                     {
-                        return RedirectToLocal("/Beneficiary/Home/Index");
+                        return RedirectToLocal("/Beneficiary/Profile/Index");
                     }
                     return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:

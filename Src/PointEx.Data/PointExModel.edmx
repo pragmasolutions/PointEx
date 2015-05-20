@@ -37,6 +37,17 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EducationalInstitutionId" Type="int" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Benefit">
@@ -57,7 +68,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="BeneficiaryId" Type="int" Nullable="false" />
           <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IssueDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -85,12 +96,12 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="PrizeId" />
-            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="BeneficiaryId" />
             <PropertyRef Name="ExchangeDate" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="PrizeId" Type="int" Nullable="false" />
-          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="BeneficiaryId" Type="int" Nullable="false" />
           <Property Name="ExchangeDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase">
@@ -141,17 +152,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EducationalInstitutionId" Type="int" Nullable="false" />
-          <Property Name="TownId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
-        </EntityType>
         <EntityType Name="Town">
           <Key>
             <PropertyRef Name="Id" />
@@ -159,6 +159,42 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Beneficiary_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_EducationalInstitution">
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalInstitution">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="EducationalInstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Benefit_Shop">
           <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
           <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
@@ -172,14 +208,14 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Card_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="1" />
           <End Role="Card" Type="Self.Card" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Student">
+            <Principal Role="Beneficiary">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Card">
-              <PropertyRef Name="StudentId" />
+              <PropertyRef Name="BeneficiaryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -223,6 +259,18 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PointsExchange_Beneficiary">
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="1" />
+          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beneficiary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PointsExchange_Reward">
           <End Role="Reward" Type="Self.Reward" Multiplicity="1" />
           <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
@@ -232,18 +280,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Principal>
             <Dependent Role="PointsExchange">
               <PropertyRef Name="PrizeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PointsExchange_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PointsExchange">
-              <PropertyRef Name="StudentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -319,46 +355,11 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_EducationalInstitution">
-          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EducationalInstitution">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="EducationalInstitutionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_Town">
-          <End Role="Town" Type="Self.Town" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Town">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="TownId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PointExDataStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
@@ -367,7 +368,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <EntitySet Name="RewardCatalog" EntityType="Self.RewardCatalog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benefit" EntityType="Self.Benefit" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -382,16 +382,28 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <DefiningQuery>SELECT 
     [PointsExchange].[Id] AS [Id], 
     [PointsExchange].[PrizeId] AS [PrizeId], 
-    [PointsExchange].[StudentId] AS [StudentId], 
+    [PointsExchange].[BeneficiaryId] AS [BeneficiaryId], 
     [PointsExchange].[ExchangeDate] AS [ExchangeDate]
     FROM [dbo].[PointsExchange] AS [PointsExchange]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Beneficiary_AspNetUsers" Association="Self.FK_Beneficiary_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_EducationalInstitution" Association="Self.FK_Beneficiary_EducationalInstitution">
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Town" Association="Self.FK_Beneficiary_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
           <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="Benefit" EntitySet="Benefit" />
           </AssociationSet>
           <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
-            <End Role="Student" EntitySet="Student" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
             <End Role="Card" EntitySet="Card" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
@@ -406,12 +418,12 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="Town" EntitySet="Town" />
             <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
           </AssociationSet>
-          <AssociationSet Name="FK_PointsExchange_Reward" Association="Self.FK_PointsExchange_Reward">
-            <End Role="Reward" EntitySet="Reward" />
+          <AssociationSet Name="FK_PointsExchange_Beneficiary" Association="Self.FK_PointsExchange_Beneficiary">
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
             <End Role="PointsExchange" EntitySet="PointsExchange" />
           </AssociationSet>
-          <AssociationSet Name="FK_PointsExchange_Student" Association="Self.FK_PointsExchange_Student">
-            <End Role="Student" EntitySet="Student" />
+          <AssociationSet Name="FK_PointsExchange_Reward" Association="Self.FK_PointsExchange_Reward">
+            <End Role="Reward" EntitySet="Reward" />
             <End Role="PointsExchange" EntitySet="PointsExchange" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
@@ -438,18 +450,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="Shop" EntitySet="Shop" />
             <End Role="ShopCategory" EntitySet="ShopCategory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_AspNetUsers" Association="Self.FK_Student_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Student" EntitySet="Student" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_EducationalInstitution" Association="Self.FK_Student_EducationalInstitution">
-            <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
-            <End Role="Student" EntitySet="Student" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_Town" Association="Self.FK_Student_Town">
-            <End Role="Town" EntitySet="Town" />
-            <End Role="Student" EntitySet="Student" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -460,11 +460,11 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Card_Student" FromRole="Card" ToRole="Student" />
           <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Card" FromRole="Card" ToRole="Purchase" />
+          <Property Name="BeneficiaryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Beneficiary" Relationship="PointEx.Data.FK_Card_Student1" FromRole="Card" ToRole="Beneficiary" />
         </EntityType>
         <EntityType Name="EducationalInstitution">
           <Key>
@@ -477,7 +477,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Town" Relationship="Self.FK_EducationalInstitution_Town" FromRole="EducationalInstitution" ToRole="Town" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Student_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Student" />
+          <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Beneficiary" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -528,22 +528,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
         </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EducationalInstitutionId" Type="Int32" Nullable="false" />
-          <Property Name="TownId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Cards" Relationship="Self.FK_Card_Student" FromRole="Student" ToRole="Card" />
-          <NavigationProperty Name="EducationalInstitution" Relationship="Self.FK_Student_EducationalInstitution" FromRole="Student" ToRole="EducationalInstitution" />
-          <NavigationProperty Name="PointsExchanges" Relationship="Self.FK_PointsExchange_Student" FromRole="Student" ToRole="PointsExchange" />
-          <NavigationProperty Name="Town" Relationship="Self.FK_Student_Town" FromRole="Student" ToRole="Town" />
-          <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Student_AspNetUsers" FromRole="Student" ToRole="AspNetUser" />
-        </EntityType>
         <EntityType Name="Town">
           <Key>
             <PropertyRef Name="Id" />
@@ -552,7 +536,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EducationalInstitutions" Relationship="Self.FK_EducationalInstitution_Town" FromRole="Town" ToRole="EducationalInstitution" />
           <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_Town" FromRole="Town" ToRole="Shop" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Town" FromRole="Town" ToRole="Student" />
+          <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_Town" FromRole="Town" ToRole="Beneficiary" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -572,28 +556,16 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="PrizeId" />
-            <PropertyRef Name="StudentId" />
             <PropertyRef Name="ExchangeDate" />
+            <PropertyRef Name="BeneficiaryId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="PrizeId" Type="Int32" Nullable="false" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="ExchangeDate" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Reward" Relationship="Self.FK_PointsExchange_Reward" FromRole="PointsExchange" ToRole="Reward" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_PointsExchange_Student" FromRole="PointsExchange" ToRole="Student" />
+          <Property Name="BeneficiaryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Beneficiary" Relationship="PointEx.Data.FK_PointsExchange_Beneficiary" FromRole="PointsExchange" ToRole="Beneficiary" />
         </EntityType>
-        <Association Name="FK_Card_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="Card" Type="Self.Card" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Card">
-              <PropertyRef Name="StudentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
           <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
@@ -615,18 +587,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Principal>
             <Dependent Role="EducationalInstitution">
               <PropertyRef Name="TownId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_EducationalInstitution">
-          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EducationalInstitution">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="EducationalInstitutionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -690,30 +650,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PointsExchange_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="PointsExchange" Type="Self.PointsExchange" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PointsExchange">
-              <PropertyRef Name="StudentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_Town">
-          <End Role="Town" Type="Self.Town" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Town">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="TownId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PointExDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cards" EntityType="Self.Card" />
           <EntitySet Name="EducationalInstitutions" EntityType="Self.EducationalInstitution" />
@@ -721,14 +657,9 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <EntitySet Name="Rewards" EntityType="Self.Reward" />
           <EntitySet Name="RewardCatalogs" EntityType="Self.RewardCatalog" />
           <EntitySet Name="Shops" EntityType="Self.Shop" />
-          <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Towns" EntityType="Self.Town" />
           <EntitySet Name="Benefits" EntityType="Self.Benefit" />
           <EntitySet Name="PointsExchanges" EntityType="Self.PointsExchange" />
-          <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="Card" EntitySet="Cards" />
-          </AssociationSet>
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
             <End Role="Card" EntitySet="Cards" />
             <End Role="Purchase" EntitySet="Purchases" />
@@ -736,10 +667,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <AssociationSet Name="FK_EducationalInstitution_Town" Association="Self.FK_EducationalInstitution_Town">
             <End Role="Town" EntitySet="Towns" />
             <End Role="EducationalInstitution" EntitySet="EducationalInstitutions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_EducationalInstitution" Association="Self.FK_Student_EducationalInstitution">
-            <End Role="EducationalInstitution" EntitySet="EducationalInstitutions" />
-            <End Role="Student" EntitySet="Students" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Shop" Association="Self.FK_Purchase_Shop">
             <End Role="Shop" EntitySet="Shops" />
@@ -761,20 +688,8 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="Town" EntitySet="Towns" />
             <End Role="Shop" EntitySet="Shops" />
           </AssociationSet>
-          <AssociationSet Name="FK_PointsExchange_Student" Association="Self.FK_PointsExchange_Student">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="PointsExchange" EntitySet="PointsExchanges" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_Town" Association="Self.FK_Student_Town">
-            <End Role="Town" EntitySet="Towns" />
-            <End Role="Student" EntitySet="Students" />
-          </AssociationSet>
           <EntitySet Name="Roles" EntityType="PointEx.Data.Role" />
           <EntitySet Name="Users" EntityType="PointEx.Data.User" />
-          <AssociationSet Name="FK_Student_AspNetUsers" Association="PointEx.Data.FK_Student_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="Users" />
-            <End Role="Student" EntitySet="Students" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="PointEx.Data.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="Roles" />
             <End Role="AspNetUser" EntitySet="Users" />
@@ -788,6 +703,27 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <AssociationSet Name="FK_ShopCategory_Shop" Association="PointEx.Data.FK_ShopCategory_Shop">
             <End Role="Shop" EntitySet="Shops" />
             <End Role="ShopCategory" EntitySet="ShopCategories" />
+          </AssociationSet>
+          <EntitySet Name="Beneficiaries" EntityType="PointEx.Data.Beneficiary" />
+          <AssociationSet Name="FK_Beneficiary_AspNetUsers" Association="PointEx.Data.FK_Beneficiary_AspNetUsers">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_EducationalInstitution" Association="PointEx.Data.FK_Beneficiary_EducationalInstitution">
+            <End Role="EducationalInstitution" EntitySet="EducationalInstitutions" />
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Town" Association="PointEx.Data.FK_Beneficiary_Town">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Card_Student1" Association="PointEx.Data.FK_Card_Student1">
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsExchange_Beneficiary" Association="PointEx.Data.FK_PointsExchange_Beneficiary">
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+            <End Role="PointsExchange" EntitySet="PointsExchanges" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -814,21 +750,9 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Students" Relationship="PointEx.Data.FK_Student_AspNetUsers" FromRole="AspNetUser" ToRole="Student" />
           <NavigationProperty Name="Roles" Relationship="PointEx.Data.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_AspNetUsers" FromRole="User" ToRole="Beneficiary" />
         </EntityType>
-        <Association Name="FK_Student_AspNetUsers">
-          <End Type="PointEx.Data.User" Role="AspNetUser" Multiplicity="1" />
-          <End Type="PointEx.Data.Student" Role="Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="PointEx.Data.Role" Role="AspNetRole" Multiplicity="*" />
           <End Type="PointEx.Data.User" Role="AspNetUser" Multiplicity="*" />
@@ -875,6 +799,82 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EducationalInstitutionId" Type="Int32" Nullable="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Beneficiary_AspNetUsers" FromRole="Beneficiary" ToRole="User" />
+          <NavigationProperty Name="EducationalInstitution" Relationship="PointEx.Data.FK_Beneficiary_EducationalInstitution" FromRole="Beneficiary" ToRole="EducationalInstitution" />
+          <NavigationProperty Name="Town" Relationship="PointEx.Data.FK_Beneficiary_Town" FromRole="Beneficiary" ToRole="Town" />
+          <NavigationProperty Name="Cards" Relationship="PointEx.Data.FK_Card_Student1" FromRole="Beneficiary" ToRole="Card" />
+          <NavigationProperty Name="PointsExchanges" Relationship="PointEx.Data.FK_PointsExchange_Beneficiary" FromRole="Beneficiary" ToRole="PointsExchange" />
+        </EntityType>
+        <Association Name="FK_Beneficiary_AspNetUsers">
+          <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_EducationalInstitution">
+          <End Type="PointEx.Data.EducationalInstitution" Role="EducationalInstitution" Multiplicity="1" />
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalInstitution">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="EducationalInstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Town">
+          <End Type="PointEx.Data.Town" Role="Town" Multiplicity="1" />
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Card_Student1">
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="1" />
+          <End Type="PointEx.Data.Card" Role="Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beneficiary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsExchange_Beneficiary">
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="1" />
+          <End Type="PointEx.Data.PointsExchange" Role="PointsExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beneficiary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsExchange">
+              <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -884,8 +884,8 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <EntitySetMapping Name="Cards">
             <EntityTypeMapping TypeName="PointEx.Data.Card">
               <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
               </MappingFragment>
@@ -947,18 +947,6 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="PointEx.Data.Student">
-              <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="EducationalInstitutionId" ColumnName="EducationalInstitutionId" />
-                <ScalarProperty Name="TownId" ColumnName="TownId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Towns">
             <EntityTypeMapping TypeName="PointEx.Data.Town">
               <MappingFragment StoreEntitySet="Town">
@@ -981,9 +969,9 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <EntitySetMapping Name="PointsExchanges">
             <EntityTypeMapping TypeName="PointEx.Data.PointsExchange">
               <MappingFragment StoreEntitySet="PointsExchange">
+                <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PrizeId" ColumnName="PrizeId" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
                 <ScalarProperty Name="ExchangeDate" ColumnName="ExchangeDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1026,6 +1014,26 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <EntityTypeMapping TypeName="PointEx.Data.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ShopCategory" TypeName="PointEx.Data.ShopCategory" StoreEntitySet="ShopCategory">
+            <EndProperty Name="Shop">
+              <ScalarProperty Name="Id" ColumnName="ShopId" />
+            </EndProperty>
+            <EndProperty Name="Category">
+              <ScalarProperty Name="Id" ColumnName="CategoryId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Beneficiaries">
+            <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
+              <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="EducationalInstitutionId" ColumnName="EducationalInstitutionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

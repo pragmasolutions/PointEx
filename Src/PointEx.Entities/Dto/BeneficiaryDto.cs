@@ -9,7 +9,7 @@ using Framework.Common.Mapping;
 
 namespace PointEx.Entities.Dto
 {
-    public class StudentDto : IMapFrom<Student>
+    public class BeneficiaryDto : IMapFrom<Beneficiary>
     {
         public int Id { get; set; }
         public int EducationalInstitutionId { get; set; }

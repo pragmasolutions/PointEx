@@ -12,9 +12,9 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class Beneficiary
     {
-        public Student()
+        public Beneficiary()
         {
             this.Cards = new HashSet<Card>();
             this.PointsExchanges = new HashSet<PointsExchange>();
@@ -27,10 +27,10 @@ namespace PointEx.Entities
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual ICollection<Card> Cards { get; set; }
-        public virtual EducationalInstitution EducationalInstitution { get; set; }
-        public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
-        public virtual Town Town { get; set; }
         public virtual User User { get; set; }
+        public virtual EducationalInstitution EducationalInstitution { get; set; }
+        public virtual Town Town { get; set; }
+        public virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
     }
 }
