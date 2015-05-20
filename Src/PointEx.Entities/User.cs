@@ -18,6 +18,7 @@ namespace PointEx.Entities
         {
             this.Roles = new HashSet<Role>();
             this.Beneficiaries = new HashSet<Beneficiary>();
+            this.Shops = new HashSet<Shop>();
         }
     
         public string Id { get; set; }
@@ -35,5 +36,6 @@ namespace PointEx.Entities
     
         public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
+        public virtual ICollection<Shop> Shops { get; set; }
     }
 }
