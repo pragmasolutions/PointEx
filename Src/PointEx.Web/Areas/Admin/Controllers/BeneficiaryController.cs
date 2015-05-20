@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
 using PagedList;
@@ -47,7 +48,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(BeneficiaryForm beneficiaryForm)
+        public async Task<ActionResult> Create(BeneficiaryForm beneficiaryForm)
         {
             if (!ModelState.IsValid)
             {
@@ -60,7 +61,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             //beneficiary.UserId = this.User.Identity.GetUserId();
 
-            _beneficiaryService.Create(beneficiary, user, beneficiaryForm.RegisterViewModel.Password);
+            await _beneficiaryService.Create(beneficiary, user, beneficiaryForm.RegisterViewModel.Password);
 
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Creado");
         }
