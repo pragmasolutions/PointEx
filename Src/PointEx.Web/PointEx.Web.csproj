@@ -391,6 +391,10 @@
       <Project>{9F222811-5858-42ED-958F-96C228D67808}</Project>
       <Name>Framework.Ioc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Security\Framework.Security.csproj">
+      <Project>{c3282245-96c8-4c3b-bbd1-59d581bd3f97}</Project>
+      <Name>Framework.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointEx.Data\PointEx.Data.csproj">
       <Project>{570C2383-FDD9-4400-A2D1-7FA382CB2CB0}</Project>
       <Name>PointEx.Data</Name>
