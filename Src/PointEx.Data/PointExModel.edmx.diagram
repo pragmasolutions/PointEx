@@ -8,8 +8,6 @@
         <EntityTypeShape EntityType="PointEx.Data.Card" Width="1.5" PointX="8.375" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.EducationalInstitution" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Purchase" Width="1.5" PointX="8.5" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointEx.Data.Reward" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointEx.Data.RewardCatalog" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Shop" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Town" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Benefit" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
@@ -17,8 +15,6 @@
         <AssociationConnector Association="PointEx.Data.FK_Purchase_Card" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_EducationalInstitution_Town" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Purchase_Shop" ManuallyRouted="false" />
-        <AssociationConnector Association="PointEx.Data.FK_PointsExchange_Reward" ManuallyRouted="false" />
-        <AssociationConnector Association="PointEx.Data.FK_Reward_RewardCatalog" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Benefit_Shop" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Shop_Town" ManuallyRouted="false" />
         <EntityTypeShape EntityType="PointEx.Data.Role" Width="1.5" PointX="10.875" PointY="7.125" />
@@ -35,6 +31,8 @@
         <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Category" />
         <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Shop" />
         <AssociationConnector Association="PointEx.Data.FK_Shop_User" />
+        <EntityTypeShape EntityType="PointEx.Data.Prize" Width="1.5" PointX="7.375" PointY="10.875" />
+        <AssociationConnector Association="PointEx.Data.FK_PointsExchange_Prize" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

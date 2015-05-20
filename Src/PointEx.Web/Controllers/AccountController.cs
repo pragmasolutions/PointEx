@@ -95,12 +95,12 @@ namespace PointEx.Web.Controllers
             {
                 case SignInStatus.Success:
                     var user = _uow.Users.Get(u => u.UserName == model.Email, u => u.Roles);
-                    if (User.IsInRole("Administrador"))
+                    if (user.Roles.Any(r => r.Name == RolesNames.Admin))
                     {
                         PointExContext.SetIdentity(user);
                         return RedirectToLocal("/Admin/Home/Index");
                     }
-                    else if (User.IsInRole("Beneficiario"))
+                    if (user.Roles.Any(r => r.Name == RolesNames.Beneficiario))
                     {
                         var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == user.Id, b => b.User, b => b.Town,
                                                                                 b => b.Cards, b => b.EducationalInstitution,

@@ -9,29 +9,40 @@
     @Styles.Render("~/Content/Site.Beneficiary.css")
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("PointEx", "Index", "Profile", new {area = "Beneficiary"}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-            </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("PointEx", "Index", "Profile", new { area = "Beneficiary" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
         </div>
     </div>
-</div>
+
     @Html.Partial("MenuSuperior")
 
     <div class="container body-content">
-        @RenderBody()
+        <table class="layout-container">
+            <tr>
+                <td style="width: 300px;">
+                    @Html.Partial("_MenuLateral")
+                </td>
+                <td>
+                    <div class="layout-body">
+                        @RenderBody()
+                    </div>
+                </td>
+            </tr>
+        </table>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - PointEx</p>
         </footer>
     </div>
 

@@ -3,7 +3,7 @@
     [PrizeId]      INT           NOT NULL,
     [BeneficiaryId]    INT           NOT NULL,
     [ExchangeDate] DATETIME2 (7) NOT NULL,
-    CONSTRAINT [FK_PointsExchange_Reward] FOREIGN KEY ([PrizeId]) REFERENCES [dbo].[Reward] ([Id]),
+    CONSTRAINT [FK_PointsExchange_Prize] FOREIGN KEY ([PrizeId]) REFERENCES [dbo].[Prize] ([Id]),
     CONSTRAINT [FK_PointsExchange_Beneficiary] FOREIGN KEY ([BeneficiaryId]) REFERENCES [dbo].[Beneficiary] ([Id])
 );
 

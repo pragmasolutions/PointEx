@@ -14,5 +14,8 @@ namespace PointEx.Data.Interfaces
         IRepository<Category> Categories { get; }
         IRepository<ShopCategory> ShopCategories { get; }
         IRepository<EducationalInstitution> EducationalInstitutions { get; }
+        IRepository<Card> Cards { get; }
+        IRepository<Prize> Prizes { get; }
+        IRepository<PointsExchange> PointsExchanges { get; }
     }
 }

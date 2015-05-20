@@ -19,7 +19,7 @@ namespace PointEx.Entities
         public System.DateTime ExchangeDate { get; set; }
         public int BeneficiaryId { get; set; }
     
-        public virtual Reward Reward { get; set; }
         public virtual Beneficiary Beneficiary { get; set; }
+        public virtual Prize Prize { get; set; }
     }
 }

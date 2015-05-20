@@ -79,14 +79,11 @@
     <Compile Include="PointsExchange.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Prize.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs">
-      <DependentUpon>PointExModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reward.cs">
-      <DependentUpon>PointExModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RewardCatalog.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
