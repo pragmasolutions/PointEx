@@ -8,7 +8,8 @@
     [CreatedDate]  DATETIME2 (7)     NOT NULL,
     [ModifiedDate] DATETIME2 (7)     NULL,
     CONSTRAINT [PK_Shop] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Shop_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id])
+    CONSTRAINT [FK_Shop_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id]), 
+    CONSTRAINT [FK_Shop_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id])
 );
 
 

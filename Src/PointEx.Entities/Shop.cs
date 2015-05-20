@@ -34,5 +34,6 @@ namespace PointEx.Entities
         public virtual ICollection<Benefit> Benefits { get; set; }
         public virtual Town Town { get; set; }
         public virtual ICollection<ShopCategory> ShopCategories { get; set; }
+        public virtual User User { get; set; }
     }
 }

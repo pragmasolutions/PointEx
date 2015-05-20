@@ -334,6 +334,18 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Shop_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShopCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="ShopCategory" Type="Self.ShopCategory" Multiplicity="*" />
@@ -445,6 +457,10 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="Town" EntitySet="Town" />
             <End Role="Shop" EntitySet="Shop" />
           </AssociationSet>
+          <AssociationSet Name="FK_Shop_User" Association="Self.FK_Shop_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Shop" EntitySet="Shop" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShopCategory_Category" Association="Self.FK_ShopCategory_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="ShopCategory" EntitySet="ShopCategory" />
@@ -530,6 +546,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <NavigationProperty Name="Benefits" Relationship="Self.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
+          <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Shop_User" FromRole="Shop" ToRole="User" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -728,6 +745,10 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             <End Role="Beneficiary" EntitySet="Beneficiaries" />
             <End Role="PointsExchange" EntitySet="PointsExchanges" />
           </AssociationSet>
+          <AssociationSet Name="FK_Shop_User" Association="PointEx.Data.FK_Shop_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -755,6 +776,7 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Roles" Relationship="PointEx.Data.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_AspNetUsers" FromRole="User" ToRole="Beneficiary" />
+          <NavigationProperty Name="Shops" Relationship="PointEx.Data.FK_Shop_User" FromRole="User" ToRole="Shop" />
         </EntityType>
         <Association Name="AspNetUserRoles">
           <End Type="PointEx.Data.Role" Role="AspNetRole" Multiplicity="*" />
@@ -878,6 +900,18 @@ warning 6002: The table/view 'PointEx.dbo.PointsExchange' does not have a primar
             </Principal>
             <Dependent Role="PointsExchange">
               <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shop_User">
+          <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

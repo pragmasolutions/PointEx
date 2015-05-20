@@ -34,6 +34,7 @@
         <EntityTypeShape EntityType="PointEx.Data.ShopCategory" Width="1.5" PointX="5.25" PointY="0.75" />
         <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Category" />
         <AssociationConnector Association="PointEx.Data.FK_ShopCategory_Shop" />
+        <AssociationConnector Association="PointEx.Data.FK_Shop_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
