@@ -60,11 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationService.cs" />
-    <Compile Include="EncryptionService.cs" />
     <Compile Include="IPointExContext.cs" />
-    <Compile Include="Interfaces\IAuthenticationService.cs" />
-    <Compile Include="Interfaces\IEncryptionService.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
@@ -84,6 +80,10 @@
       <Project>{cb41f702-99fb-49ae-8bc0-1b7f0193efab}</Project>
       <Name>Framework.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Security\Framework.Security.csproj">
+      <Project>{c3282245-96c8-4c3b-bbd1-59d581bd3f97}</Project>
+      <Name>Framework.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointEx.Data\PointEx.Data.csproj">
       <Project>{570c2383-fdd9-4400-a2d1-7fa382cb2cb0}</Project>
       <Name>PointEx.Data</Name>
@@ -92,6 +92,9 @@
       <Project>{a68b9035-3037-4a58-88a8-38478b967681}</Project>
       <Name>PointEx.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
