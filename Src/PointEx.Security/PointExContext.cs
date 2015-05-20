@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Web.ModelBinding;
 using PointEx.Entities;
 
 namespace PointEx.Security
 {
-    public class PointExContext : IPointExContext
+    public static class PointExContext // : IPointExContext
     {
-        public User User
+        public static User User
         {
             get
             {
@@ -17,12 +18,12 @@ namespace PointEx.Security
             }
         }
 
-        public bool IsInRole(string role)
+        public static bool IsInRole(string role)
         {
             return Role == role;
         }
-        
-        public string Role
+
+        public static string Role
         {
             get
             {
@@ -34,8 +35,8 @@ namespace PointEx.Security
             }
         }
 
-        private Beneficiary _beneficiary;
-        public Beneficiary Beneficiary
+        private static Beneficiary _beneficiary;
+        public static Beneficiary Beneficiary
         {
             get
             {
@@ -43,14 +44,28 @@ namespace PointEx.Security
                     return _beneficiary;
                 if (Role == RolesNames.Beneficiario)
                 {
-                    
-                    //TODO:
-                    //var repo = new Framework.Data.EntityFramework.Repository.EFRepository<Beneficiary>();
+                    _beneficiary = System.Web.HttpContext.Current.Session["Beneficiary"] as Beneficiary;
+                    return _beneficiary;
                 }
                 return null;
             }
         }
-    }
 
-    
+        public static void SetIdentity(User user)
+        {
+            System.Web.HttpContext.Current.Session["User"] = user;
+        }
+
+        public static void SetIdentity(User user, Beneficiary beneficiary)
+        {
+            SetIdentity(user);
+            System.Web.HttpContext.Current.Session["Beneficiary"] = beneficiary;
+        }
+
+        public static void SetIdentity(User user, Shop shop)
+        {
+            SetIdentity(user);
+            System.Web.HttpContext.Current.Session["Shop"] = shop;
+        }
+    }
 }
