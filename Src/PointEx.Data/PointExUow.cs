@@ -27,6 +27,9 @@ namespace PointEx.Data
         public IRepository<ShopCategory> ShopCategories { get { return GetStandardRepo<ShopCategory>(); } }
         public IRepository<Category> Categories { get { return GetStandardRepo<Category>(); } }
         public IRepository<EducationalInstitution> EducationalInstitutions { get { return GetStandardRepo<EducationalInstitution>(); } }
+        public IRepository<Card> Cards { get { return GetStandardRepo<Card>(); }}
+        public IRepository<Prize> Prizes { get { return GetStandardRepo<Prize>(); }}
+        public IRepository<PointsExchange> PointsExchanges { get { return GetStandardRepo<PointsExchange>(); } }
 
         public string ConnectionString
         {
@@ -106,5 +109,8 @@ namespace PointEx.Data
         }
 
         #endregion
+
+
+        
     }
 }

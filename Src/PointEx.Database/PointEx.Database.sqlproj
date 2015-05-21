@@ -64,8 +64,7 @@
     <Folder Include="ReferenceData" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\RewardCatalog.sql" />
-    <Build Include="dbo\Tables\Reward.sql" />
+    <Build Include="dbo\Tables\Prize.sql" />
     <Build Include="dbo\Tables\Town.sql" />
     <Build Include="dbo\Tables\Shop.sql" />
     <Build Include="dbo\Tables\Benefit.sql" />

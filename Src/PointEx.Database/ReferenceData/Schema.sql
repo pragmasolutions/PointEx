@@ -28,3 +28,19 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Student]') AND type in (N'U'))
 DROP TABLE [dbo].[Student]
 GO
+
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Reward_RewardCatalog]') AND parent_object_id = OBJECT_ID(N'[dbo].[Reward]'))
+ALTER TABLE [dbo].[Reward] DROP CONSTRAINT [FK_Reward_RewardCatalog]
+GO
+
+/****** Object:  Table [dbo].[Reward]    Script Date: 05/20/2015 20:30:35 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Reward]') AND type in (N'U'))
+DROP TABLE [dbo].[Reward]
+GO
+
+/****** Object:  Table [dbo].[RewardCatalog]    Script Date: 05/20/2015 20:30:17 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RewardCatalog]') AND type in (N'U'))
+DROP TABLE [dbo].[RewardCatalog]
+GO
+

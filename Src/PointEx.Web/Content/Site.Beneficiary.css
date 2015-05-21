@@ -23,4 +23,31 @@
   width: 25%;
   height: 51px;
 }
+.layout-container {
+  display: table;
+  width: 100%;
+}
+.layout-container tr td {
+  vertical-align: top;
+}
+.layout-container .menulateral {
+  width: 100%;
+  background-color: beige;
+  padding: 20px;
+  height: 100%;
+}
+.layout-container .menulateral .nombre {
+  font-size: 120%;
+  color: blueviolet;
+  font-weight: bold;
+}
+.layout-container .menulateral .tus-puntos {
+  font-size: 105%;
+  color: darkcyan;
+  font-weight: bold;
+}
+.layout-container .layout-body {
+  width: 100%;
+  padding: 10px 20px;
+}
 /*# sourceMappingURL=Site.Beneficiary.css.map */

@@ -393,6 +393,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Categories.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EducationalInstitutionId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Areas\Beneficiary\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EducationalInstitutionId.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EmailAddress.cshtml" />
   </ItemGroup>
