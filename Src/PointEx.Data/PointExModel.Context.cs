@@ -33,12 +33,12 @@ namespace PointEx.Data
         public virtual DbSet<Shop> Shops { get; set; }
         public virtual DbSet<Town> Towns { get; set; }
         public virtual DbSet<Benefit> Benefits { get; set; }
-        public virtual DbSet<PointsExchange> PointsExchanges { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ShopCategory> ShopCategories { get; set; }
         public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
         public virtual DbSet<Prize> Prizes { get; set; }
+        public virtual DbSet<PointsExchange> PointsExchanges { get; set; }
     }
 }

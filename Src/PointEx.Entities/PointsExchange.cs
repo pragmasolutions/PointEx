@@ -16,8 +16,9 @@ namespace PointEx.Entities
     {
         public int Id { get; set; }
         public int PrizeId { get; set; }
-        public System.DateTime ExchangeDate { get; set; }
         public int BeneficiaryId { get; set; }
+        public System.DateTime ExchangeDate { get; set; }
+        public int PointsUsed { get; set; }
     
         public virtual Beneficiary Beneficiary { get; set; }
         public virtual Prize Prize { get; set; }
