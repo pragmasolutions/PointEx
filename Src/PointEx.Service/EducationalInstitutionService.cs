@@ -54,8 +54,18 @@ namespace PointEx.Service
             return Uow.EducationalInstitutions.Get(id);
         }
 
+        public EducationalInstitution GetByName(string name)
+        {
+            return Uow.EducationalInstitutions.Get(e => e.Name == name);
+        }
+
         public void Create(EducationalInstitution educationalInstitution)
         {
+            if (!IsNameAvailable(educationalInstitution.Name))
+            {
+                throw new ApplicationException("Un Establecimiento Educativo con el mismo nombre ya ha sido creado");
+            }
+
             educationalInstitution.CreatedDate = _clock.Now;
             Uow.EducationalInstitutions.Add(educationalInstitution);
             Uow.Commit();
@@ -78,6 +88,12 @@ namespace PointEx.Service
         {
             Uow.EducationalInstitutions.Delete(educationalInstitutionId);
             Uow.Commit();
+        }
+
+        public bool IsNameAvailable(string name)
+        {
+            var currentEducationalInstitution = this.GetByName(name);
+            return currentEducationalInstitution == null;
         }
     }
 }

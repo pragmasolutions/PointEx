@@ -17,6 +17,7 @@ namespace PointEx.Web.Models
 
         [Required]
         [Display(Name = "Nombre")]
+        [Remote("IsNameAvailable", "EducationalInstitution", "Admin", ErrorMessage = "Ya existe un establecimiento con este nombre")]
         public string Name { get; set; }
 
         [Required]
@@ -27,7 +28,7 @@ namespace PointEx.Web.Models
         [Display(Name = "Localidad")]
         [Required]
         public int TownId { get; set; }
-        
+
         [Display(Name = "Ubicación")]
         public DbGeography Location { get; set; }
 

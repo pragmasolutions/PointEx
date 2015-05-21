@@ -87,5 +87,10 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Comercio Eliminado");
         }
+
+        public ActionResult IsNameAvailable(string name)
+        {
+            return Json(_educationalInstitutionService.IsNameAvailable(name), JsonRequestBehavior.AllowGet);
+        }
     }
 }

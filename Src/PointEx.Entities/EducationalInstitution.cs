@@ -25,6 +25,7 @@ namespace PointEx.Entities
         public System.Data.Entity.Spatial.DbGeography Location { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string Address { get; set; }
     
         public virtual Town Town { get; set; }
         public virtual ICollection<Beneficiary> Beneficiaries { get; set; }

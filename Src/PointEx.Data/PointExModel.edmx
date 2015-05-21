@@ -89,6 +89,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
           <Property Name="Location" Type="geography" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
@@ -462,6 +463,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Town" Relationship="Self.FK_EducationalInstitution_Town" FromRole="EducationalInstitution" ToRole="Town" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Beneficiary" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -871,6 +873,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySetMapping Name="EducationalInstitutions">
             <EntityTypeMapping TypeName="PointEx.Data.EducationalInstitution">
               <MappingFragment StoreEntitySet="EducationalInstitution">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TownId" ColumnName="TownId" />
