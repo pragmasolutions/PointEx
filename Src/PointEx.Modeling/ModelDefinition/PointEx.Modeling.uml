@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+  dslVersion="1.0.0.0"
+  Id="bbaabd78-80fe-4f05-90cd-047eebdf8179"
+  name="PointEx.Modeling" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <activity
+        Id="f14c82de-a119-4e01-adc9-fb28d5f9af00"
+        name="UserRegistrationWorkflow"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="994b9c74-b05c-4646-ad96-651cfaaa2c34"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="c86b86d1-05b3-431e-b7ab-1ab190b382b4"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="8224e1ce-4ba6-44ea-8482-02852f12c769"
+                  LastKnownName="Usuario Administrador Crea un Usuario para el Beneficiario con un Email y con el password igual al DNI del beneficiario"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="8224e1ce-4ba6-44ea-8482-02852f12c769"
+            name="Usuario Administrador Crea un Usuario para el Beneficiario con un Email y con el password igual al DNI del beneficiario"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="578e7a55-0faf-406b-8a40-0cbc8cf1d380"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="82815257-99de-41eb-857c-b0f87afa3999"
+                  LastKnownName="El Sistema envia un Email al Beneficiario con un Codigo unico para el mismo"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="82815257-99de-41eb-857c-b0f87afa3999"
+            name="El Sistema envia un Email al Beneficiario con un Codigo unico para el mismo"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="868734f9-e57f-45c1-b97b-77d68c5299b7"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="70413301-33e7-4a91-a4d6-0c64f344a271"
+                  LastKnownName="El usuario Ingresa a su cuenta de correo y hace click en el enlace enviado por el sistema que contiene el codigo anterior"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="70413301-33e7-4a91-a4d6-0c64f344a271"
+            name="El usuario Ingresa a su cuenta de correo y hace click en el enlace enviado por el sistema que contiene el codigo anterior"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="db2cf7f2-4089-49fd-8b7e-f53ce9ddd8bb"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="dd3f508e-5f62-483a-81ea-b877210733ed"
+                  LastKnownName="El sistema busca el usuario y verifica el codigo"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="dd3f508e-5f62-483a-81ea-b877210733ed"
+            name="El sistema busca el usuario y verifica el codigo"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="aa7b8a77-46b9-4c2d-ac12-d619062cde7c"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="8bebf170-0c13-4d0a-bd6a-019ad95753a4"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="8bebf170-0c13-4d0a-bd6a-019ad95753a4"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2bab34b6-27d6-46a2-b9c3-1a40f4fa2e97"
+                guard="Codigo Valido"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="50d7fc25-0287-485d-828c-e5c1ac1b9701"
+                  LastKnownName="El sistema muestra un pagina para el que el beneficiario pueda cambiar su Password. (Aca podemos forzar el cambio del password del DNI)"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="f291f51f-e2e3-4c1c-b4b4-8fcca02b1f77"
+                guard="Codigo Invalido"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="bbb28076-7095-461d-8718-fe0af23a3e1f"
+                  LastKnownName="El sistema redirecciona al usuario al home del sitio con un mensaje de error"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="50d7fc25-0287-485d-828c-e5c1ac1b9701"
+            name="El sistema muestra un pagina para el que el beneficiario pueda cambiar su Password. (Aca podemos forzar el cambio del password del DNI)"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="39e572b1-942e-4861-ad2e-0feaeb40e0ac"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="e2e2acdb-c52f-44bf-bae5-ec0fbbe2c6ad"
+                  LastKnownName="El sistema redirecciona al usuario a la pagina de login para que ingrese con el nuevo password seteado por el. (Alternativamente se puede logear automaticamente al usuario en cuestion y redireccionar al home del sitio)"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="e2e2acdb-c52f-44bf-bae5-ec0fbbe2c6ad"
+            name="El sistema redirecciona al usuario a la pagina de login para que ingrese con el nuevo password seteado por el. (Alternativamente se puede logear automaticamente al usuario en cuestion y redireccionar al home del sitio)"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="73e43620-6ec6-4351-81b3-4a263916f9ee"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="3db95fad-f59a-4093-92bb-76e54595e731"
+                  LastKnownName="ActivityFinal2"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode
+            Id="3db95fad-f59a-4093-92bb-76e54595e731"
+            name="ActivityFinal2"
+            isLeaf="false" />
+          <opaqueAction
+            Id="bbb28076-7095-461d-8718-fe0af23a3e1f"
+            name="El sistema redirecciona al usuario al home del sitio con un mensaje de error"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="49867ba7-12aa-4b30-b40e-70ebfd8e1e0b"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="3db95fad-f59a-4093-92bb-76e54595e731"
+                  LastKnownName="ActivityFinal2"
+                  LastKnownLocation="PointEx.Modeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

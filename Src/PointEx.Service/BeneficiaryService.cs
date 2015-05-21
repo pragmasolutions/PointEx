@@ -7,6 +7,7 @@ using System.Transactions;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
+using Microsoft.AspNet.Identity;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;

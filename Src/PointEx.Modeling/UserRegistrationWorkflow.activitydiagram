@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="0f236e27-7265-48f7-b8f1-adff11f8df13" name="UserRegistrationWorkflow" linkedPackageId="00d4de6a-b0a6-41dd-ae45-c0e6e6b769aa" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="0764220e-82fe-4332-bd69-a695614be283">
+      <profileInstance Id="00f411fe-dcb7-417d-9553-719fe8e21e9c" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="8a416a33-f74a-4ab1-acee-3b3054c7a9c5">
+      <profileInstance Id="69acead1-2fb6-4091-bb05-afaf3fb1a99b" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="9f3f8d5e-70cb-4e04-993b-79b1607e5699" name="UserRegistrationWorkflow" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="f14c82de-a119-4e01-adc9-fb28d5f9af00" />
+        <nodes>
+          <initialNode Id="82ba15b9-008d-46a2-a05e-0305904fc367" name="Initial1" isLeaf="false">
+            <elementDefinition Id="994b9c74-b05c-4646-ad96-651cfaaa2c34" />
+            <flowNodeTargets>
+              <controlFlow Id="432560c6-c86d-4427-8d62-0ae4d57ef27c" isLeaf="false">
+                <opaqueActionMoniker Id="fc798d4f-f206-4fdf-9281-488ded1a3814" LastKnownName="Usuario Administrador Crea un Usuario para el Beneficiario con un Email y con el password igual al DNI del beneficiario" />
+                <elementDefinition Id="c86b86d1-05b3-431e-b7ab-1ab190b382b4" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="fc798d4f-f206-4fdf-9281-488ded1a3814" name="Usuario Administrador Crea un Usuario para el Beneficiario con un Email y con el password igual al DNI del beneficiario" isLeaf="false">
+            <elementDefinition Id="8224e1ce-4ba6-44ea-8482-02852f12c769" />
+            <flowNodeTargets>
+              <controlFlow Id="4e35de14-1c5c-4f17-a246-7a25dc8bed9e" isLeaf="false">
+                <opaqueActionMoniker Id="4a790545-a750-4a9b-ab4b-7dfc74c3a22f" LastKnownName="El Sistema envia un Email al Beneficiario con un Codigo unico para el mismo" />
+                <elementDefinition Id="578e7a55-0faf-406b-8a40-0cbc8cf1d380" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="4a790545-a750-4a9b-ab4b-7dfc74c3a22f" name="El Sistema envia un Email al Beneficiario con un Codigo unico para el mismo" isLeaf="false">
+            <elementDefinition Id="82815257-99de-41eb-857c-b0f87afa3999" />
+            <flowNodeTargets>
+              <controlFlow Id="360675c4-42a3-4ba4-9de7-52af748acf53" isLeaf="false">
+                <opaqueActionMoniker Id="c4bf80ed-0e98-4541-b0c5-cef7dd3a79c4" LastKnownName="El usuario Ingresa a su cuenta de correo y hace click en el enlace enviado por el sistema que contiene el codigo anterior" />
+                <elementDefinition Id="868734f9-e57f-45c1-b97b-77d68c5299b7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="c4bf80ed-0e98-4541-b0c5-cef7dd3a79c4" name="El usuario Ingresa a su cuenta de correo y hace click en el enlace enviado por el sistema que contiene el codigo anterior" isLeaf="false">
+            <elementDefinition Id="70413301-33e7-4a91-a4d6-0c64f344a271" />
+            <flowNodeTargets>
+              <controlFlow Id="9636266b-eea7-4ca4-a18d-d211a6f6bdfe" isLeaf="false">
+                <opaqueActionMoniker Id="1c6109f5-0d88-434e-b7ad-bcbd58210a57" LastKnownName="El sistema busca el usuario y verifica el codigo" />
+                <elementDefinition Id="db2cf7f2-4089-49fd-8b7e-f53ce9ddd8bb" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="1c6109f5-0d88-434e-b7ad-bcbd58210a57" name="El sistema busca el usuario y verifica el codigo" isLeaf="false">
+            <elementDefinition Id="dd3f508e-5f62-483a-81ea-b877210733ed" />
+            <flowNodeTargets>
+              <controlFlow Id="38ad202a-8aa8-4487-a189-415e277f53a9" isLeaf="false">
+                <decisionNodeMoniker Id="4df9cc26-fec7-4c7c-b9fb-a3509f0447c3" LastKnownName="Decision1" />
+                <elementDefinition Id="aa7b8a77-46b9-4c2d-ac12-d619062cde7c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="4df9cc26-fec7-4c7c-b9fb-a3509f0447c3" name="Decision1" isLeaf="false">
+            <elementDefinition Id="8bebf170-0c13-4d0a-bd6a-019ad95753a4" />
+            <flowNodeTargets>
+              <controlFlow Id="da55a0be-ea84-455a-8f09-fb1cdd484e01" guard="Codigo Valido" isLeaf="false">
+                <opaqueActionMoniker Id="95d62924-5916-4973-9582-e0d2f7212d8e" LastKnownName="El sistema muestra un pagina para el que el beneficiario pueda cambiar su Password. (Aca podemos forzar el cambio del password del DNI)" />
+                <elementDefinition Id="2bab34b6-27d6-46a2-b9c3-1a40f4fa2e97" />
+              </controlFlow>
+              <controlFlow Id="036690dd-7339-44ce-901e-0128dff03046" guard="Codigo Invalido" isLeaf="false">
+                <opaqueActionMoniker Id="906ff95e-e6b2-45a8-9c6b-4ceea6607a6d" LastKnownName="El sistema redirecciona al usuario al home del sitio con un mensaje de error" />
+                <elementDefinition Id="f291f51f-e2e3-4c1c-b4b4-8fcca02b1f77" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="95d62924-5916-4973-9582-e0d2f7212d8e" name="El sistema muestra un pagina para el que el beneficiario pueda cambiar su Password. (Aca podemos forzar el cambio del password del DNI)" isLeaf="false">
+            <elementDefinition Id="50d7fc25-0287-485d-828c-e5c1ac1b9701" />
+            <flowNodeTargets>
+              <controlFlow Id="9da7bc57-fdb5-4c21-9b11-d21875d51fdc" isLeaf="false">
+                <opaqueActionMoniker Id="389ebac1-5a31-4d48-bbdc-1a87605d105e" LastKnownName="El sistema redirecciona al usuario a la pagina de login para que ingrese con el nuevo password seteado por el. (Alternativamente se puede logear automaticamente al usuario en cuestion y redireccionar al home del sitio)" />
+                <elementDefinition Id="39e572b1-942e-4861-ad2e-0feaeb40e0ac" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="389ebac1-5a31-4d48-bbdc-1a87605d105e" name="El sistema redirecciona al usuario a la pagina de login para que ingrese con el nuevo password seteado por el. (Alternativamente se puede logear automaticamente al usuario en cuestion y redireccionar al home del sitio)" isLeaf="false">
+            <elementDefinition Id="e2e2acdb-c52f-44bf-bae5-ec0fbbe2c6ad" />
+            <flowNodeTargets>
+              <controlFlow Id="8642094e-542e-40df-94a4-61810349306e" isLeaf="false">
+                <activityFinalNodeMoniker Id="0f52417b-eee3-4651-acf5-cf96bf0c3ed8" LastKnownName="ActivityFinal2" />
+                <elementDefinition Id="73e43620-6ec6-4351-81b3-4a263916f9ee" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="0f52417b-eee3-4651-acf5-cf96bf0c3ed8" name="ActivityFinal2" isLeaf="false">
+            <elementDefinition Id="3db95fad-f59a-4093-92bb-76e54595e731" />
+          </activityFinalNode>
+          <opaqueAction Id="906ff95e-e6b2-45a8-9c6b-4ceea6607a6d" name="El sistema redirecciona al usuario al home del sitio con un mensaje de error" isLeaf="false">
+            <elementDefinition Id="bbb28076-7095-461d-8718-fe0af23a3e1f" />
+            <flowNodeTargets>
+              <controlFlow Id="1dba1723-63d9-431a-86a4-68fb612739f8" isLeaf="false">
+                <activityFinalNodeMoniker Id="0f52417b-eee3-4651-acf5-cf96bf0c3ed8" LastKnownName="ActivityFinal2" />
+                <elementDefinition Id="49867ba7-12aa-4b30-b40e-70ebfd8e1e0b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="00d4de6a-b0a6-41dd-ae45-c0e6e6b769aa" name="PointEx.Modeling">
+    <elementDefinition Id="bbaabd78-80fe-4f05-90cd-047eebdf8179" />
+  </package>
+</activityRootModel>

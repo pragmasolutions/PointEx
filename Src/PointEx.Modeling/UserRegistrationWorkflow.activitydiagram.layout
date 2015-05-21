@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11" name="UserRegistrationWorkflow">
+  <activityRootModelMoniker Id="0f236e27-7265-48f7-b8f1-adff11f8df13" />
+  <nestedChildShapes>
+    <initialNodeShape Id="42e55e77-b54b-42a8-bd61-a45ad7e83c5e" absoluteBounds="2.75, 0.875, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="82ba15b9-008d-46a2-a05e-0305904fc367" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <actionShape Id="500d70d4-9270-4c6f-a875-7d94a15d9201" absoluteBounds="1.375, 1.625, 2.75, 0.875" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="fc798d4f-f206-4fdf-9281-488ded1a3814" LastKnownName="Usuario Administrador Crea un Usuario para el Beneficiario con un Email y con el password igual al DNI del beneficiario" />
+    </actionShape>
+    <actionShape Id="5ff91435-35e5-4252-ba3c-4c2c37ad2248" absoluteBounds="1.375, 3, 2.75, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="4a790545-a750-4a9b-ab4b-7dfc74c3a22f" LastKnownName="El Sistema envia un Email al Beneficiario con un Codigo unico para el mismo" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.75 : 2.5); (2.75 : 3)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="4e35de14-1c5c-4f17-a246-7a25dc8bed9e" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="500d70d4-9270-4c6f-a875-7d94a15d9201" />
+        <actionShapeMoniker Id="5ff91435-35e5-4252-ba3c-4c2c37ad2248" />
+      </nodes>
+    </controlFlowConnector>
+    <actionShape Id="94cdaf4a-7bf2-49c6-bbd3-3cb78740b5d1" absoluteBounds="1.375, 4, 2.75, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="c4bf80ed-0e98-4541-b0c5-cef7dd3a79c4" LastKnownName="El usuario Ingresa a su cuenta de correo y hace click en el enlace enviado por el sistema que contiene el codigo anterior" />
+    </actionShape>
+    <actionShape Id="78232ae1-3ddc-49f2-a15e-84ce9e280c52" absoluteBounds="1.375, 5, 2.75, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="1c6109f5-0d88-434e-b7ad-bcbd58210a57" LastKnownName="El sistema busca el usuario y verifica el codigo" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.75 : 3.375); (2.75 : 4)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="360675c4-42a3-4ba4-9de7-52af748acf53" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="5ff91435-35e5-4252-ba3c-4c2c37ad2248" />
+        <actionShapeMoniker Id="94cdaf4a-7bf2-49c6-bbd3-3cb78740b5d1" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(2.75 : 4.625); (2.75 : 5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="9636266b-eea7-4ca4-a18d-d211a6f6bdfe" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="94cdaf4a-7bf2-49c6-bbd3-3cb78740b5d1" />
+        <actionShapeMoniker Id="78232ae1-3ddc-49f2-a15e-84ce9e280c52" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(2.8125 : 1); (2.8125 : 1.625)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="432560c6-c86d-4427-8d62-0ae4d57ef27c" />
+      <relativeChildShapes />
+      <nodes>
+        <initialNodeShapeMoniker Id="42e55e77-b54b-42a8-bd61-a45ad7e83c5e" />
+        <actionShapeMoniker Id="500d70d4-9270-4c6f-a875-7d94a15d9201" />
+      </nodes>
+    </controlFlowConnector>
+    <decisionNodeShape Id="73917f92-2c12-4035-a3b6-612db9a6df14" absoluteBounds="2.25, 6.125, 0.375, 0.375" customColor="185, 212, 238">
+      <decisionNodeMoniker Id="4df9cc26-fec7-4c7c-b9fb-a3509f0447c3" LastKnownName="Decision1" />
+      <relativeChildShapes />
+    </decisionNodeShape>
+    <actionShape Id="65b59179-dff8-462a-bf2d-406f626efa2e" absoluteBounds="3.375, 6.875, 2.5, 0.875" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="95d62924-5916-4973-9582-e0d2f7212d8e" LastKnownName="El sistema muestra un pagina para el que el beneficiario pueda cambiar su Password. (Aca podemos forzar el cambio del password del DNI)" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.625 : 6.3125); (4.625 : 6.3125); (4.625 : 6.875)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="da55a0be-ea84-455a-8f09-fb1cdd484e01" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="73917f92-2c12-4035-a3b6-612db9a6df14" />
+        <actionShapeMoniker Id="65b59179-dff8-462a-bf2d-406f626efa2e" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(2.4375 : 5.625); (2.4375 : 6.125)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="38ad202a-8aa8-4487-a189-415e277f53a9" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="78232ae1-3ddc-49f2-a15e-84ce9e280c52" />
+        <decisionNodeShapeMoniker Id="73917f92-2c12-4035-a3b6-612db9a6df14" />
+      </nodes>
+    </controlFlowConnector>
+    <actionShape Id="d2d72bd0-376f-4456-9234-2f49a68d8243" absoluteBounds="3.375, 8.375, 2.5, 1.125" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="389ebac1-5a31-4d48-bbdc-1a87605d105e" LastKnownName="El sistema redirecciona al usuario a la pagina de login para que ingrese con el nuevo password seteado por el. (Alternativamente se puede logear automaticamente al usuario en cuestion y redireccionar al home del sitio)" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(4.625 : 7.75); (4.625 : 8.375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="9da7bc57-fdb5-4c21-9b11-d21875d51fdc" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="65b59179-dff8-462a-bf2d-406f626efa2e" />
+        <actionShapeMoniker Id="d2d72bd0-376f-4456-9234-2f49a68d8243" />
+      </nodes>
+    </controlFlowConnector>
+    <activityFinalNodeShape Id="bfd554d1-aa8a-498c-a3a4-a216be64e423" absoluteBounds="2.75, 10.375, 0.125, 0.125" customColor="89, 89, 89">
+      <activityFinalNodeMoniker Id="0f52417b-eee3-4651-acf5-cf96bf0c3ed8" LastKnownName="ActivityFinal2" />
+    </activityFinalNodeShape>
+    <actionShape Id="2abad58e-cce6-468a-8c50-7996609fb545" absoluteBounds="0.5, 6.875, 2, 0.875" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="906ff95e-e6b2-45a8-9c6b-4ceea6607a6d" LastKnownName="El sistema redirecciona al usuario al home del sitio con un mensaje de error" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.25 : 6.3125); (1.06951871657754 : 6.3125); (1.06951871657754 : 6.875)]" fixedFrom="Algorithm" fixedTo="Caller" customColor="Black">
+      <controlFlowMoniker Id="036690dd-7339-44ce-901e-0128dff03046" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="73917f92-2c12-4035-a3b6-612db9a6df14" />
+        <actionShapeMoniker Id="2abad58e-cce6-468a-8c50-7996609fb545" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(4.625 : 9.5); (4.625 : 10.4375); (2.875 : 10.4375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="8642094e-542e-40df-94a4-61810349306e" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="d2d72bd0-376f-4456-9234-2f49a68d8243" />
+        <activityFinalNodeShapeMoniker Id="bfd554d1-aa8a-498c-a3a4-a216be64e423" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(1.28125 : 7.75); (1.28125 : 10.4375); (2.75 : 10.4375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="1dba1723-63d9-431a-86a4-68fb612739f8" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="2abad58e-cce6-468a-8c50-7996609fb545" />
+        <activityFinalNodeShapeMoniker Id="bfd554d1-aa8a-498c-a3a4-a216be64e423" />
+      </nodes>
+    </controlFlowConnector>
+  </nestedChildShapes>
+</activityDiagram>

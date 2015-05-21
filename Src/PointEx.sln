@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Web", "Fra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointEx.Security", "PointEx.Security\PointEx.Security.csproj", "{218D008B-8761-432A-A871-D044F1859DC7}"
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "PointEx.Modeling", "PointEx.Modeling\PointEx.Modeling.modelproj", "{2F7E090E-3308-4DF3-B05C-1248F1FBB991}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{218D008B-8761-432A-A871-D044F1859DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7E090E-3308-4DF3-B05C-1248F1FBB991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7E090E-3308-4DF3-B05C-1248F1FBB991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7E090E-3308-4DF3-B05C-1248F1FBB991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7E090E-3308-4DF3-B05C-1248F1FBB991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
