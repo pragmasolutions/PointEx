@@ -1,0 +1,39 @@
+﻿@using PagedList.Mvc
+@model PointEx.Web.Areas.Admin.Models.EducationalInstitutionListModel
+
+<h3>Establecimiento Educativos</h3>
+
+@Html.ActionLink("Crear Establecimiento Educativo", "Create", "EducationalInstitution", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
+
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filter-container" aria-expanded="false" aria-controls="filter-container">
+    Mostrar/Ocultar Filtros
+</button>
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_Filters", Model.Filters)
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Localidad</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var educationalInstitution in Model.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(educationalInstitution.Name, "Detail", "EducationalInstitution", routeValues: new { area = "Admin", educationalInstitution.Id }, htmlAttributes: null)</td>
+                @*<td>@educationalInstitution.Address</td>*@
+                <td>@educationalInstitution.TownName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))

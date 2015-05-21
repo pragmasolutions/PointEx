@@ -1,0 +1,18 @@
+﻿@model PointEx.Web.Models.EducationalInstitutionForm
+
+@{
+    ViewBag.Title = PointExResources.CreateEducationalInstitutionTitle;
+}
+
+<h2>@PointExResources.CreateEducationalInstitutionTitle</h2>
+@using (Html.BeginForm("Create", "EducationalInstitution", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear Est. Educativo"  class="btn btn-default" />
+        </div>
+    </div>
+}

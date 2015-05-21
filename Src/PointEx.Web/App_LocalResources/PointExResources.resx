@@ -135,4 +135,13 @@
   <data name="CreateBeneficiaryTitle" xml:space="preserve">
     <value>Crear Beneficiario</value>
   </data>
+  <data name="CreateEducationalInstitutionTitle" xml:space="preserve">
+    <value>Crear Establecimiento Educativo</value>
+  </data>
+  <data name="EducationalInstitutionDetailTitle" xml:space="preserve">
+    <value>Detalle Establecimiento Educativo</value>
+  </data>
+  <data name="EditEducationalInstitutionTitle" xml:space="preserve">
+    <value>Editar Establecimiento Educativo</value>
+  </data>
 </root>
