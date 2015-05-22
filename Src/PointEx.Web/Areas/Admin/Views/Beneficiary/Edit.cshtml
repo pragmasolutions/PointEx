@@ -4,7 +4,9 @@
     ViewBag.Title = PointExResources.EditBeneficiaryTitle;
 }
 
-<h2>@PointExResources.EditBeneficiaryTitle</h2>
+<h3>@PointExResources.EditBeneficiaryTitle</h3>
+@Html.BackButton("Index", "Beneficiary", "Admin")
+<hr />
 @using (Html.BeginForm("Edit", "Beneficiary", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

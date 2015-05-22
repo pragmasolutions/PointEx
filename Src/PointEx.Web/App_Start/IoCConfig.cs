@@ -51,6 +51,7 @@ namespace PointEx.Web
             kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope();
             kernel.Bind<IBeneficiaryService>().To<BeneficiaryService>().InRequestScope();
             kernel.Bind<IEducationalInstitutionService>().To<EducationalInstitutionService>().InRequestScope();
+            kernel.Bind<IPrizeService>().To<PrizeService>().InRequestScope();
         }
     }
 }

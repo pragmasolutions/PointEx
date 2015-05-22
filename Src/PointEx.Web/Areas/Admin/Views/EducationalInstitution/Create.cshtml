@@ -4,7 +4,9 @@
     ViewBag.Title = PointExResources.CreateEducationalInstitutionTitle;
 }
 
-<h2>@PointExResources.CreateEducationalInstitutionTitle</h2>
+<h3>@PointExResources.CreateEducationalInstitutionTitle</h3>
+@Html.BackButton("Index", "EducationalInstitution", "Admin")
+<hr />
 @using (Html.BeginForm("Create", "EducationalInstitution", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

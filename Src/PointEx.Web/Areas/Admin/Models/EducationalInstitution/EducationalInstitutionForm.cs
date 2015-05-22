@@ -17,7 +17,7 @@ namespace PointEx.Web.Models
 
         [Required]
         [Display(Name = "Nombre")]
-        [Remote("IsNameAvailable", "EducationalInstitution", "Admin", ErrorMessage = "Ya existe un establecimiento con este nombre")]
+        [Remote("IsNameAvailable", "EducationalInstitution", "Admin", ErrorMessage = "Ya existe un establecimiento con este nombre", AdditionalFields = "Id")]
         public string Name { get; set; }
 
         [Required]
@@ -38,9 +38,9 @@ namespace PointEx.Web.Models
             return shop;
         }
 
-        public static EducationalInstitutionForm FromEducationalInstitution(EducationalInstitution shop)
+        public static EducationalInstitutionForm FromEducationalInstitution(EducationalInstitution educationalInstitution)
         {
-            var form = Mapper.Map<EducationalInstitution, EducationalInstitutionForm>(shop);
+            var form = Mapper.Map<EducationalInstitution, EducationalInstitutionForm>(educationalInstitution);
             return form;
         }
     }

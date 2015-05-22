@@ -27,10 +27,9 @@ var controls = function () {
         //    $(item).select2(options);
         //});
 
-        // //
-        // $.each($('input.autonumeric', context), function (i, item) {
-        //    $(item).autoNumeric('init');
-        //});
+        $.each($('input.autonumeric-control', context), function (i, item) {
+            $(item).autoNumeric('init');
+        });
 
         ////Parse timepicker.
         // $.each($('div.bootstrap-timepicker input[type="text"]', context), function (i, item) {

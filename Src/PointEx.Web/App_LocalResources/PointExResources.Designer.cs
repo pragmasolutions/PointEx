@@ -88,6 +88,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear Premio.
+        /// </summary>
+        public static string CreatePrizeTitle {
+            get {
+                return ResourceManager.GetString("CreatePrizeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear Comercio.
         /// </summary>
         public static string CreateShopTitle {
@@ -97,11 +106,38 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detalle Premio.
+        /// </summary>
+        public static string DetailPrizeTitle {
+            get {
+                return ResourceManager.GetString("DetailPrizeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar Beneficiario.
         /// </summary>
         public static string EditBeneficiaryTitle {
             get {
                 return ResourceManager.GetString("EditBeneficiaryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Establecimiento Educativo.
+        /// </summary>
+        public static string EditEducationalInstitutionTitle {
+            get {
+                return ResourceManager.GetString("EditEducationalInstitutionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Premio.
+        /// </summary>
+        public static string EditPrizeTitle {
+            get {
+                return ResourceManager.GetString("EditPrizeTitle", resourceCulture);
             }
         }
         

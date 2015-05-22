@@ -144,4 +144,13 @@
   <data name="EditEducationalInstitutionTitle" xml:space="preserve">
     <value>Editar Establecimiento Educativo</value>
   </data>
+  <data name="CreatePrizeTitle" xml:space="preserve">
+    <value>Crear Premio</value>
+  </data>
+  <data name="DetailPrizeTitle" xml:space="preserve">
+    <value>Detalle Premio</value>
+  </data>
+  <data name="EditPrizeTitle" xml:space="preserve">
+    <value>Editar Premio</value>
+  </data>
 </root>

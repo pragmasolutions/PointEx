@@ -4,7 +4,9 @@
     ViewBag.Title = PointExResources.EditShopTitle;
 }
 
-<h2>@PointExResources.EditShopTitle</h2>
+<h3>@PointExResources.EditShopTitle</h3>
+@Html.BackButton("Index", "Shop", "Admin")
+<hr />
 @using (Html.BeginForm("Edit", "Shop", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

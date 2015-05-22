@@ -4,7 +4,9 @@
     ViewBag.Title = PointExResources.EducationalInstitutionDetailTitle;
 }
 
-<h2>@PointExResources.EducationalInstitutionDetailTitle</h2>
+<h3>@PointExResources.EducationalInstitutionDetailTitle</h3>
+@Html.BackButton("Index", "EducationalInstitution", "Admin")
+<hr />
 <div class="form-horizontal">
     @Html.DisplayForModel()
     <div class="form-group">

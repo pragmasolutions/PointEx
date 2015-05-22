@@ -67,6 +67,7 @@
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Dto\BeneficiaryDto.cs" />
+    <Compile Include="Dto\PrizeDto.cs" />
     <Compile Include="Dto\EducationalInstitutionDto.cs" />
     <Compile Include="Dto\ShopDto.cs" />
     <Compile Include="EducationalInstitution.cs">

@@ -24,6 +24,7 @@ namespace PointEx.Entities
         public int PointsNeeded { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string Description { get; set; }
     
         public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
     }

@@ -4,7 +4,9 @@
     ViewBag.Title = PointExResources.EducationalInstitutionDetailTitle;
 }
 
-<h2>@PointExResources.EducationalInstitutionDetailTitle</h2>
+<h3>@PointExResources.EducationalInstitutionDetailTitle</h3>
+@Html.BackButton("Index", "EducationalInstitution", "Admin")
+<hr />
 @using (Html.BeginForm("Edit", "EducationalInstitution", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -12,7 +14,7 @@
     @Html.EditorForModel()
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Editar Comercio" class="btn btn-default" />
+            <input type="submit" value="Editar Est. Educativo" class="btn btn-default" />
         </div>
     </div>
 }

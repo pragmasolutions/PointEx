@@ -83,6 +83,7 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\AngularTemplateHelper.cs" />
     <Compile Include="Helpers\BootstrapHelpers.cs" />
+    <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\JavaScriptHelper.cs" />
     <Compile Include="ModelBinders\EFModelBinderProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

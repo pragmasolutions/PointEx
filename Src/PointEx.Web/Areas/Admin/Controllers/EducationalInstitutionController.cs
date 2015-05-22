@@ -57,7 +57,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             _educationalInstitutionService.Create(educationalInstitution);
 
-            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Comercio Creado");
+            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Establecimiento Educativo Creado");
         }
 
         public ActionResult Edit(int id)
@@ -77,7 +77,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             _educationalInstitutionService.Edit(educationalInstitutionForm.ToEducationalInstitution());
 
-            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Comercio Editado");
+            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Establecimiento Educativo Editado");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -85,12 +85,12 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             _educationalInstitutionService.Delete(id);
 
-            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Comercio Eliminado");
+            return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Establecimiento Educativo Eliminado");
         }
 
-        public ActionResult IsNameAvailable(string name)
+        public ActionResult IsNameAvailable(string name, int id)
         {
-            return Json(_educationalInstitutionService.IsNameAvailable(name), JsonRequestBehavior.AllowGet);
+            return Json(_educationalInstitutionService.IsNameAvailable(name, id), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -16,6 +16,11 @@ namespace Framework.Common.Web.ModelBinders
         {
             var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
+            if (string.IsNullOrEmpty(valueProviderResult.AttemptedValue))
+            {
+                return null;
+            }
+            
             if(!Regex.IsMatch(valueProviderResult.AttemptedValue, RegexPatterns.Location))
             {
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName,"The Location is not valid");

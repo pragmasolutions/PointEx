@@ -20,6 +20,6 @@ namespace PointEx.Service
 
         void Delete(int educationalInstitutionId);
 
-        bool IsNameAvailable(string name);
+        bool IsNameAvailable(string name, int id);
     }
 }

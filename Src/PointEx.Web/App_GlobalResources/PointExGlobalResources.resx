@@ -129,6 +129,9 @@
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>Un valor es requerido</value>
   </data>
+  <data name="Range" xml:space="preserve">
+    <value>El campo {0} debe ser un valor entre {1} y {2}</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>El campo {0} es requerido</value>
   </data>

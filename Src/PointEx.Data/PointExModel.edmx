@@ -110,6 +110,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="PointsNeeded" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
@@ -817,6 +818,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="PointsExchanges" Relationship="PointEx.Data.FK_PointsExchange_Prize" FromRole="Prize" ToRole="PointsExchange" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PointsExchange">
           <Key>
@@ -996,6 +998,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySetMapping Name="Prizes">
             <EntityTypeMapping TypeName="PointEx.Data.Prize">
               <MappingFragment StoreEntitySet="Prize">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="PointsNeeded" ColumnName="PointsNeeded" />

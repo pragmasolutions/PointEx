@@ -61,7 +61,7 @@ namespace PointEx.Service
 
         public void Create(EducationalInstitution educationalInstitution)
         {
-            if (!IsNameAvailable(educationalInstitution.Name))
+            if (!IsNameAvailable(educationalInstitution.Name, educationalInstitution.Id))
             {
                 throw new ApplicationException("Un Establecimiento Educativo con el mismo nombre ya ha sido creado");
             }
@@ -90,10 +90,16 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
-        public bool IsNameAvailable(string name)
+        public bool IsNameAvailable(string name, int id)
         {
             var currentEducationalInstitution = this.GetByName(name);
-            return currentEducationalInstitution == null;
+
+            if (currentEducationalInstitution == null)
+            {
+                return true;
+            }
+
+            return currentEducationalInstitution.Id == id;
         }
     }
 }

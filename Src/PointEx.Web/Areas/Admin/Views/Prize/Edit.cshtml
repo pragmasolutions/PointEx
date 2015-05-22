@@ -1,0 +1,20 @@
+﻿@model PointEx.Web.Models.PrizeForm
+
+@{
+    ViewBag.Title = PointExResources.EditPrizeTitle;
+}
+
+<h3>@PointExResources.EditPrizeTitle</h3>
+@Html.BackButton("Index", "Prize", "Admin")
+<hr />
+@using (Html.BeginForm("Edit", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Editar Premio" class="btn btn-default" />
+        </div>
+    </div>
+}

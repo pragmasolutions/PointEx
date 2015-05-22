@@ -10,9 +10,14 @@ namespace PointEx.Web
 		{
             ClientDataTypeModelValidatorProvider.ResourceClassKey = "PointExGlobalResources";
             DefaultModelBinder.ResourceClassKey = "PointExGlobalResources";
+            
             DataAnnotationsModelValidatorProvider.RegisterAdapter(
                 typeof(RequiredAttribute),
                 typeof(ResourseBaseRequiredAttributeAdapter));
+
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(
+                typeof(RangeAttribute),
+                typeof(ResourseBaseRangeAttributeAdapter));
 		}
 	}
 
@@ -25,6 +30,18 @@ namespace PointEx.Web
         {
             attribute.ErrorMessageResourceType = typeof(PointExGlobalResources);
             attribute.ErrorMessageResourceName = "Required";
+        }
+    }
+
+    public class ResourseBaseRangeAttributeAdapter : RangeAttributeAdapter
+    {
+        public ResourseBaseRangeAttributeAdapter(ModelMetadata metadata,
+                                          ControllerContext context,
+                                          RangeAttribute attribute)
+            : base(metadata, context, attribute)
+        {
+            attribute.ErrorMessageResourceType = typeof(PointExGlobalResources);
+            attribute.ErrorMessageResourceName = "Range";
         }
     }
 }

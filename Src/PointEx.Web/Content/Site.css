@@ -55,3 +55,8 @@ textarea {
 .form-group-date {
      max-width: 280px;
 }
+
+.btn-back-to-list {
+    margin-top: 5px;
+    /*margin-bottom: 5px;*/
+}
