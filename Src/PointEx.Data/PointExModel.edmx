@@ -94,6 +94,17 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="PointsExchange">
           <Key>
             <PropertyRef Name="Id" />
@@ -112,6 +123,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="PointsNeeded" Type="int" Nullable="false" />
+          <Property Name="ImageFileId" Type="int" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
@@ -277,6 +289,18 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prize_File">
+          <End Role="File" Type="Self.File" Multiplicity="0..1" />
+          <End Role="Prize" Type="Self.Prize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prize">
+              <PropertyRef Name="ImageFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
           <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
@@ -357,6 +381,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PointsExchange" EntityType="Self.PointsExchange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
@@ -411,6 +436,10 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <AssociationSet Name="FK_PointsExchange_Prize" Association="Self.FK_PointsExchange_Prize">
             <End Role="Prize" EntitySet="Prize" />
             <End Role="PointsExchange" EntitySet="PointsExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prize_File" Association="Self.FK_Prize_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="Prize" EntitySet="Prize" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
             <End Role="Card" EntitySet="Card" />
@@ -654,6 +683,16 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             <End Role="Prize" EntitySet="Prizes" />
             <End Role="PointsExchange" EntitySet="PointsExchanges" />
           </AssociationSet>
+          <EntitySet Name="Files" EntityType="PointEx.Data.File" />
+          <AssociationSet Name="FK_Prize_File" Association="PointEx.Data.FK_Prize_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Prize" EntitySet="Prizes" />
+          </AssociationSet>
+          <EntitySet Name="FileContents" EntityType="PointEx.Data.FileContent" />
+          <AssociationSet Name="FileFileContent" Association="PointEx.Data.FileFileContent">
+            <End Role="File" EntitySet="Files" />
+            <End Role="FileContent" EntitySet="FileContents" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -819,6 +858,8 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="PointsExchanges" Relationship="PointEx.Data.FK_PointsExchange_Prize" FromRole="Prize" ToRole="PointsExchange" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageFileId" Type="Int32" />
+          <NavigationProperty Name="File" Relationship="PointEx.Data.FK_Prize_File" FromRole="Prize" ToRole="File" />
         </EntityType>
         <EntityType Name="PointsExchange">
           <Key>
@@ -853,6 +894,50 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             </Principal>
             <Dependent Role="PointsExchange">
               <PropertyRef Name="PrizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Prizes" Relationship="PointEx.Data.FK_Prize_File" FromRole="File" ToRole="Prize" />
+          <NavigationProperty Name="FileContent" Relationship="PointEx.Data.FileFileContent" FromRole="File" ToRole="FileContent" />
+        </EntityType>
+        <Association Name="FK_Prize_File">
+          <End Type="PointEx.Data.File" Role="File" Multiplicity="0..1" />
+          <End Type="PointEx.Data.Prize" Role="Prize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prize">
+              <PropertyRef Name="ImageFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FileContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="File" Relationship="PointEx.Data.FileFileContent" FromRole="FileContent" ToRole="File" />
+        </EntityType>
+        <Association Name="FileFileContent">
+          <End Type="PointEx.Data.File" Role="File" Multiplicity="1" />
+          <End Type="PointEx.Data.FileContent" Role="FileContent" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FileContent">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -998,6 +1083,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySetMapping Name="Prizes">
             <EntityTypeMapping TypeName="PointEx.Data.Prize">
               <MappingFragment StoreEntitySet="Prize">
+                <ScalarProperty Name="ImageFileId" ColumnName="ImageFileId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -1014,6 +1100,25 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
                 <ScalarProperty Name="ExchangeDate" ColumnName="ExchangeDate" />
                 <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
                 <ScalarProperty Name="PrizeId" ColumnName="PrizeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="PointEx.Data.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileContents">
+            <EntityTypeMapping TypeName="IsTypeOf(PointEx.Data.FileContent)">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

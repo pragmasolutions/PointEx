@@ -36,6 +36,8 @@ namespace PointEx.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-datepicker.js",
                       "~/Scripts/bootstrap-datepicker.es.js",
+                      "~/Scripts/fileinput.js",
+                      "~/Scripts/fileinput_locale_es.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/lib")
@@ -49,6 +51,7 @@ namespace PointEx.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.css",
+                      "~/Content/bootstrap-fileinput/css/fileinput.css",
                       "~/Content/select2.css",
                       "~/Content/site.css"));
         }

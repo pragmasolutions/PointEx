@@ -4,15 +4,13 @@ using Framework.Common.Utility;
 using Framework.Data.EntityFramework.Helpers;
 using Framework.Ioc;
 using Framework.Ioc.Ninject;
+using Microsoft.AspNet.Identity.Owin;
 using Ninject;
 using Ninject.Web.Common;
 using PointEx.Data;
 using PointEx.Data.Interfaces;
-using PointEx.Service;
-using Ninject.Extensions.Conventions;
 using PointEx.Security.Managers;
-using System.Web;
-using Microsoft.AspNet.Identity.Owin;
+using PointEx.Service;
 
 namespace PointEx.Web
 {
@@ -21,12 +19,8 @@ namespace PointEx.Web
     /// </summary>
     public class IoCConfig
     {
-        public static void Config()
+        public static void Config(StandardKernel kernel)
         {
-            var kernel = new StandardKernel();
-
-            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(kernel));
-
             RegisterBindings(kernel);
 
             IocContainer.Initialize(new NinjectIocContainer(kernel));
@@ -52,6 +46,7 @@ namespace PointEx.Web
             kernel.Bind<IBeneficiaryService>().To<BeneficiaryService>().InRequestScope();
             kernel.Bind<IEducationalInstitutionService>().To<EducationalInstitutionService>().InRequestScope();
             kernel.Bind<IPrizeService>().To<PrizeService>().InRequestScope();
+            kernel.Bind<IFileService>().To<FileService>().InRequestScope();
         }
     }
 }

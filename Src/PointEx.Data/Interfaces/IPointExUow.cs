@@ -17,5 +17,7 @@ namespace PointEx.Data.Interfaces
         IRepository<Card> Cards { get; }
         IRepository<Prize> Prizes { get; }
         IRepository<PointsExchange> PointsExchanges { get; }
+        IRepository<File> Files { get; }
+        IRepository<FileContent> FileContents { get; }
     }
 }

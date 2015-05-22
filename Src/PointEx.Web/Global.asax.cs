@@ -22,10 +22,7 @@ namespace PointEx.Web
 
             ModelBinderProviders.BinderProviders.Add(new EFModelBinderProvider());
 
-            IoCConfig.Config();
-
             AutoMapperConfig.Config();
-
             ValidationConfig.Config();
         }
     }

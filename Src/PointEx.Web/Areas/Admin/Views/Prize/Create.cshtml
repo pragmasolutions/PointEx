@@ -9,7 +9,7 @@
 @Html.BackButton("Index", "Prize", "Admin")
 <hr />
 
-@using (Html.BeginForm("Create", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Create", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

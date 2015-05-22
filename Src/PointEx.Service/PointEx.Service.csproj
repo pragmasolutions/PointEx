@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IPrizeService.cs" />
+    <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="PrizeService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBeneficiaryService.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="CategoryService.cs" />
     <Compile Include="BeneficiaryService.cs" />
     <Compile Include="EducationalInstitutionService.cs" />
+    <Compile Include="FileService.cs" />
     <Compile Include="TownService.cs" />
     <Compile Include="ShopService.cs" />
   </ItemGroup>

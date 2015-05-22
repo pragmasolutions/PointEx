@@ -7,7 +7,7 @@
 <h3>@PointExResources.EditPrizeTitle</h3>
 @Html.BackButton("Index", "Prize", "Admin")
 <hr />
-@using (Html.BeginForm("Edit", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

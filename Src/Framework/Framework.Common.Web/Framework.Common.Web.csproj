@@ -85,6 +85,8 @@
     <Compile Include="Helpers\BootstrapHelpers.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\JavaScriptHelper.cs" />
+    <Compile Include="Metadata\FileAttribute.cs" />
+    <Compile Include="Metadata\RenderAttribute.cs" />
     <Compile Include="ModelBinders\EFModelBinderProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

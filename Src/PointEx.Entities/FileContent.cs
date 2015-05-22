@@ -12,22 +12,11 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Prize
+    public partial class FileContent
     {
-        public Prize()
-        {
-            this.PointsExchanges = new HashSet<PointsExchange>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int PointsNeeded { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> ImageFileId { get; set; }
+        public byte[] Content { get; set; }
     
-        public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
         public virtual File File { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿@using Framework.Common.Web.Metadata
+@model PointEx.Entities.File
+@{
+    var filePropertyName = this.ViewData.ModelMetadata.AdditionalValues[FileAttribute.HttpPostedFileBasePropertyKey];
+    this.ViewData.TemplateInfo.HtmlFieldPrefix = string.Empty;
+
+    string currentFileUrl = string.Empty;
+    string currentImage = string.Empty;
+
+    if (Model != null)
+    {
+        currentFileUrl = Url.Action("Image", "File", new { area = "", id = Model.Id, width = 250, heigh = 250 });
+        currentImage = string.Format("<img src='{0}' class='file-preview-image' alt='The Moon' title='The Moon'>", currentFileUrl);
+    }
+}
+@Html.TextBox(filePropertyName.ToString(), Model,
+                            new
+                            {
+                                @class = "form-control file",
+                                placeholder = ViewData.ModelMetadata.Watermark,
+                                type = "file",
+                                data_show_upload = "false",
+                                accept = "image/*",
+                                data_initial_preview = currentImage,
+                                data_overwrite_initial = "true"
+                            })

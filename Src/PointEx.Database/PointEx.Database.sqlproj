@@ -83,6 +83,7 @@
     <Build Include="dbo\Tables\ShopCategory.sql" />
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Functions\Beneficiary_GetPoints.sql" />
+    <Build Include="dbo\Tables\File.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />

@@ -13,5 +13,10 @@ namespace PointEx.Web.Controllers
         {
             return ControllerExtensions.RedirectToAction(this, action);
         }
+
+        protected ImageResult Image(byte[] fileBytes, string contentType, int width = 0, int height = 0)
+        {
+            return new ImageResult(fileBytes, contentType, width, height);
+        }
     }
 }

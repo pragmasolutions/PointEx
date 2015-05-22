@@ -40,5 +40,7 @@ namespace PointEx.Data
         public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
         public virtual DbSet<Prize> Prizes { get; set; }
         public virtual DbSet<PointsExchange> PointsExchanges { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<FileContent> FileContents { get; set; }
     }
 }

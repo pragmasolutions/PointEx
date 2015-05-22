@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
+using Framework.Common.Web.Metadata;
 using PointEx.Entities;
 
 namespace PointEx.Web.Models
@@ -29,9 +31,53 @@ namespace PointEx.Web.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Render(ShowForEdit = false)]
+        public HttpPostedFileBase ImageFile { get; set; }
+
+        [UIHint("ImageFile")]
+        [File(HttpPostedFileBaseProperty = "ImageFile")]
+
+        public File File { get; set; }
+
+        [HiddenInput]
+        public int ImageFileId { get; set; }
+
+        [HiddenInput]
+        public bool OriginalFileWasRemoved { get; set; }
+
         public Prize ToPrize()
         {
             var prize = Mapper.Map<PrizeForm, Prize>(this);
+
+            if (ImageFile != null)
+            {
+                var image = new File
+                {
+                    FileContent = new FileContent()
+                };
+
+                image.Name = System.IO.Path.GetFileName(ImageFile.FileName);
+                image.ContentType = ImageFile.ContentType;
+                using (var reader = new System.IO.BinaryReader(ImageFile.InputStream))
+                {
+                    image.FileContent.Content = reader.ReadBytes(ImageFile.ContentLength);
+                }
+
+                prize.File = image;
+            }
+            else
+            {
+                //if the file was not removed we send the same file content
+                if (!OriginalFileWasRemoved && this.ImageFileId != default(int))
+                {
+                    prize.File = new File
+                    {
+                        Id = this.ImageFileId,
+                        FileContent = new FileContent()
+                    };
+                }
+            }
+
             return prize;
         }
 

@@ -19,6 +19,12 @@ var controls = function () {
             $(item).select2(options);
         });
 
+        $.each($('.file', context), function (i, item) {
+            $(item).on('filecleared', function () {
+                $('#OriginalFileWasRemoved').val(true);
+            });
+        });
+
         // $.each($('select[data-searchable]', context), function (i, item) {
         //    var options = { allowClear: true };
         //    if ($(item).attr("multiple")) {

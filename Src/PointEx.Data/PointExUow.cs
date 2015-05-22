@@ -30,6 +30,8 @@ namespace PointEx.Data
         public IRepository<Card> Cards { get { return GetStandardRepo<Card>(); }}
         public IRepository<Prize> Prizes { get { return GetStandardRepo<Prize>(); }}
         public IRepository<PointsExchange> PointsExchanges { get { return GetStandardRepo<PointsExchange>(); } }
+        public IRepository<File> Files { get { return GetStandardRepo<File>(); } }
+        public IRepository<FileContent> FileContents { get { return GetStandardRepo<FileContent>(); } }
 
         public string ConnectionString
         {

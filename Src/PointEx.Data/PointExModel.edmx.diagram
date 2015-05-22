@@ -33,6 +33,10 @@
         <EntityTypeShape EntityType="PointEx.Data.PointsExchange" Width="1.5" PointX="9.625" PointY="10.125" />
         <AssociationConnector Association="PointEx.Data.FK_PointsExchange_Beneficiary" />
         <AssociationConnector Association="PointEx.Data.FK_PointsExchange_Prize" />
+        <EntityTypeShape EntityType="PointEx.Data.File" Width="1.5" PointX="5.125" PointY="12" />
+        <AssociationConnector Association="PointEx.Data.FK_Prize_File" />
+        <EntityTypeShape EntityType="PointEx.Data.FileContent" Width="1.5" PointX="1.625" PointY="12.5" />
+        <AssociationConnector Association="PointEx.Data.FileFileContent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

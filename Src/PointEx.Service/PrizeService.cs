@@ -16,10 +16,12 @@ namespace PointEx.Service
     public class PrizeService : ServiceBase, IPrizeService
     {
         private readonly IClock _clock;
+        private readonly IFileService _fileService;
 
-        public PrizeService(IPointExUow uow, IClock clock)
+        public PrizeService(IPointExUow uow, IClock clock, IFileService fileService)
         {
             _clock = clock;
+            _fileService = fileService;
             Uow = uow;
         }
 
@@ -49,7 +51,7 @@ namespace PointEx.Service
 
         public Prize GetById(int id)
         {
-            return Uow.Prizes.Get(id);
+            return Uow.Prizes.Get(p => p.Id == id, p => p.File);
         }
 
         public Prize GetByName(string name)
@@ -73,6 +75,29 @@ namespace PointEx.Service
         {
             var currentPrize = this.GetById(prize.Id);
 
+            if (currentPrize.File != null && prize.File == null)
+            {
+                Uow.FileContents.Delete(currentPrize.File.Id);
+                Uow.Files.Delete(currentPrize.File.Id);
+            }
+            else if (currentPrize.File == null && prize.File != null)
+            {
+                //Add new image
+                prize.File.CreatedDate = _clock.Now;
+                currentPrize.File = prize.File;
+            }
+            else if (currentPrize.File != null && prize.File != null && prize.File.FileContent != null)
+            {
+                //Edit actual
+                currentPrize.File.Name = prize.File.Name;
+                currentPrize.File.ContentType = prize.File.ContentType;
+                currentPrize.File.ModifiedDate = _clock.Now;
+
+                //Edit content
+                prize.File.FileContent.Id = currentPrize.File.Id;
+                Uow.FileContents.Edit(prize.File.FileContent);
+            }
+
             currentPrize.ModifiedDate = _clock.Now;
             currentPrize.Name = prize.Name;
             currentPrize.PointsNeeded = prize.PointsNeeded;
@@ -84,6 +109,14 @@ namespace PointEx.Service
 
         public void Delete(int prizeId)
         {
+            var currentPrize = GetById(prizeId);
+
+            if (currentPrize.File != null)
+            {
+                Uow.FileContents.Delete(currentPrize.File.Id);
+                Uow.Files.Delete(currentPrize.File.Id);
+            }
+
             Uow.Prizes.Delete(prizeId);
             Uow.Commit();
         }
