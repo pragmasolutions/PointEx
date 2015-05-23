@@ -14,6 +14,7 @@ namespace PointEx.Service
         List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex,
             int pageSize, out int pageTotal);
         Shop GetById(int id);
+        Shop GetByUserId(string userId);
         void Dispose();
     }
 }

@@ -32,7 +32,6 @@ namespace PointEx.Data
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
         public virtual DbSet<Town> Towns { get; set; }
-        public virtual DbSet<Benefit> Benefits { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -42,5 +41,6 @@ namespace PointEx.Data
         public virtual DbSet<PointsExchange> PointsExchanges { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FileContent> FileContents { get; set; }
+        public virtual DbSet<Benefit> Benefits { get; set; }
     }
 }

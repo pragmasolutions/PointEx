@@ -5,9 +5,7 @@
 
 @Html.ActionLink("Crear Comercio", "Create", "Shop", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
 
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filter-container" aria-expanded="false" aria-controls="filter-container">
-    Mostrar/Ocultar Filtros
-</button>
+@Html.FilterButton()
 
 <div class="spacer">
 </div>

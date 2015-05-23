@@ -153,4 +153,13 @@
   <data name="EditPrizeTitle" xml:space="preserve">
     <value>Editar Premio</value>
   </data>
+  <data name="CreateBenefitTitle" xml:space="preserve">
+    <value>Crear Beneficio</value>
+  </data>
+  <data name="DetailBenefitTitle" xml:space="preserve">
+    <value>Detalle Beneficio</value>
+  </data>
+  <data name="EditBenefitTitle" xml:space="preserve">
+    <value>Editar Beneficio</value>
+  </data>
 </root>

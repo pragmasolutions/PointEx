@@ -10,11 +10,9 @@
         <EntityTypeShape EntityType="PointEx.Data.Purchase" Width="1.5" PointX="8.5" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Shop" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="PointEx.Data.Town" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointEx.Data.Benefit" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="PointEx.Data.FK_Purchase_Card" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_EducationalInstitution_Town" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Purchase_Shop" ManuallyRouted="false" />
-        <AssociationConnector Association="PointEx.Data.FK_Benefit_Shop" ManuallyRouted="false" />
         <AssociationConnector Association="PointEx.Data.FK_Shop_Town" ManuallyRouted="false" />
         <EntityTypeShape EntityType="PointEx.Data.Role" Width="1.5" PointX="10.875" PointY="7.125" />
         <EntityTypeShape EntityType="PointEx.Data.User" Width="1.5" PointX="10.75" PointY="1.875" />
@@ -37,6 +35,8 @@
         <AssociationConnector Association="PointEx.Data.FK_Prize_File" />
         <EntityTypeShape EntityType="PointEx.Data.FileContent" Width="1.5" PointX="1.625" PointY="12.5" />
         <AssociationConnector Association="PointEx.Data.FileFileContent" />
+        <EntityTypeShape EntityType="PointEx.Data.Benefit" Width="1.5" PointX="5.25" PointY="15.375" />
+        <AssociationConnector Association="PointEx.Data.FK_Benefit_Shop" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

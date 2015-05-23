@@ -76,6 +76,11 @@ namespace PointEx.Service
             return Uow.Shops.Get(s => s.Id == id, s => s.ShopCategories.Select(cs => cs.Category));
         }
 
+        public Shop GetByUserId(string userId)
+        {
+            return Uow.Shops.Get(s => s.UserId == userId);
+        }
+
         public List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();

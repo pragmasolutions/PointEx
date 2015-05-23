@@ -51,17 +51,15 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Benefit">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Description" />
-            <PropertyRef Name="ShopId" />
-            <PropertyRef Name="CreatedDate" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="DiscountPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountPercentageCeiling" Type="money" />
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
@@ -378,6 +376,7 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
@@ -388,15 +387,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Benefit" EntityType="Self.Benefit" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Benefit].[Id] AS [Id], 
-    [Benefit].[Description] AS [Description], 
-    [Benefit].[ShopId] AS [ShopId], 
-    [Benefit].[CreatedDate] AS [CreatedDate], 
-    [Benefit].[ModifiedDate] AS [ModifiedDate]
-    FROM [dbo].[Benefit] AS [Benefit]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Beneficiary_AspNetUsers" Association="Self.FK_Beneficiary_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Beneficiary" EntitySet="Beneficiary" />
@@ -520,10 +510,10 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Purchases" Relationship="Self.FK_Purchase_Shop" FromRole="Shop" ToRole="Purchase" />
-          <NavigationProperty Name="Benefits" Relationship="Self.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <NavigationProperty Name="Town" Relationship="Self.FK_Shop_Town" FromRole="Shop" ToRole="Town" />
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
           <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Shop_User" FromRole="Shop" ToRole="User" />
+          <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -534,20 +524,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <NavigationProperty Name="EducationalInstitutions" Relationship="Self.FK_EducationalInstitution_Town" FromRole="Town" ToRole="EducationalInstitution" />
           <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_Town" FromRole="Town" ToRole="Shop" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_Town" FromRole="Town" ToRole="Beneficiary" />
-        </EntityType>
-        <EntityType Name="Benefit">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Description" />
-            <PropertyRef Name="ShopId" />
-            <PropertyRef Name="CreatedDate" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Shop" Relationship="Self.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
         </EntityType>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
@@ -585,18 +561,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Benefit_Shop">
-          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
-          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shop">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Benefit">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Shop_Town">
           <End Role="Town" Type="Self.Town" Multiplicity="1" />
           <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
@@ -615,7 +579,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <EntitySet Name="Purchases" EntityType="Self.Purchase" />
           <EntitySet Name="Shops" EntityType="Self.Shop" />
           <EntitySet Name="Towns" EntityType="Self.Town" />
-          <EntitySet Name="Benefits" EntityType="Self.Benefit" />
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
             <End Role="Card" EntitySet="Cards" />
             <End Role="Purchase" EntitySet="Purchases" />
@@ -627,10 +590,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <AssociationSet Name="FK_Purchase_Shop" Association="Self.FK_Purchase_Shop">
             <End Role="Shop" EntitySet="Shops" />
             <End Role="Purchase" EntitySet="Purchases" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
-            <End Role="Shop" EntitySet="Shops" />
-            <End Role="Benefit" EntitySet="Benefits" />
           </AssociationSet>
           <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
             <End Role="Town" EntitySet="Towns" />
@@ -692,6 +651,11 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
           <AssociationSet Name="FileFileContent" Association="PointEx.Data.FileFileContent">
             <End Role="File" EntitySet="Files" />
             <End Role="FileContent" EntitySet="FileContents" />
+          </AssociationSet>
+          <EntitySet Name="Benefits" EntityType="PointEx.Data.Benefit" />
+          <AssociationSet Name="FK_Benefit_Shop" Association="PointEx.Data.FK_Benefit_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Benefit" EntitySet="Benefits" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -941,6 +905,32 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Benefit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountPercentageCeiling" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
+        </EntityType>
+        <Association Name="FK_Benefit_Shop">
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1000,17 +990,6 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
               <MappingFragment StoreEntitySet="Town">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Benefits">
-            <EntityTypeMapping TypeName="PointEx.Data.Benefit">
-              <MappingFragment StoreEntitySet="Benefit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1119,6 +1098,20 @@ warning 6002: The table/view 'PointEx.dbo.Benefit' does not have a primary key d
             <EntityTypeMapping TypeName="IsTypeOf(PointEx.Data.FileContent)">
               <MappingFragment StoreEntitySet="File">
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benefits">
+            <EntityTypeMapping TypeName="PointEx.Data.Benefit">
+              <MappingFragment StoreEntitySet="Benefit">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="DiscountPercentageCeiling" ColumnName="DiscountPercentageCeiling" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

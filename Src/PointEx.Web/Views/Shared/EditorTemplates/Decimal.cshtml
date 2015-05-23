@@ -1,7 +1,5 @@
 ﻿@model decimal?
 @{
-    var currency = Model == 0 || !Model.HasValue ? string.Empty : Model.GetValueOrDefault().ToString("n2");
+    var value = Model.HasValue ? Model.Value.ToString("n2") : string.Empty;
 }
-<div class="input-group col-xs-3">
-    @Html.TextBox("", currency, new { @class = "form-control autonumeric", data_a_sep = "" , data_a_dec="," })
-</div>
+@Html.TextBox("", value, new { @class = "form-control autonumeric-control", data_a_sep = "", data_a_dec = "," })

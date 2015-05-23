@@ -14,11 +14,11 @@ namespace PointEx.Service
         List<PrizeDto> GetAll(string sortBy, string sortDirection, string criteria,
             int pageIndex, int pageSize, out int pageTotal);
 
-        void Create(Prize educationalInstitution);
+        void Create(Prize prize);
 
-        void Edit(Prize educationalInstitution);
+        void Edit(Prize prize);
 
-        void Delete(int educationalInstitutionId);
+        void Delete(int prizeId);
 
         bool IsNameAvailable(string name, int id);
     }

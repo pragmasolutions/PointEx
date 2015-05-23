@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }
 
+.input-group {
+    max-width: 280px;
+}
+
 #filter-container input,
 #filter-container select,
 #filter-container textarea {
@@ -59,4 +63,8 @@ textarea {
 .btn-back-to-list {
     margin-top: 5px;
     /*margin-bottom: 5px;*/
+}
+
+.autonumeric-control {
+    text-align: right;
 }

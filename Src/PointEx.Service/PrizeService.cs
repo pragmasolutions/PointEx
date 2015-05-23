@@ -16,12 +16,10 @@ namespace PointEx.Service
     public class PrizeService : ServiceBase, IPrizeService
     {
         private readonly IClock _clock;
-        private readonly IFileService _fileService;
 
-        public PrizeService(IPointExUow uow, IClock clock, IFileService fileService)
+        public PrizeService(IPointExUow uow, IClock clock)
         {
             _clock = clock;
-            _fileService = fileService;
             Uow = uow;
         }
 

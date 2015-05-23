@@ -15,7 +15,10 @@ namespace PointEx.Entities
     public partial class Benefit
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
+        public Nullable<decimal> DiscountPercentage { get; set; }
+        public Nullable<decimal> DiscountPercentageCeiling { get; set; }
         public int ShopId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

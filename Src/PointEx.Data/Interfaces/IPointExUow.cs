@@ -19,5 +19,6 @@ namespace PointEx.Data.Interfaces
         IRepository<PointsExchange> PointsExchanges { get; }
         IRepository<File> Files { get; }
         IRepository<FileContent> FileContents { get; }
+        IRepository<Benefit> Benefits { get; }
     }
 }

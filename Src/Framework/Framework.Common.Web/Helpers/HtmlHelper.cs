@@ -16,5 +16,16 @@ namespace Framework.Common.Web.Helpers
             var html = String.Format("<a href=\"{0}\" class=\"btn btn-primary btn-back-to-list\"><span class=\"glyphicon glyphicon-arrow-left\"></span> {1}</a>", url, buttonText);
             return MvcHtmlString.Create(html);
         }
+
+        public static MvcHtmlString FilterButton(this HtmlHelper helper, string filterContainer = "filter-container")
+        {
+            var html =
+                String.Format(
+                    "<button class=\"btn btn-primary\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{0}\" aria-expanded=\"false\" aria-controls=\"filter-container\">"
+                    + "<span class=\"glyphicon glyphicon-filter\"></span>"
+                    + "</button>", filterContainer);
+
+            return MvcHtmlString.Create(html);
+        }
     }
 }

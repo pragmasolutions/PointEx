@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IBenefitService.cs" />
     <Compile Include="Interfaces\IPrizeService.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
+    <Compile Include="BenefitService.cs" />
     <Compile Include="PrizeService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBeneficiaryService.cs" />

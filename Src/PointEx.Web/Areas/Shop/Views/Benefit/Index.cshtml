@@ -1,0 +1,37 @@
+﻿@using PagedList.Mvc
+@model PointEx.Web.Models.BenefitListModel
+
+<h3>Premios</h3>
+
+@Html.ActionLink("Crear Beneficio", "Create", "Benefit", routeValues: new { area = "Shop" }, htmlAttributes: new { @class = "btn btn-primary" })
+
+@Html.FilterButton()
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_Filters", Model.Filters)
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Procentaje de Descuento</th>
+            <th>Tope Porcentaje de Descuento</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var benefit in Model.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
+                <td>@benefit.DiscountPercentage.GetValueOrDefault().ToString("n2")</td>
+                <td>@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("n2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))
