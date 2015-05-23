@@ -132,6 +132,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="BenefitId" Type="int" Nullable="false" />
           <Property Name="PurchaseDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
         </EntityType>
@@ -299,6 +300,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Purchase_Benefit">
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
           <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
@@ -431,6 +444,10 @@
             <End Role="File" EntitySet="File" />
             <End Role="Prize" EntitySet="Prize" />
           </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Benefit" Association="Self.FK_Purchase_Benefit">
+            <End Role="Benefit" EntitySet="Benefit" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
             <End Role="Card" EntitySet="Card" />
             <End Role="Purchase" EntitySet="Purchase" />
@@ -496,6 +513,8 @@
           <NavigationProperty Name="Card" Relationship="Self.FK_Purchase_Card" FromRole="Purchase" ToRole="Card" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Purchase_Shop" FromRole="Purchase" ToRole="Shop" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="BenefitId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Purchase" ToRole="Benefit" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -656,6 +675,10 @@
           <AssociationSet Name="FK_Benefit_Shop" Association="PointEx.Data.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shops" />
             <End Role="Benefit" EntitySet="Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Benefit" Association="PointEx.Data.FK_Purchase_Benefit">
+            <End Role="Benefit" EntitySet="Benefits" />
+            <End Role="Purchase" EntitySet="Purchases" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -918,6 +941,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
+          <NavigationProperty Name="Purchases" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Benefit" ToRole="Purchase" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -928,6 +952,18 @@
             </Principal>
             <Dependent Role="Benefit">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Benefit">
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="1" />
+          <End Type="PointEx.Data.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="BenefitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -963,6 +999,7 @@
           <EntitySetMapping Name="Purchases">
             <EntityTypeMapping TypeName="PointEx.Data.Purchase">
               <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />

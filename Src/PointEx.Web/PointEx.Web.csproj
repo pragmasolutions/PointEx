@@ -243,10 +243,12 @@
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
     <Compile Include="Areas\Beneficiary\BeneficiaryAreaRegistration.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\Shop\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitController.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -256,6 +258,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CurrentUser.cs" />
+    <Compile Include="Infrastructure\ICurrentUser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
     <Compile Include="Models\List\FilterBaseModel.cs" />
@@ -335,6 +339,8 @@
     <Content Include="Areas\Shop\Views\Benefit\Index.cshtml" />
     <Content Include="Areas\Shop\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Shop\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Shop\Views\Purchase\Create.cshtml" />
+    <Content Include="Areas\Shop\Views\Purchase\EditorTemplates\BenefitId.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />

@@ -48,6 +48,8 @@ namespace PointEx.Web
             kernel.Bind<IPrizeService>().To<PrizeService>().InRequestScope();
             kernel.Bind<IFileService>().To<FileService>().InRequestScope();
             kernel.Bind<IBenefitService>().To<BenefitService>().InRequestScope();
+            kernel.Bind<IPurchaseService>().To<PurchaseService>().InRequestScope();
+            kernel.Bind<ICardService>().To<CardService>().InRequestScope();
         }
     }
 }

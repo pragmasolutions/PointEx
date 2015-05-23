@@ -51,6 +51,11 @@ namespace PointEx.Service
             return Uow.Benefits.Get(id);
         }
 
+        public IQueryable<Benefit> GetAllByShopId(int shopId)
+        {
+            return Uow.Benefits.GetAll(b => b.ShopId == shopId);
+        }
+
         public Benefit GetByName(string name)
         {
             return Uow.Benefits.Get(e => e.Description == name);

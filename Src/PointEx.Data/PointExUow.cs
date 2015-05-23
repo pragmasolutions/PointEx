@@ -33,6 +33,7 @@ namespace PointEx.Data
         public IRepository<File> Files { get { return GetStandardRepo<File>(); } }
         public IRepository<FileContent> FileContents { get { return GetStandardRepo<FileContent>(); } }
         public IRepository<Benefit> Benefits { get { return GetStandardRepo<Benefit>(); } }
+        public IRepository<Purchase> Purchases { get { return GetStandardRepo<Purchase>(); } }
 
         public string ConnectionString
         {

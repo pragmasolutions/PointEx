@@ -1,0 +1,20 @@
+﻿@model PointEx.Web.Models.PurchaseForm
+
+@{
+    ViewBag.Title = PointExResources.CreatePurchaseTitle;
+}
+
+<h3>@PointExResources.CreatePurchaseTitle</h3>
+<hr />
+
+@using (Html.BeginForm("Create", "Purchase", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear Compra" class="btn btn-default" />
+        </div>
+    </div>
+}

@@ -14,6 +14,11 @@ namespace PointEx.Entities
     
     public partial class Benefit
     {
+        public Benefit()
+        {
+            this.Purchases = new HashSet<Purchase>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,5 +29,6 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual Shop Shop { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
     }
 }

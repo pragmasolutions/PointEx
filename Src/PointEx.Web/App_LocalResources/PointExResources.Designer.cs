@@ -106,6 +106,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear Compra.
+        /// </summary>
+        public static string CreatePurchaseTitle {
+            get {
+                return ResourceManager.GetString("CreatePurchaseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear Comercio.
         /// </summary>
         public static string CreateShopTitle {

@@ -11,6 +11,8 @@ namespace PointEx.Service
 
         Benefit GetById(int id);
 
+        IQueryable<Benefit> GetAllByShopId(int shopId);
+
         List<BenefitDto> GetAll(string sortBy, string sortDirection, string criteria,
             int pageIndex, int pageSize, out int pageTotal);
 

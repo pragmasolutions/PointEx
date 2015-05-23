@@ -162,4 +162,7 @@
   <data name="EditBenefitTitle" xml:space="preserve">
     <value>Editar Beneficio</value>
   </data>
+  <data name="CreatePurchaseTitle" xml:space="preserve">
+    <value>Crear Compra</value>
+  </data>
 </root>
