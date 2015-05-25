@@ -10,7 +10,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Shop.Controllers
 {
-    public class PurchaseController : BaseController
+    public class PurchaseController : ShopBaseController
     {
         private readonly IPurchaseService _purchaseService;
         private readonly IShopService _shopService;

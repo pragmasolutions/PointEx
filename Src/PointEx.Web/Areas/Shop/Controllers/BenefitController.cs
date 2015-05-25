@@ -9,7 +9,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Shop.Controllers
 {
-    public class BenefitController : BaseController
+    public class BenefitController : ShopBaseController
     {
         private readonly IBenefitService _benefitService;
         private readonly IShopService _shopService;

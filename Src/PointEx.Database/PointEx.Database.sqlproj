@@ -92,6 +92,5 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
-    <None Include="ReferenceData\Schema.sql" />
   </ItemGroup>
 </Project>

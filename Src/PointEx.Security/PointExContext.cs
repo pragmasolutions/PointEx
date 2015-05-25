@@ -51,7 +51,7 @@ namespace PointEx.Security
         {
             get
             {
-                if (Role == RolesNames.Beneficiario)
+                if (Role == RolesNames.Beneficiary)
                 {
                     if (HttpContext.Current.Session["Beneficiary"] == null)
                     {
@@ -71,7 +71,7 @@ namespace PointEx.Security
         {
             get
             {
-                if (Role == RolesNames.Comercio)
+                if (Role == RolesNames.Shop)
                 {
                     if (HttpContext.Current.Session["Shop"] == null)
                     {
@@ -91,6 +91,5 @@ namespace PointEx.Security
         {
             System.Web.HttpContext.Current.Session["User"] = user;
         }
-
     }
 }
