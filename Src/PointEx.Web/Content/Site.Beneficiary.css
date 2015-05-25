@@ -46,6 +46,9 @@
   color: darkcyan;
   font-weight: bold;
 }
+.layout-container .menulateral .item {
+  margin-bottom: 15px;
+}
 .layout-container .layout-body {
   width: 100%;
   padding: 10px 20px;

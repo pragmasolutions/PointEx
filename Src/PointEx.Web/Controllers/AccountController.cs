@@ -95,23 +95,13 @@ namespace PointEx.Web.Controllers
             {
                 case SignInStatus.Success:
                     var user = _uow.Users.Get(u => u.UserName == model.Email, u => u.Roles);
+                    PointExContext.SetIdentity(user);
                     if (user.Roles.Any(r => r.Name == RolesNames.Admin))
                     {
-                        PointExContext.SetIdentity(user);
                         return RedirectToLocal("/Admin/Home/Index");
                     }
                     if (user.Roles.Any(r => r.Name == RolesNames.Beneficiario))
-                    {
-                        var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == user.Id, b => b.User, b => b.Town,
-                                                                                b => b.Cards, b => b.EducationalInstitution,
-                                                                                b => b.PointsExchanges);
-                        PointExContext.SetIdentity(user, beneficiary);
                         return RedirectToLocal("/Beneficiary/Profile/Index");
-                    }
-                    var shop = _uow.Shops.Get(s => s.UserId == user.Id, s => s.User, s => s.Benefits,
-                                                                                s => s.Purchases, s => s.ShopCategories,
-                                                                                s => s.Town);
-                        PointExContext.SetIdentity(user, shop);
                     return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
+using System.Web;
 using System.Web.ModelBinding;
+using Framework.Data.EntityFramework.Helpers;
+using PointEx.Data;
 using PointEx.Entities;
 
 namespace PointEx.Security
 {
     public static class PointExContext // : IPointExContext
     {
+        private static PointExUow _uow = new PointExUow(new RepositoryProvider(new RepositoryFactories())); 
+
         public static User User
         {
             get
             {
-                if (System.Web.HttpContext.Current.Session["User"] != null)
-                    return System.Web.HttpContext.Current.Session["User"] as User;
+                if (HttpContext.Current.Session["User"] != null)
+                    return HttpContext.Current.Session["User"] as User;
+                if (HttpContext.Current.User.Identity != null)
+                {
+                    var user = _uow.Users.Get(u => u.UserName == HttpContext.Current.User.Identity.Name, u => u.Roles);
+                    HttpContext.Current.Session["User"] = user;
+                    return user;
+                }
                 return null;
             }
         }
@@ -35,17 +47,41 @@ namespace PointEx.Security
             }
         }
 
-        private static Beneficiary _beneficiary;
         public static Beneficiary Beneficiary
         {
             get
             {
-                if (_beneficiary != null)
-                    return _beneficiary;
                 if (Role == RolesNames.Beneficiario)
                 {
-                    _beneficiary = System.Web.HttpContext.Current.Session["Beneficiary"] as Beneficiary;
-                    return _beneficiary;
+                    if (HttpContext.Current.Session["Beneficiary"] == null)
+                    {
+
+                        var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == User.Id, b => b.User, b => b.Town,
+                                                                                b => b.Cards, b => b.EducationalInstitution,
+                                                                                b => b.PointsExchanges);
+                        HttpContext.Current.Session["Beneficiary"] = beneficiary;
+                    }
+                    return HttpContext.Current.Session["Beneficiary"] as Beneficiary;
+                }
+                return null;
+            }
+        }
+
+        public static Shop Shop
+        {
+            get
+            {
+                if (Role == RolesNames.Comercio)
+                {
+                    if (HttpContext.Current.Session["Shop"] == null)
+                    {
+
+                        var shop = _uow.Shops.Get(s => s.UserId == User.Id, s => s.User, s => s.Benefits,
+                                                                                s => s.Purchases, s => s.ShopCategories,
+                                                                                s => s.Town);
+                        HttpContext.Current.Session["Shop"] = shop;
+                    }
+                    return HttpContext.Current.Session["Shop"] as Shop;
                 }
                 return null;
             }
@@ -56,16 +92,5 @@ namespace PointEx.Security
             System.Web.HttpContext.Current.Session["User"] = user;
         }
 
-        public static void SetIdentity(User user, Beneficiary beneficiary)
-        {
-            SetIdentity(user);
-            System.Web.HttpContext.Current.Session["Beneficiary"] = beneficiary;
-        }
-
-        public static void SetIdentity(User user, Shop shop)
-        {
-            SetIdentity(user);
-            System.Web.HttpContext.Current.Session["Shop"] = shop;
-        }
     }
 }

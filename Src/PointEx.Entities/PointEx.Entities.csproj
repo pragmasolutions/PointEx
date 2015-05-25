@@ -80,6 +80,7 @@
     <Compile Include="FileContent.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\BeneficiaryMetadata.cs" />
     <Compile Include="PointExModel.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -128,6 +129,7 @@
       <Name>Framework.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
