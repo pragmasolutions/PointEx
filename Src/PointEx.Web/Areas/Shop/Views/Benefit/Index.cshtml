@@ -3,7 +3,7 @@
 
 <h3>Premios</h3>
 
-@Html.ActionLink("Registrar Ptos Compra", "Create", "Benefit", routeValues: new { area = "Shop" }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Crear Beneficio", "Create", "Benefit", routeValues: new { area = "Shop" }, htmlAttributes: new { @class = "btn btn-primary" })
 
 @Html.FilterButton()
 
@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
-                <td>@benefit.DiscountPercentage.GetValueOrDefault().ToString("p2")</td>
+                <td>@benefit.DiscountPercentage.GetValueOrDefault().ToString("n2")</td>
                 <td>@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("n2")</td>
             </tr>
         }

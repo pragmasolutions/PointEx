@@ -1,7 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
+using Framework.Common.Web.Metadata;
 using PointEx.Entities;
 
 namespace PointEx.Web.Models
@@ -11,16 +17,13 @@ namespace PointEx.Web.Models
         [HiddenInput]
         public int Id { get; set; }
 
-        [Required]
         [Display(Name = @"Monto")]
         [DataType(DataType.Currency)]
         public decimal? Amount { get; set; }
 
         [UIHint("BenefitId")]
-        [Display(Name = @"Beneficio")]
-        public int? BenefitId { get; set; }
+        public int BenefitId { get; set; }
 
-        [Required]
         [Display(Name = @"Nro Tarjeta")]
         [Remote("ValidateCardNumber", "Purchase", "Shop",ErrorMessage = "El numero de tarjeta no es válido")]
         public string CardNumber { get; set; }

@@ -5,7 +5,6 @@ using PagedList;
 using PointEx.Entities.Dto;
 using PointEx.Service;
 using PointEx.Web.Controllers;
-using PointEx.Web.Infrastructure;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Shop.Controllers
@@ -14,21 +13,13 @@ namespace PointEx.Web.Areas.Shop.Controllers
     {
         private readonly IPurchaseService _purchaseService;
         private readonly IShopService _shopService;
-        private readonly ICurrentUser _currentUser;
         private readonly ICardService _cardService;
 
-        public PurchaseController(IPurchaseService purchaseService, IShopService shopService,ICurrentUser currentUser, ICardService cardService)
+        public PurchaseController(IPurchaseService purchaseService, IShopService shopService, ICardService cardService)
         {
             _purchaseService = purchaseService;
             _shopService = shopService;
-            _currentUser = currentUser;
             _cardService = cardService;
-        }
-
-        public ActionResult Index()
-        {
-            var todayPurchases = _purchaseService.GetTodayPurchasesByShopId(_currentUser.Shop.Id);
-            return View(todayPurchases);
         }
 
         public ActionResult Create()
@@ -47,14 +38,15 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             var purchase = purchaseForm.ToPurchase();
 
+            var currentShop = _shopService.GetByUserId(this.User.Identity.GetUserId());
             var card = _cardService.GetByNumber(purchaseForm.CardNumber);
 
-            purchase.ShopId = _currentUser.Shop.Id;
+            purchase.ShopId = currentShop.Id;
             purchase.CardId = card.Id;
 
             _purchaseService.Create(purchase);
 
-            return RedirectToAction("Index").WithSuccess("Compra Creada");
+            return RedirectToAction("Index", "Benefit").WithSuccess("Compra Creada");
         }
 
         public ActionResult ValidateCardNumber(string cardNumber)
