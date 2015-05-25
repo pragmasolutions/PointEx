@@ -87,6 +87,8 @@
     <Compile Include="Helpers\JavaScriptHelper.cs" />
     <Compile Include="Metadata\FileAttribute.cs" />
     <Compile Include="Metadata\RenderAttribute.cs" />
+    <Compile Include="ModelBinders\DateTimeModelBinder.cs" />
+    <Compile Include="ModelBinders\DecimalModelBinder.cs" />
     <Compile Include="ModelBinders\EFModelBinderProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

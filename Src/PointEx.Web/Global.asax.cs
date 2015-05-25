@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -21,6 +22,10 @@ namespace PointEx.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ModelBinderProviders.BinderProviders.Add(new EFModelBinderProvider());
+            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
+            ModelBinders.Binders.Add(typeof(DateTime?), new NullableDateTimeModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal?), new DecimalModelBinder());
 
             AutoMapperConfig.Config();
             ValidationConfig.Config();
