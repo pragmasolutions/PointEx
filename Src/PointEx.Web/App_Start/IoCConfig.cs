@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Security.Principal;
+using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using Framework.Common.Utility;
 using Framework.Data.EntityFramework.Helpers;
@@ -11,6 +13,7 @@ using PointEx.Data;
 using PointEx.Data.Interfaces;
 using PointEx.Security.Managers;
 using PointEx.Service;
+using PointEx.Web.Infrastructure;
 
 namespace PointEx.Web
 {
@@ -50,6 +53,9 @@ namespace PointEx.Web
             kernel.Bind<IBenefitService>().To<BenefitService>().InRequestScope();
             kernel.Bind<IPurchaseService>().To<PurchaseService>().InRequestScope();
             kernel.Bind<ICardService>().To<CardService>().InRequestScope();
+
+            kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
+            kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);
         }
     }
 }
