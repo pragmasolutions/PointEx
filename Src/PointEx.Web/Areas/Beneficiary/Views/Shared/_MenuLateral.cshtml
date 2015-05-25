@@ -2,15 +2,22 @@
 
 
 <div class="menulateral">
-    Hola <br />
-    <div class="nombre">
-        @PointExContext.Beneficiary.Name
+    <div class="item">
+        Hola <br />
+        <div class="nombre">
+            @PointExContext.Beneficiary.Name
+        </div>
     </div>
-    <br/><br />
+    <div class="item">
+        Tus Puntos:
+        <div class="tus-puntos">
+            @PointExContext.Beneficiary.Points
+        </div>
+    </div>
 
-    Tus Puntos:
-    <div class="tus-puntos">
-        925
-    </div>
+    
+
+
+
     <a href="/Beneficiary/Profile/Purchases">Ver Detalle</a>
 </div>

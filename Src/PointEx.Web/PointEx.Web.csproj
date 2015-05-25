@@ -446,6 +446,7 @@
     <Content Include="Views\Shared\EditorTemplates\ImageFile.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ImageFile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Percentage.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

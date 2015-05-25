@@ -1,0 +1,22 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model DateTime?
+@{
+    var date = Model.HasValue ? String.Format("{0:d}", ((DateTime)Model).ToShortDateString()) : string.Empty;
+
+    string errorMessange = "Email invalido";
+
+    var property = ViewData.ModelMetadata.ContainerType.GetProperties()
+        .FirstOrDefault(p => p.Name == ViewData.ModelMetadata.PropertyName);
+
+    if (property != null)
+    {
+        var dataTypeAttr = property.GetCustomAttributes(true)
+                               .FirstOrDefault(a => a is DataTypeAttribute) as DataTypeAttribute;
+
+        if (dataTypeAttr != null)
+        {
+            errorMessange = dataTypeAttr.ErrorMessage;
+        }
+    }
+}
+@Html.TextBox("", date, new { @class = "form-control", @readonly = "readonly", data_val = "true", data_val_date = errorMessange })
