@@ -17,7 +17,7 @@ namespace PointEx.Web.Areas.Shop
             context.MapRoute(
                 "Shop_default",
                 "Shop/{controller}/{action}/{id}",
-                new { action = "Index",controller = "Benefit", id = UrlParameter.Optional }
+                new { action = "Index",controller = "Purchase", id = UrlParameter.Optional }
             );
         }
     }
