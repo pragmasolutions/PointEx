@@ -1,7 +1,15 @@
 ﻿@model PointEx.Web.Models.BeneficiaryCardsModel
 <h3>Tarjetas Beneficiario:  <strong>@(Model.Beneficiary.Name)</strong></h3>
 
-@Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
+<div>
+    @Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
+
+    @if (Model.Cards.All(c => c.EndDate.HasValue))
+    {
+        @Html.ActionLink("Crear Tarjeta", "CreateCard", "Beneficiary", routeValues: new { area = "Admin", beneficiaryId = Model.Beneficiary.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+    }
+</div>
+
 <hr />
 
 <table class="table table-hover">
@@ -9,7 +17,7 @@
         <tr>
             <th>Fecha de Expedición</th>
             <th>Número</th>
-            <th>Activa</th>
+            <th>Fecha Cancelación</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -18,8 +26,32 @@
             <tr>
                 <td>@card.IssueDate.ToShortDateString()</td>
                 <td>@card.Number</td>
-                <td></td>
+                <td>
+                    @if (!card.EndDate.HasValue)
+                    {
+                        using (Html.BeginForm("CancelCard", "Beneficiary", new {id = card.Id}, FormMethod.Post, new {@class = "cancel-card-form"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-warning">Cancel</button>
+                        }
+                    }
+                    else
+                    {
+                        @card.EndDate.Value.ToShortDateString()
+                    }
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".cancel-card-form").on("submit", function () {
+                return confirm("Esta seguro que desea cancelar esta tarjeta?  Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

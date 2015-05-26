@@ -23,6 +23,7 @@ namespace PointEx.Entities
         public string Number { get; set; }
         public System.DateTime IssueDate { get; set; }
         public int BeneficiaryId { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual Beneficiary Beneficiary { get; set; }
