@@ -10,7 +10,7 @@ BEGIN
 	DECLARE @Exchanges INT
 	
 	
-	SELECT @Purchases = FLOOR(ISNULL(SUM(P.Amount), 0) / 100)
+	SELECT @Purchases = ISNULL(SUM(FLOOR(P.Amount / 100)), 0)
 	FROM Purchase P
 		LEFT JOIN [Card] C
 			ON P.CardId = C.Id

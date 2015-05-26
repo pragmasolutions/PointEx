@@ -12,9 +12,15 @@ namespace PointEx.Entities
         {
             get
             {
-                var purchases = this.Cards.SelectMany(c => c.Purchases).Sum(p => p.Amount);
+                var purchases = this.Cards.SelectMany(c => c.Purchases);
+                var acumulatedPoints = 0;
+                foreach (var purchase in purchases)
+                {
+                    var total = Math.Floor(purchase.Amount/100);
+                    acumulatedPoints = Convert.ToInt32(total == 0 ? 1 : total);
+                }
                 var exchanges = this.PointsExchanges.Sum(pe => pe.PointsUsed);
-                return Convert.ToInt32(purchases - exchanges);
+                return Convert.ToInt32(acumulatedPoints - exchanges);
             }
         }
     }
@@ -29,11 +35,11 @@ namespace PointEx.Entities
         [Required(ErrorMessage = null)]
         public int TownId { get; set; }
 
-        //[DisplayName("Fecha de Creación")]
-        //public DateTime CreatedDate { get; set; }
+        [DisplayName("Fecha de Creación")]
+        public DateTime CreatedDate { get; set; }
 
-        //[DisplayName("Fecha de Modificación")]
-        //public DateTime? ModifiedDate { get; set; }
+        [DisplayName("Fecha de Modificación")]
+        public DateTime? ModifiedDate { get; set; }
 
         [DisplayName("Nombre")]
         [Required(ErrorMessage = null)]
@@ -43,7 +49,7 @@ namespace PointEx.Entities
         [UIHint("Date")]
         public DateTime? BirthDate { get; set; }
 
-        //[DisplayName("Dirección")]
+        [DisplayName("Dirección")]
         public string Address { get; set; }
     }
 }
