@@ -84,7 +84,7 @@ namespace PointEx.Service
                 prize.File.CreatedDate = _clock.Now;
                 currentPrize.File = prize.File;
             }
-            else if (currentPrize.File != null && prize.File != null && prize.File.FileContent != null)
+            else if (currentPrize.File != null && prize.File != null && prize.File.FileContent != null && prize.File.FileContent.Content != null)
             {
                 //Edit actual
                 currentPrize.File.Name = prize.File.Name;

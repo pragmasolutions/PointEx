@@ -17,11 +17,13 @@ namespace PointEx.Web.Areas.Admin.Controllers
     {
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly ApplicationUserManager _userManager;
+        private readonly ICardService _cardService;
 
-        public BeneficiaryController(IBeneficiaryService beneficiaryService,ApplicationUserManager userManager)
+        public BeneficiaryController(IBeneficiaryService beneficiaryService, ApplicationUserManager userManager,ICardService cardService)
         {
             _beneficiaryService = beneficiaryService;
             _userManager = userManager;
+            _cardService = cardService;
         }
 
         public ActionResult Index(BeneficiaryListFiltersModel filters)
@@ -40,10 +42,19 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Detail(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);
-            
+
             var beneficiaryForm = BeneficiaryForm.Create(beneficiary, new ApplicationUser());
-            
+
             return View(beneficiaryForm);
+        }
+
+        public ActionResult Cards(int id)
+        {
+            var beneficiary= _beneficiaryService.GetById(id);
+            var cards = _cardService.GetByBeneficiaryId(id);
+            var beneficiaryCards = new BeneficiaryCardsModel(beneficiary, cards);
+
+            return View(beneficiaryCards);
         }
 
         public ActionResult Create()

@@ -1,0 +1,25 @@
+﻿@model PointEx.Web.Models.BeneficiaryCardsModel
+<h3>Tarjetas Beneficiario:  <strong>@(Model.Beneficiary.Name)</strong></h3>
+
+@Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
+<hr />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Fecha de Expedición</th>
+            <th>Número</th>
+            <th>Activa</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var card in Model.Cards)
+        {
+            <tr>
+                <td>@card.IssueDate.ToShortDateString()</td>
+                <td>@card.Number</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -37,5 +37,10 @@ namespace PointEx.Service
             //TODO: Validate if the card is active.
             return true;
         }
+
+        public IList<Card> GetByBeneficiaryId(int beneficiaryId)
+        {
+            return Uow.Cards.GetAll(c => c.BeneficiaryId == beneficiaryId).ToList();
+        }
     }
 }

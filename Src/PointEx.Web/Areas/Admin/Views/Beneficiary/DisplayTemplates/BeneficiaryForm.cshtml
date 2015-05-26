@@ -1,0 +1,39 @@
+﻿@using Framework.Common.Web.Helpers
+@model PointEx.Web.Models.BeneficiaryForm
+
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Name)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.TownId)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.TownId)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Address)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.BirthDate)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.BirthDate)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.EducationalInstitutionId)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.EducationalInstitutionId)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.RegisterViewModel.Email)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.RegisterViewModel.Email)
+    </div>
+</div>
