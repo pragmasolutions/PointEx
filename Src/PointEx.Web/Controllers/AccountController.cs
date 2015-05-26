@@ -100,7 +100,7 @@ namespace PointEx.Web.Controllers
                     {
                         return RedirectToLocal("/Admin/Home/Index");
                     }
-                    if (user.Roles.Any(r => r.Name == RolesNames.Beneficiario))
+                    if (user.Roles.Any(r => r.Name == RolesNames.Beneficiary))
                         return RedirectToLocal("/Beneficiary/Profile/Index");
                     return RedirectToLocal("/Shop/Home/Index");
                 case SignInStatus.LockedOut:

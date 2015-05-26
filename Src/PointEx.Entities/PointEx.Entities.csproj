@@ -68,7 +68,6 @@
     </Compile>
     <Compile Include="Dto\BeneficiaryDto.cs" />
     <Compile Include="Dto\BenefitDto.cs" />
-    <Compile Include="Dto\PurchaseDto.cs" />
     <Compile Include="Dto\PrizeDto.cs" />
     <Compile Include="Dto\EducationalInstitutionDto.cs" />
     <Compile Include="Dto\ShopDto.cs" />

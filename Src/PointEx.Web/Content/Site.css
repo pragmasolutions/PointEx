@@ -27,6 +27,10 @@ textarea {
     max-width: 280px;
 }
 
+.file-input .input-group {
+    max-width: none;
+}
+
 #filter-container input,
 #filter-container select,
 #filter-container textarea {
@@ -38,33 +42,39 @@ textarea {
 }
 
 .select2-container {
-  display: block;
+    display: block;
+    width: 100% !important;
+    max-width: 280px;
 }
 
-.select2-container .select2-selection--single {
-    height: 34px;
-}
+    .select2-container .select2-selection--single {
+        height: 34px;
+    }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 3px;
 }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .form-group-date {
-     max-width: 280px;
+    max-width: 280px;
 }
 
 .btn-back-to-list {
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     /*margin-bottom: 5px;*/
 }
 
 .autonumeric-control {
     text-align: right;
+}
+
+.field-validation-error {
+    color: #a94442;
 }

@@ -11,5 +11,4 @@ Post-Deployment Script Template
 */
 
 :r .\Roles.Data.sql	
-:r .\Categories.Data.sql	
-:r .\Schema.sql	
+:r .\Categories.Data.sql

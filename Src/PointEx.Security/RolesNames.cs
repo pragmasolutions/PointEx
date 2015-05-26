@@ -2,8 +2,8 @@
 {
     public class RolesNames
     {
-        public const string Admin = "Administrador";
-        public const string Beneficiario = "Beneficiario";
-        public const string Comercio = "Comercio";
+        public const string Admin = "Administrator";
+        public const string Beneficiary = "Beneficiary";
+        public const string Shop = "Shop";
     }
 }
