@@ -30,11 +30,13 @@
 .layout-container tr td {
   vertical-align: top;
 }
+.layout-container .td-menu-lateral {
+  background-color: beige;
+  width: 300px;
+}
 .layout-container .menulateral {
   width: 100%;
-  background-color: beige;
   padding: 20px;
-  height: 100%;
 }
 .layout-container .menulateral .nombre {
   font-size: 120%;

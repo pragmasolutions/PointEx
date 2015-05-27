@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="ReferenceData" />
     <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Prize.sql" />
@@ -84,6 +85,7 @@
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Functions\Beneficiary_GetPoints.sql" />
     <Build Include="dbo\Tables\File.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_PurchasesAndExchanges.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />

@@ -14,6 +14,13 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.BirthDate, new {@class = "col-md-4 control-label"})
+        <div class="col-md-8">
+            @Html.DisplayFor(model => model.BirthDate)
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.Address, new { @class = "col-md-4 control-label" })
         <div class="col-md-8">
             @Html.DisplayFor(model => model.Address)
@@ -21,9 +28,17 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.BirthDate, new { @class = "col-md-4 control-label" })
+        @Html.LabelFor(model => model.TownId, new { @class = "col-md-4 control-label" })
         <div class="col-md-8">
-            @Html.DisplayFor(model => model.BirthDate)
+            @Html.DisplayFor(model => model.Town.Name)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EducationalInstitutionId, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.DisplayFor(model => model.EducationalInstitution.Name)
         </div>
     </div>
 </div>
