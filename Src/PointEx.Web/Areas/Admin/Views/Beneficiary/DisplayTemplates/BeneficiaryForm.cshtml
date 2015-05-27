@@ -8,6 +8,12 @@
     </div>
 </div>
 <div class="form-group">
+    @Html.BootstrapLabelFor(model => model.IdentificationNumber)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.IdentificationNumber)
+    </div>
+</div>
+<div class="form-group">
     @Html.BootstrapLabelFor(model => model.TownId)
     <div class="col-md-10">
         @Html.DisplayFor(model => model.TownId)

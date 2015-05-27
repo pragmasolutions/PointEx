@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using Framework.Common.Web.ActionResults;
 using Microsoft.Web.Mvc;
 
 namespace PointEx.Web.Controllers
@@ -14,7 +15,7 @@ namespace PointEx.Web.Controllers
             return ControllerExtensions.RedirectToAction(this, action);
         }
 
-        protected ImageResult Image(byte[] fileBytes, string contentType, int width = 0, int height = 0)
+        protected ImageResult Image(byte[] fileBytes, string contentType, int? width = null, int? height = null)
         {
             return new ImageResult(fileBytes, contentType, width, height);
         }
