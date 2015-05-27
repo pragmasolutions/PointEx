@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Framework.Data.Repository;
 using PointEx.Entities;
 
@@ -21,5 +22,7 @@ namespace PointEx.Data.Interfaces
         IRepository<FileContent> FileContents { get; }
         IRepository<Benefit> Benefits { get; }
         IRepository<Purchase> Purchases { get; }
+
+        PointExDbContext DbContext { get; }
     }
 }

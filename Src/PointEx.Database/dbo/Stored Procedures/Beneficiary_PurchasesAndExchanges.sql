@@ -18,7 +18,7 @@ BEGIN
 			0,
 			CASE FLOOR(P.Amount / 100)
 				WHEN 0 THEN 1
-				ELSE P.Amount
+				ELSE FLOOR(P.Amount / 100)
 			END	
 	FROM Purchase P
 		LEFT JOIN [Card] C
@@ -40,4 +40,5 @@ BEGIN
 	
 	SELECT *
 	FROM @Table
+	ORDER BY TransactionDate DESC
 END

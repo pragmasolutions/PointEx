@@ -385,6 +385,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Beneficiary_PurchasesAndExchanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BeneficiaryId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PointExDataStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
@@ -682,6 +685,9 @@
             <End Role="Benefit" EntitySet="Benefits" />
             <End Role="Purchase" EntitySet="Purchases" />
           </AssociationSet>
+          <FunctionImport Name="BeneficiaryPurchasesAndExchanges" ReturnType="Collection(PointEx.Data.PointTransaction)">
+          <Parameter Name="BeneficiaryId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -969,6 +975,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="PointTransaction">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="DateTime" Name="TransactionDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Debit" Nullable="true" />
+          <Property Type="Int32" Name="Credit" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1156,6 +1169,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BeneficiaryPurchasesAndExchanges" FunctionName="PointEx.Data.Store.Beneficiary_PurchasesAndExchanges">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PointEx.Data.PointTransaction">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

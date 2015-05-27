@@ -91,7 +91,7 @@ namespace PointEx.Data
             return RepositoryProvider.GetRepository<T>();
         }
 
-        private PointExDbContext DbContext { get; set; }
+        public PointExDbContext DbContext { get; set; }
 
         #region IDisposable
 
