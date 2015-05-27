@@ -75,6 +75,7 @@
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\PointTransaction.cs" />
     <Compile Include="File.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -88,6 +89,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="PointsExchange.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PointTransaction.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Prize.cs">

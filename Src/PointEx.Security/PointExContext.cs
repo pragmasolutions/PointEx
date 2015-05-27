@@ -57,7 +57,9 @@ namespace PointEx.Security
                     {
 
                         var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == User.Id, b => b.User, b => b.Town,
-                                                                                b => b.Cards, b => b.EducationalInstitution,
+                                                                                b => b.Cards, 
+                                                                                b => b.Cards.Select(c => c.Purchases),
+                                                                                b => b.EducationalInstitution,
                                                                                 b => b.PointsExchanges);
                         HttpContext.Current.Session["Beneficiary"] = beneficiary;
                     }

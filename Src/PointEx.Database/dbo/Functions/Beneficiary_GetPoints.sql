@@ -9,13 +9,17 @@ BEGIN
 	DECLARE @Purchases INT
 	DECLARE @Exchanges INT
 	
-	
-	SELECT @Purchases = ISNULL(SUM(FLOOR(P.Amount / 100)), 0)
+	SELECT @Purchases =	ISNULL((CASE FLOOR(P.Amount / 100)
+				WHEN 0 THEN 1
+				ELSE FLOOR(P.Amount / 100)
+			END), 0)
 	FROM Purchase P
 		LEFT JOIN [Card] C
 			ON P.CardId = C.Id
+		LEFT JOIN Shop S
+			ON P.ShopId = S.Id
 	WHERE C.BeneficiaryId = @BeneficiaryId
-	
+		
 	SELECT @Exchanges = ISNULL(SUM(PE.PointsUsed), 0)
 	FROM PointsExchange PE
 	WHERE PE.BeneficiaryId = @BeneficiaryId

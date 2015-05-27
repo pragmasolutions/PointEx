@@ -102,5 +102,18 @@ namespace PointEx.Service
 
             return results.Entities.Project().To<BeneficiaryDto>().ToList();
         }
+
+
+        public List<PointTransaction> GetTransactions(int beneficiaryId)
+        {
+            var transactions = Uow.DbContext.BeneficiaryPurchasesAndExchanges(beneficiaryId).OrderBy(t => t.TransactionDate).ToList();
+            var count = 0;
+            foreach (var transaction in transactions)
+            {
+                count += transaction.Credit.GetValueOrDefault() - transaction.Debit.GetValueOrDefault();
+                transaction.Total = count;
+            }
+            return transactions.OrderByDescending(t => t.TransactionDate).ToList();
+        }
     }
 }

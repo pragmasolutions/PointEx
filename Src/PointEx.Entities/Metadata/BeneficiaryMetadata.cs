@@ -17,7 +17,7 @@ namespace PointEx.Entities
                 foreach (var purchase in purchases)
                 {
                     var total = Math.Floor(purchase.Amount/100);
-                    acumulatedPoints = Convert.ToInt32(total == 0 ? 1 : total);
+                    acumulatedPoints += Convert.ToInt32(total == 0 ? 1 : total);
                 }
                 var exchanges = this.PointsExchanges.Sum(pe => pe.PointsUsed);
                 return Convert.ToInt32(acumulatedPoints - exchanges);

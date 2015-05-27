@@ -16,5 +16,7 @@ namespace PointEx.Service
         List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex,
             int pageSize, out int pageTotal);
         Beneficiary GetById(int id);
+
+        List<PointTransaction> GetTransactions(int beneficiaryId);
     }
 }

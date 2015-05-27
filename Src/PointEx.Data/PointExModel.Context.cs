@@ -14,6 +14,8 @@ namespace PointEx.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PointExDbContext : DbContext
     {
@@ -42,5 +44,14 @@ namespace PointEx.Data
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FileContent> FileContents { get; set; }
         public virtual DbSet<Benefit> Benefits { get; set; }
+    
+        public virtual ObjectResult<PointTransaction> BeneficiaryPurchasesAndExchanges(Nullable<int> beneficiaryId)
+        {
+            var beneficiaryIdParameter = beneficiaryId.HasValue ?
+                new ObjectParameter("BeneficiaryId", beneficiaryId) :
+                new ObjectParameter("BeneficiaryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PointTransaction>("BeneficiaryPurchasesAndExchanges", beneficiaryIdParameter);
+        }
     }
 }

@@ -1,0 +1,28 @@
+﻿@using Framework.Common.Web.Helpers
+@model List<PointEx.Entities.PointTransaction>
+<h3>Historial de acumulación de puntos y canjes</h3>
+<hr />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Débito</th>
+            <th>Crédito</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.TransactionDate.GetValueOrDefault().ToShortDateString()</td>
+                <td>@transaction.Description</td>
+                <td>@transaction.Debit</td>
+                <td>@transaction.Credit</td>
+                <td>@transaction.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>
