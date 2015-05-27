@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PointEx.Security;
 
 namespace PointEx.Web.Controllers
 {
@@ -10,6 +11,11 @@ namespace PointEx.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (PointExContext.Role == RolesNames.Beneficiary)
+            {
+                var model = PointExContext.Beneficiary;
+                return View("Areas/Beneficiary/Profile/Index",model);
+            }
             return View();
         }
 
