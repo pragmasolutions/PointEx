@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[Beneficiary] (
     [Id]                       INT            IDENTITY (1, 1) NOT NULL,
+	[IdentificationNumber]	   VARCHAR (250)  NOT NULL DEFAULT '',
 	[Name]					   VARCHAR (250)  NOT NULL,
 	[BirthDate]                DATETIME2 (7)  NULL,
-	[Address]				   VARCHAR (250)     NULL,
+	[Address]				   VARCHAR (250)  NULL,
     [EducationalInstitutionId] INT            NOT NULL,
     [TownId]                   INT            NOT NULL,
     [UserId]                   NVARCHAR (128) NOT NULL,

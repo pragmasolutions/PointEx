@@ -1,14 +1,12 @@
 ﻿@using Framework.Common.Web.Extensions
 @using Microsoft.AspNet.Identity
 @using PointEx.Service
+@using PointEx.Web.Infrastructure
 @model int?
 @{
     var benefitService = IocContainer.GetContainer().Get<IBenefitService>();
-    var shopService = IocContainer.GetContainer().Get<IShopService>();
-    var userId = this.User.Identity.GetUserId();
-    var shopId = shopService.GetByUserId(userId).Id;
-
-    var selectList = benefitService.GetAllByShopId(shopId).ToSelectListItem(Model, b => b.Id, b => b.Name, b => b.Id.ToString());
+    var currentUser = IocContainer.GetContainer().Get<ICurrentUser>();
+    var selectList = benefitService.GetAllByShopId(currentUser.Shop.Id).ToSelectListItem(Model, b => b.Id, b => b.Name, b => b.Id.ToString());
 }
 
-@Html.DropDownList("", selectList,"Seleccione Beneficio", new { @class = "form-control" })
+@Html.DropDownList("", selectList, "Seleccione Beneficio", new { @class = "form-control" })

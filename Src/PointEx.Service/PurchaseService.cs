@@ -27,5 +27,11 @@ namespace PointEx.Service
             Uow.Purchases.Add(purchase);
             Uow.Commit();
         }
+
+        public IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId)
+        {
+            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId, includes: p => p.Card.Beneficiary);
+            return purchases.Project().To<PurchaseDto>().ToList();
+        }
     }
 }

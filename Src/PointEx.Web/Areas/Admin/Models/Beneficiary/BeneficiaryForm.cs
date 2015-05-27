@@ -21,6 +21,10 @@ namespace PointEx.Web.Models
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
+        [Display(Name = "DNI")]
+        [Required]
+        public string IdentificationNumber { get; set; }
+
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
         [Required]

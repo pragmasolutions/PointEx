@@ -29,6 +29,7 @@ namespace PointEx.Entities
         public string Name { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string Address { get; set; }
+        public string IdentificationNumber { get; set; }
     
         public virtual User User { get; set; }
         public virtual EducationalInstitution EducationalInstitution { get; set; }
