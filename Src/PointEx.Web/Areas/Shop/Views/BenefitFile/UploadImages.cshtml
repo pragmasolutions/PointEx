@@ -1,0 +1,30 @@
+﻿@model PointEx.Web.Models.UploadBenefitImageForm
+
+@{
+    ViewBag.Title = "Subir Imagenes Beneficio";
+}
+
+<h3>Subir Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
+@Html.BackButton("Index", "BenefitFile", new { area = "Shop", benefitId = Model.Id })
+<hr />
+@using (Html.BeginForm("UploadImages", "BenefitFile", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.Files)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Files)
+            @Html.ValidationMessageFor(model => model.Files)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Subir Imagenes" class="btn btn-default" />
+        </div>
+    </div>
+}

@@ -60,6 +60,9 @@
     <Compile Include="Benefit.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BenefitFile.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Card.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>

@@ -22,6 +22,7 @@ namespace PointEx.Data.Interfaces
         IRepository<FileContent> FileContents { get; }
         IRepository<Benefit> Benefits { get; }
         IRepository<Purchase> Purchases { get; }
+        IRepository<BenefitFile> BenefitFiles { get; }
 
         PointExDbContext DbContext { get; }
     }

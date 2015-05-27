@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Attributes\SharedContext.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\RectangleExtensions.cs" />

@@ -75,10 +75,18 @@ namespace PointEx.Service
 
         public void Edit(Benefit benefit)
         {
+            if (!IsNameAvailable(benefit.Description, benefit.Id))
+            {
+                throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
+            }
+
             var currentBenefit = this.GetById(benefit.Id);
 
             currentBenefit.ModifiedDate = _clock.Now;
             currentBenefit.Description = benefit.Description;
+            currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
+            currentBenefit.DiscountPercentageCeiling = benefit.DiscountPercentageCeiling;
+            currentBenefit.Name = benefit.Name;
 
             Uow.Benefits.Edit(currentBenefit);
             Uow.Commit();

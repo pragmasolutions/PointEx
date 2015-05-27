@@ -1,0 +1,26 @@
+﻿@using System.Configuration
+@using System.Web.Configuration
+@using Framework.Common.Web.Metadata
+@model IEnumerable<HttpPostedFileBase>
+
+@{
+    int maxRequestLength = 0;
+    HttpRuntimeSection section =
+    ConfigurationManager.GetSection("system.web/httpRuntime") as HttpRuntimeSection;
+    if (section != null)
+    {
+        maxRequestLength = section.MaxRequestLength * 1024;
+    }
+}
+
+@Html.TextBox("", string.Empty,
+                            new
+                            {
+                                @class = "form-control file",
+                                placeholder = ViewData.ModelMetadata.Watermark,
+                                type = "file",
+                                data_show_upload = "false",
+                                accept = "image/*",
+                                multiple = "multiple",
+                                max_file_size = maxRequestLength
+                            })

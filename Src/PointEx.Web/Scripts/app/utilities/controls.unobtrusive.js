@@ -25,6 +25,8 @@ var controls = function () {
             });
         });
 
+        $('.list-group-sortable').sortable({ placeholderClass: 'list-group-item' });
+
         // $.each($('select[data-searchable]', context), function (i, item) {
         //    var options = { allowClear: true };
         //    if ($(item).attr("multiple")) {

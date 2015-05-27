@@ -1,4 +1,5 @@
-﻿@using PagedList.Mvc
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
 @model PointEx.Web.Models.BenefitListModel
 
 <h3>Premios</h3>
@@ -19,8 +20,8 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Procentaje de Descuento</th>
-            <th>Tope Porcentaje de Descuento</th>
+            <th class="text-right">Procentaje de Descuento</th>
+            <th class="text-right">Tope Porcentaje de Descuento</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -28,8 +29,8 @@
         {
             <tr>
                 <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
-                <td>@benefit.DiscountPercentage.GetValueOrDefault().ToString("p2")</td>
-                <td>@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("n2")</td>
+                <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPrecentageString()</td>
+                <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
             </tr>
         }
     </tbody>

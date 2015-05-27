@@ -65,6 +65,15 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="BenefitFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BenefitId" Type="int" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Card">
           <Key>
             <PropertyRef Name="Id" />
@@ -211,6 +220,30 @@
             </Principal>
             <Dependent Role="Benefit">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitFile_Benefit">
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="1" />
+          <End Role="BenefitFile" Type="Self.BenefitFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitFile">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitFile_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="BenefitFile" Type="Self.BenefitFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitFile">
+              <PropertyRef Name="FileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -395,6 +428,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
@@ -420,6 +454,14 @@
           <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="Benefit" EntitySet="Benefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitFile_Benefit" Association="Self.FK_BenefitFile_Benefit">
+            <End Role="Benefit" EntitySet="Benefit" />
+            <End Role="BenefitFile" EntitySet="BenefitFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitFile_File" Association="Self.FK_BenefitFile_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="BenefitFile" EntitySet="BenefitFile" />
           </AssociationSet>
           <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
             <End Role="Beneficiary" EntitySet="Beneficiary" />
@@ -689,6 +731,15 @@
           <FunctionImport Name="BeneficiaryPurchasesAndExchanges" ReturnType="Collection(PointEx.Data.PointTransaction)">
           <Parameter Name="BeneficiaryId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="BenefitFiles" EntityType="PointEx.Data.BenefitFile" />
+          <AssociationSet Name="FK_BenefitFile_Benefit" Association="PointEx.Data.FK_BenefitFile_Benefit">
+            <End Role="Benefit" EntitySet="Benefits" />
+            <End Role="BenefitFile" EntitySet="BenefitFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitFile_File" Association="PointEx.Data.FK_BenefitFile_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="BenefitFile" EntitySet="BenefitFiles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -905,6 +956,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Prizes" Relationship="PointEx.Data.FK_Prize_File" FromRole="File" ToRole="Prize" />
           <NavigationProperty Name="FileContent" Relationship="PointEx.Data.FileFileContent" FromRole="File" ToRole="FileContent" />
+          <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_File" FromRole="File" ToRole="BenefitFile" />
         </EntityType>
         <Association Name="FK_Prize_File">
           <End Type="PointEx.Data.File" Role="File" Multiplicity="0..1" />
@@ -952,6 +1004,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
           <NavigationProperty Name="Purchases" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Benefit" ToRole="Purchase" />
+          <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="Benefit" ToRole="BenefitFile" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -984,6 +1037,41 @@
           <Property Type="Int32" Name="Debit" Nullable="true" />
           <Property Type="Int32" Name="Credit" Nullable="true" />
         </ComplexType>
+        <EntityType Name="BenefitFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BenefitId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="BenefitFile" ToRole="Benefit" />
+          <NavigationProperty Name="File" Relationship="PointEx.Data.FK_BenefitFile_File" FromRole="BenefitFile" ToRole="File" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BenefitFile_Benefit">
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="1" />
+          <End Type="PointEx.Data.BenefitFile" Role="BenefitFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitFile">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitFile_File">
+          <End Type="PointEx.Data.File" Role="File" Multiplicity="1" />
+          <End Type="PointEx.Data.BenefitFile" Role="BenefitFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitFile">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1183,6 +1271,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="BenefitFiles">
+            <EntityTypeMapping TypeName="PointEx.Data.BenefitFile">
+              <MappingFragment StoreEntitySet="BenefitFile">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

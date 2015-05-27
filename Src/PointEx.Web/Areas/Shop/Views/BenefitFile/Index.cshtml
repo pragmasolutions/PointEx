@@ -1,0 +1,51 @@
+﻿@using Microsoft.Web.Mvc
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.BenefitFilesModel
+
+<h3>Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
+
+@Html.BackButton("Detail", "Benefit", new { area = "Shop", Model.Benefit.Id }, "Volver al detalle")
+@Html.ActionLink("Subir Images", "UploadImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Ordenar Images", "OrderImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Fecha</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var benefitFile in Model.BenefitFiles)
+        {
+            <tr>
+                <td>@Html.Image(benefitFile.File.GetUrl())</td>
+                <td>@benefitFile.File.Name</td>
+                <td>@benefitFile.File.CreatedDate.ToShortDateString()</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "BenefitFile", new { benefitFileId = benefitFile.Id, benefitId = benefitFile.BenefitId }, FormMethod.Post, new { @class = "delete-benefit-image-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".delete-benefit-image-form").on("submit", function () {
+                return confirm("Esta seguro que desea eliminar esta imagen? Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

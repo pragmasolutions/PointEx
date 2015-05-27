@@ -9,6 +9,7 @@ using AutoMapper;
 using Framework.Common.Mapping;
 using Framework.Common.Web.Metadata;
 using PointEx.Entities;
+using PointEx.Web.Infrastructure.Extensions;
 
 namespace PointEx.Web.Models
 {
@@ -51,19 +52,7 @@ namespace PointEx.Web.Models
 
             if (ImageFile != null)
             {
-                var image = new File
-                {
-                    FileContent = new FileContent()
-                };
-
-                image.Name = System.IO.Path.GetFileName(ImageFile.FileName);
-                image.ContentType = ImageFile.ContentType;
-                using (var reader = new System.IO.BinaryReader(ImageFile.InputStream))
-                {
-                    image.FileContent.Content = reader.ReadBytes(ImageFile.ContentLength);
-                }
-
-                prize.File = image;
+                prize.File = ImageFile.ToFile();
             }
             else
             {

@@ -44,6 +44,7 @@ namespace PointEx.Data
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FileContent> FileContents { get; set; }
         public virtual DbSet<Benefit> Benefits { get; set; }
+        public virtual DbSet<BenefitFile> BenefitFiles { get; set; }
     
         public virtual ObjectResult<PointTransaction> BeneficiaryPurchasesAndExchanges(Nullable<int> beneficiaryId)
         {
