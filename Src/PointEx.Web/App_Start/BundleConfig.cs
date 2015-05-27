@@ -43,7 +43,8 @@ namespace PointEx.Web
             bundles.Add(new ScriptBundle("~/bundles/lib")
                 .Include("~/Scripts/underscore.js")
                 .Include("~/Scripts/select2.js")
-                .Include("~/Scripts/autoNumeric-{version}.js"));
+                .Include("~/Scripts/autoNumeric-{version}.js")
+                .Include("~/Scripts/jquery.sortable.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .IncludeDirectory("~/Scripts/app/utilities", "*.js"));
