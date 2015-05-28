@@ -267,6 +267,7 @@
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BenefitController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -302,8 +303,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\front-end\images\header.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\select2.css" />
+    <Content Include="Content\front-end\pointex-homepage.css" />
     <Content Include="Content\Site.Beneficiary.css">
       <DependentUpon>Site.Beneficiary.less</DependentUpon>
     </Content>
@@ -311,6 +315,7 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -371,6 +376,11 @@
     <Content Include="Areas\Shop\Views\BenefitFile\UploadImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\OrderImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\Index.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -479,6 +489,9 @@
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultipleImageFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Shared\_Layout.remove.cshtml" />
+    <Content Include="Views\Benefit\Detail.cshtml" />
+    <Content Include="Views\Benefit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

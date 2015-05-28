@@ -53,8 +53,13 @@ namespace PointEx.Web
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.css",
                       "~/Content/bootstrap-fileinput/css/fileinput.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/select2.css",
+                      "~/Content/pointex-homepage.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/front-end/css").Include(
+                      "~/Content/front-end/pointex-homepage.css"));
         }
     }
 }

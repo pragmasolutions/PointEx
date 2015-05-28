@@ -30,7 +30,7 @@ namespace PointEx.Service
 
         public IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId)
         {
-            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId, includes: p => p.Card.Beneficiary);
+            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId && p.PurchaseDate.Date == _clock.Now.Date, includes: p => p.Card.Beneficiary);
             return purchases.Project().To<PurchaseDto>().ToList();
         }
     }
