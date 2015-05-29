@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PointEx.Entities;
+using PointEx.Entities.Dto;
 
 namespace PointEx.Web.Infrastructure.Extensions
 {
@@ -13,6 +14,13 @@ namespace PointEx.Web.Infrastructure.Extensions
         {
             var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             var url = urlhelper.Action("Image", "File", new { area = "", id = file.Id, width = width, height = height });
+            return url;
+        }
+
+        public static string GetDefaultImageUrl(this BenefitDto benefit, int width = 50, int height = 50)
+        {
+            var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            var url = urlhelper.Action("Image", "File", new { area = "", id = benefit.DefaultFileId, width = width, height = height });
             return url;
         }
     }

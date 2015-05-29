@@ -39,7 +39,7 @@ namespace PointEx.Service
 
             Expression<Func<Benefit, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria)));
 
-            var results = Uow.Benefits.GetAll(pagingCriteria, where);
+            var results = Uow.Benefits.GetAll(pagingCriteria, where, includes: b => b.Shop);
 
             pageTotal = results.PagedMetadata.TotalItemCount;
 

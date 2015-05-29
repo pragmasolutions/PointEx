@@ -1,10 +1,16 @@
 ﻿@using System.Globalization
 @model System.Data.Entity.Spatial.DbGeography
+@{
+    var width = this.ViewData["width"] ?? "400px";
+    var height = this.ViewData["height"] ?? "400px";
+    bool hideInput = (bool)(this.ViewData["hide_input"] ?? false);
+}
+
 @if (Model != null && Model.Latitude.HasValue && Model.Longitude.HasValue)
 {
-    @Html.TextBox("", Model.Latitude.Value.ToString(CultureInfo.InvariantCulture) + "," + Model.Longitude.Value.ToString(CultureInfo.InvariantCulture), new { @class = "display-for-dbgeography form-control", @readonly = true })
+    @Html.TextBox("", Model.Latitude.Value.ToString(CultureInfo.InvariantCulture) + "," + Model.Longitude.Value.ToString(CultureInfo.InvariantCulture), new { @class = "display-for-dbgeography form-control" + (hideInput ? " hide" : string.Empty), @readonly = true, data_map_width = width, data_map_height = height })
 }
 else
 {
-    @Html.TextBox("", "", new { @class = "display-for-dbgeography form-control", @readonly = true })
+    @Html.TextBox("", "", new { @class = "display-for-dbgeography form-control" + (hideInput ? " hide" : string.Empty), @readonly = true, data_map_width = width, data_map_height = height })
 }

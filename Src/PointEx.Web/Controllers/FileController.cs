@@ -19,7 +19,7 @@ namespace PointEx.Web.Controllers
         }
 
         // GET: File
-        public ActionResult Image(int id, int? width, int? heigh)
+        public ActionResult Image(int id, int? width, int? height)
         {
             var file = _fileService.GetById(id);
             if (file == null)
@@ -27,7 +27,7 @@ namespace PointEx.Web.Controllers
                 return HttpNotFound();
             }
 
-            return Image(file.FileContent.Content, file.ContentType, width, heigh);
+            return Image(file.FileContent.Content, file.ContentType, width, height);
         }
     }
 }

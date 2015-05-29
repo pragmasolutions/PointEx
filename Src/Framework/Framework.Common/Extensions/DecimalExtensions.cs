@@ -5,7 +5,7 @@ namespace Framework.Common.Extentensions
 {
     public static class DecimalExtensions
     {
-        public static string ToPrecentageString(this decimal @decimal)
+        public static string ToPercentageString(this decimal @decimal)
         {
             return (@decimal / 100).ToString("p2");
         }
