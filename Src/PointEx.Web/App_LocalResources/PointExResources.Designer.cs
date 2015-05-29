@@ -178,6 +178,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar Perfil.
+        /// </summary>
+        public static string EditShopProfile {
+            get {
+                return ResourceManager.GetString("EditShopProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar Comercio.
         /// </summary>
         public static string EditShopTitle {

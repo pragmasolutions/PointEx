@@ -165,4 +165,7 @@
   <data name="CreatePurchaseTitle" xml:space="preserve">
     <value>Crear Compra</value>
   </data>
+  <data name="EditShopProfile" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
 </root>
