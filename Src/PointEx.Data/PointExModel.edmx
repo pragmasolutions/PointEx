@@ -80,10 +80,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="TownId" Type="int" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Phone" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" />
           <Property Name="Location" Type="geography" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
@@ -171,7 +170,7 @@
           <Property Name="TownId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Location" Type="geography" />
-          <Property Name="Phone" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
@@ -629,7 +628,7 @@
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
           <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Shop_User" FromRole="Shop" ToRole="User" />
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="Shop" ToRole="BranchOffice" />
         </EntityType>
         <EntityType Name="Town">
@@ -1138,10 +1137,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="TownId" Type="Int32" Nullable="false" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="Geography" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
@@ -1391,7 +1389,6 @@
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="TownId" ColumnName="TownId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

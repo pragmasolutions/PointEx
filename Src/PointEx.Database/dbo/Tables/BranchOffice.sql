@@ -1,10 +1,9 @@
 ﻿CREATE TABLE [dbo].[BranchOffice] (
     [Id]           INT               IDENTITY (1, 1) NOT NULL,
 	[ShopId]       INT               NOT NULL,
-    [Name]         VARCHAR (250)     NOT NULL,
 	[TownId]       INT               NOT NULL,
     [Address]      VARCHAR (250)     NOT NULL,
-	[Phone]        VARCHAR (250)     NOT NULL,
+	[Phone]        VARCHAR (250)     NULL,
     [Location]     [sys].[geography] NULL,
     [CreatedDate]  DATETIME2 (7)     NOT NULL,
     [ModifiedDate] DATETIME2 (7)     NULL,

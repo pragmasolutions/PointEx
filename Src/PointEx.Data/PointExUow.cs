@@ -35,8 +35,8 @@ namespace PointEx.Data
         public IRepository<Benefit> Benefits { get { return GetStandardRepo<Benefit>(); } }
         public IRepository<Purchase> Purchases { get { return GetStandardRepo<Purchase>(); } }
         public IRepository<BenefitFile> BenefitFiles { get { return GetStandardRepo<BenefitFile>(); } }
+        public IRepository<BranchOffice> BranchOffices { get { return GetStandardRepo<BranchOffice>(); } }
         
-
         public string ConnectionString
         {
             get

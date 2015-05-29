@@ -88,6 +88,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear Sucursal.
+        /// </summary>
+        public static string CreateBranchOffice {
+            get {
+                return ResourceManager.GetString("CreateBranchOffice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear Establecimiento Educativo.
         /// </summary>
         public static string CreateEducationalInstitutionTitle {
@@ -156,6 +165,15 @@ namespace PointEx.Web.App_LocalResources {
         public static string EditBenefitTitle {
             get {
                 return ResourceManager.GetString("EditBenefitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Sucursal.
+        /// </summary>
+        public static string EditBranchOffice {
+            get {
+                return ResourceManager.GetString("EditBranchOffice", resourceCulture);
             }
         }
         

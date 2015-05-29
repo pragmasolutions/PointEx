@@ -54,6 +54,7 @@ namespace PointEx.Web
             kernel.Bind<IPurchaseService>().To<PurchaseService>().InRequestScope();
             kernel.Bind<ICardService>().To<CardService>().InRequestScope();
             kernel.Bind<IBenefitFileService>().To<BenefitFileService>().InRequestScope();
+            kernel.Bind<IBranchOfficeService>().To<BranchOfficeService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);

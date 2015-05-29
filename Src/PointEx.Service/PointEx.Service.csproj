@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BenefitFileService.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Interfaces\IBranchOfficeService.cs" />
     <Compile Include="Interfaces\IBenefitService.cs" />
     <Compile Include="Interfaces\IBenefitFileService.cs" />
     <Compile Include="Interfaces\IPrizeService.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="FileService.cs" />
     <Compile Include="PurchaseService.cs" />
     <Compile Include="CardService.cs" />
+    <Compile Include="BranchOfficeService.cs" />
     <Compile Include="TownService.cs" />
     <Compile Include="ShopService.cs" />
   </ItemGroup>

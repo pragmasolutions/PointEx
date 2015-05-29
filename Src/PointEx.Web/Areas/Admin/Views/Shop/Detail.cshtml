@@ -6,6 +6,7 @@
 
 <h3>@PointExResources.ShopDetailTitle</h3>
 @Html.BackButton("Index", "Shop", "Admin")
+@Html.ActionLink("Sucursales", "Index", "BranchOffice", routeValues: new { area = "Admin", shopId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 <hr />
 <div class="form-horizontal">
     @Html.DisplayForModel()
@@ -14,7 +15,7 @@
             @using (Html.BeginForm("Delete", "Shop", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ActionLink("Editar Comercio", "Edit", "Shop", routeValues: new { area = "Admin" , Model.Id}, htmlAttributes: new { @class = "btn btn-primary" })
+                @Html.ActionLink("Editar Comercio", "Edit", "Shop", routeValues: new { area = "Admin", Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
                 <button type="submit" class="btn btn-warning">Eliminar Comercio</button>
             }
         </div>

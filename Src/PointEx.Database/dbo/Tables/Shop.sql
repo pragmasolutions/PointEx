@@ -5,7 +5,7 @@
     [TownId]       INT               NOT NULL,
     [UserId]       NVARCHAR (128)    NOT NULL,
     [Location]     [sys].[geography] NULL,
-	[Phone]        VARCHAR (250)     NOT NULL,
+	[Phone]        VARCHAR (250)     NULL,
     [CreatedDate]  DATETIME2 (7)     NOT NULL,
     [ModifiedDate] DATETIME2 (7)     NULL,
     CONSTRAINT [PK_Shop] PRIMARY KEY CLUSTERED ([Id] ASC),
