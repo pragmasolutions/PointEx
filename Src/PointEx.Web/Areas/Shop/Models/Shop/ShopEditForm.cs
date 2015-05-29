@@ -27,6 +27,9 @@ namespace PointEx.Web.Models
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 
+        [Display(Name = "Teléfono")]
+        public string Phone { get; set; }
+
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
         [Required]

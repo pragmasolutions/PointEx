@@ -311,6 +311,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
+    <Content Include="Content\front-end\pointex-benefits.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\front-end\pointex-homepage.css" />
@@ -504,6 +505,7 @@
     <Content Include="Views\Shared\_Layout.remove.cshtml" />
     <Content Include="Views\Benefit\Detail.cshtml" />
     <Content Include="Views\Benefit\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchBenefits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

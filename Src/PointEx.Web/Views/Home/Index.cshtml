@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+@section ContainerTop{
+    @Html.Partial("_SearchBenefits")
+}
+
 <div class="col-md-3">
     <p class="lead">Categorias</p>
     <div class="list-group">
@@ -48,7 +53,8 @@
                     <h4>
                         <a href="#">First Product</a>
                     </h4>
-                    <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.
+                    <p>
+                        See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.
                     </p>
                 </div>
                 <div class="ratings">
@@ -155,7 +161,8 @@
             <h4>
                 <a href="#">Like this template?</a>
             </h4>
-            <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!
+            <p>
+                If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!
             </p>
             <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
         </div>

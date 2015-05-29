@@ -59,7 +59,8 @@ namespace PointEx.Web
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/front-end/css").Include(
-                      "~/Content/front-end/pointex-homepage.css"));
+                      "~/Content/front-end/pointex-homepage.css",
+                      "~/Content/front-end/pointex-benefits.css"));
         }
     }
 }

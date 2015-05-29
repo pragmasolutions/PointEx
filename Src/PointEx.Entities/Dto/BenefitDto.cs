@@ -16,7 +16,7 @@ namespace PointEx.Entities.Dto
         public string Description { get; set; }
         public decimal? DiscountPercentage { get; set; }
         public decimal? DiscountPercentageCeiling { get; set; }
-        public int DefaultFileId { get; set; }
+        public int? DefaultFileId { get; set; }
         public string ShopName { get; set; }
 
         public void CreateMappings(IConfiguration configuration)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper.QueryableExtensions;
@@ -30,7 +31,9 @@ namespace PointEx.Service
 
         public IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId)
         {
-            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId && p.PurchaseDate.Date == _clock.Now.Date, includes: p => p.Card.Beneficiary);
+            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId &&
+               DbFunctions.TruncateTime(p.PurchaseDate) == DbFunctions.TruncateTime(_clock.Now), 
+               includes: p => p.Card.Beneficiary);
             return purchases.Project().To<PurchaseDto>().ToList();
         }
     }

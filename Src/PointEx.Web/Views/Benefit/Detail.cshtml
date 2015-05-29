@@ -2,7 +2,11 @@
 @using PointEx.Web.Infrastructure.Extensions
 @model PointEx.Web.Models.BenefitDetailModel
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.Benefit.Name;
+}
+
+@section ContainerTop{
+    @Html.Partial("_SearchBenefits")
 }
 
 <div class="thumbnail">

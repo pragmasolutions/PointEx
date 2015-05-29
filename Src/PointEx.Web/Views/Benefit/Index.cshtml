@@ -6,6 +6,9 @@
 @{
     ViewBag.Title = "Beneficios";
 }
+@section ContainerTop{
+    @Html.Partial("_SearchBenefits")
+}
 <hr>
 @foreach (var benefit in Model.List)
 {
@@ -13,13 +16,16 @@
     <div class="row">
         <div class="col-md-3">
             <a href="@detailurl">
-                @Html.Image(benefit.GetDefaultImageUrl(250, 180))
+                @if (benefit.DefaultFileId.HasValue)
+                {
+                    @Html.Image(benefit.GetDefaultImageUrl(250, 180))
+                }
             </a>
         </div>
         <div class="col-md-9">
             <h3>@benefit.ShopName: @Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "", benefit.Id }, htmlAttributes: null)</h3>
             <h4>@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
-            <p>@benefit.Description</p>
+            <p class="benefit-description">@benefit.Description</p>
             <a class="btn btn-primary" href="@detailurl">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>

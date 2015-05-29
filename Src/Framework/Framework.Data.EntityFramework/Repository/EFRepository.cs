@@ -29,7 +29,7 @@ namespace Framework.Data.EntityFramework.Repository
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> whereClause,params Expression<Func<T, object>>[] includes)
         {
-            var dbset = DbSet.AsQueryable();
+            var dbset = DbSet.Where(whereClause).AsQueryable();
             foreach (var include in includes)
             {
                 dbset = dbset.Include(include);
