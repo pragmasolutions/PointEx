@@ -260,6 +260,7 @@
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitController.cs" />
+    <Compile Include="Areas\Shop\Controllers\ShopController.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitFilesModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\OrderBenefitImagesForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\UploadBenefitImageForm.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
+    <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -385,6 +387,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Shop\Views\Shop\Edit.cshtml" />
+    <Content Include="Areas\Shop\Views\Shop\EditorTemplates\ShopEditForm.cshtml" />
     <Content Include="Areas\Admin\Views\BranchOffice\Index.cshtml" />
     <Content Include="Areas\Admin\Views\BranchOffice\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BranchOffice\EditorTemplates\BranchOfficeForm.cshtml" />
