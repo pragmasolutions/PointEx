@@ -19,6 +19,7 @@ namespace PointEx.Entities
             this.EducationalInstitutions = new HashSet<EducationalInstitution>();
             this.Shops = new HashSet<Shop>();
             this.Beneficiaries = new HashSet<Beneficiary>();
+            this.BranchOffices = new HashSet<BranchOffice>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace PointEx.Entities
         public virtual ICollection<EducationalInstitution> EducationalInstitutions { get; set; }
         public virtual ICollection<Shop> Shops { get; set; }
         public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
+        public virtual ICollection<BranchOffice> BranchOffices { get; set; }
     }
 }

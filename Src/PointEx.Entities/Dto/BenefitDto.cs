@@ -16,13 +16,14 @@ namespace PointEx.Entities.Dto
         public string Description { get; set; }
         public decimal? DiscountPercentage { get; set; }
         public decimal? DiscountPercentageCeiling { get; set; }
-        public string DefaultFileId { get; set; }
+        public int DefaultFileId { get; set; }
         public string ShopName { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             Mapper.CreateMap<Benefit, BenefitDto>()
-                .ForMember(dest => dest.DefaultFileId, opt => opt.MapFrom(src => src.BenefitFiles.FirstOrDefault().FileId));
+                .ForMember(dest => dest.DefaultFileId, opt => opt.MapFrom(src => src.BenefitFiles.OrderBy(bf => bf.Order)
+                .FirstOrDefault().FileId));
         }
     }
 }

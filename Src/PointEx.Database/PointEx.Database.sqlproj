@@ -87,6 +87,7 @@
     <Build Include="dbo\Tables\File.sql" />
     <Build Include="dbo\Stored Procedures\Beneficiary_PurchasesAndExchanges.sql" />
     <Build Include="dbo\Tables\BenefitFile.sql" />
+    <Build Include="dbo\Tables\BranchOffice.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />

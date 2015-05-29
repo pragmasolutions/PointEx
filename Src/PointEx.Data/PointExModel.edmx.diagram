@@ -41,6 +41,9 @@
         <EntityTypeShape EntityType="PointEx.Data.BenefitFile" Width="1.5" PointX="7.5" PointY="15.25" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitFile_Benefit" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitFile_File" />
+        <EntityTypeShape EntityType="PointEx.Data.BranchOffice" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="PointEx.Data.FK_BranchOffice_Shop" />
+        <AssociationConnector Association="PointEx.Data.FK_BranchOffice_Town" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

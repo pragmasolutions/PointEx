@@ -12,31 +12,19 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Shop
+    public partial class BranchOffice
     {
-        public Shop()
-        {
-            this.Purchases = new HashSet<Purchase>();
-            this.ShopCategories = new HashSet<ShopCategory>();
-            this.Benefits = new HashSet<Benefit>();
-            this.BranchOffices = new HashSet<BranchOffice>();
-        }
-    
         public int Id { get; set; }
+        public int ShopId { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
         public int TownId { get; set; }
-        public string UserId { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
         public System.Data.Entity.Spatial.DbGeography Location { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string Phone { get; set; }
     
-        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual Shop Shop { get; set; }
         public virtual Town Town { get; set; }
-        public virtual ICollection<ShopCategory> ShopCategories { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Benefit> Benefits { get; set; }
-        public virtual ICollection<BranchOffice> BranchOffices { get; set; }
     }
 }

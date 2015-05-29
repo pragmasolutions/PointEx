@@ -74,6 +74,20 @@
           <Property Name="FileId" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="BranchOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Location" Type="geography" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="Card">
           <Key>
             <PropertyRef Name="Id" />
@@ -157,6 +171,7 @@
           <Property Name="TownId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Location" Type="geography" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
@@ -244,6 +259,30 @@
             </Principal>
             <Dependent Role="BenefitFile">
               <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchOffice_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchOffice">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchOffice_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="1" />
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchOffice">
+              <PropertyRef Name="TownId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -429,6 +468,7 @@
           <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalInstitution" EntityType="Self.EducationalInstitution" Schema="dbo" store:Type="Tables" />
@@ -462,6 +502,14 @@
           <AssociationSet Name="FK_BenefitFile_File" Association="Self.FK_BenefitFile_File">
             <End Role="File" EntitySet="File" />
             <End Role="BenefitFile" EntitySet="BenefitFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchOffice_Shop" Association="Self.FK_BranchOffice_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchOffice_Town" Association="Self.FK_BranchOffice_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_Card_Student" Association="Self.FK_Card_Student">
             <End Role="Beneficiary" EntitySet="Beneficiary" />
@@ -581,6 +629,8 @@
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Shop" FromRole="Shop" ToRole="ShopCategory" />
           <NavigationProperty Name="User" Relationship="PointEx.Data.FK_Shop_User" FromRole="Shop" ToRole="User" />
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="Shop" ToRole="BranchOffice" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -591,6 +641,7 @@
           <NavigationProperty Name="EducationalInstitutions" Relationship="Self.FK_EducationalInstitution_Town" FromRole="Town" ToRole="EducationalInstitution" />
           <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_Town" FromRole="Town" ToRole="Shop" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_Town" FromRole="Town" ToRole="Beneficiary" />
+          <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Town" FromRole="Town" ToRole="BranchOffice" />
         </EntityType>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
@@ -739,6 +790,15 @@
           <AssociationSet Name="FK_BenefitFile_File" Association="PointEx.Data.FK_BenefitFile_File">
             <End Role="File" EntitySet="Files" />
             <End Role="BenefitFile" EntitySet="BenefitFiles" />
+          </AssociationSet>
+          <EntitySet Name="BranchOffices" EntityType="PointEx.Data.BranchOffice" />
+          <AssociationSet Name="FK_BranchOffice_Shop" Association="PointEx.Data.FK_BranchOffice_Shop">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchOffice_Town" Association="PointEx.Data.FK_BranchOffice_Town">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -1072,6 +1132,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BranchOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="Geography" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="BranchOffice" ToRole="Shop" />
+          <NavigationProperty Name="Town" Relationship="PointEx.Data.FK_BranchOffice_Town" FromRole="BranchOffice" ToRole="Town" />
+        </EntityType>
+        <Association Name="FK_BranchOffice_Shop">
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
+          <End Type="PointEx.Data.BranchOffice" Role="BranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchOffice">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchOffice_Town">
+          <End Type="PointEx.Data.Town" Role="Town" Multiplicity="1" />
+          <End Type="PointEx.Data.BranchOffice" Role="BranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchOffice">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1117,6 +1217,7 @@
           <EntitySetMapping Name="Shops">
             <EntityTypeMapping TypeName="PointEx.Data.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1277,6 +1378,21 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BranchOffices">
+            <EntityTypeMapping TypeName="PointEx.Data.BranchOffice">
+              <MappingFragment StoreEntitySet="BranchOffice">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
