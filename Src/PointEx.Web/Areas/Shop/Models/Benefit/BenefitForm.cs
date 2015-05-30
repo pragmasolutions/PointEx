@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
@@ -24,6 +25,7 @@ namespace PointEx.Web.Models
 
         [Display(Name = @"Descripción")]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Description { get; set; }
 
         [Display(Name = @"Porcentaje de Descuento")]
@@ -32,6 +34,15 @@ namespace PointEx.Web.Models
 
         [Display(Name = @"Tope Porcentaje de Descuento")]
         public decimal? DiscountPercentageCeiling { get; set; }
+
+        [Display(Name = "Fecha Desde")]
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime? DateFrom { get; set; }
+
+        [Display(Name = "Fecha Hasta")]
+        [DataType(DataType.Date)]
+        public DateTime? DateTo { get; set; }
 
         public Benefit ToBenefit()
         {

@@ -28,6 +28,8 @@ namespace PointEx.Entities
         public int ShopId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public System.DateTime DateFrom { get; set; }
+        public Nullable<System.DateTime> DateTo { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }

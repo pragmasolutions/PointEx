@@ -37,7 +37,7 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<Benefit, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria)));
+            Expression<Func<Benefit, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria)));
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where, includes: b => b.Shop);
 
@@ -58,7 +58,7 @@ namespace PointEx.Service
 
         public Benefit GetByName(string name)
         {
-            return Uow.Benefits.Get(e => e.Description == name);
+            return Uow.Benefits.Get(e => e.Name == name);
         }
 
         public void Create(Benefit benefit)
@@ -87,6 +87,8 @@ namespace PointEx.Service
             currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
             currentBenefit.DiscountPercentageCeiling = benefit.DiscountPercentageCeiling;
             currentBenefit.Name = benefit.Name;
+            currentBenefit.DateFrom = benefit.DateFrom;
+            currentBenefit.DateTo = benefit.DateTo;
 
             Uow.Benefits.Edit(currentBenefit);
             Uow.Commit();

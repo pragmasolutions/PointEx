@@ -5,6 +5,8 @@
 	[DiscountPercentage] DECIMAL(18,2) NULL,
 	[DiscountPercentageCeiling] MONEY NULL,
     [ShopId]       INT           NOT NULL,
+	[DateFrom]  DATETIME2 (7)    NOT NULL DEFAULT GETDATE(),
+	[DateTo]  DATETIME2 (7)		 NULL,
     [CreatedDate]  DATETIME2 (7) NOT NULL,
     [ModifiedDate] DATETIME2 (7) NULL,
     CONSTRAINT [FK_Benefit_Shop] FOREIGN KEY ([ShopId]) REFERENCES [dbo].[Shop] ([Id]), 

@@ -11,11 +11,11 @@ namespace PointEx.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (PointExContext.Role == RolesNames.Beneficiary)
-            {
-                var model = PointExContext.Beneficiary;
-                return View("Areas/Beneficiary/Profile/Index",model);
-            }
+            //if (PointExContext.Role == RolesNames.Beneficiary)
+            //{
+            //    var model = PointExContext.Beneficiary;
+            //    return View("Areas/Beneficiary/Profile/Index",model);
+            //}
             return View();
         }
 
