@@ -18,6 +18,7 @@ namespace PointEx.Entities
         {
             this.Purchases = new HashSet<Purchase>();
             this.BenefitFiles = new HashSet<BenefitFile>();
+            this.SectionItems = new HashSet<SectionItem>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,6 @@ namespace PointEx.Entities
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
+        public virtual ICollection<SectionItem> SectionItems { get; set; }
     }
 }

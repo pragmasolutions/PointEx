@@ -162,6 +162,24 @@
           <Property Name="PurchaseDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
         </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="MaxNumberOfItems" Type="int" />
+        </EntityType>
+        <EntityType Name="SectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionId" Type="int" Nullable="false" />
+          <Property Name="BenefitId" Type="int" />
+          <Property Name="PrizeId" Type="int" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Shop">
           <Key>
             <PropertyRef Name="Id" />
@@ -411,6 +429,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SectionItem_Benefit">
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="0..1" />
+          <End Role="SectionItem" Type="Self.SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionItem_Prize">
+          <End Role="Prize" Type="Self.Prize" Multiplicity="0..1" />
+          <End Role="SectionItem" Type="Self.SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="PrizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionItem_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="SectionItem" Type="Self.SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Shop_Town">
           <End Role="Town" Type="Self.Town" Multiplicity="1" />
           <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
@@ -477,6 +531,8 @@
           <EntitySet Name="PointsExchange" EntityType="Self.PointsExchange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SectionItem" EntityType="Self.SectionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
@@ -551,6 +607,18 @@
           <AssociationSet Name="FK_Purchase_Shop" Association="Self.FK_Purchase_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_Benefit" Association="Self.FK_SectionItem_Benefit">
+            <End Role="Benefit" EntitySet="Benefit" />
+            <End Role="SectionItem" EntitySet="SectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_Prize" Association="Self.FK_SectionItem_Prize">
+            <End Role="Prize" EntitySet="Prize" />
+            <End Role="SectionItem" EntitySet="SectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_Section" Association="Self.FK_SectionItem_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="SectionItem" EntitySet="SectionItem" />
           </AssociationSet>
           <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
             <End Role="Town" EntitySet="Town" />
@@ -801,6 +869,20 @@
             <End Role="Town" EntitySet="Towns" />
             <End Role="BranchOffice" EntitySet="BranchOffices" />
           </AssociationSet>
+          <EntitySet Name="Sections" EntityType="PointEx.Data.Section" />
+          <EntitySet Name="SectionItems" EntityType="PointEx.Data.SectionItem" />
+          <AssociationSet Name="FK_SectionItem_Benefit" Association="PointEx.Data.FK_SectionItem_Benefit">
+            <End Role="Benefit" EntitySet="Benefits" />
+            <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_Prize" Association="PointEx.Data.FK_SectionItem_Prize">
+            <End Role="Prize" EntitySet="Prizes" />
+            <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_Section" Association="PointEx.Data.FK_SectionItem_Section">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -969,6 +1051,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ImageFileId" Type="Int32" />
           <NavigationProperty Name="File" Relationship="PointEx.Data.FK_Prize_File" FromRole="Prize" ToRole="File" />
+          <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Prize" FromRole="Prize" ToRole="SectionItem" />
         </EntityType>
         <EntityType Name="PointsExchange">
           <Key>
@@ -1068,6 +1151,7 @@
           <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="Benefit" ToRole="BenefitFile" />
           <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DateTo" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1171,6 +1255,64 @@
             </Principal>
             <Dependent Role="BranchOffice">
               <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MaxNumberOfItems" Type="Int32" />
+          <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Section" FromRole="Section" ToRole="SectionItem" />
+        </EntityType>
+        <EntityType Name="SectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionId" Type="Int32" Nullable="false" />
+          <Property Name="BenefitId" Type="Int32" />
+          <Property Name="PrizeId" Type="Int32" />
+          <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="SectionItem" ToRole="Benefit" />
+          <NavigationProperty Name="Prize" Relationship="PointEx.Data.FK_SectionItem_Prize" FromRole="SectionItem" ToRole="Prize" />
+          <NavigationProperty Name="Section" Relationship="PointEx.Data.FK_SectionItem_Section" FromRole="SectionItem" ToRole="Section" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SectionItem_Benefit">
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="0..1" />
+          <End Type="PointEx.Data.SectionItem" Role="SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionItem_Prize">
+          <End Type="PointEx.Data.Prize" Role="Prize" Multiplicity="0..1" />
+          <End Type="PointEx.Data.SectionItem" Role="SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="PrizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionItem_Section">
+          <End Type="PointEx.Data.Section" Role="Section" Multiplicity="1" />
+          <End Type="PointEx.Data.SectionItem" Role="SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="SectionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1396,6 +1538,26 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="TownId" ColumnName="TownId" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="PointEx.Data.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="MaxNumberOfItems" ColumnName="MaxNumberOfItems" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SectionItems">
+            <EntityTypeMapping TypeName="PointEx.Data.SectionItem">
+              <MappingFragment StoreEntitySet="SectionItem">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="PrizeId" ColumnName="PrizeId" />
+                <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

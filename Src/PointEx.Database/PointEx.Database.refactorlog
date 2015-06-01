@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="4b93c109-b8cc-4a4e-a6aa-9ad44b0542a2" ChangeDateTime="05/30/2015 16:40:02">
+    <Property Name="ElementName" Value="[dbo].[Section].[MaxItem]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Section]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaxNumberOfItems" />
+  </Operation>
+</Operations>

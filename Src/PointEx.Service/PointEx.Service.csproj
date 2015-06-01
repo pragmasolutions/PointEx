@@ -56,7 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SectionItemService.cs" />
     <Compile Include="BenefitFileService.cs" />
+    <Compile Include="Interfaces\ISectionItemService.cs" />
+    <Compile Include="Interfaces\ISectionService.cs" />
+    <Compile Include="SectionService.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Interfaces\IBranchOfficeService.cs" />
     <Compile Include="Interfaces\IBenefitService.cs" />
