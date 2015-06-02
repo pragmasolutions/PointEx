@@ -273,6 +273,8 @@
     <Compile Include="Areas\Shop\Models\Benefit\BenefitForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
     <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
@@ -411,6 +413,7 @@
     <Content Include="Areas\Admin\Views\SectionItem\_PrizeFilters.cshtml" />
     <Content Include="Areas\Admin\Views\SectionItem\_PrizeFiltersFields.cshtml" />
     <Content Include="Areas\Admin\Views\SectionItem\SelectPrizeList.cshtml" />
+    <Content Include="Areas\Shop\Views\Purchase\_Filters.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />

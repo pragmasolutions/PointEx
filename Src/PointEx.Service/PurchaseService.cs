@@ -29,11 +29,12 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
-        public IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId)
+        public IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId, int? branchOfficeId)
         {
-            var purchases = Uow.Purchases.GetAll(whereClause: p => p.ShopId == shopId &&
-               DbFunctions.TruncateTime(p.PurchaseDate) == DbFunctions.TruncateTime(_clock.Now), 
-               includes: p => p.Card.Beneficiary);
+            var purchases = Uow.Purchases.GetAll(p => p.ShopId == shopId &&
+               DbFunctions.TruncateTime(p.PurchaseDate) == DbFunctions.TruncateTime(_clock.Now) &&
+               (!branchOfficeId.HasValue || p.BranchOfficeId == branchOfficeId),
+                p => p.Card.Beneficiary, p => p.BranchOffice);
             return purchases.Project().To<PurchaseDto>().ToList();
         }
     }
