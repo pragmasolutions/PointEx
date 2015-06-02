@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
@@ -54,7 +55,15 @@ namespace PointEx.Web.Areas.Shop.Controllers
             purchase.ShopId = _currentUser.Shop.Id;
             purchase.CardId = card.Id;
 
-            _purchaseService.Create(purchase);
+            try
+            {
+                _purchaseService.Create(purchase);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(purchaseForm);
+            }
 
             return RedirectToAction("Index").WithSuccess("Compra Creada");
         }

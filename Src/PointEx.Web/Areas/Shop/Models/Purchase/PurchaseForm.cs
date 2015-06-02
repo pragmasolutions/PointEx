@@ -13,7 +13,7 @@ namespace PointEx.Web.Models
 
         [UIHint("BranchOfficeId")]
         [Display(Name = @"Sucursal")]
-        public int BranchOfficeId { get; set; }
+        public int? BranchOfficeId { get; set; }
 
         [Required]
         [Display(Name = @"Monto")]
@@ -22,6 +22,7 @@ namespace PointEx.Web.Models
 
         [UIHint("BenefitId")]
         [Display(Name = @"Beneficio")]
+        [Required]
         public int? BenefitId { get; set; }
 
         [Required]
