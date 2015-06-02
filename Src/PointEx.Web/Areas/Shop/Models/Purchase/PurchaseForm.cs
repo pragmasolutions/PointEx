@@ -11,6 +11,10 @@ namespace PointEx.Web.Models
         [HiddenInput]
         public int Id { get; set; }
 
+        [UIHint("BranchOfficeId")]
+        [Display(Name = @"Sucursal")]
+        public int BranchOfficeId { get; set; }
+
         [Required]
         [Display(Name = @"Monto")]
         [DataType(DataType.Currency)]

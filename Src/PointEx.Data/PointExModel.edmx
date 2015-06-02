@@ -157,6 +157,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="BranchOfficeId" Type="int" />
           <Property Name="CardId" Type="int" Nullable="false" />
           <Property Name="BenefitId" Type="int" Nullable="false" />
           <Property Name="PurchaseDate" Type="datetime2" Precision="7" Nullable="false" />
@@ -405,6 +406,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Purchase_BranchOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="0..1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="BranchOfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Purchase_Card">
           <End Role="Card" Type="Self.Card" Multiplicity="1" />
           <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
@@ -600,6 +613,10 @@
             <End Role="Benefit" EntitySet="Benefit" />
             <End Role="Purchase" EntitySet="Purchase" />
           </AssociationSet>
+          <AssociationSet Name="FK_Purchase_BranchOffice" Association="Self.FK_Purchase_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
           <AssociationSet Name="FK_Purchase_Card" Association="Self.FK_Purchase_Card">
             <End Role="Card" EntitySet="Card" />
             <End Role="Purchase" EntitySet="Purchase" />
@@ -680,6 +697,8 @@
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="BenefitId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Purchase" ToRole="Benefit" />
+          <Property Name="BranchOfficeId" Type="Int32" />
+          <NavigationProperty Name="BranchOffice" Relationship="PointEx.Data.FK_Purchase_BranchOffice" FromRole="Purchase" ToRole="BranchOffice" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -882,6 +901,10 @@
           <AssociationSet Name="FK_SectionItem_Section" Association="PointEx.Data.FK_SectionItem_Section">
             <End Role="Section" EntitySet="Sections" />
             <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_BranchOffice" Association="PointEx.Data.FK_Purchase_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
+            <End Role="Purchase" EntitySet="Purchases" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -1233,6 +1256,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="BranchOffice" ToRole="Shop" />
           <NavigationProperty Name="Town" Relationship="PointEx.Data.FK_BranchOffice_Town" FromRole="BranchOffice" ToRole="Town" />
+          <NavigationProperty Name="Purchases" Relationship="PointEx.Data.FK_Purchase_BranchOffice" FromRole="BranchOffice" ToRole="Purchase" />
         </EntityType>
         <Association Name="FK_BranchOffice_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1316,6 +1340,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Purchase_BranchOffice">
+          <End Type="PointEx.Data.BranchOffice" Role="BranchOffice" Multiplicity="0..1" />
+          <End Type="PointEx.Data.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="BranchOfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1349,6 +1385,7 @@
           <EntitySetMapping Name="Purchases">
             <EntityTypeMapping TypeName="PointEx.Data.Purchase">
               <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="BranchOfficeId" ColumnName="BranchOfficeId" />
                 <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
