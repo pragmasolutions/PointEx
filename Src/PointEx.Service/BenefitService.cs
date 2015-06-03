@@ -147,8 +147,9 @@ namespace PointEx.Service
 
         public IList<Benefit> GetOutstandingBenefits()
         {
-            return Uow.Benefits.GetAll(b => b.DateTo >= _clock.Now, 
+            return Uow.Benefits.GetAll(b => !b.DateTo.HasValue || b.DateTo >= _clock.Now, 
                 b => b.Purchases,
+                b => b.Shop,
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();
         }
     }

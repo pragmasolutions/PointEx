@@ -10,27 +10,33 @@
 }
 
 <div class="thumbnail">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            @foreach (var image in Model.Benefit.BenefitFiles)
-            {
-                <div class="item @(image == Model.Benefit.BenefitFiles.First() ? "active" : string.Empty)">
-                    <img class="slide-image active" src="@image.File.GetUrl(800, 300)" alt="">
-                </div>
-            }
+    @if (Model.Benefit.BenefitFiles.Any())
+    {
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+
+
+                @foreach (var image in Model.Benefit.BenefitFiles)
+                {
+                    <div class="item @(image == Model.Benefit.BenefitFiles.First() ? "active" : string.Empty)">
+                        <img class="slide-image active" src="@image.File.GetUrl(800, 300)" alt="">
+                    </div>
+                }
+            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
         </div>
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div>
+    }
+
     <div class="caption-full">
         <h1 class="pull-right">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
         <h3>
@@ -42,7 +48,7 @@
         <h4>
             Teléfono:
         </h4>
-        <p>
+        <p class="benefit-description">
             @Model.Benefit.Description
         </p>
     </div>
