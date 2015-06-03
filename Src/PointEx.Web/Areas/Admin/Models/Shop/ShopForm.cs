@@ -39,7 +39,7 @@ namespace PointEx.Web.Models
         [UIHint("Categories")]
         [Display(Name = "Categorias")]
         [NotMapped]
-        public IEnumerable<int> CategoriesSelected { get; set; } 
+        public IEnumerable<int> CategoriesSelected { get; set; }
 
         [Display(Name = "Ubicación")]
         public DbGeography Location { get; set; }

@@ -1,0 +1,10 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model IEnumerable<int>
+@{
+    var service = IocContainer.GetContainer().Get<IBranchOfficeService>();
+    var currentUser = IocContainer.GetContainer().Get<PointEx.Web.Infrastructure.ICurrentUser>();
+    var selectList = service.GetByShopId(currentUser.Shop.Id).ToSelectListItem(Model, t => t.Id, t => t.Address, t => t.Id.ToString());
+}
+
+@Html.DropDownList("", selectList, "Seleccione Sucursal", new { @class = "form-control select2-control", placeholder = "Sucursales", multiple = "multiple" })

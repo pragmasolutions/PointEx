@@ -48,7 +48,7 @@ namespace PointEx.Service
 
         public Benefit GetById(int id)
         {
-            return Uow.Benefits.Get(id);
+            return Uow.Benefits.Get(b => b.Id == id, b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice));
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
@@ -81,6 +81,16 @@ namespace PointEx.Service
             }
 
             var currentBenefit = this.GetById(benefit.Id);
+
+            foreach (var branchOffice in currentBenefit.BenefitBranchOffices.ToArray())
+            {
+                Uow.BenefitBranchOffice.Delete(branchOffice);
+            }
+
+            foreach (var branchOffice in benefit.BenefitBranchOffices)
+            {
+                Uow.BenefitBranchOffice.Add(branchOffice);
+            }
 
             currentBenefit.ModifiedDate = _clock.Now;
             currentBenefit.Description = benefit.Description;

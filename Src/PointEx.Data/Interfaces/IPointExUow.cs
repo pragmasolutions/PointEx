@@ -24,6 +24,7 @@ namespace PointEx.Data.Interfaces
         IRepository<Purchase> Purchases { get; }
         IRepository<BenefitFile> BenefitFiles { get; }
         IRepository<BranchOffice> BranchOffices { get; }
+        IRepository<BenefitBranchOffice> BenefitBranchOffice { get; }
 
         PointExDbContext DbContext { get; }
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PointEx.Entities;
+using System.Linq;
 
 namespace PointEx.Service
 {
@@ -9,6 +10,6 @@ namespace PointEx.Service
         void Edit(BranchOffice branchOffice);
         void Delete(int branchOfficeId);
         BranchOffice GetById(int id);
-        IList<BranchOffice> GetByShopId(int shopId);
+        IList<BranchOffice> GetByShopId(int shopId);        
     }
 }

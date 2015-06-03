@@ -60,6 +60,9 @@
     <Compile Include="Benefit.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BenefitBranchOffice.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BenefitFile.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -74,6 +77,7 @@
     </Compile>
     <Compile Include="Dto\BeneficiaryDto.cs" />
     <Compile Include="Dto\BenefitDto.cs" />
+    <Compile Include="Dto\BenefitBranchOfficeDto.cs" />
     <Compile Include="Dto\PurchaseDto.cs" />
     <Compile Include="Dto\PrizeDto.cs" />
     <Compile Include="Dto\EducationalInstitutionDto.cs" />

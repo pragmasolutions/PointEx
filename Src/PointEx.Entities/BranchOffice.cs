@@ -14,6 +14,11 @@ namespace PointEx.Entities
     
     public partial class BranchOffice
     {
+        public BranchOffice()
+        {
+            this.BenefitBranchOffices = new HashSet<BenefitBranchOffice>();
+        }
+    
         public int Id { get; set; }
         public int ShopId { get; set; }
         public int TownId { get; set; }
@@ -25,5 +30,6 @@ namespace PointEx.Entities
     
         public virtual Shop Shop { get; set; }
         public virtual Town Town { get; set; }
+        public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
     }
 }

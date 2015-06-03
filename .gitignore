@@ -197,3 +197,4 @@ FakesAssemblies/
 
 #Nuget package folder
 Src/packages
+Src/PointEx.Data/App.config

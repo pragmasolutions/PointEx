@@ -506,6 +506,8 @@
     <Content Include="Views\Benefit\Detail.cshtml" />
     <Content Include="Views\Benefit\Index.cshtml" />
     <Content Include="Views\Shared\_SearchBenefits.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BranchOffices.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

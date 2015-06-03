@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenefitFileService.cs" />
+    <Compile Include="BenefitBranchOfficeService.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Interfaces\IBenefitBranchOfficeService.cs" />
     <Compile Include="Interfaces\IBranchOfficeService.cs" />
     <Compile Include="Interfaces\IBenefitService.cs" />
     <Compile Include="Interfaces\IBenefitFileService.cs" />

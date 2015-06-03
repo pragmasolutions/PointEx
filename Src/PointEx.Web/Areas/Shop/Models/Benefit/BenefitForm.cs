@@ -15,6 +15,12 @@ namespace PointEx.Web.Models
 {
     public class BenefitForm : IMapFrom<Benefit>
     {
+
+        public BenefitForm()
+        {
+            BranchOfficesSelected = Enumerable.Empty<int>();
+        }
+
         [HiddenInput]
         public int Id { get; set; }
 
@@ -44,15 +50,23 @@ namespace PointEx.Web.Models
         [DataType(DataType.Date)]
         public DateTime? DateTo { get; set; }
 
+        [UIHint("BranchOffices")]
+        [Display(Name = "Sucursales")]
+        [NotMapped]
+        public IEnumerable<int> BranchOfficesSelected { get; set; }
+
         public Benefit ToBenefit()
         {
-            var prize = Mapper.Map<BenefitForm, Benefit>(this);
-            return prize;
+            var benefit = Mapper.Map<BenefitForm, Benefit>(this);
+            benefit.BenefitBranchOffices =
+                this.BranchOfficesSelected.Select(branchOfficeId => new BenefitBranchOffice() { BranchOfficeId = branchOfficeId, BenefitId = this.Id }).ToArray();
+            return benefit;
         }
 
-        public static BenefitForm FromBenefit(Benefit prize)
+        public static BenefitForm FromBenefit(Benefit benefit)
         {
-            var form = Mapper.Map<Benefit, BenefitForm>(prize);
+            var form = Mapper.Map<Benefit, BenefitForm>(benefit);
+            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
             return form;
         }
     }

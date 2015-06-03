@@ -57,6 +57,6 @@ namespace PointEx.Service
         public IList<BranchOffice> GetByShopId(int shopId)
         {
             return Uow.BranchOffices.GetAll(s => s.ShopId == shopId).ToList();
-        }
+        }       
     }
 }

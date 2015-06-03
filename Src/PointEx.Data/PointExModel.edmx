@@ -67,6 +67,14 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="BenefitBranchOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BenefitId" Type="int" Nullable="false" />
+          <Property Name="BranchOfficeId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="BenefitFile">
           <Key>
             <PropertyRef Name="Id" />
@@ -236,6 +244,30 @@
             </Principal>
             <Dependent Role="Benefit">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitByBranchOffice_Benefit">
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="1" />
+          <End Role="BenefitBranchOffice" Type="Self.BenefitBranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitBranchOffice">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitByBranchOffice_BranchOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="1" />
+          <End Role="BenefitBranchOffice" Type="Self.BenefitBranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitBranchOffice">
+              <PropertyRef Name="BranchOfficeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -468,6 +500,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenefitBranchOffice" EntityType="Self.BenefitBranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
@@ -495,6 +528,14 @@
           <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="Benefit" EntitySet="Benefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitByBranchOffice_Benefit" Association="Self.FK_BenefitByBranchOffice_Benefit">
+            <End Role="Benefit" EntitySet="Benefit" />
+            <End Role="BenefitBranchOffice" EntitySet="BenefitBranchOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitByBranchOffice_BranchOffice" Association="Self.FK_BenefitByBranchOffice_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
+            <End Role="BenefitBranchOffice" EntitySet="BenefitBranchOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_BenefitFile_Benefit" Association="Self.FK_BenefitFile_Benefit">
             <End Role="Benefit" EntitySet="Benefit" />
@@ -801,6 +842,15 @@
             <End Role="Town" EntitySet="Towns" />
             <End Role="BranchOffice" EntitySet="BranchOffices" />
           </AssociationSet>
+          <EntitySet Name="BenefitBranchOffices" EntityType="PointEx.Data.BenefitBranchOffice" />
+          <AssociationSet Name="FK_BenefitByBranchOffice_Benefit" Association="PointEx.Data.FK_BenefitByBranchOffice_Benefit">
+            <End Role="Benefit" EntitySet="Benefits" />
+            <End Role="BenefitBranchOffice" EntitySet="BenefitBranchOffices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BenefitByBranchOffice_BranchOffice" Association="PointEx.Data.FK_BenefitByBranchOffice_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
+            <End Role="BenefitBranchOffice" EntitySet="BenefitBranchOffices" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1068,6 +1118,7 @@
           <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="Benefit" ToRole="BenefitFile" />
           <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DateTo" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1149,6 +1200,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="BranchOffice" ToRole="Shop" />
           <NavigationProperty Name="Town" Relationship="PointEx.Data.FK_BranchOffice_Town" FromRole="BranchOffice" ToRole="Town" />
+          <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_BranchOffice" FromRole="BranchOffice" ToRole="BenefitBranchOffice" />
         </EntityType>
         <Association Name="FK_BranchOffice_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1171,6 +1223,40 @@
             </Principal>
             <Dependent Role="BranchOffice">
               <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BenefitBranchOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BenefitId" Type="Int32" Nullable="false" />
+          <Property Name="BranchOfficeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="BenefitBranchOffice" ToRole="Benefit" />
+          <NavigationProperty Name="BranchOffice" Relationship="PointEx.Data.FK_BenefitByBranchOffice_BranchOffice" FromRole="BenefitBranchOffice" ToRole="BranchOffice" />
+        </EntityType>
+        <Association Name="FK_BenefitByBranchOffice_Benefit">
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="1" />
+          <End Type="PointEx.Data.BenefitBranchOffice" Role="BenefitBranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benefit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitBranchOffice">
+              <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BenefitByBranchOffice_BranchOffice">
+          <End Type="PointEx.Data.BranchOffice" Role="BranchOffice" Multiplicity="1" />
+          <End Type="PointEx.Data.BenefitBranchOffice" Role="BenefitBranchOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenefitBranchOffice">
+              <PropertyRef Name="BranchOfficeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1396,6 +1482,15 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="TownId" ColumnName="TownId" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BenefitBranchOffices">
+            <EntityTypeMapping TypeName="PointEx.Data.BenefitBranchOffice">
+              <MappingFragment StoreEntitySet="BenefitBranchOffice">
+                <ScalarProperty Name="BranchOfficeId" ColumnName="BranchOfficeId" />
+                <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
