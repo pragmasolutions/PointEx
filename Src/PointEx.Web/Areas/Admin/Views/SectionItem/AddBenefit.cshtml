@@ -1,0 +1,24 @@
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
+@model PointEx.Web.Models.AddBenefitModel
+
+@{
+    ViewBag.Title = "Agregar Items";
+}
+
+<h3>Agregar Beneficios Sección: <strong>@Model.SectionName</strong></h3>
+@Html.BackButton("Index", "SectionItem", new { area = "Admin", sectionId = Model.SectionId })
+<hr />
+
+@Html.FilterButton()
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_BenefitFilters", Model)
+
+<div class="spacer">
+</div>
+
+@Html.Partial("SelectBenefitList", Model)
+

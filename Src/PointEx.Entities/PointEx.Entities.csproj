@@ -85,6 +85,8 @@
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\Benefit.cs" />
+    <Compile Include="Extensions\SectionItem.cs" />
     <Compile Include="Extensions\PointTransaction.cs" />
     <Compile Include="File.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
@@ -112,6 +114,12 @@
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Section.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SectionItem.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Shop.cs">

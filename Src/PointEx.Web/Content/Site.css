@@ -79,6 +79,10 @@ textarea {
     color: #a94442;
 }
 
+.validation-summary-errors {
+     color: #a94442;
+}
+
 .table form {
     display: inline-block;
 }

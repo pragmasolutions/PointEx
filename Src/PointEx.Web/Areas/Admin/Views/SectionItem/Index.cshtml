@@ -1,0 +1,50 @@
+﻿@using Microsoft.Web.Mvc
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.SectionItemsModel
+
+<h3>Items Sección: <strong>@Model.Section.Name</strong></h3>
+
+@Html.BackButton("Index", "Section", new { area = "Admin" })
+@Html.ActionLink("Agregar Beneficio", "AddBenefit", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Agregar Premio", "AddPrize", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Ordenar Items", "OrderItems", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var sectionItem in Model.SectionItems)
+        {
+            <tr>
+                <td>@Html.Image(sectionItem.GetImageUrl())</td>
+                <td>@sectionItem.Description</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "SectionItem", new { sectionItemId = sectionItem.Id, sectionId = sectionItem.SectionId }, FormMethod.Post, new { @class = "remover-section-item-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning">Remover</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".remover-section-item-form").on("submit", function () {
+                return confirm("Esta seguro que desea remover este item de la sección? Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

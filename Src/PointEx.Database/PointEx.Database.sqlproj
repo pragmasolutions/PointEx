@@ -89,13 +89,19 @@
     <Build Include="dbo\Tables\BenefitFile.sql" />
     <Build Include="dbo\Tables\BranchOffice.sql" />
     <Build Include="dbo\Tables\BenefitBranchOffice.sql" />
+    <Build Include="dbo\Tables\Section.sql" />
+    <Build Include="dbo\Tables\SectionItem.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
     <None Include="ReferenceData\Roles.Data.sql" />
     <None Include="ReferenceData\Categories.Data.sql" />
+    <None Include="ReferenceData\Section.Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PointEx.Database.refactorlog" />
   </ItemGroup>
 </Project>

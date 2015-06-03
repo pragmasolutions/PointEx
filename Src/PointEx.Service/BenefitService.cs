@@ -121,5 +121,11 @@ namespace PointEx.Service
 
             return currentBenefit.Id == id;
         }
+
+
+        public bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId)
+        {
+            return false;
+        }
     }
 }

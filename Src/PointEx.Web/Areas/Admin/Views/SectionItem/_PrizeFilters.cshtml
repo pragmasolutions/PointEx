@@ -1,0 +1,10 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+@model PointEx.Web.Models.AddPrizeModel
+
+<div id="filter-container" class="collapse">
+    @using (Html.BeginForm("AddPrize", "SectionItem", FormMethod.Get))
+    {
+        @Html.HiddenFor(model => model.SectionId)
+        @Html.Partial("_PrizeFiltersFields", Model.PrizeListModel.Filters)
+    }
+</div>

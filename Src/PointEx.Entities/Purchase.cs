@@ -20,9 +20,11 @@ namespace PointEx.Entities
         public System.DateTime PurchaseDate { get; set; }
         public decimal Amount { get; set; }
         public int BenefitId { get; set; }
+        public Nullable<int> BranchOfficeId { get; set; }
     
         public virtual Card Card { get; set; }
         public virtual Shop Shop { get; set; }
         public virtual Benefit Benefit { get; set; }
+        public virtual BranchOffice BranchOffice { get; set; }
     }
 }

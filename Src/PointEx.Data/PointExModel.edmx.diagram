@@ -47,6 +47,12 @@
         <EntityTypeShape EntityType="PointEx.Data.BenefitBranchOffice" Width="1.875" PointX="12.5" PointY="9.875" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitByBranchOffice_Benefit" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitByBranchOffice_BranchOffice" />
+        <EntityTypeShape EntityType="PointEx.Data.Section" Width="1.5" PointX="8.375" PointY="19.125" />
+        <EntityTypeShape EntityType="PointEx.Data.SectionItem" Width="1.5" PointX="10.625" PointY="13.75" />
+        <AssociationConnector Association="PointEx.Data.FK_SectionItem_Benefit" />
+        <AssociationConnector Association="PointEx.Data.FK_SectionItem_Prize" />
+        <AssociationConnector Association="PointEx.Data.FK_SectionItem_Section" />
+        <AssociationConnector Association="PointEx.Data.FK_Purchase_BranchOffice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

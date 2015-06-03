@@ -236,6 +236,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BeneficiaryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SectionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SectionItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\EducationalInstitutionController.cs" />
     <Compile Include="Areas\Admin\Controllers\BranchOfficeController.cs" />
@@ -251,6 +253,10 @@
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionForm.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Section\AddPrizeForm.cs" />
+    <Compile Include="Areas\Admin\Models\Section\SectionItemsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Section\OrderSectionItemsForm.cs" />
+    <Compile Include="Areas\Admin\Models\Section\AddBenefitForm.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopBranchOfficesModel.cs" />
     <Compile Include="Areas\Admin\Models\Shop\BranchOfficeForm.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
@@ -267,6 +273,8 @@
     <Compile Include="Areas\Shop\Models\Benefit\BenefitForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
     <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
@@ -394,6 +402,18 @@
     <Content Include="Areas\Admin\Views\BranchOffice\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BranchOffice\EditorTemplates\BranchOfficeForm.cshtml" />
     <Content Include="Areas\Admin\Views\BranchOffice\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\OrderItems.cshtml" />
+    <Content Include="Areas\Admin\Views\Section\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\AddBenefit.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_BenefitFilters.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\SelectBenefitList.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_BenefitFiltersFields.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\AddPrize.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_PrizeFilters.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_PrizeFiltersFields.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\SelectPrizeList.cshtml" />
+    <Content Include="Areas\Shop\Views\Purchase\_Filters.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -508,6 +528,7 @@
     <Content Include="Views\Shared\_SearchBenefits.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BranchOfficeId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

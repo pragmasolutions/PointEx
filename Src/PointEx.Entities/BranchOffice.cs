@@ -16,6 +16,7 @@ namespace PointEx.Entities
     {
         public BranchOffice()
         {
+            this.Purchases = new HashSet<Purchase>();
             this.BenefitBranchOffices = new HashSet<BenefitBranchOffice>();
         }
     
@@ -31,5 +32,6 @@ namespace PointEx.Entities
         public virtual Shop Shop { get; set; }
         public virtual Town Town { get; set; }
         public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
     }
 }

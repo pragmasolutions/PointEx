@@ -16,5 +16,6 @@ namespace PointEx.Entities.Dto
         public System.DateTime PurchaseDate { get; set; }
         public decimal Amount { get; set; }
         public string BenefitName { get; set; }
+        public string BranchOfficeAddress { get; set; }
     }
 }

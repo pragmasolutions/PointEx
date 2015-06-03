@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
 using PagedList;
@@ -17,7 +19,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         private readonly ICurrentUser _currentUser;
         private readonly ICardService _cardService;
 
-        public PurchaseController(IPurchaseService purchaseService, IShopService shopService,ICurrentUser currentUser, ICardService cardService)
+        public PurchaseController(IPurchaseService purchaseService, IShopService shopService, ICurrentUser currentUser, ICardService cardService)
         {
             _purchaseService = purchaseService;
             _shopService = shopService;
@@ -25,10 +27,11 @@ namespace PointEx.Web.Areas.Shop.Controllers
             _cardService = cardService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(PurchaseListFiltersModel filters)
         {
-            var todayPurchases = _purchaseService.GetTodayPurchasesByShopId(_currentUser.Shop.Id);
-            return View(todayPurchases);
+            var todayPurchases = _purchaseService.GetTodayPurchasesByShopId(_currentUser.Shop.Id, filters.BranchOfficeId).ToList();
+            var purchaseListModel = new PurchaseListModel(todayPurchases, filters);
+            return View(purchaseListModel);
         }
 
         public ActionResult Create()
@@ -52,7 +55,15 @@ namespace PointEx.Web.Areas.Shop.Controllers
             purchase.ShopId = _currentUser.Shop.Id;
             purchase.CardId = card.Id;
 
-            _purchaseService.Create(purchase);
+            try
+            {
+                _purchaseService.Create(purchase);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(purchaseForm);
+            }
 
             return RedirectToAction("Index").WithSuccess("Compra Creada");
         }
