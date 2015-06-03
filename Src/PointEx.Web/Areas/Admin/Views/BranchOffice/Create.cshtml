@@ -1,0 +1,20 @@
+﻿@model PointEx.Web.Models.BranchOfficeForm
+
+@{
+    ViewBag.Title = PointExResources.CreateBranchOffice;
+}
+
+<h3>@PointExResources.CreateBranchOffice</h3>
+@Html.BackButton("Index", "BranchOffice", new { area = "Admin", shopId = Model.ShopId })
+<hr />
+@using (Html.BeginForm("Create", "BranchOffice", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@PointExResources.CreateBranchOffice" class="btn btn-default" />
+        </div>
+    </div>
+}

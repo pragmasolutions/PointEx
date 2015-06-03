@@ -1,0 +1,38 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+@using Microsoft.Web.Mvc
+@model PointEx.Web.Models.OrderBenefitImagesForm
+
+@{
+    ViewBag.Title = "Ordenar Imagenes Beneficio";
+}
+
+<h3>Ordenar Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
+@Html.BackButton("Index", "BenefitFile", new { area = "Shop", benefitId = Model.Id })
+<hr />
+
+@using (Html.BeginForm("OrderImages", "BenefitFile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    <ul class="list-group list-group-sortable">
+
+        @foreach (var image in Model.Items)
+        {
+            <li class="list-group-item">
+                @using (Html.BeginCollectionItem("Items"))
+                {
+                    @Html.Hidden("Id", image.Id)
+                    @Html.Image(image.Url)
+                }
+            </li>
+        }
+    </ul>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Ordenar Imagenes" class="btn btn-default" />
+        </div>
+    </div>
+}

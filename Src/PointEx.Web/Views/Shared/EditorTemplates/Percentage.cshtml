@@ -1,0 +1,8 @@
+﻿@model decimal?
+@{
+    var value = Model.HasValue ? Model.Value.ToString("n2") : string.Empty;
+}
+<div class="input-group">
+    @Html.TextBox("", value, new { @class = "form-control autonumeric-control", data_a_sep = "", data_a_dec = "," })
+    <span class="input-group-addon">%</span>
+</div>

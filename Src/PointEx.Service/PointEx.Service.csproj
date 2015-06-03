@@ -56,8 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SectionItemService.cs" />
+    <Compile Include="BenefitFileService.cs" />
+    <Compile Include="BenefitBranchOfficeService.cs" />
+    <Compile Include="Interfaces\ISectionItemService.cs" />
+    <Compile Include="Interfaces\ISectionService.cs" />
+    <Compile Include="SectionService.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Interfaces\IBenefitBranchOfficeService.cs" />
+    <Compile Include="Interfaces\IBranchOfficeService.cs" />
     <Compile Include="Interfaces\IBenefitService.cs" />
+    <Compile Include="Interfaces\IBenefitFileService.cs" />
     <Compile Include="Interfaces\IPrizeService.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="BenefitService.cs" />
@@ -78,6 +87,7 @@
     <Compile Include="FileService.cs" />
     <Compile Include="PurchaseService.cs" />
     <Compile Include="CardService.cs" />
+    <Compile Include="BranchOfficeService.cs" />
     <Compile Include="TownService.cs" />
     <Compile Include="ShopService.cs" />
   </ItemGroup>

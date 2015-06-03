@@ -7,11 +7,14 @@
 
         var $container = $input.closest('div');
 
+        var width = $input.data('map-width');
+        var height = $input.data('map-height');
+
         // Create the map div and insert it into the page.
         var $map = $('<div>', {
             css: {
-                width: '400px',
-                height: '400px',
+                width: width,
+                height: height,
                 margin: '5px 0 0 0'
             }
         });
@@ -66,7 +69,7 @@
             $input.on('change', function () {
                 var latLong = parseLatLong(this.value);
 
-                if (!latLong) {return;}
+                if (!latLong) { return; }
 
                 latLong = new google.maps.LatLng(latLong.latitude, latLong.longitude);
 

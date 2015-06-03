@@ -51,12 +51,32 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.MVC.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer.Mvc, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.Mvc.3.4.3\lib\ImageResizer.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -224,8 +244,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BeneficiaryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SectionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SectionItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\EducationalInstitutionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BranchOfficeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryCardsModel.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\CreateCardForm.cs" />
@@ -238,20 +261,34 @@
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionForm.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Section\AddPrizeForm.cs" />
+    <Compile Include="Areas\Admin\Models\Section\SectionItemsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Section\OrderSectionItemsForm.cs" />
+    <Compile Include="Areas\Admin\Models\Section\AddBenefitForm.cs" />
+    <Compile Include="Areas\Admin\Models\Shop\ShopBranchOfficesModel.cs" />
+    <Compile Include="Areas\Admin\Models\Shop\BranchOfficeForm.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
     <Compile Include="Areas\Beneficiary\BeneficiaryAreaRegistration.cs" />
-    <Compile Include="Areas\Beneficiary\Controllers\CatalogController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\Shop\Controllers\BenefitFileController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitController.cs" />
+    <Compile Include="Areas\Shop\Controllers\ShopController.cs" />
+    <Compile Include="Areas\Shop\Models\Benefit\BenefitFilesModel.cs" />
+    <Compile Include="Areas\Shop\Models\Benefit\OrderBenefitImagesForm.cs" />
+    <Compile Include="Areas\Shop\Models\Benefit\UploadBenefitImageForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListModel.cs" />
+    <Compile Include="Areas\Shop\Models\Purchase\PurchaseListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
+    <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BenefitController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -259,8 +296,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CurrentUser.cs" />
+    <Compile Include="Infrastructure\Extensions\BenefitExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\FileExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\HttpPostedFileBaseExtensions.cs" />
     <Compile Include="Infrastructure\ICurrentUser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Benefit\BenefitDetailModel.cs" />
+    <Compile Include="Models\Files\OrderImagesForm.cs" />
+    <Compile Include="Models\Files\UploadImagesForm.cs" />
+    <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
     <Compile Include="Models\List\FilterBaseModel.cs" />
     <Compile Include="Models\List\IFilter.cs" />
@@ -283,8 +327,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\front-end\images\header.png" />
+    <Content Include="Content\front-end\pointex-benefits.css" />
+    <Content Include="Content\images\noimage.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\select2.css" />
+    <Content Include="Content\front-end\pointex-homepage.css" />
     <Content Include="Content\Site.Beneficiary.css">
       <DependentUpon>Site.Beneficiary.less</DependentUpon>
     </Content>
@@ -292,6 +341,7 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -348,7 +398,33 @@
     <Content Include="Areas\Admin\Views\Beneficiary\DisplayTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\EditorTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
-    <Content Include="Areas\Beneficiary\Views\Profile\History.cshtml" />
+    <Content Include="Areas\Beneficiary\Views\Profile\Transactions.cshtml" />
+    <Content Include="Areas\Shop\Views\BenefitFile\UploadImages.cshtml" />
+    <Content Include="Areas\Shop\Views\BenefitFile\OrderImages.cshtml" />
+    <Content Include="Areas\Shop\Views\BenefitFile\Index.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Shop\Views\Shop\Edit.cshtml" />
+    <Content Include="Areas\Shop\Views\Shop\EditorTemplates\ShopEditForm.cshtml" />
+    <Content Include="Areas\Admin\Views\BranchOffice\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BranchOffice\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BranchOffice\EditorTemplates\BranchOfficeForm.cshtml" />
+    <Content Include="Areas\Admin\Views\BranchOffice\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\OrderItems.cshtml" />
+    <Content Include="Areas\Admin\Views\Section\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\AddBenefit.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_BenefitFilters.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\SelectBenefitList.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_BenefitFiltersFields.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\AddPrize.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_PrizeFilters.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\_PrizeFiltersFields.cshtml" />
+    <Content Include="Areas\Admin\Views\SectionItem\SelectPrizeList.cshtml" />
+    <Content Include="Areas\Shop\Views\Purchase\_Filters.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -455,6 +531,15 @@
     <Content Include="Views\Shared\DisplayTemplates\ImageFile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Percentage.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultipleImageFiles.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Shared\_Layout.remove.cshtml" />
+    <Content Include="Views\Benefit\Detail.cshtml" />
+    <Content Include="Views\Benefit\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchBenefits.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BranchOffices.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BranchOfficeId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

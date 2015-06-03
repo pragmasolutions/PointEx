@@ -17,6 +17,9 @@ namespace PointEx.Entities
         public Benefit()
         {
             this.Purchases = new HashSet<Purchase>();
+            this.BenefitFiles = new HashSet<BenefitFile>();
+            this.BenefitBranchOffices = new HashSet<BenefitBranchOffice>();
+            this.SectionItems = new HashSet<SectionItem>();
         }
     
         public int Id { get; set; }
@@ -27,8 +30,13 @@ namespace PointEx.Entities
         public int ShopId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public System.DateTime DateFrom { get; set; }
+        public Nullable<System.DateTime> DateTo { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
+        public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
+        public virtual ICollection<SectionItem> SectionItems { get; set; }
     }
 }

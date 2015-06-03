@@ -17,6 +17,7 @@ namespace PointEx.Entities
         public Prize()
         {
             this.PointsExchanges = new HashSet<PointsExchange>();
+            this.SectionItems = new HashSet<SectionItem>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,6 @@ namespace PointEx.Entities
     
         public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
         public virtual File File { get; set; }
+        public virtual ICollection<SectionItem> SectionItems { get; set; }
     }
 }

@@ -165,4 +165,13 @@
   <data name="CreatePurchaseTitle" xml:space="preserve">
     <value>Crear Compra</value>
   </data>
+  <data name="EditShopProfile" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="CreateBranchOffice" xml:space="preserve">
+    <value>Crear Sucursal</value>
+  </data>
+  <data name="EditBranchOffice" xml:space="preserve">
+    <value>Editar Sucursal</value>
+  </data>
 </root>

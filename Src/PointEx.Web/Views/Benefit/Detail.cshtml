@@ -1,0 +1,114 @@
+﻿@using Framework.Common.Extentensions
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.BenefitDetailModel
+@{
+    ViewBag.Title = Model.Benefit.Name;
+}
+
+@section ContainerTop{
+    @Html.Partial("_SearchBenefits")
+}
+
+<div class="thumbnail">
+    @if (Model.Benefit.BenefitFiles.Any())
+    {
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+
+
+                @foreach (var image in Model.Benefit.BenefitFiles)
+                {
+                    <div class="item @(image == Model.Benefit.BenefitFiles.First() ? "active" : string.Empty)">
+                        <img class="slide-image active" src="@image.File.GetUrl(800, 300)" alt="">
+                    </div>
+                }
+            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    }
+
+    <div class="caption-full">
+        <h1 class="pull-right">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
+        <h3>
+            @Model.Shop.Name <a href="#">@Model.Benefit.Name</a>
+        </h3>
+        <h4>
+            Direccion: @Model.Shop.Address
+        </h4>
+        <h4>
+            Teléfono:
+        </h4>
+        <p class="benefit-description">
+            @Model.Benefit.Description
+        </p>
+    </div>
+    <div class="ratings">
+        <p class="pull-right">3 reviews</p>
+        <p>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            4.0 stars
+        </p>
+    </div>
+</div>
+<!-- Map Section -->
+<div style="margin-bottom: 15px">
+    @Html.DisplayFor(model => model.Shop.Location, new { width = "100%", height = "300px", hide_input = true })
+</div>
+<div class="well">
+    <div class="text-right">
+        <a class="btn btn-success">Leave a Review</a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            Anonymous
+            <span class="pull-right">10 days ago</span>
+            <p>This product was great in terms of quality. I would definitely buy another!</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            Anonymous
+            <span class="pull-right">12 days ago</span>
+            <p>I've alredy ordered another one!</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            Anonymous
+            <span class="pull-right">15 days ago</span>
+            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+        </div>
+    </div>
+</div>

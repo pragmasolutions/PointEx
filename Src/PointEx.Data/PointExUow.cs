@@ -34,7 +34,12 @@ namespace PointEx.Data
         public IRepository<FileContent> FileContents { get { return GetStandardRepo<FileContent>(); } }
         public IRepository<Benefit> Benefits { get { return GetStandardRepo<Benefit>(); } }
         public IRepository<Purchase> Purchases { get { return GetStandardRepo<Purchase>(); } }
-
+        public IRepository<BenefitFile> BenefitFiles { get { return GetStandardRepo<BenefitFile>(); } }
+        public IRepository<BranchOffice> BranchOffices { get { return GetStandardRepo<BranchOffice>(); } }
+        public IRepository<BenefitBranchOffice> BenefitBranchOffice { get { return GetStandardRepo<BenefitBranchOffice>(); } }
+        public IRepository<Section> Sections { get { return GetStandardRepo<Section>(); } }
+        public IRepository<SectionItem> SectionItems { get { return GetStandardRepo<SectionItem>(); } }
+        
         public string ConnectionString
         {
             get

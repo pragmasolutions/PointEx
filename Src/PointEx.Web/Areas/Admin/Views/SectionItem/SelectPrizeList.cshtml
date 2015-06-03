@@ -1,0 +1,46 @@
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
+@model PointEx.Web.Models.AddPrizeModel
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Puntos Necesarios</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var prize in Model.PrizeListModel.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new { area = "Admin", prize.Id }, htmlAttributes: null)</td>
+                <td>TODO: Short Descip</td>
+                <td>@prize.PointsNeeded</td>
+                <td>
+
+                    @if (Model.SelectedPrizeIds.Any(id => id == prize.Id))
+                    {
+                        <p>Beneficio Ya Agregado</p>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("AddPrize", "SectionItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.Hidden("PrizeId", prize.Id)
+                            @Html.Hidden("SectionId", Model.SectionId)
+
+                            <input type="submit" value="Seleccionar" class="btn btn-default" />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.PrizeListModel.List, page => Url.Action("AddPrize", Model.PrizeListModel.Filters.GetRouteValues(page)))
+
+

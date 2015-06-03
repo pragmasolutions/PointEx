@@ -3,12 +3,17 @@
 @model System.Data.Entity.Spatial.DbGeography
 
 @{
+    var width = this.ViewData["width"] ?? "400px";
+    var height = this.ViewData["height"] ?? "400px";
+    bool hideInput = (bool)(this.ViewData["hide_input"] ?? false);
     var htmlAttributes = new
                          {
-                             @class = "editor-for-dbgeography form-control",
+                             @class = "editor-for-dbgeography form-control" + (hideInput ? " hide" : string.Empty),
                              data_val ="true",
                              data_val_regex = "La Ubicación no es valida",
-                             data_val_regex_pattern = RegexPatterns.Location
+                             data_val_regex_pattern = RegexPatterns.Location,
+                             data_map_width = width,
+                             data_map_height = height
                          };
 }
 

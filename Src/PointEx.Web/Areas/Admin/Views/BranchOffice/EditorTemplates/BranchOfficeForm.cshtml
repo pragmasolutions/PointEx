@@ -1,0 +1,39 @@
+﻿@using Framework.Common.Web.Helpers
+@model PointEx.Web.Models.BranchOfficeForm
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.ShopId)
+
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.ShopName)
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.ShopName)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Address)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Address)
+        @Html.ValidationMessageFor(model => model.Address)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Phone)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Phone)
+        @Html.ValidationMessageFor(model => model.Phone)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.TownId)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.TownId)
+        @Html.ValidationMessageFor(model => model.TownId)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Location)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Location)
+        @Html.ValidationMessageFor(model => model.Location)
+    </div>
+</div>

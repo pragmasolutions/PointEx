@@ -1,0 +1,31 @@
+﻿@using Framework.Common.Extentensions
+@using Microsoft.Web.Mvc
+@using PagedList.Mvc
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.BenefitListModel
+@{
+    ViewBag.Title = "Beneficios";
+}
+@section ContainerTop{
+    @Html.Partial("_SearchBenefits")
+}
+<hr>
+@foreach (var benefit in Model.List)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <a href="@benefit.GetDetailUrl()">
+                @Html.Image(benefit.GetDefaultImageUrl(250, 180))
+            </a>
+        </div>
+        <div class="col-md-9">
+            <h3>@benefit.ShopName: @Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "", benefit.Id }, htmlAttributes: null)</h3>
+            <h4>@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
+            <p class="benefit-description">@benefit.Description</p>
+            <a class="btn btn-primary" href="@benefit.GetDetailUrl()">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </div>
+    <hr>
+}
+
+@Html.PagedListPager(Model.List, page => Url.Action("Index", "Benefit", Model.Filters.GetRouteValues(page)))

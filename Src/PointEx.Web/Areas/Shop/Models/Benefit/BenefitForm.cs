@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
@@ -14,6 +15,12 @@ namespace PointEx.Web.Models
 {
     public class BenefitForm : IMapFrom<Benefit>
     {
+
+        public BenefitForm()
+        {
+            BranchOfficesSelected = Enumerable.Empty<int>();
+        }
+
         [HiddenInput]
         public int Id { get; set; }
 
@@ -24,6 +31,7 @@ namespace PointEx.Web.Models
 
         [Display(Name = @"Descripción")]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Description { get; set; }
 
         [Display(Name = @"Porcentaje de Descuento")]
@@ -33,15 +41,32 @@ namespace PointEx.Web.Models
         [Display(Name = @"Tope Porcentaje de Descuento")]
         public decimal? DiscountPercentageCeiling { get; set; }
 
+        [Display(Name = "Fecha Desde")]
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime? DateFrom { get; set; }
+
+        [Display(Name = "Fecha Hasta")]
+        [DataType(DataType.Date)]
+        public DateTime? DateTo { get; set; }
+
+        [UIHint("BranchOffices")]
+        [Display(Name = "Sucursales")]
+        [NotMapped]
+        public IEnumerable<int> BranchOfficesSelected { get; set; }
+
         public Benefit ToBenefit()
         {
-            var prize = Mapper.Map<BenefitForm, Benefit>(this);
-            return prize;
+            var benefit = Mapper.Map<BenefitForm, Benefit>(this);
+            benefit.BenefitBranchOffices =
+                this.BranchOfficesSelected.Select(branchOfficeId => new BenefitBranchOffice() { BranchOfficeId = branchOfficeId, BenefitId = this.Id }).ToArray();
+            return benefit;
         }
 
-        public static BenefitForm FromBenefit(Benefit prize)
+        public static BenefitForm FromBenefit(Benefit benefit)
         {
-            var form = Mapper.Map<Benefit, BenefitForm>(prize);
+            var form = Mapper.Map<Benefit, BenefitForm>(benefit);
+            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
             return form;
         }
     }

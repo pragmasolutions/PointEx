@@ -8,7 +8,7 @@ namespace PointEx.Service
     public interface IPurchaseService
     {
         void Create(Purchase purchase);
-        IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId);
+        IList<PurchaseDto> GetTodayPurchasesByShopId(int shopId, int? branchOfficeId = null);
         void Dispose();
     }
 }

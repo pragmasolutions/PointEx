@@ -6,6 +6,8 @@ using PointEx.Entities.Dto;
 using PointEx.Service;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
+using PointEx.Web.Infrastructure;
+using System.Linq;
 
 namespace PointEx.Web.Areas.Shop.Controllers
 {
@@ -13,11 +15,15 @@ namespace PointEx.Web.Areas.Shop.Controllers
     {
         private readonly IBenefitService _benefitService;
         private readonly IShopService _shopService;
+        private readonly ICurrentUser _currentUser;
+        private readonly IBranchOfficeService _branchOfficeService;
 
-        public BenefitController(IBenefitService benefitService,IShopService shopService)
+        public BenefitController(IBenefitService benefitService, IShopService shopService, ICurrentUser currentUser, IBranchOfficeService branchOffice)
         {
             _benefitService = benefitService;
             _shopService = shopService;
+            _currentUser = currentUser;
+            _branchOfficeService = branchOffice;
         }
 
         public ActionResult Index(BenefitListFiltersModel filters)
@@ -43,6 +49,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         public ActionResult Create()
         {
             var benefitForm = new BenefitForm();
+            benefitForm.BranchOfficesSelected = _branchOfficeService.GetByShopId(_currentUser.Shop.Id).Select(bo => bo.Id);
             return View(benefitForm);
         }
 
@@ -67,7 +74,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var benefit = _benefitService.GetById(id);
+            var benefit = _benefitService.GetById(id);            
             var benefitForm = BenefitForm.FromBenefit(benefit);
             return View(benefitForm);
         }

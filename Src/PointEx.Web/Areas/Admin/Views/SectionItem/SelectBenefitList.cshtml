@@ -1,0 +1,46 @@
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
+@model PointEx.Web.Models.AddBenefitModel
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th class="text-right">Procentaje de Descuento</th>
+            <th class="text-right">Tope Porcentaje de Descuento</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var benefit in Model.BenefitListModel.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
+                <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</td>
+                <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
+                <td>
+
+                    @if (Model.SelectedBenefitIds.Any(id => id == benefit.Id))
+                    {
+                        <p>Beneficio Ya Agregado</p>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("AddBenefit", "SectionItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.Hidden("BenefitId", benefit.Id)
+                            @Html.Hidden("SectionId", Model.SectionId)
+
+                            <input type="submit" value="Seleccionar" class="btn btn-default" />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.BenefitListModel.List, page => Url.Action("AddBenefit", Model.BenefitListModel.Filters.GetRouteValues(page)))
+
+

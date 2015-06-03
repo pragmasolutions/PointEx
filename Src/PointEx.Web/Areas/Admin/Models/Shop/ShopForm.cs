@@ -28,6 +28,9 @@ namespace PointEx.Web.Models
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 
+        [Display(Name = "Teléfono")]
+        public string Phone { get; set; }
+
         [UIHint("TownId")]
         [Display(Name = "Localidad")]
         [Required]
@@ -36,7 +39,7 @@ namespace PointEx.Web.Models
         [UIHint("Categories")]
         [Display(Name = "Categorias")]
         [NotMapped]
-        public IEnumerable<int> CategoriesSelected { get; set; } 
+        public IEnumerable<int> CategoriesSelected { get; set; }
 
         [Display(Name = "Ubicación")]
         public DbGeography Location { get; set; }

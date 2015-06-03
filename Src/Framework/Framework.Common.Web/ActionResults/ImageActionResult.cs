@@ -39,7 +39,7 @@ namespace Framework.Common.Web.ActionResults
                 }
             }
 
-            var resizedImage = imageRisizer.Resize(width, height, false, ImageEncoding.Png);
+            var resizedImage = imageRisizer.Resize(width, height, true, ImageEncoding.Png);
 
             using (var ms = new MemoryStream(resizedImage))
             {

@@ -1,8 +1,15 @@
-﻿@model IList<PointEx.Entities.Dto.PurchaseDto>
+﻿@model PointEx.Web.Models.PurchaseListModel
 
 <h3>Compras del Día</h3>
 
 @Html.ActionLink("Registrar Ptos Compra", "Create", "Purchase", routeValues: new { area = "Shop" }, htmlAttributes: new { @class = "btn btn-primary" })
+
+@Html.FilterButton()
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_Filters", Model.Filters)
 
 <div class="spacer">
 </div>
@@ -11,16 +18,18 @@
     <thead>
         <tr>
             <th>Hora</th>
+            <th>Sucursal</th>
             <th>Beneficio</th>
             <th>Beneficiario</th>
             <th>Monto</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
-        @foreach (var purchase in Model)
+        @foreach (var purchase in Model.List)
         {
             <tr>
                 <td>@purchase.PurchaseDate.ToShortTimeString()</td>
+                <td>@purchase.BranchOfficeAddress</td>
                 <td>@purchase.BenefitName</td>
                 <td>@purchase.CardBeneficiaryName</td>
                 <td>@purchase.Amount.ToString("c2")</td>

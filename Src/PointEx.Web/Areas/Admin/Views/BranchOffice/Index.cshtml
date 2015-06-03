@@ -1,0 +1,48 @@
+﻿@model PointEx.Web.Models.ShopBranchOfficesModel
+
+<h3>Sucursales Comercio: <strong>@Model.Shop.Name</strong></h3>
+
+@Html.BackButton("Detail", "Shop", new { area = "Admin", Model.Shop.Id }, "Volver al detalle")
+@Html.ActionLink("Crear Sucursal", "Create", "BranchOffice", routeValues: new { area = "Admin", shopId = Model.Shop.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var branchOffice in Model.BranchOffices)
+        {
+            <tr>
+                <td>@branchOffice.Address</td>
+                <td>@branchOffice.Phone</td>
+                <td class="text-right">
+                    @Html.ActionLink("Editar", "Edit", "BranchOffice", routeValues: new { area = "Admin", branchOffice.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+                    @using (Html.BeginForm("Delete", "BranchOffice", new { shopId = branchOffice.ShopId, id = branchOffice.Id }, FormMethod.Post, new { @class = "delete-branch-office-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".delete-branch-office-form").on("submit", function () {
+                return confirm("Esta seguro que desea eliminar esta sucursal? Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

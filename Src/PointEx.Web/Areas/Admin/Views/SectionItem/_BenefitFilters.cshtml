@@ -1,0 +1,10 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+@model PointEx.Web.Models.AddBenefitModel
+
+<div id="filter-container" class="collapse">
+    @using (Html.BeginForm("AddBenefit", "SectionItem", FormMethod.Get))
+    {
+        @Html.HiddenFor(model => model.SectionId)
+        @Html.Partial("_BenefitFiltersFields", Model.BenefitListModel.Filters)
+    }
+</div>

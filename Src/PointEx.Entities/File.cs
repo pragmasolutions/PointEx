@@ -17,6 +17,7 @@ namespace PointEx.Entities
         public File()
         {
             this.Prizes = new HashSet<Prize>();
+            this.BenefitFiles = new HashSet<BenefitFile>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace PointEx.Entities
     
         public virtual ICollection<Prize> Prizes { get; set; }
         public virtual FileContent FileContent { get; set; }
+        public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
     }
 }

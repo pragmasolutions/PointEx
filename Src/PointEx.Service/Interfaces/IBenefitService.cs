@@ -9,6 +9,8 @@ namespace PointEx.Service
     {
         IQueryable<Benefit> GetAll();
 
+        IList<Benefit> GetOutstandingBenefits();
+
         Benefit GetById(int id);
 
         IQueryable<Benefit> GetAllByShopId(int shopId);
@@ -23,5 +25,7 @@ namespace PointEx.Service
         void Delete(int enefitId);
 
         bool IsNameAvailable(string name, int id);
+
+        bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId);
     }
 }

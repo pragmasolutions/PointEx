@@ -4,19 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PointEx.Security;
+using PointEx.Service;
+using PointEx.Web.Models;
 
 namespace PointEx.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        private readonly ISectionItemService _sectionItemService;
+        private readonly IBenefitService _benefitService;
+
+        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService)
+        {
+            _sectionItemService = sectionItemService;
+            _benefitService = benefitService;
+        }
+
         public ActionResult Index()
         {
-            if (PointExContext.Role == RolesNames.Beneficiary)
-            {
-                var model = PointExContext.Beneficiary;
-                return View("~/Areas/Beneficiary/Views/Profile/Index.cshtml", model);
-            }
-            return View();
+            var sliderItems = _sectionItemService.GetBySectionName("SliderHome");
+            var outstandingItems = _benefitService.GetOutstandingBenefits();
+
+            var homeModel = new HomeModel(sliderItems, outstandingItems);
+
+            return View(homeModel);
         }
 
         public ActionResult About()

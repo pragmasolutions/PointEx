@@ -44,6 +44,7 @@ namespace PointEx.Service
 
             currentShop.Name = shop.Name;
             currentShop.Address = shop.Address;
+            currentShop.Phone = shop.Phone;
             currentShop.TownId = shop.TownId;
             currentShop.Location = shop.Location;
             currentShop.ModifiedDate = _clock.Now;

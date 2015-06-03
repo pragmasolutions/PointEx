@@ -12,3 +12,4 @@ Post-Deployment Script Template
 
 :r .\Roles.Data.sql	
 :r .\Categories.Data.sql
+:r .\Section.Data.sql
