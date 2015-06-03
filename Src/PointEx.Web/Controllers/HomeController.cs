@@ -14,7 +14,7 @@ namespace PointEx.Web.Controllers
             if (PointExContext.Role == RolesNames.Beneficiary)
             {
                 var model = PointExContext.Beneficiary;
-                return View("Areas/Beneficiary/Profile/Index",model);
+                return View("~/Areas/Beneficiary/Views/Profile/Index.cshtml", model);
             }
             return View();
         }

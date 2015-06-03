@@ -240,6 +240,7 @@
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListModel.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
     <Compile Include="Areas\Beneficiary\BeneficiaryAreaRegistration.cs" />
+    <Compile Include="Areas\Beneficiary\Controllers\CatalogController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\PurchaseController.cs" />
@@ -347,7 +348,7 @@
     <Content Include="Areas\Admin\Views\Beneficiary\DisplayTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\EditorTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
-    <Content Include="Areas\Beneficiary\Views\Profile\Transactions.cshtml" />
+    <Content Include="Areas\Beneficiary\Views\Profile\History.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
