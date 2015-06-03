@@ -8,6 +8,8 @@ namespace PointEx.Service
     {
         IList<SectionItem> GetBySectionId(int sectionId);
 
+        IList<SectionItem> GetBySectionName(string sectionName);
+
         void Create(SectionItem sectionItem);
 
         void Create(IList<SectionItem> sectionItems);

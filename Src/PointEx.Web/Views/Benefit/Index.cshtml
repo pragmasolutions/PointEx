@@ -12,10 +12,9 @@
 <hr>
 @foreach (var benefit in Model.List)
 {
-    var detailurl = Url.Action("Detail", "Benefit", routeValues: new { area = "", benefit.Id });
     <div class="row">
         <div class="col-md-3">
-            <a href="@detailurl">
+            <a href="@benefit.GetDetailUrl()">
                 @if (benefit.DefaultFileId.HasValue)
                 {
                     @Html.Image(benefit.GetDefaultImageUrl(250, 180))
@@ -26,7 +25,7 @@
             <h3>@benefit.ShopName: @Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "", benefit.Id }, htmlAttributes: null)</h3>
             <h4>@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
             <p class="benefit-description">@benefit.Description</p>
-            <a class="btn btn-primary" href="@detailurl">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
+            <a class="btn btn-primary" href="@benefit.GetDetailUrl()">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
     <hr>

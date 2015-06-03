@@ -25,12 +25,17 @@ namespace PointEx.Service
 
         public IList<SectionItem> GetBySectionId(int sectionId)
         {
-            return Uow.SectionItems.GetAll(si => si.SectionId == sectionId, bf => bf.Benefit.BenefitFiles, bf => bf.Prize).OrderBy(c => c.Order).ToList();
+            return Uow.SectionItems.GetAll(si => si.SectionId == sectionId, si => si.Benefit.BenefitFiles, si => si.Prize).OrderBy(c => c.Order).ToList();
         }
 
         public SectionItem GetById(int sectionItemId)
         {
-            return Uow.SectionItems.Get(bf => bf.Id == sectionItemId, bf => bf.Benefit, bf => bf.Prize);
+            return Uow.SectionItems.Get(si => si.Id == sectionItemId, si => si.Benefit, si => si.Prize);
+        }
+
+        public IList<SectionItem> GetBySectionName(string sectionName)
+        {
+            return Uow.SectionItems.GetAll(si => si.Section.Name == sectionName, si => si.Benefit.BenefitFiles, si => si.Prize, si => si.Section).OrderBy(c => c.Order).ToList();
         }
 
         public void Order(int sectionItemId, IList<int> sectionItemIdsOrdered)
@@ -44,7 +49,7 @@ namespace PointEx.Service
 
             for (int i = 0; i < sectionItemIdsOrdered.Count; i++)
             {
-                var sectionItemToUpdate = sectionItems.Single(bf => bf.Id == sectionItemIdsOrdered[i]);
+                var sectionItemToUpdate = sectionItems.Single(si => si.Id == sectionItemIdsOrdered[i]);
                 sectionItemToUpdate.Order = i + 1;
                 Uow.SectionItems.Edit(sectionItemToUpdate);
             }

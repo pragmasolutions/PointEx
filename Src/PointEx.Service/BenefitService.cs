@@ -144,5 +144,12 @@ namespace PointEx.Service
 
             return benefit.BenefitBranchOffices.Any(bo => bo.BranchOfficeId == branchOfficeId);
         }
+
+        public IList<Benefit> GetOutstandingBenefits()
+        {
+            return Uow.Benefits.GetAll(b => b.DateTo >= _clock.Now, 
+                b => b.Purchases,
+                b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();
+        }
     }
 }

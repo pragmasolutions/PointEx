@@ -288,6 +288,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CurrentUser.cs" />
+    <Compile Include="Infrastructure\Extensions\BenefitExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\FileExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HttpPostedFileBaseExtensions.cs" />
     <Compile Include="Infrastructure\ICurrentUser.cs" />
@@ -295,6 +296,7 @@
     <Compile Include="Models\Benefit\BenefitDetailModel.cs" />
     <Compile Include="Models\Files\OrderImagesForm.cs" />
     <Compile Include="Models\Files\UploadImagesForm.cs" />
+    <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
     <Compile Include="Models\List\FilterBaseModel.cs" />
     <Compile Include="Models\List\IFilter.cs" />

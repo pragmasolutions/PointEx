@@ -9,6 +9,8 @@ namespace PointEx.Service
     {
         IQueryable<Benefit> GetAll();
 
+        IList<Benefit> GetOutstandingBenefits();
+
         Benefit GetById(int id);
 
         IQueryable<Benefit> GetAllByShopId(int shopId);
