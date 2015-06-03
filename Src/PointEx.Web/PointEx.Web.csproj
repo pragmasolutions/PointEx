@@ -269,6 +269,7 @@
     <Compile Include="Areas\Admin\Models\Shop\BranchOfficeForm.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
     <Compile Include="Areas\Beneficiary\BeneficiaryAreaRegistration.cs" />
+    <Compile Include="Areas\Beneficiary\Controllers\CatalogController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitFileController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
