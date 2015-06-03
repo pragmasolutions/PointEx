@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
@@ -10,16 +11,19 @@ using Framework.Data.Helpers;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Service.Exceptions;
 
 namespace PointEx.Service
 {
     public class BenefitService : ServiceBase, IBenefitService
     {
         private readonly IClock _clock;
+        private readonly IBranchOfficeService _branchOfficeService;
 
-        public BenefitService(IPointExUow uow, IClock clock)
+        public BenefitService(IPointExUow uow, IClock clock, IBranchOfficeService branchOfficeService)
         {
             _clock = clock;
+            _branchOfficeService = branchOfficeService;
             Uow = uow;
         }
 
@@ -125,7 +129,20 @@ namespace PointEx.Service
 
         public bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId)
         {
-            return false;
+            var benefit = Uow.Benefits.Get(b => b.Id == benefitId, b => b.BenefitBranchOffices);
+            var branchOffice = _branchOfficeService.GetById(branchOfficeId);
+
+            if (benefit == null || branchOffice == null)
+            {
+                throw new NotFoundException("No se encontro el beneficio");
+            }
+
+            if (!_branchOfficeService.GetByShopId(branchOffice.Shop.Id).Any())
+            {
+                return false;
+            }
+
+            return benefit.BenefitBranchOffices.Any(bo => bo.BranchOfficeId == branchOfficeId);
         }
     }
 }
