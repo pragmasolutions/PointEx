@@ -4,7 +4,7 @@
 	[Name]					   VARCHAR (250)  NOT NULL,
 	[BirthDate]                DATETIME2 (7)  NULL,
 	[Address]				   VARCHAR (250)  NULL,
-    [EducationalInstitutionId] INT            NOT NULL,
+    [EducationalInstitutionId] INT            NULL,
     [TownId]                   INT            NOT NULL,
     [UserId]                   NVARCHAR (128) NOT NULL,
     [CreatedDate]              DATETIME2 (7)  NOT NULL,

@@ -19,8 +19,8 @@
             <tr>
                 <td>@transaction.TransactionDate.GetValueOrDefault().ToShortDateString()</td>
                 <td>@transaction.Description</td>
-                <td>@transaction.Debit</td>
-                <td>@transaction.Credit</td>
+                <td><span class='@(transaction.Debit == 0 ? "" : "red")'>@transaction.Debit</span></td>
+                <td><span class='@(transaction.Credit == 0 ? "" : "green")'>@transaction.Credit</span></td>
                 <td>@transaction.Total</td>
             </tr>
         }

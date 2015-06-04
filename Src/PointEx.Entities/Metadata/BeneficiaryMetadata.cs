@@ -27,10 +27,6 @@ namespace PointEx.Entities
 
     public class BeneficiaryMetadata
     {
-        [DisplayName("Escuela")]
-        [Required(ErrorMessage = null)]
-        public int EducationalInstitutionId { get; set; }
-
         [DisplayName("Ciudad")]
         [Required(ErrorMessage = null)]
         public int TownId { get; set; }

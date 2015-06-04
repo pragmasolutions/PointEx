@@ -21,7 +21,7 @@ namespace PointEx.Entities
         }
     
         public int Id { get; set; }
-        public int EducationalInstitutionId { get; set; }
+        public Nullable<int> EducationalInstitutionId { get; set; }
         public int TownId { get; set; }
         public string UserId { get; set; }
         public System.DateTime CreatedDate { get; set; }

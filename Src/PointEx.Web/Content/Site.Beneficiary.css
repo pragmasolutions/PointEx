@@ -55,4 +55,12 @@
   width: 100%;
   padding: 10px 20px;
 }
+.green {
+  color: yellowgreen;
+  font-weight: bold;
+}
+.red {
+  color: red;
+  font-weight: bold;
+}
 /*# sourceMappingURL=Site.Beneficiary.css.map */
