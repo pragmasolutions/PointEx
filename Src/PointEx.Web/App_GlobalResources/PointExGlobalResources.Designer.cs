@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} no es una direccion de email valida .
+        ///   Looks up a localized string similar to El campo {0} no es un email válido..
         /// </summary>
         internal static string EmailAddress {
             get {

@@ -9,6 +9,7 @@ using AutoMapper;
 using Framework.Common.Mapping;
 using PointEx.Entities;
 using PointEx.Security.Model;
+using Resources;
 
 namespace PointEx.Web.Models
 {
@@ -47,7 +48,7 @@ namespace PointEx.Web.Models
         //public RegisterViewModel RegisterViewModel { get; set; }
 
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

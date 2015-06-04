@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EmailAddress" xml:space="preserve">
-    <value>{0} no es una direccion de email valida </value>
+    <value>El campo {0} no es un email válido.</value>
   </data>
   <data name="FieldMustBeDate" xml:space="preserve">
     <value>El campo {0} debe ser una fecha.</value>

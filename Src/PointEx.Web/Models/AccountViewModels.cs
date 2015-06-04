@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Resources;
 
 namespace PointEx.Web.Models
 {
@@ -50,7 +51,7 @@ namespace PointEx.Web.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         public string Email { get; set; }
 
         [Required]
@@ -65,7 +66,7 @@ namespace PointEx.Web.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -84,7 +85,7 @@ namespace PointEx.Web.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -105,7 +106,7 @@ namespace PointEx.Web.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -124,7 +125,7 @@ namespace PointEx.Web.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
