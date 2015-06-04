@@ -1,29 +1,20 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Policy;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.ModelBinding;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using Framework.Security.Interfaces;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using PointEx.Data;
 using PointEx.Data.Interfaces;
 using PointEx.Security;
-using PointEx.Web.Models;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
+using PointEx.Web.Models;
 
 namespace PointEx.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -31,7 +22,7 @@ namespace PointEx.Web.Controllers
 
         public AccountController()
         {
-            
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPointExUow uow)
@@ -47,9 +38,9 @@ namespace PointEx.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -85,24 +76,48 @@ namespace PointEx.Web.Controllers
             {
                 return View(model);
             }
- 
+
+            // Require the user to have a confirmed email before they can log on.
+            var appuUser = await UserManager.FindByNameAsync(model.Email);
+            if (appuUser != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(appuUser.Id) && !await UserManager.IsInRoleAsync(appuUser.Id, RolesNames.Admin))
+                {
+                    ViewBag.errorMessage = "Debe tener una correo electrónico de confirmación para iniciar sesión.";
+                    View(model);
+                }
+
+                if (string.IsNullOrEmpty(appuUser.PasswordHash))
+                {
+                    return RedirectToAction("SetPassword", new { userId = appuUser.Id });
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
 
             switch (result)
             {
                 case SignInStatus.Success:
                     var user = _uow.Users.Get(u => u.UserName == model.Email, u => u.Roles);
                     PointExContext.SetIdentity(user);
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+
                     if (user.Roles.Any(r => r.Name == RolesNames.Admin))
                     {
-                        return RedirectToLocal("/Admin/Home/Index");
+                        return RedirectToAction("Index", "Shop", new { area = "Admin" });
                     }
-                    if (user.Roles.Any(r => r.Name == RolesNames.Beneficiary))
-                        return RedirectToLocal("/Beneficiary/Profile/Index");
-                    return RedirectToLocal("/Shop/Home/Index");
+
+                    if (user.Roles.Any(r => r.Name == RolesNames.Shop))
+                    {
+                        return RedirectToAction("Index", "Purchase", new { area = "Shop" });
+                    }
+                    return RedirectToAction("Index", "Profile", new { area = "Beneficiary" });
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -143,7 +158,7 @@ namespace PointEx.Web.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -178,8 +193,8 @@ namespace PointEx.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -192,6 +207,74 @@ namespace PointEx.Web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> FirstLogin(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            if (!result.Succeeded)
+            {
+                return View("Error");
+            }
+
+            var user = await UserManager.FindByIdAsync(userId);
+
+            FirstLoginViewModel vm = new FirstLoginViewModel();
+
+            vm.Email = user.Email;
+
+            return View(vm);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> SetPassword(string userId)
+        {
+            if (userId == null)
+            {
+                return View("Error");
+            }
+
+            var user = await UserManager.FindByIdAsync(userId);
+            FirstLoginViewModel vm = new FirstLoginViewModel();
+            vm.Email = user.Email;
+
+            return View("FirstLogin", vm);
+        }
+
+        //
+        // POST: /Manage/SetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FirstLogin(FirstLoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    if (await UserManager.IsEmailConfirmedAsync(user.Id))
+                    {
+                        var result = await UserManager.AddPasswordAsync(user.Id, model.NewPassword);
+                        if (result.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                            return RedirectToAction<HomeController>(c => c.Index());
+                        }
+
+                        AddErrors(result);
+                    }
+                }
+            }
             return View(model);
         }
 

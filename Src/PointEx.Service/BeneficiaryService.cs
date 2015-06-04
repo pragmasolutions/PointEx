@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Web;
+using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
@@ -28,18 +30,28 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string password)
+        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
                 {
-                    var result = await _userManager.CreateAsync(applicationUser, password);
+                    if (_userManager.FindByEmail(applicationUser.Email) != null)
+                    {
+                        throw new ApplicationException("Ya existe un usuario con ese email.");
+                    }
+
+                    var result = await _userManager.CreateAsync(applicationUser);
 
                     if (!result.Succeeded)
                     {
                         throw new ApplicationException(result.Errors.FirstOrDefault());
                     }
+
+                    var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser.Id);
+                    var callbackUrl = urlhelper.Action("FirstLogin", "Account", new { area = "", userId = applicationUser.Id, code = code }, protocol: HttpContext.Current.Request.Url.Scheme);
+                    await _userManager.SendEmailAsync(applicationUser.Id, "Confirme su Cuenta", "Por favor confirme su cuenta y cambie su contraseña haciendo click <a href=\"" + callbackUrl + "\">aquí</a>");
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;
@@ -49,10 +61,10 @@ namespace PointEx.Service
 
                     trasactionScope.Complete();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     trasactionScope.Dispose();
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -64,10 +76,14 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
-        public void Delete(int shopId)
+        public void Delete(int beneficiaryId)
         {
-            var beneficiary = this.GetById(shopId);
+            var beneficiary = this.GetById(beneficiaryId);
+            var user = Uow.Users.Get(u => u.Id == beneficiary.UserId);
+
             Uow.Beneficiaries.Delete(beneficiary);
+            Uow.Users.Delete(user);
+
             Uow.Commit();
         }
 

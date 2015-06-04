@@ -109,4 +109,23 @@ namespace PointEx.Web.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class FirstLoginViewModel
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "El campo {0} debe tener almenos {2} caracteres.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Nuevo password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Nuevo password")]
+        [Compare("NewPassword", ErrorMessage = "El nuevo password y la confirmación no coinciden.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
 }

@@ -540,6 +540,7 @@
     <Content Include="Views\Shared\DisplayTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOfficeId.cshtml" />
+    <Content Include="Views\Account\FirstLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

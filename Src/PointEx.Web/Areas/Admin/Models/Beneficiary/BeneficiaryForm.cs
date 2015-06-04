@@ -43,8 +43,13 @@ namespace PointEx.Web.Models
         [Required]
         public int? EducationalInstitutionId { get; set; }
 
-        [Display(Name = "Informacion de usuario")]
-        public RegisterViewModel RegisterViewModel { get; set; }
+        //[Display(Name = "Informacion de usuario")]
+        //public RegisterViewModel RegisterViewModel { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         public Beneficiary ToBeneficiary()
         {
@@ -56,10 +61,7 @@ namespace PointEx.Web.Models
         {
             var form = Mapper.Map<Beneficiary, BeneficiaryForm>(beneficiary);
 
-            form.RegisterViewModel = new RegisterViewModel()
-                                     {
-                                         Email = user.Email,
-                                     };
+            form.Email = user.Email;
 
             return form;
         }
