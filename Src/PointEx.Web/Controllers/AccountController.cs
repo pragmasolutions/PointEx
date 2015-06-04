@@ -83,8 +83,8 @@ namespace PointEx.Web.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(appuUser.Id) && !await UserManager.IsInRoleAsync(appuUser.Id, RolesNames.Admin))
                 {
-                    ViewBag.errorMessage = "Debe tener una correo electrónico de confirmación para iniciar sesión.";
-                    View(model);
+                    ModelState.AddModelError("", "Debe tener un correo electrónico de confirmación para iniciar sesión.");
+                    return View(model);
                 }
 
                 if (string.IsNullOrEmpty(appuUser.PasswordHash))

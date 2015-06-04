@@ -18,6 +18,10 @@ namespace PointEx.Web
             DataAnnotationsModelValidatorProvider.RegisterAdapter(
                 typeof(RangeAttribute),
                 typeof(ResourseBaseRangeAttributeAdapter));
+
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(
+               typeof(EmailAddressAttribute),
+               typeof(ResourseBaseEmailAddressAttributeAdapter));
 		}
 	}
 
@@ -44,4 +48,18 @@ namespace PointEx.Web
             attribute.ErrorMessageResourceName = "Range";
         }
     }
+
+    public class ResourseBaseEmailAddressAttributeAdapter : DataAnnotationsModelValidator<EmailAddressAttribute>
+    {
+        public ResourseBaseEmailAddressAttributeAdapter(ModelMetadata metadata,
+                                          ControllerContext context,
+                                          EmailAddressAttribute attribute)
+            : base(metadata, context,attribute)
+        {
+            attribute.ErrorMessageResourceType = typeof(PointExGlobalResources);
+            attribute.ErrorMessageResourceName = "EmailAddress";
+        }
+    }
+
+    
 }

@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotificationService.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />
     <Compile Include="SectionItemService.cs" />
     <Compile Include="BenefitFileService.cs" />

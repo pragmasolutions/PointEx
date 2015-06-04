@@ -44,6 +44,11 @@ namespace PointEx.Web.Models
         [Display(Name = "Ubicación")]
         public DbGeography Location { get; set; }
 
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         public Shop ToShop()
         {
             var shop = Mapper.Map<ShopForm, Shop>(this);

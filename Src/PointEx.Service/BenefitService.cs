@@ -32,7 +32,7 @@ namespace PointEx.Service
             return Uow.Benefits.GetAll();
         }
 
-        public List<BenefitDto> GetAll(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? shopId, string criteria, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -41,7 +41,10 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<Benefit, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria)));
+            Expression<Func<Benefit, bool>> where =
+                x =>
+                    ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria)) &&
+                     !shopId.HasValue || x.ShopId == shopId);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where, includes: b => b.Shop);
 
@@ -147,7 +150,7 @@ namespace PointEx.Service
 
         public IList<Benefit> GetOutstandingBenefits()
         {
-            return Uow.Benefits.GetAll(b => !b.DateTo.HasValue || b.DateTo >= _clock.Now, 
+            return Uow.Benefits.GetAll(b => !b.DateTo.HasValue || b.DateTo >= _clock.Now,
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();

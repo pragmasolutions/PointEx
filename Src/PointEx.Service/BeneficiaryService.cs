@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 
@@ -21,11 +22,13 @@ namespace PointEx.Service
     public class BeneficiaryService : ServiceBase, IBeneficiaryService
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly INotificationService _notificationService;
         private readonly IClock _clock;
 
-        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, IClock clock)
+        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager,INotificationService notificationService, IClock clock)
         {
             _userManager = userManager;
+            _notificationService = notificationService;
             _clock = clock;
             Uow = uow;
         }
@@ -48,10 +51,9 @@ namespace PointEx.Service
                         throw new ApplicationException(result.Errors.FirstOrDefault());
                     }
 
-                    var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser.Id);
-                    var callbackUrl = urlhelper.Action("FirstLogin", "Account", new { area = "", userId = applicationUser.Id, code = code }, protocol: HttpContext.Current.Request.Url.Scheme);
-                    await _userManager.SendEmailAsync(applicationUser.Id, "Confirme su Cuenta", "Por favor confirme su cuenta y cambie su contraseña haciendo click <a href=\"" + callbackUrl + "\">aquí</a>");
+                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
+
+                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;

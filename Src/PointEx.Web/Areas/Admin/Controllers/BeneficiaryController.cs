@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
@@ -9,7 +8,6 @@ using PointEx.Entities.Dto;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service;
-using PointEx.Web.Areas.Admin.Models;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 

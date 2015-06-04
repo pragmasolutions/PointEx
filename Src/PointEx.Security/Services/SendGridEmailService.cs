@@ -10,7 +10,7 @@ using SendGrid;
 
 namespace PointEx.Security.Services
 {
-    public class EmailService : IIdentityMessageService
+    public class SendGridEmailService : IIdentityMessageService
     {
         public async Task SendAsync(IdentityMessage message)
         {
@@ -20,13 +20,13 @@ namespace PointEx.Security.Services
         // Use NuGet to install SendGrid (Basic C# client lib) 
         private async Task ConfigSendGridAsync(IdentityMessage message)
         {
-            var myMessage = new SendGridMessage();
+            var emailMessage = new SendGridMessage();
 
-            myMessage.AddTo(message.Destination);
-            myMessage.From = new System.Net.Mail.MailAddress("no-reply@pointex.net", "PointEx");
-            myMessage.Subject = message.Subject;
-            myMessage.Text = message.Body;
-            myMessage.Html = message.Body;
+            emailMessage.AddTo(message.Destination);
+            emailMessage.From = new System.Net.Mail.MailAddress("no-reply@pointex.net", "PointEx");
+            emailMessage.Subject = message.Subject;
+            emailMessage.Text = message.Body;
+            emailMessage.Html = message.Body;
 
             var credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"],
                                                     ConfigurationManager.AppSettings["emailService:Password"]);
@@ -37,7 +37,7 @@ namespace PointEx.Security.Services
             // Send the email.
             if (transportWeb != null)
             {
-                await transportWeb.DeliverAsync(myMessage);
+                await transportWeb.DeliverAsync(emailMessage);
             }
             else
             {

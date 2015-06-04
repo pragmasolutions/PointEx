@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Security.Model;
 
 namespace PointEx.Service
 {
     public interface IShopService
     {
-        void Create(Shop shop);
+        Task Create(Shop shop, ApplicationUser applicationUser);
         void Edit(Shop shop);
         void Delete(int shopId);
         IQueryable<Shop> GetAll();
