@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
     @Styles.Render("~/Content/Site.Beneficiary.css")
 </head>
 <body>
@@ -25,13 +26,13 @@
         </div>
     </div>
 
-    @Html.Partial("MenuSuperior")
+    @Html.Partial("~/Areas/Beneficiary/Views/Shared/MenuSuperior.cshtml")
 
     <div class="container body-content">
         <table class="layout-container">
             <tr>
                 <td class="td-menu-lateral">
-                    @Html.Partial("_MenuLateral")
+                    @Html.Partial("~/Areas/Beneficiary/Views/Shared/_MenuLateral.cshtml")
                 </td>
                 <td>
                     <div class="layout-body">

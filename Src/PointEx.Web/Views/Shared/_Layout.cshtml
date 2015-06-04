@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -9,6 +10,7 @@
     <title>Shop Homepage - Start Bootstrap Template</title>
 
     @Styles.Render("~/Content/css")
+    @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
     @Styles.Render("~/Content/front-end/css")
     @Scripts.Render("~/bundles/modernizr")
 

@@ -46,7 +46,7 @@
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="BirthDate" Type="datetime2" Precision="7" />
           <Property Name="Address" Type="varchar" MaxLength="250" />
-          <Property Name="EducationalInstitutionId" Type="int" Nullable="false" />
+          <Property Name="EducationalInstitutionId" Type="int" />
           <Property Name="TownId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
@@ -231,7 +231,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Beneficiary_EducationalInstitution">
-          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="1" />
+          <End Role="EducationalInstitution" Type="Self.EducationalInstitution" Multiplicity="0..1" />
           <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EducationalInstitution">
@@ -1036,7 +1036,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EducationalInstitutionId" Type="Int32" Nullable="false" />
+          <Property Name="EducationalInstitutionId" Type="Int32" />
           <Property Name="TownId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
@@ -1064,7 +1064,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Beneficiary_EducationalInstitution">
-          <End Type="PointEx.Data.EducationalInstitution" Role="EducationalInstitution" Multiplicity="1" />
+          <End Type="PointEx.Data.EducationalInstitution" Role="EducationalInstitution" Multiplicity="0..1" />
           <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EducationalInstitution">

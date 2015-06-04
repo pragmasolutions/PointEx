@@ -25,7 +25,7 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
             return View(model);
         }
 
-        public ActionResult Transactions()
+        public ActionResult History()
         {
             var transactions = _beneficiaryService.GetTransactions(PointExContext.Beneficiary.Id);
             return View(transactions);

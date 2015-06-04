@@ -16,8 +16,8 @@ namespace PointEx.Entities
     {
         public BranchOffice()
         {
-            this.Purchases = new HashSet<Purchase>();
             this.BenefitBranchOffices = new HashSet<BenefitBranchOffice>();
+            this.Purchases = new HashSet<Purchase>();
         }
     
         public int Id { get; set; }
