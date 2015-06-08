@@ -12,7 +12,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class ShopController : BaseController
+    public class ShopController : AdminBaseController
     {
         private readonly IShopService _shopService;
 

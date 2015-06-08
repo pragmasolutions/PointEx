@@ -10,7 +10,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class EducationalInstitutionController : BaseController
+    public class EducationalInstitutionController : AdminBaseController
     {
         private readonly IEducationalInstitutionService _educationalInstitutionService;
 

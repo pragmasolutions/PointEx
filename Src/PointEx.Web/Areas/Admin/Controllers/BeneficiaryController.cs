@@ -13,7 +13,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class BeneficiaryController : BaseController
+    public class BeneficiaryController : AdminBaseController
     {
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly ApplicationUserManager _userManager;

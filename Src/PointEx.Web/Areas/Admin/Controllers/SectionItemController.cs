@@ -14,7 +14,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class SectionItemController : BaseController
+    public class SectionItemController : AdminBaseController
     {
         private readonly ISectionItemService _sectionItemService;
         private readonly ISectionService _sectionService;

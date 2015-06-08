@@ -10,7 +10,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class PrizeController : BaseController
+    public class PrizeController : AdminBaseController
     {
         private readonly IPrizeService _prizeService;
 
