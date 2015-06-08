@@ -1,12 +1,13 @@
 ﻿@using Framework.Common.Extentensions
 @using PointEx.Web.Infrastructure.Extensions
+@using PointEx.Web.Models
 @model PointEx.Web.Models.HomeModel
 @{
     ViewBag.Title = "Home Page";
 }
 
 @section ContainerTop{
-    @Html.Partial("_SearchBenefits")
+    @Html.Partial("_SearchBenefits",model:new BenefitListFiltersModel())
 }
 
 <div class="col-md-3">

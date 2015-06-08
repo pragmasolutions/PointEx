@@ -115,7 +115,7 @@ namespace PointEx.Service
 
         public IQueryable<Shop> GetAll()
         {
-            return Uow.Shops.GetAll(whereClause: null, includes: s => s.Town);
+            return Uow.Shops.GetAll(whereClause: s => true, includes: s => s.Town);
         }
 
         public Shop GetById(int id)

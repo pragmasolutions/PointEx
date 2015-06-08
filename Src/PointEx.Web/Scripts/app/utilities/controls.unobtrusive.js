@@ -64,6 +64,32 @@ var controls = function () {
             });
         });
 
+        //Keep open dropdowns
+        $('.keep-open').on(
+        {
+            "click": function (e) {
+                var target = $(e.target);
+                if (target.is(":submit") || target.parent().is(":submit")) {
+                    return true;
+                }
+                //else if (target.is(":reset") || target.parent().is(":reset")) {
+                //    return true;
+                //}
+                return false;
+            }
+        });
+
+        $('button[type="reset"]').on(
+        {
+            "click": function (e) {
+                var $parentForm = $(this).closest('form');
+                $('.select2-control', $parentForm).each(function() {
+                    $(this).select2("val", "");
+                });
+                $('select,input', $parentForm).val("");
+            }
+        });
+
         ////Parse auto-submit-input.
         // $.each($('input.auto-submit-input', context), function (i, item) {
         //    var $input = $(item);

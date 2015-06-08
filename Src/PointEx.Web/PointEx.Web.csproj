@@ -543,6 +543,8 @@
     <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOfficeId.cshtml" />
     <Content Include="Views\Account\FirstLogin.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ShopId.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CategoryId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
