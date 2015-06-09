@@ -35,8 +35,7 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
         public ActionResult Detail(int id)
         {
             var prize = _prizeService.GetById(id);
-            var prizeForm = PrizeForm.FromPrize(prize);
-            return View(prizeForm);
+            return View(prize);
         }
 
         public ActionResult Exchange(int id)

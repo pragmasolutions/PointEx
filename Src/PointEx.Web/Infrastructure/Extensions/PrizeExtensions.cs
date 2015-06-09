@@ -13,14 +13,14 @@ namespace PointEx.Web.Infrastructure.Extensions
         public static string GetDetailUrl(this Prize prize)
         {
             var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            var detailurl = urlhelper.Action("Detail", "Prize", routeValues: new { area = "", prize.Id });
+            var detailurl = urlhelper.Action("Detail", "Prize", routeValues: new { area = "Beneficiary", prize.Id });
             return detailurl;
         }
 
         public static string GetDetailUrl(this PrizeDto prize)
         {
             var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            var detailurl = urlhelper.Action("Detail", "Prize", routeValues: new { area = "", prize.Id });
+            var detailurl = urlhelper.Action("Detail", "Prize", routeValues: new { area = "Beneficiary", prize.Id });
             return detailurl;
         }
 
