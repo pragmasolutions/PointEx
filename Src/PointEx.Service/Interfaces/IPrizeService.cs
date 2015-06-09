@@ -11,7 +11,7 @@ namespace PointEx.Service
 
         Prize GetById(int id);
 
-        List<PrizeDto> GetAll(string sortBy, string sortDirection, string criteria,
+        List<PrizeDto> GetAll(string sortBy, string sortDirection, string criteria, int? maxPointsNeeded,
             int pageIndex, int pageSize, out int pageTotal);
 
         void Create(Prize prize);

@@ -60,7 +60,9 @@ namespace PointEx.Web
 
             bundles.Add(new StyleBundle("~/Content/front-end/css").Include(
                       "~/Content/front-end/pointex-homepage.css",
-                      "~/Content/front-end/pointex-benefits.css"));
+                      "~/Content/front-end/pointex-benefits.css",
+                      "~/Content/front-end/pointex-prizes.css",
+                      "~/Content/front-end/pointex-search.css"));
 
             bundles.Add(new StyleBundle("~/Themes/Jovenes/css").Include(
                       "~/Content/themes/Jovenes/*.css"));

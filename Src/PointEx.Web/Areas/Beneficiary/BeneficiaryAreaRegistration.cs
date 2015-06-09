@@ -17,7 +17,8 @@ namespace PointEx.Web.Areas.Beneficiary
             context.MapRoute(
                 "Beneficiary_default",
                 "Beneficiary/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "PointEx.Web.Areas.Beneficiary.Controllers" }
             );
         }
     }

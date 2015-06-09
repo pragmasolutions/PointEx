@@ -7,10 +7,13 @@
         </ul>
     </div>
     <div class="buscador">
-        @using (Html.BeginForm("/Busqueda"))
+        <div>
+            @RenderSection("ContainerTop", required: false)
+        </div>
+        @*@using (Html.BeginForm("/Busqueda"))
         {
-            <input type="text" id="txtBuscar"/>            
+            <input type="text" id="txtBuscar"/>
             <input type="submit" value="Buscar en catálogo"/>
-        }
+        }*@
     </div>
 </div>

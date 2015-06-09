@@ -1,13 +1,3 @@
 .benefit-description {
     word-wrap: break-word;
 }
-
-
-#benefit-search .select2-container {
-   display: inline-block; 
-   max-width: 280px; 
-}
-
-#benefit-search .select2-hidden-accessible {
-    position: absolute;
-}

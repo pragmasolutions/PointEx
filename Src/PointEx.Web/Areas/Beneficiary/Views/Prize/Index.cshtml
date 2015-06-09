@@ -1,0 +1,31 @@
+﻿@using Framework.Common.Extentensions
+@using Microsoft.Web.Mvc
+@using PagedList.Mvc
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.PrizeListModel
+@{
+    ViewBag.Title = "Premios";
+}
+@section ContainerTop{
+    @Html.Partial("_SearchPrizes", model: Model.Filters)
+}
+<hr>
+@foreach (var prize in Model.List)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <a href="@prize.GetDetailUrl()">
+                @Html.Image(prize.GetImageUrl(200, 150))
+            </a>
+        </div>
+        <div class="col-md-9">
+            <h3>@prize.Name: @Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new { area = "", prize.Id }, htmlAttributes: null)</h3>
+            <h4>Puntos Necesarios: @prize.PointsNeeded</h4>
+            <p class="prize-description">@prize.Description</p>
+            <a class="btn btn-primary" href="@prize.GetDetailUrl()">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </div>
+    <hr>
+}
+
+@Html.PagedListPager(Model.List, page => Url.Action("Index", "Prize", Model.Filters.GetRouteValues(page)))

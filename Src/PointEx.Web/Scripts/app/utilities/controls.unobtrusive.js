@@ -65,6 +65,10 @@ var controls = function () {
         });
 
         //Keep open dropdowns
+        $('.keep-open').on('click', '[type=checkbox],label:has([type=checkbox])', function (e) {
+            e.stopPropagation();
+        });
+
         $('.keep-open').on(
         {
             "click": function (e) {
@@ -83,10 +87,11 @@ var controls = function () {
         {
             "click": function (e) {
                 var $parentForm = $(this).closest('form');
-                $('.select2-control', $parentForm).each(function() {
+                $('.select2-control', $parentForm).each(function () {
                     $(this).select2("val", "");
                 });
                 $('select,input', $parentForm).val("");
+                $('input[type=checkbox]', $parentForm).attr('checked', false);
             }
         });
 

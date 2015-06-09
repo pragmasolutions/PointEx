@@ -270,7 +270,9 @@
     <Compile Include="Areas\Admin\Models\Shop\BranchOfficeForm.cs" />
     <Compile Include="Areas\Admin\Models\Shop\ShopListModel.cs" />
     <Compile Include="Areas\Beneficiary\BeneficiaryAreaRegistration.cs" />
+    <Compile Include="Areas\Beneficiary\Controllers\BeneficiaryBaseController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\CatalogController.cs" />
+    <Compile Include="Areas\Beneficiary\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitFileController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
@@ -299,6 +301,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CurrentUser.cs" />
+    <Compile Include="Infrastructure\Extensions\PrizeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\BenefitExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\FileExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HttpPostedFileBaseExtensions.cs" />
@@ -332,6 +335,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
+    <Content Include="Content\front-end\pointex-search.css" />
+    <Content Include="Content\front-end\pointex-prizes.css" />
     <Content Include="Content\front-end\pointex-benefits.css" />
     <Content Include="Content\images\noimage.png" />
     <Content Include="Content\PagedList.css" />
@@ -428,6 +433,7 @@
     <Content Include="Areas\Admin\Views\SectionItem\SelectPrizeList.cshtml" />
     <Content Include="Areas\Shop\Views\Purchase\_Filters.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Profile\History.cshtml" />
+    <Content Include="Areas\Beneficiary\Views\Prize\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -546,6 +552,7 @@
     <Content Include="Views\Account\FirstLogin.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ShopId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CategoryId.cshtml" />
+    <Content Include="Views\Shared\_SearchPrizes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

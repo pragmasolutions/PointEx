@@ -39,16 +39,6 @@ namespace PointEx.Web.Infrastructure.Extensions
             return url;
         }
 
-        public static string GetImageUrl(this Prize benefit, int width = 50, int height = 50)
-        {
-            var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            var url = benefit.ImageFileId.HasValue
-                ? urlhelper.Action("Image", "File",
-                    new { area = "", id = benefit.ImageFileId, width = width, height = height })
-                : urlhelper.GetNoImageUrl(width, height);
-            return url;
-        }
-
         public static string GetImageUrl(this SectionItem sectionItem, int width = 50, int height = 50)
         {
             var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);

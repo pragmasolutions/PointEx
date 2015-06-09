@@ -8,25 +8,39 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
     @Styles.Render("~/Content/Site.Beneficiary.css")
+    @Styles.Render("~/Content/front-end/css")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("PointEx", "Index", "Profile", new { area = "Beneficiary" }, new { @class = "navbar-brand" })
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("PointEx", "Index", "Profile", new { area = "Beneficiary" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"></ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+        </div>*@
+
+    <div class="navbar navbar-fixed-top nav-bar-beneficiary menu-superior-container">
+        <div class="container">
+            <div class="menu">
+                <ul>
+                    <li><a href="/Beneficiary/Profile/Index">Home</a></li>
+                    <li><a href="/Beneficiary/Profile/Index">Mi Cuenta</a></li>
+                    <li>@Html.ActionLink("Catálogo", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
+                </ul>
+            </div>
+            <div class="buscador">
+                @RenderSection("ContainerTop", required: false)
             </div>
         </div>
     </div>
-
-    @Html.Partial("~/Areas/Beneficiary/Views/Shared/MenuSuperior.cshtml")
 
     <div class="container body-content">
         <table class="layout-container">
@@ -48,7 +62,11 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/globalize")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>
 </html>

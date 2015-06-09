@@ -14,5 +14,7 @@ namespace PointEx.Entities.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public int PointsNeeded { get; set; }
+        public string Description { get; set; }
+        public int? ImageFileId { get; set; }
     }
 }

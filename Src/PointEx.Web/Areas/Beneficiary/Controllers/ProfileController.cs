@@ -9,7 +9,7 @@ using PointEx.Service;
 
 namespace PointEx.Web.Areas.Beneficiary.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BeneficiaryBaseController
     {
         private readonly IBeneficiaryService _beneficiaryService;
 

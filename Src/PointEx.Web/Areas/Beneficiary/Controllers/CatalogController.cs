@@ -9,7 +9,7 @@ using PointEx.Service;
 
 namespace PointEx.Web.Areas.Beneficiary.Controllers
 {
-    public class CatalogController : Controller
+    public class CatalogController : BeneficiaryBaseController
     {
         private readonly ICatalogService _catalogService;
 

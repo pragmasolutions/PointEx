@@ -23,7 +23,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var prizes = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var prizes = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.MaxPointsNeeded, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<PrizeDto>(prizes, filters.Page, DefaultPageSize, pageTotal);
 

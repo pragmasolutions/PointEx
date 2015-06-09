@@ -28,7 +28,7 @@ namespace PointEx.Service
             return Uow.Prizes.GetAll();
         }
 
-        public List<PrizeDto> GetAll(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<PrizeDto> GetAll(string sortBy, string sortDirection, string criteria, int? maxPointsNeeded, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -37,10 +37,10 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<Prize, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)));
+            Expression<Func<Prize, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
+                                                        (!maxPointsNeeded.HasValue || x.PointsNeeded <= maxPointsNeeded));
 
-            var results = Uow.Prizes.GetAll(pagingCriteria,
-                                                    where);
+            var results = Uow.Prizes.GetAll(pagingCriteria, where);
 
             pageTotal = results.PagedMetadata.TotalItemCount;
 

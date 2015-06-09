@@ -1,9 +1,16 @@
-﻿.menu-superior-container {
+﻿body{
+      padding-top: 50px !important;
+}
+
+.nav-bar-beneficiary {
+    background-color: cadetblue;
+}
+
+.menu-superior-container {
   width: 100%;
 }
 .menu-superior-container .menu {
-  background-color: cadetblue;
-  width: 75%;
+  width: 65%;
   padding: 10px;
   float: left;
 }
@@ -17,10 +24,9 @@
   color: white;
 }
 .menu-superior-container .buscador {
-  background-color: yellowgreen;
   padding: 10px;
   float: right;
-  width: 25%;
+  width: 35%;
   height: 51px;
 }
 .layout-container {

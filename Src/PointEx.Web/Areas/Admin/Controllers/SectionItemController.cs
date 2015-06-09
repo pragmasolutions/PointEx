@@ -119,7 +119,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var section = _sectionService.GetById(sectionId);
 
             int pageTotal = 0;
-            var benefits = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.MaxPointsNeeded, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<PrizeDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 

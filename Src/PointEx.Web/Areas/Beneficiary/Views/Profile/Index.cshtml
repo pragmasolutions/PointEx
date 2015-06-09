@@ -1,9 +1,12 @@
-﻿@model PointEx.Entities.Beneficiary
+﻿@using PointEx.Web.Models
+@model PointEx.Entities.Beneficiary
 @{
     ViewBag.Title = "Información Personal";
     Layout = "~/Areas/Beneficiary/Views/Shared/_Layout.cshtml";
 }
-
+@section ContainerTop{
+    @Html.Partial("_SearchPrizes", model: new PrizeListFiltersModel())
+}
 <h2>Información Personal</h2>
 
 <div class="form-horizontal">

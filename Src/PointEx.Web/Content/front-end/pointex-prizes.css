@@ -1,0 +1,13 @@
+.prize-description {
+    word-wrap: break-word;
+}
+
+
+#prize-search .select2-container {
+   display: inline-block; 
+   max-width: 280px; 
+}
+
+#prize-search .select2-hidden-accessible {
+    position: absolute;
+}
