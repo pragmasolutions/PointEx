@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
 using PointEx.Entities;
+using Resources;
 
 namespace PointEx.Web.Models
 {
@@ -35,7 +36,7 @@ namespace PointEx.Web.Models
         [Display(Name = "Localidad")]
         [Required]
         public int TownId { get; set; }
-        
+
         [UIHint("Categories")]
         [Display(Name = "Categorias")]
         [NotMapped]
@@ -44,11 +45,16 @@ namespace PointEx.Web.Models
         [Display(Name = "Ubicación")]
         public DbGeography Location { get; set; }
 
+        [Required]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         public Shop ToShop()
         {
             var shop = Mapper.Map<ShopForm, Shop>(this);
             shop.ShopCategories =
-                this.CategoriesSelected.Select(categoryId => new ShopCategory() {CategoryId = categoryId, ShopId = this.Id}).ToArray();
+                this.CategoriesSelected.Select(categoryId => new ShopCategory() { CategoryId = categoryId, ShopId = this.Id }).ToArray();
             return shop;
         }
 

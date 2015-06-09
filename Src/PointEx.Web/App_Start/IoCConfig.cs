@@ -57,6 +57,7 @@ namespace PointEx.Web
             kernel.Bind<IBranchOfficeService>().To<BranchOfficeService>().InRequestScope();
             kernel.Bind<ISectionService>().To<SectionService>().InRequestScope();
             kernel.Bind<ISectionItemService>().To<SectionItemService>().InRequestScope();
+            kernel.Bind<INotificationService>().To<NotificationService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);

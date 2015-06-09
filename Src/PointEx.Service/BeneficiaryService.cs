@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Web;
+using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
@@ -11,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 
@@ -19,27 +22,38 @@ namespace PointEx.Service
     public class BeneficiaryService : ServiceBase, IBeneficiaryService
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly INotificationService _notificationService;
         private readonly IClock _clock;
 
-        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, IClock clock)
+        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager,INotificationService notificationService, IClock clock)
         {
             _userManager = userManager;
+            _notificationService = notificationService;
             _clock = clock;
             Uow = uow;
         }
 
-        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string password)
+        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
                 {
-                    var result = await _userManager.CreateAsync(applicationUser, password);
+                    if (_userManager.FindByEmail(applicationUser.Email) != null)
+                    {
+                        throw new ApplicationException("Ya existe un usuario con ese email.");
+                    }
+
+                    var result = await _userManager.CreateAsync(applicationUser);
 
                     if (!result.Succeeded)
                     {
                         throw new ApplicationException(result.Errors.FirstOrDefault());
                     }
+
+                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
+
+                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;
@@ -49,10 +63,10 @@ namespace PointEx.Service
 
                     trasactionScope.Complete();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     trasactionScope.Dispose();
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -64,10 +78,14 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
-        public void Delete(int shopId)
+        public void Delete(int beneficiaryId)
         {
-            var beneficiary = this.GetById(shopId);
+            var beneficiary = this.GetById(beneficiaryId);
+            var user = Uow.Users.Get(u => u.Id == beneficiary.UserId);
+
             Uow.Beneficiaries.Delete(beneficiary);
+            Uow.Users.Delete(user);
+
             Uow.Commit();
         }
 

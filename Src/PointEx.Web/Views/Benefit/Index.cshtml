@@ -7,7 +7,7 @@
     ViewBag.Title = "Beneficios";
 }
 @section ContainerTop{
-    @Html.Partial("_SearchBenefits")
+    @Html.Partial("_SearchBenefits", model: Model.Filters)
 }
 <hr>
 @foreach (var benefit in Model.List)

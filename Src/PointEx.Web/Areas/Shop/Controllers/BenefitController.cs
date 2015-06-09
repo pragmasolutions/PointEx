@@ -30,7 +30,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoriaId, filters.TownId, _currentUser.Shop.Id, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
@@ -74,7 +74,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
         public ActionResult Edit(int id)
         {
-            var benefit = _benefitService.GetById(id);            
+            var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
             return View(benefitForm);
         }

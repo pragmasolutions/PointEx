@@ -1,8 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
-using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities.Dto;
+using PointEx.Security.Model;
 using PointEx.Service;
 using PointEx.Web.Areas.Admin.Models;
 using PointEx.Web.Controllers;
@@ -10,7 +12,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class ShopController : BaseController
+    public class ShopController : AdminBaseController
     {
         private readonly IShopService _shopService;
 
@@ -46,7 +48,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(ShopForm shopForm)
+        public async Task<ActionResult> Create(ShopForm shopForm)
         {
             if (!ModelState.IsValid)
             {
@@ -55,9 +57,17 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             var shop = shopForm.ToShop();
 
-            shop.UserId = this.User.Identity.GetUserId();
+            var user = new ApplicationUser { UserName = shopForm.Email, Email = shopForm.Email };
 
-            _shopService.Create(shop);
+            try
+            {
+                await _shopService.Create(shop, user);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(shopForm);
+            }
 
             return RedirectToAction("Index", new ShopListFiltersModel().GetRouteValues()).WithSuccess("Comercio Creado");
         }

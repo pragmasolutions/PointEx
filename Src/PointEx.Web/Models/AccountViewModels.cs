@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Resources;
 
 namespace PointEx.Web.Models
 {
@@ -50,7 +51,7 @@ namespace PointEx.Web.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         public string Email { get; set; }
 
         [Required]
@@ -65,7 +66,7 @@ namespace PointEx.Web.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -84,7 +85,7 @@ namespace PointEx.Web.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -105,7 +106,26 @@ namespace PointEx.Web.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class FirstLoginViewModel
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "El campo {0} debe tener almenos {2} caracteres.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Nuevo password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Nuevo password")]
+        [Compare("NewPassword", ErrorMessage = "El nuevo password y la confirmación no coinciden.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

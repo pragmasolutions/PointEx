@@ -14,7 +14,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class SectionItemController : BaseController
+    public class SectionItemController : AdminBaseController
     {
         private readonly ISectionItemService _sectionItemService;
         private readonly ISectionService _sectionService;
@@ -77,7 +77,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var section = _sectionService.GetById(sectionId);
 
             int pageTotal = 0;
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoriaId, filters.TownId,
+                filters.ShopId, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 

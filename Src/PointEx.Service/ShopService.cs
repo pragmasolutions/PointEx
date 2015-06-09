@@ -2,30 +2,76 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using System.Transactions;
+using System.Web;
+using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
+using Microsoft.AspNet.Identity;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Security;
+using PointEx.Security.Managers;
+using PointEx.Security.Model;
 
 namespace PointEx.Service
 {
     public class ShopService : ServiceBase, IShopService
     {
+        private readonly ApplicationUserManager _userManager;
+        private readonly INotificationService _notificationService;
         private readonly IClock _clock;
 
-        public ShopService(IPointExUow uow, IClock clock)
+        public ShopService(IPointExUow uow, ApplicationUserManager userManager, INotificationService notificationService, IClock clock)
         {
+            _userManager = userManager;
+            _notificationService = notificationService;
             _clock = clock;
             Uow = uow;
         }
 
-        public void Create(Shop shop)
+        public async Task Create(Shop shop, ApplicationUser applicationUser)
         {
-            shop.CreatedDate = _clock.Now;
-            Uow.Shops.Add(shop);
-            Uow.Commit();
+            using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    if (_userManager.FindByEmail(applicationUser.Email) != null)
+                    {
+                        throw new ApplicationException("Ya existe un usuario con ese email.");
+                    }
+
+                    var result = await _userManager.CreateAsync(applicationUser);
+
+
+
+                    if (!result.Succeeded)
+                    {
+                        throw new ApplicationException(result.Errors.FirstOrDefault());
+                    }
+
+                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Shop);
+
+                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+
+                    shop.CreatedDate = _clock.Now;
+                    shop.UserId = applicationUser.Id;
+                    Uow.Shops.Add(shop);
+                    Uow.Commit();
+
+                    await Uow.CommitAsync();
+
+                    trasactionScope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    trasactionScope.Dispose();
+                    throw ex;
+                }
+            }
         }
 
         public void Edit(Shop shop)
@@ -69,7 +115,7 @@ namespace PointEx.Service
 
         public IQueryable<Shop> GetAll()
         {
-            return Uow.Shops.GetAll(whereClause: null, includes: s => s.Town);
+            return Uow.Shops.GetAll(whereClause: s => true, includes: s => s.Town);
         }
 
         public Shop GetById(int id)

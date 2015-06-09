@@ -249,6 +249,7 @@
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\EducationalInstitutionController.cs" />
     <Compile Include="Areas\Admin\Controllers\BranchOfficeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryCardsModel.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\CreateCardForm.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
     <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
+    <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BenefitController.cs" />
@@ -399,7 +401,6 @@
     <Content Include="Areas\Admin\Views\Beneficiary\DisplayTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\EditorTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
-    <Content Include="Areas\Beneficiary\Views\Profile\Transactions.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\UploadImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\OrderImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\Index.cshtml" />
@@ -426,6 +427,7 @@
     <Content Include="Areas\Admin\Views\SectionItem\_PrizeFiltersFields.cshtml" />
     <Content Include="Areas\Admin\Views\SectionItem\SelectPrizeList.cshtml" />
     <Content Include="Areas\Shop\Views\Purchase\_Filters.cshtml" />
+    <Content Include="Areas\Beneficiary\Views\Profile\History.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -541,10 +543,15 @@
     <Content Include="Views\Shared\DisplayTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOffices.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BranchOfficeId.cshtml" />
+    <Content Include="Views\Account\FirstLogin.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ShopId.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CategoryId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Beneficiary\Models\" />
+    <Folder Include="Content\themes\Jovenes\" />
+    <Folder Include="Content\themes\TekovePoti\" />
     <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>

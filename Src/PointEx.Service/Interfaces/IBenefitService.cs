@@ -15,7 +15,7 @@ namespace PointEx.Service
 
         IQueryable<Benefit> GetAllByShopId(int shopId);
 
-        List<BenefitDto> GetAll(string sortBy, string sortDirection, string criteria,
+        List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId,int? townId, int? shopId, string criteria,
             int pageIndex, int pageSize, out int pageTotal);
 
         void Create(Benefit benefit);

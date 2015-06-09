@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Web;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using Microsoft.AspNet.Identity;
@@ -8,13 +8,12 @@ using PointEx.Entities.Dto;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service;
-using PointEx.Web.Areas.Admin.Models;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class BeneficiaryController : BaseController
+    public class BeneficiaryController : AdminBaseController
     {
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly ApplicationUserManager _userManager;
@@ -104,9 +103,17 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             var beneficiary = beneficiaryForm.ToBeneficiary();
 
-            var user = new ApplicationUser { UserName = beneficiaryForm.RegisterViewModel.Email, Email = beneficiaryForm.RegisterViewModel.Email };
+            var user = new ApplicationUser { UserName = beneficiaryForm.Email, Email = beneficiaryForm.Email };
 
-            await _beneficiaryService.Create(beneficiary, user, beneficiaryForm.RegisterViewModel.Password);
+            try
+            {
+                await _beneficiaryService.Create(beneficiary, user);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(beneficiaryForm);
+            }
 
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Creado");
         }

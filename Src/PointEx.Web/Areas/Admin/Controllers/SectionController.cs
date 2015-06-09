@@ -9,7 +9,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class SectionController : BaseController
+    public class SectionController : AdminBaseController
     {
         private readonly ISectionService _sectionService;
 

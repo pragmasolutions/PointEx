@@ -12,7 +12,7 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class BranchOfficeController : BaseController
+    public class BranchOfficeController : AdminBaseController
     {
         private readonly IBranchOfficeService _branchOfficeService;
         private readonly IShopService _shopService;
