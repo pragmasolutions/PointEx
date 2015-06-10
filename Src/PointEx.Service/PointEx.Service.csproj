@@ -61,9 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IPointsExchangeService.cs" />
     <Compile Include="NotificationService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />
+    <Compile Include="PointsExchangeService.cs" />
     <Compile Include="SectionItemService.cs" />
     <Compile Include="BenefitFileService.cs" />
     <Compile Include="BenefitBranchOfficeService.cs" />

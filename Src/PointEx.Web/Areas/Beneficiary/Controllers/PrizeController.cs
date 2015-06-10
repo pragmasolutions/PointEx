@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
 using PagedList;
 using PointEx.Entities.Dto;
@@ -11,10 +12,12 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
     public class PrizeController : BeneficiaryBaseController
     {
         private readonly IPrizeService _prizeService;
+        private readonly IPointsExchangeService _pointsExchangeService;
 
-        public PrizeController(IPrizeService prizeService)
+        public PrizeController(IPrizeService prizeService, IPointsExchangeService pointsExchangeService)
         {
             _prizeService = prizeService;
+            _pointsExchangeService = pointsExchangeService;
         }
 
         public ActionResult Index(PrizeListFiltersModel filters)
@@ -38,18 +41,25 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
             return View(prize);
         }
 
-        public ActionResult Exchange(int id)
+        public ActionResult ExchangePoints(int id)
         {
             var prize = _prizeService.GetById(id);
-            var prizeForm = PrizeForm.FromPrize(prize);
-            return View(prizeForm);
+            return View(prize);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Exchange(int id, FormCollection formCollection)
+        public ActionResult ExchangePoints(int id, FormCollection formCollection)
         {
-            //_prizeService.Edit(prizeForm.ToPrize());
-            return RedirectToAction("Index", new PrizeListFiltersModel().GetRouteValues()).WithSuccess("");
+            _pointsExchangeService.ExchangePoints(id, PointExContext.Beneficiary.Id);
+
+            return RedirectToAction("ExchangePointsSuccess", new { id });
+        }
+
+        public ActionResult ExchangePointsSuccess(int id)
+        {
+            var prize = _prizeService.GetById(id);
+
+            return View(prize);
         }
     }
 }

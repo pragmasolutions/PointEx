@@ -18,9 +18,11 @@
     <img class="" src="@Model.GetImageUrl(800, 300)" alt="">
 
     <div class="caption-full">
-        
-        <a @(!canChangePrize ? "disabled" : string.Empty) class="btn btn-success pull-right"><span class="glyphicon glyphicon-ok"></span> Canjear</a>
-        
+
+        <button @(!canChangePrize ? "disabled" : string.Empty) type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#points-exchange-confirmation-modal">
+            <span class="glyphicon glyphicon-ok"></span> Canjear
+        </button>
+
         <h3>
             @Model.Name
         </h3>
@@ -88,3 +90,5 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("_ExchangePointsConfirmationModal", model: Model)

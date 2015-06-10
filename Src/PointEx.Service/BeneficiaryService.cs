@@ -96,7 +96,11 @@ namespace PointEx.Service
 
         public Beneficiary GetById(int id)
         {
-            return Uow.Beneficiaries.Get(s => s.Id == id, s => s.Town, s => s.EducationalInstitution);
+            return Uow.Beneficiaries.Get(b => b.Id == id, s => s.Town, b => b.User, b => b.Town,
+                                                                                b => b.Cards,
+                                                                                b => b.Cards.Select(c => c.Purchases),
+                                                                                b => b.EducationalInstitution,
+                                                                                b => b.PointsExchanges);
         }
 
         public List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex, int pageSize, out int pageTotal)

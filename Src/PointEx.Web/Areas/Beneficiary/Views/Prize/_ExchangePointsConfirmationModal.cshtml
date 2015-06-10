@@ -1,0 +1,30 @@
+﻿@using Framework.Common.Extentensions
+@using PointEx.Security
+@using PointEx.Web.Infrastructure.Extensions
+@using PointEx.Web.Models
+@model PointEx.Entities.Prize
+
+<div class="modal fade" id="points-exchange-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="points-exchange-confirmation-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmar Canje</h4>
+            </div>
+
+            @using (Html.BeginForm("ExchangePoints", "Prize", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.Id)
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">¿Confirma que desea cambiar @Model.PointsNeeded puntos por el premio @Model.Name ?</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
