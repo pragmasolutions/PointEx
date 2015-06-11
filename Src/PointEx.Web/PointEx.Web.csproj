@@ -321,6 +321,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\PointEx.Service\EmailTemplates\PointExchangeConfirmationEmail.html">
+      <Link>EmailTemplates\PointExchangeConfirmationEmail.html</Link>
+    </Content>
     <Content Include="Areas\Shop\Views\Purchase\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -659,6 +662,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /E /Y "$(SolutionDir)PointEx.Service\EmailTemplates" "$(ProjectDir)EmailTemplates"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

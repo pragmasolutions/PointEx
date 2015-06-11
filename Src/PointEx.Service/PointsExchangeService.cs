@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using System.Transactions;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
@@ -17,35 +19,53 @@ namespace PointEx.Service
         private readonly IClock _clock;
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly IPrizeService _prizeService;
+        private readonly INotificationService _notificationService;
 
-        public PointsExchangeService(IPointExUow uow, IClock clock, IBeneficiaryService beneficiaryService, IPrizeService prizeService)
+        public PointsExchangeService(IPointExUow uow, IClock clock, IBeneficiaryService beneficiaryService, IPrizeService prizeService, INotificationService notificationService)
         {
             _clock = clock;
             _beneficiaryService = beneficiaryService;
             _prizeService = prizeService;
+            _notificationService = notificationService;
             Uow = uow;
         }
 
-        public void ExchangePoints(int prizeId, int beneficiaryId)
+        public async Task ExchangePoints(int prizeId, int beneficiaryId)
         {
-            var beneficiary = _beneficiaryService.GetById(beneficiaryId);
-
-            var prize = _prizeService.GetById(prizeId);
-
-            if (prize.PointsNeeded > beneficiary.Points)
+            using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                throw new ApplicationException("Puntos insuficientes");
+                try
+                {
+                    var beneficiary = _beneficiaryService.GetById(beneficiaryId);
+
+                    var prize = _prizeService.GetById(prizeId);
+
+                    if (prize.PointsNeeded > beneficiary.Points)
+                    {
+                        throw new ApplicationException("Puntos insuficientes");
+                    }
+
+                    PointsExchange pointsExchange = new PointsExchange();
+
+                    pointsExchange.BeneficiaryId = beneficiary.Id;
+                    pointsExchange.PrizeId = prize.Id;
+                    pointsExchange.PointsUsed = prize.PointsNeeded;
+                    pointsExchange.ExchangeDate = _clock.Now;
+
+                    Uow.PointsExchanges.Add(pointsExchange);
+
+                    await _notificationService.SendPointsExchangeConfirmationEmail(prize, beneficiary, pointsExchange.ExchangeDate);
+
+                    await Uow.CommitAsync();
+
+                    trasactionScope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    trasactionScope.Dispose();
+                    throw ex;
+                }
             }
-
-            PointsExchange pointsExchange = new PointsExchange();
-
-            pointsExchange.BeneficiaryId = beneficiary.Id;
-            pointsExchange.PrizeId = prize.Id;
-            pointsExchange.PointsUsed = prize.PointsNeeded;
-            pointsExchange.ExchangeDate = _clock.Now;
-
-            Uow.PointsExchanges.Add(pointsExchange);
-            Uow.Commit();
         }
     }
 }
