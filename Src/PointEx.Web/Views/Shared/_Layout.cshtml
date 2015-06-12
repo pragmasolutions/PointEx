@@ -41,7 +41,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("¿Como Funciona?", "Index", "Home")</li>
                     <li>@Html.ActionLink("Aderir mi Comercio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Catalogo de Premios", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Catalogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
