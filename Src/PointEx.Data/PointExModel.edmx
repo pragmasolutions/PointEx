@@ -113,6 +113,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IconClass" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="EducationalInstitution">
           <Key>
@@ -996,6 +997,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ShopCategories" Relationship="PointEx.Data.FK_ShopCategory_Category" FromRole="Category" ToRole="ShopCategory" />
+          <Property Name="IconClass" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ShopCategory">
           <Key>
@@ -1541,6 +1543,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="PointEx.Data.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="IconClass" ColumnName="IconClass" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

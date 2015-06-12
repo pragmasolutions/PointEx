@@ -7,15 +7,16 @@
 }
 
 @section ContainerTop{
-    @Html.Partial("_SearchBenefits",model:new BenefitListFiltersModel())
+    @Html.Partial("_SearchBenefits", model: new BenefitListFiltersModel())
 }
 
 <div class="col-md-3">
     <p class="lead">Categorias</p>
     <div class="list-group">
-        <a href="#" class="list-group-item"><i class="fa fa-cutlery"></i> Gastronomía</a>
-        <a href="#" class="list-group-item"><i class="fa fa-female"></i> Indumentaria</a>
-        <a href="#" class="list-group-item"><i class="fa fa-gift"></i> Regalos</a>
+        @foreach (var category in Model.Categories)
+        {
+            <a href="@Url.Action("Index", "Benefit", new { categoryId = category.Id })" class="list-group-item"><i class="@category.IconClass"></i> @category.Name</a>
+        }
     </div>
 </div>
 <div class="col-md-9">

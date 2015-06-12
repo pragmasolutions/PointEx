@@ -17,7 +17,7 @@ namespace PointEx.Web.Models
 
         [Display(Name = "Categoria")]
         [UIHint("CategoryId")]
-        public int? CategoriaId { get; set; }
+        public int? CategoryId { get; set; }
 
         [Display(Name = "Localidad")]
         [UIHint("TownId")]
@@ -28,7 +28,7 @@ namespace PointEx.Web.Models
             var routeValues = base.GetRouteValues(page);
             routeValues.Add("Criteria", this.Criteria);
             routeValues.Add("ShopId", this.ShopId);
-            routeValues.Add("CategoriaId", this.CategoriaId);
+            routeValues.Add("CategoryId", this.CategoryId);
             routeValues.Add("TownId", this.TownId);
             return routeValues;
         }

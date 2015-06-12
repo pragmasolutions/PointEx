@@ -13,19 +13,22 @@ namespace PointEx.Web.Controllers
     {
         private readonly ISectionItemService _sectionItemService;
         private readonly IBenefitService _benefitService;
+        private readonly ICategoryService _categoryService;
 
-        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService)
+        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService,ICategoryService categoryService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
+            _categoryService = categoryService;
         }
 
         public ActionResult Index()
         {
             var sliderItems = _sectionItemService.GetBySectionName("SliderHome");
             var outstandingItems = _benefitService.GetOutstandingBenefits();
+            var categories = _categoryService.GetAll().ToList();
 
-            var homeModel = new HomeModel(sliderItems, outstandingItems);
+            var homeModel = new HomeModel(sliderItems, outstandingItems, categories);
 
             return View(homeModel);
         }
