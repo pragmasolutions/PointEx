@@ -22,6 +22,7 @@
     <![endif]-->
 </head>
 <body>
+    @Html.Partial("_FacebookInit")
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top pointex-header" role="navigation">
         <div class="container">
@@ -115,6 +116,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/lib")
     @Scripts.Render("~/bundles/app")
+
+    @Html.Partial("_TwitterInit")
+    @Html.Partial("_GooglePlusInit")
+
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
 </body>

@@ -559,6 +559,9 @@
     <Content Include="Views\Shared\EditorTemplates\ShopId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CategoryId.cshtml" />
     <Content Include="Views\Shared\_SearchPrizes.cshtml" />
+    <Content Include="Views\Shared\_FacebookInit.cshtml" />
+    <Content Include="Views\Shared\_TwitterInit.cshtml" />
+    <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

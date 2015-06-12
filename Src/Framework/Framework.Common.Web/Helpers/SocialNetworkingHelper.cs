@@ -16,13 +16,13 @@ namespace Framework.Common.Web.Helpers
             TagBuilder social_link = new TagBuilder("a");
             social_link.Attributes.Add("href", "https://twitter.com/share");
             social_link.Attributes.Add("class", "twitter-share-button");
-            social_link.Attributes.Add("data-via", "federico_frank");
+            social_link.Attributes.Add("data-via", "pointex_twitter");
             social_link.Attributes.Add("data-count", "horizontal");
             social_link.Attributes.Add("data-text", title);
             social_link.SetInnerText("Tweet");
             social_link.Attributes.Add("data-url", url);
-            return MvcHtmlString.Create(social_link.ToString(TagRenderMode.Normal));
 
+            return MvcHtmlString.Create(social_link.ToString(TagRenderMode.Normal));
         }
         #endregion
 
