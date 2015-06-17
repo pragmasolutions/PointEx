@@ -53,7 +53,15 @@ namespace PointEx.Service
 
                     await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
 
-                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                    try
+                    {
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
+                    
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;

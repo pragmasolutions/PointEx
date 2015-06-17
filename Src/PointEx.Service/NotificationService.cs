@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using PointEx.Entities;
 using PointEx.Security.Managers;
@@ -12,8 +14,6 @@ namespace PointEx.Service
 {
     public class NotificationService : INotificationService
     {
-        public const string SentFrom = "fedef_88@hotmail.com";
-
         private readonly ApplicationUserManager _userManager;
 
         public NotificationService(ApplicationUserManager userManager)
@@ -33,7 +33,7 @@ namespace PointEx.Service
         {
             using (var client = GetSmtpClient())
             {
-                var mail = new MailMessage(SentFrom, beneficiary.User.Email);
+                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiary.User.Email);
 
                 mail.Subject = "Canje de Premio";
                 mail.Body = GetPointsExchangeConfirmationEmailBody(prize, beneficiary, exchangeDate);
@@ -45,11 +45,11 @@ namespace PointEx.Service
 
         private SmtpClient GetSmtpClient()
         {
-            var credentialUserName = "fedef_88@hotmail.com";
+            var credentialUserName = ConfigurationManager.AppSettings["EmailSentFrom"];
 
-            var pwd = "65456f";
+            var pwd = ConfigurationManager.AppSettings["EmailPassword"];
 
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+            SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SmptClient"]);
 
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
