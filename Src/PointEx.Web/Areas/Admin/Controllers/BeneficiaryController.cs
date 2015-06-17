@@ -8,6 +8,7 @@ using PointEx.Entities.Dto;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service;
+using PointEx.Web.Configuration;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 
@@ -90,6 +91,12 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var beneficiaryForm = new BeneficiaryForm();
+
+            //we hardcode the institutionId so we don't get validation errors at client side
+            if (AppSettings.Theme == ThemeEnum.TekovePoti)
+            {
+                beneficiaryForm.EducationalInstitutionId = 1;
+            }
             return View(beneficiaryForm);
         }
 
@@ -101,6 +108,10 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 return View(beneficiaryForm);
             }
 
+            if (AppSettings.Theme == ThemeEnum.TekovePoti)
+            {
+                beneficiaryForm.EducationalInstitutionId = null;
+            }
             var beneficiary = beneficiaryForm.ToBeneficiary();
 
             var user = new ApplicationUser { UserName = beneficiaryForm.Email, Email = beneficiaryForm.Email };
@@ -123,6 +134,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var beneficiary = _beneficiaryService.GetById(id);
             var user = _userManager.FindById(beneficiary.UserId);
             var beneficiaryForm = BeneficiaryForm.Create(beneficiary, user);
+
+            if (AppSettings.Theme == ThemeEnum.TekovePoti)
+            {
+                beneficiaryForm.EducationalInstitutionId = 1;
+            }
             return View(beneficiaryForm);
         }
 
@@ -133,7 +149,10 @@ namespace PointEx.Web.Areas.Admin.Controllers
             {
                 return View(beneficiaryForm);
             }
-
+            if (AppSettings.Theme == ThemeEnum.TekovePoti)
+            {
+                beneficiaryForm.EducationalInstitutionId = null;
+            }
             _beneficiaryService.Edit(beneficiaryForm.ToBeneficiary());
 
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Editado");

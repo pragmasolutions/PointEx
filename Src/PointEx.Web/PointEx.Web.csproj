@@ -351,6 +351,7 @@
     <Content Include="Content\Site.Beneficiary.min.css">
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
+    <Content Include="Content\themes\Jovenes\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -440,6 +441,7 @@
     <Content Include="Areas\Beneficiary\Views\Prize\Detail.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\_ExchangePointsConfirmationModal.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\ExchangePointsSuccess.cshtml" />
+    <Content Include="Areas\Admin\Views\Beneficiary\_CreateEditControls.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -566,7 +568,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Beneficiary\Models\" />
-    <Folder Include="Content\themes\Jovenes\" />
     <Folder Include="Content\themes\TekovePoti\" />
     <Folder Include="Views\File\" />
   </ItemGroup>
