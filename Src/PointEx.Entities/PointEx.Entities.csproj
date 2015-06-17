@@ -117,6 +117,9 @@
     <Compile Include="Role.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RptPurchases.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Section.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>

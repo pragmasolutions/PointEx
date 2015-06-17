@@ -62,6 +62,7 @@ namespace PointEx.Web.Models
         {
             var form = Mapper.Map<Shop, ShopForm>(shop);
             form.CategoriesSelected = shop.ShopCategories.Select(sc => sc.CategoryId);
+            form.Email = shop.User.Email;
             return form;
         }
     }

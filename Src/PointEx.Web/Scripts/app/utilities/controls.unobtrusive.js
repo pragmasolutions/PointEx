@@ -54,7 +54,8 @@ var controls = function () {
             $(item).datepicker({
                 autoclose: true,
                 todayHighlight: true,
-                language: "es-AR"
+                language: "es-AR",
+                clearBtn: true
             }).on('changeDate', function (ev) {
                 $(this).datepicker('hide');
 

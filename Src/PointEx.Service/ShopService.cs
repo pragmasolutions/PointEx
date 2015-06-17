@@ -46,8 +46,6 @@ namespace PointEx.Service
 
                     var result = await _userManager.CreateAsync(applicationUser);
 
-
-
                     if (!result.Succeeded)
                     {
                         throw new ApplicationException(result.Errors.FirstOrDefault());
@@ -55,14 +53,13 @@ namespace PointEx.Service
 
                     await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Shop);
 
-                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
-
                     shop.CreatedDate = _clock.Now;
                     shop.UserId = applicationUser.Id;
                     Uow.Shops.Add(shop);
-                    Uow.Commit();
 
                     await Uow.CommitAsync();
+
+                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
 
                     trasactionScope.Complete();
                 }
@@ -94,6 +91,7 @@ namespace PointEx.Service
             currentShop.TownId = shop.TownId;
             currentShop.Location = shop.Location;
             currentShop.ModifiedDate = _clock.Now;
+            currentShop.User.Email = shop.User.Email;
 
             Uow.Shops.Edit(currentShop);
             Uow.Commit();
@@ -120,7 +118,7 @@ namespace PointEx.Service
 
         public Shop GetById(int id)
         {
-            return Uow.Shops.Get(s => s.Id == id, s => s.ShopCategories.Select(cs => cs.Category));
+            return Uow.Shops.Get(s => s.Id == id, s => s.ShopCategories.Select(cs => cs.Category),s => s.User);
         }
 
         public Shop GetByUserId(string userId)

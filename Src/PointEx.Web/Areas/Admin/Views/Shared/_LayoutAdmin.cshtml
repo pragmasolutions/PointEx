@@ -24,9 +24,15 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Comercios", "Index", new { area = "Admin", controller = "Shop" })</li>
                     <li>@Html.ActionLink("Beneficiarios", "Index", new { area = "Admin", controller = "Beneficiary" })</li>
-                    <li>@Html.ActionLink("Est. Educativos", "Index", new {area = "Admin", controller = "EducationalInstitution"})</li>
-                    <li>@Html.ActionLink("Premios", "Index", new {area = "Admin", controller = "Prize"})</li>
+                    <li>@Html.ActionLink("Est. Educativos", "Index", new { area = "Admin", controller = "EducationalInstitution" })</li>
+                    <li>@Html.ActionLink("Premios", "Index", new { area = "Admin", controller = "Prize" })</li>
                     <li>@Html.ActionLink("Contenido Secciones", "Index", new { area = "Admin", controller = "Section" })</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Compras", "Purchases", new { area = "Admin", controller = "Report" })</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

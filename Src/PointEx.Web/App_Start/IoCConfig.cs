@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Ninject;
 using Ninject.Web.Common;
 using PointEx.Data;
+using PointEx.Data.Helpers;
 using PointEx.Data.Interfaces;
 using PointEx.Security.Managers;
 using PointEx.Service;
@@ -59,6 +60,7 @@ namespace PointEx.Web
             kernel.Bind<ISectionItemService>().To<SectionItemService>().InRequestScope();
             kernel.Bind<INotificationService>().To<NotificationService>().InRequestScope();
             kernel.Bind<IPointsExchangeService>().To<PointsExchangeService>().InRequestScope();
+            kernel.Bind<IReportService>().To<ReportService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);

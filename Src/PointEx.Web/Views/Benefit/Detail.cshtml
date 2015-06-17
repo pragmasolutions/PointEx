@@ -12,13 +12,24 @@
 }
 
 <div class="thumbnail">
+    @{
+        var benefitIndex = 0;
+    }
+
     @if (Model.Benefit.BenefitFiles.Any())
     {
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+
+                @foreach (var image in Model.Benefit.BenefitFiles)
+                {
+
+                    <li data-target="#carousel-example-generic"
+                        data-slide-to="@benefitIndex"
+                        @(image == Model.Benefit.BenefitFiles.First() ? "active" : string.Empty)></li>
+
+                    benefitIndex++;
+                }
             </ol>
             <div class="carousel-inner">
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{570C2383-FDD9-4400-A2D1-7FA382CB2CB0}</ProjectGuid>
+    <ProjectGuid>{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PointEx.Data</RootNamespace>
-    <AssemblyName>PointEx.Data</AssemblyName>
+    <RootNamespace>Framework.Report</RootNamespace>
+    <AssemblyName>Framework.Report</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,20 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,62 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\PointExRepositoryFactories.cs" />
-    <Compile Include="Interfaces\IPointExUow.cs" />
-    <Compile Include="Interfaces\IReportRepository.cs" />
-    <Compile Include="PointExDbContext.cs" />
-    <Compile Include="PointExUow.cs" />
-    <Compile Include="PointExModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PointExModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PointExModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PointExModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ReportRepository.cs" />
-    <Compile Include="UowFactory.cs" />
+    <Compile Include="ReportFactory.cs" />
+    <Compile Include="ReportSheetFormatEnum.cs" />
+    <Compile Include="ReportHelper.cs" />
+    <Compile Include="RerportTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.Data.EntityFramework\Framework.Data.EntityFramework.csproj">
-      <Project>{20259EAA-C937-4BF2-913A-F4531796FE5B}</Project>
-      <Name>Framework.Data.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Data\Framework.Data.csproj">
-      <Project>{cb41f702-99fb-49ae-8bc0-1b7f0193efab}</Project>
-      <Name>Framework.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Ioc\Framework.Ioc.csproj">
-      <Project>{9f222811-5858-42ed-958f-96c228d67808}</Project>
-      <Name>Framework.Ioc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
-      <Project>{a68b9035-3037-4a58-88a8-38478b967681}</Project>
-      <Name>PointEx.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="PointExModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PointExModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="PointExModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PointExModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="PointExModel.edmx.diagram">
-      <DependentUpon>PointExModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

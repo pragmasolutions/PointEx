@@ -244,6 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BeneficiaryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\SectionController.cs" />
     <Compile Include="Areas\Admin\Controllers\SectionItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionForm.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Report\RerportFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Section\AddPrizeForm.cs" />
     <Compile Include="Areas\Admin\Models\Section\SectionItemsModel.cs" />
     <Compile Include="Areas\Admin\Models\Section\OrderSectionItemsForm.cs" />
@@ -341,6 +343,10 @@
     <Content Include="Content\front-end\pointex-search.css" />
     <Content Include="Content\front-end\pointex-prizes.css" />
     <Content Include="Content\front-end\pointex-benefits.css" />
+    <Content Include="Content\images\adobe-acrobat.png" />
+    <Content Include="Content\images\loading100X100.gif" />
+    <Content Include="Content\images\microsoft-excel.png" />
+    <Content Include="Content\images\microsoft-word.png" />
     <Content Include="Content\images\noimage.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\select2.css" />
@@ -440,6 +446,8 @@
     <Content Include="Areas\Beneficiary\Views\Prize\Detail.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\_ExchangePointsConfirmationModal.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\ExchangePointsSuccess.cshtml" />
+    <Content Include="Reports\Purchases.rdl" />
+    <Content Include="Areas\Admin\Views\Report\Purchases.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
@@ -562,6 +570,7 @@
     <Content Include="Views\Shared\_FacebookInit.cshtml" />
     <Content Include="Views\Shared\_TwitterInit.cshtml" />
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
+    <Content Include="Views\Shared\_ReportLoading.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -574,6 +583,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Report\Framework.Report.csproj">
+      <Project>{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}</Project>
+      <Name>Framework.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Common.Web\Framework.Common.Web.csproj">
       <Project>{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}</Project>
       <Name>Framework.Common.Web</Name>

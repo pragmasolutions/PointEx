@@ -174,4 +174,7 @@
   <data name="EditBranchOffice" xml:space="preserve">
     <value>Editar Sucursal</value>
   </data>
+  <data name="LabelAll" xml:space="preserve">
+    <value>Todos</value>
+  </data>
 </root>

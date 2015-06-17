@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common.Web", "Fra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointEx.Security", "PointEx.Security\PointEx.Security.csproj", "{218D008B-8761-432A-A871-D044F1859DC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Report", "Framework.Report\Framework.Report.csproj", "{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{218D008B-8761-432A-A871-D044F1859DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{218D008B-8761-432A-A871-D044F1859DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203CA27B-B59E-41D5-BEDA-2A298DBAF31A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,5 +130,6 @@ Global
 		{F307CEE1-72C8-491F-8867-0F3EBE3F7DBF} = {ED26FC66-D885-4CA2-875D-96E8C67748BA}
 		{A7BED685-D711-4227-84B4-FEEC8EDF460C} = {ED26FC66-D885-4CA2-875D-96E8C67748BA}
 		{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1} = {ED26FC66-D885-4CA2-875D-96E8C67748BA}
+		{203CA27B-B59E-41D5-BEDA-2A298DBAF31A} = {ED26FC66-D885-4CA2-875D-96E8C67748BA}
 	EndGlobalSection
 EndGlobal

@@ -223,6 +223,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Todos.
+        /// </summary>
+        public static string LabelAll {
+            get {
+                return ResourceManager.GetString("LabelAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detalle Comercio.
         /// </summary>
         public static string ShopDetailTitle {

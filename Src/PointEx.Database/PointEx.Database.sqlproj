@@ -91,6 +91,7 @@
     <Build Include="dbo\Tables\BenefitBranchOffice.sql" />
     <Build Include="dbo\Tables\Section.sql" />
     <Build Include="dbo\Tables\SectionItem.sql" />
+    <Build Include="dbo\Stored Procedures\Rpt_Purchases.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
