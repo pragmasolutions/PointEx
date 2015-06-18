@@ -79,5 +79,22 @@ namespace PointEx.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RptPurchases>("RptPurchases", fromParameter, toParameter, shopIdParameter, educationalInstitutionIdParameter);
         }
+    
+        public virtual ObjectResult<RptMostExchangedPrizes> RptMostExchangedPrizes(Nullable<System.DateTime> from, Nullable<System.DateTime> to, Nullable<int> educationalInstitutionId)
+        {
+            var fromParameter = from.HasValue ?
+                new ObjectParameter("From", from) :
+                new ObjectParameter("From", typeof(System.DateTime));
+    
+            var toParameter = to.HasValue ?
+                new ObjectParameter("To", to) :
+                new ObjectParameter("To", typeof(System.DateTime));
+    
+            var educationalInstitutionIdParameter = educationalInstitutionId.HasValue ?
+                new ObjectParameter("EducationalInstitutionId", educationalInstitutionId) :
+                new ObjectParameter("EducationalInstitutionId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RptMostExchangedPrizes>("RptMostExchangedPrizes", fromParameter, toParameter, educationalInstitutionIdParameter);
+        }
     }
 }

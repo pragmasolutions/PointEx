@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Framework.Report;
 using PointEx.Web.Models.List;
@@ -9,6 +11,8 @@ namespace PointEx.Web.Models
 {
     public class ReportFiltersModel : FilterBaseModel
     {
+        private const string DonwloadActionPrefix = "GenerateReport";
+
         public ReportFiltersModel()
         {
             From = DateTime.Now.Date.AddMonths(-1);
@@ -33,6 +37,8 @@ namespace PointEx.Web.Models
         [Display(Name = "Establecimiento Educativo")]
         public int? EducationalInstitutionId { get; set; }
 
+        public string ReportName { get; set; }
+
         public RouteValueDictionary GetRouteValues(ReportTypeEnum rerportType = ReportTypeEnum.Pdf)
         {
             var routeValues = new RouteValueDictionary();
@@ -42,6 +48,24 @@ namespace PointEx.Web.Models
             routeValues.Add("EducationalInstitutionId", this.EducationalInstitutionId);
             routeValues.Add("ShopId", this.ShopId);
             return routeValues;
+        }
+
+        public string GetWordUrl()
+        {
+            UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            return urlHelper.Action(DonwloadActionPrefix + ReportName, GetRouteValues(ReportTypeEnum.Word));
+        }
+
+        public string GetExcelUrl()
+        {
+            UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            return urlHelper.Action(DonwloadActionPrefix + ReportName, GetRouteValues(ReportTypeEnum.Word));
+        }
+
+        public string GetPdfUrl()
+        {
+            UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            return urlHelper.Action(DonwloadActionPrefix + ReportName, GetRouteValues(ReportTypeEnum.Pdf));
         }
     }
 }

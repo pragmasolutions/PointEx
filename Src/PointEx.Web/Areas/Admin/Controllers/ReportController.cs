@@ -29,6 +29,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
         public ActionResult Purchases(ReportFiltersModel filters)
         {
+            if (filters != null)
+                filters.ReportName = "Purchases";
+
             return View(filters);
         }
 
@@ -50,6 +53,38 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             reporteFactory.SetDataSource("PurchasesDataSet", purchaces)
                           .SetFullPath(Server.MapPath("~/Reports/Purchases.rdl"));
+
+            byte[] reportFile = reporteFactory.Render(filters.ReportType);
+
+            return File(reportFile, reporteFactory.MimeType);
+        }
+
+        public ActionResult MostExchangedPrizes(ReportFiltersModel filters)
+        {
+            if (filters != null)
+                filters.ReportName = "MostExchangedPrizes";
+
+            return View(filters);
+        }
+
+        public ActionResult GenerateReportMostExchangedPrizes(ReportFiltersModel filters)
+        {
+            var reporteFactory = new ReportFactory();
+
+            var educationalInstitutionName = filters.EducationalInstitutionId.HasValue
+                ? _educationalInstitutionService.GetById(filters.EducationalInstitutionId.Value).Name
+                : PointExResources.LabelAll;
+
+            reporteFactory
+                .SetParameter("From", filters.From.ToShortDateString(null))
+                .SetParameter("To", filters.To.ToShortDateString(null))
+                .SetParameter("EducationalInstitutionName", educationalInstitutionName);
+
+            var prizesReport = _reportService.MostExchangedPrizes(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
+                filters.EducationalInstitutionId);
+
+            reporteFactory.SetDataSource("MostExchangedPrizesDataSet", prizesReport)
+                          .SetFullPath(Server.MapPath("~/Reports/MostExchangedPrizes.rdl"));
 
             byte[] reportFile = reporteFactory.Render(filters.ReportType);
 

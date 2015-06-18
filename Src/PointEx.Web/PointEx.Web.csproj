@@ -450,6 +450,11 @@
     <Content Include="Areas\Admin\Views\Beneficiary\_CreateEditControls.cshtml" />
     <Content Include="Reports\Purchases.rdl" />
     <Content Include="Areas\Admin\Views\Report\Purchases.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_Filters.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_DownloadButtons.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_ReportBox.cshtml" />
+    <Content Include="Reports\MostExchangedPrizes.rdl" />
+    <Content Include="Areas\Admin\Views\Report\MostExchangedPrizes.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
