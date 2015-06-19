@@ -562,6 +562,13 @@
         <Function Name="Beneficiary_PurchasesAndExchanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BeneficiaryId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Rpt_GeneratedPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="From" Type="datetime2" Mode="In" />
+          <Parameter Name="To" Type="datetime2" Mode="In" />
+          <Parameter Name="ShopId" Type="int" Mode="In" />
+          <Parameter Name="BeneficiaryId" Type="int" Mode="In" />
+          <Parameter Name="EducationalInstitutionId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Rpt_MostExchangedPrizes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="From" Type="datetime2" Mode="In" />
           <Parameter Name="To" Type="datetime2" Mode="In" />
@@ -977,6 +984,13 @@
           <FunctionImport Name="RptMostExchangedPrizes" ReturnType="Collection(PointEx.Data.RptMostExchangedPrizes)">
             <Parameter Name="From" Mode="In" Type="DateTime" />
             <Parameter Name="To" Mode="In" Type="DateTime" />
+            <Parameter Name="EducationalInstitutionId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RptGeneratedPoints" ReturnType="Collection(PointEx.Data.RptGeneratedPoints)">
+            <Parameter Name="From" Mode="In" Type="DateTime" />
+            <Parameter Name="To" Mode="In" Type="DateTime" />
+            <Parameter Name="ShopId" Mode="In" Type="Int32" />
+            <Parameter Name="BeneficiaryId" Mode="In" Type="Int32" />
             <Parameter Name="EducationalInstitutionId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1472,6 +1486,14 @@
           <Property Type="String" Name="EducationalInstitutionName" Nullable="false" MaxLength="250" />
           <Property Type="Int32" Name="ExchangeCount" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="RptGeneratedPoints">
+          <Property Type="String" Name="ShopName" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Beneficiary" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="EducationalInstitutionName" Nullable="false" MaxLength="250" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Points" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1744,6 +1766,18 @@
                 <ScalarProperty Name="PrizeName" ColumnName="PrizeName" />
                 <ScalarProperty Name="EducationalInstitutionName" ColumnName="EducationalInstitutionName" />
                 <ScalarProperty Name="ExchangeCount" ColumnName="ExchangeCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RptGeneratedPoints" FunctionName="PointEx.Data.Store.Rpt_GeneratedPoints">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PointEx.Data.RptGeneratedPoints">
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="Beneficiary" ColumnName="Beneficiary" />
+                <ScalarProperty Name="EducationalInstitutionName" ColumnName="EducationalInstitutionName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
