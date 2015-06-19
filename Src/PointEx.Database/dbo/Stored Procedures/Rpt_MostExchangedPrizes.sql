@@ -22,4 +22,5 @@ BEGIN
 		AND (@To IS NULL OR PE.ExchangeDate <= @To)
 		AND (@EducationalInstitutionId IS NULL OR E.Id = @EducationalInstitutionId)
 	GROUP BY P.Name, E.Name 
+	ORDER BY ExchangeCount
 END

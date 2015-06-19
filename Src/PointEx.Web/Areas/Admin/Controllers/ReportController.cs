@@ -90,5 +90,41 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return File(reportFile, reporteFactory.MimeType);
         }
+
+        public ActionResult MostUsedBenefits(ReportFiltersModel filters)
+        {
+            if (filters != null)
+                filters.ReportName = "MostUsedBenefits";
+
+            return View(filters);
+        }
+
+        public ActionResult GenerateReportMostUsedBenefits(ReportFiltersModel filters)
+        {
+            var reporteFactory = new ReportFactory();
+
+            var shopName = filters.ShopId.HasValue ? _shopService.GetById(filters.ShopId.Value).Name : PointExResources.LabelAll;
+
+            var educationalInstitutionName = filters.EducationalInstitutionId.HasValue
+                ? _educationalInstitutionService.GetById(filters.EducationalInstitutionId.Value).Name
+                : PointExResources.LabelAll;
+
+            reporteFactory
+                .SetParameter("From", filters.From.ToShortDateString(null))
+                .SetParameter("To", filters.To.ToShortDateString(null))
+                .SetParameter("EducationalInstitutionName", educationalInstitutionName)
+                .SetParameter("ShopName", shopName);
+
+            var mostUsedBenefits = _reportService.MostUsedBenefits(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
+                filters.ShopId,
+                filters.EducationalInstitutionId);
+
+            reporteFactory.SetDataSource("MostUsedBenefitsDataSet", mostUsedBenefits)
+                          .SetFullPath(Server.MapPath("~/Reports/MostUsedBenefits.rdl"));
+
+            byte[] reportFile = reporteFactory.Render(filters.ReportType);
+
+            return File(reportFile, reporteFactory.MimeType);
+        }
     }
 }

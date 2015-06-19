@@ -10,5 +10,8 @@ namespace PointEx.Service
         IList<RptPurchases> Purchases(DateTime? from, DateTime? to, int? shopId, int? educationalInstitutionId);
 
         IList<RptMostExchangedPrizes> MostExchangedPrizes(DateTime? from, DateTime? to, int? educationalInstitutionId);
+
+        IList<RptMostUsedBenefits> MostUsedBenefits(DateTime? from, DateTime? to, int? shopId,
+            int? educationalInstitutionId);
     }
 }

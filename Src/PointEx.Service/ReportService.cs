@@ -36,5 +36,10 @@ namespace PointEx.Service
         {
             return Uow.DbContext.RptMostExchangedPrizes(from, to, educationalInstitutionId).ToList();
         }
+
+        public IList<RptMostUsedBenefits> MostUsedBenefits(DateTime? from, DateTime? to, int? shopId, int? educationalInstitutionId)
+        {
+            return Uow.DbContext.RptMostUsedBenefits(from, to,shopId, educationalInstitutionId).ToList();
+        }
     }
 }
