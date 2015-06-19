@@ -94,6 +94,7 @@
     <Build Include="dbo\Stored Procedures\Rpt_MostExchangedPrizes.sql" />
     <Build Include="dbo\Stored Procedures\Rpt_Purchases.sql" />
     <Build Include="dbo\Stored Procedures\Rpt_GeneratedPoints.sql" />
+    <Build Include="dbo\Stored Procedures\Rpt_MostUsedBenefits.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
