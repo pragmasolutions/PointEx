@@ -39,7 +39,7 @@ namespace PointEx.Web.Models
 
         public string ReportName { get; set; }
 
-        public RouteValueDictionary GetRouteValues(ReportTypeEnum rerportType = ReportTypeEnum.Pdf)
+        public virtual RouteValueDictionary GetRouteValues(ReportTypeEnum rerportType = ReportTypeEnum.Pdf)
         {
             var routeValues = new RouteValueDictionary();
             routeValues.Add("ReportType", rerportType);

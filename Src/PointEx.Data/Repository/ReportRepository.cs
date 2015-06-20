@@ -18,5 +18,11 @@ namespace PointEx.Data.Repository
         {
             throw new NotImplementedException();
         }
+
+
+        public IQueryable<RptGeneratedPoints> GeneratedPoints(DateTime? from, DateTime? to, int? shopId, int? beneficiaryId, int? educationalInstitutionId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -263,6 +263,7 @@
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionForm.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\EducationalInstitution\EducationalInstitutionListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Report\GeneratedPointsRerportFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Report\RerportFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Section\AddPrizeForm.cs" />
     <Compile Include="Areas\Admin\Models\Section\SectionItemsModel.cs" />
@@ -455,6 +456,9 @@
     <Content Include="Areas\Admin\Views\Report\_ReportBox.cshtml" />
     <Content Include="Reports\MostExchangedPrizes.rdl" />
     <Content Include="Areas\Admin\Views\Report\MostExchangedPrizes.cshtml" />
+    <Content Include="Reports\GeneratedPoints.rdl" />
+    <Content Include="Areas\Admin\Views\Report\GeneratedPoints.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_CompleteFilters.cshtml" />
     <Content Include="Reports\MostUsedBenefits.rdl" />
     <Content Include="Areas\Admin\Views\Report\MostUsedBenefits.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -580,6 +584,7 @@
     <Content Include="Views\Shared\_TwitterInit.cshtml" />
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
