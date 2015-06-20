@@ -459,6 +459,8 @@
     <Content Include="Reports\GeneratedPoints.rdl" />
     <Content Include="Areas\Admin\Views\Report\GeneratedPoints.cshtml" />
     <Content Include="Areas\Admin\Views\Report\_CompleteFilters.cshtml" />
+    <Content Include="Reports\MostUsedBenefits.rdl" />
+    <Content Include="Areas\Admin\Views\Report\MostUsedBenefits.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />

@@ -12,5 +12,8 @@ namespace PointEx.Service
         IList<RptMostExchangedPrizes> MostExchangedPrizes(DateTime? from, DateTime? to, int? educationalInstitutionId);
 
         IList<RptGeneratedPoints> GeneratedPoints(DateTime? from, DateTime? to, int? shopId, int? beneficiaryId, int? educationalInstitutionId);
+
+        IList<RptMostUsedBenefits> MostUsedBenefits(DateTime? from, DateTime? to, int? shopId,
+            int? educationalInstitutionId);
     }
 }

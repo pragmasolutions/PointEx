@@ -6,7 +6,8 @@
 AS
 BEGIN
 	SELECT
-	   ShopName = S.Name
+	   BenefitName = B.Name
+	  ,ShopName = S.Name
 	  ,EducationalInstitutionName = E.Name 
 	  ,UsesCount = COUNT(P.Id)
 	FROM
@@ -28,4 +29,5 @@ BEGIN
 		AND (@ShopId IS NULL OR P.ShopId = @ShopId)
 		AND (@EducationalInstitutionId IS NULL OR E.Id = @EducationalInstitutionId)
 	GROUP BY B.Name, S.Name, E.Name
+	ORDER BY UsesCount
 END

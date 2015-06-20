@@ -123,6 +123,9 @@
     <Compile Include="RptMostExchangedPrizes.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RptMostUsedBenefits.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RptPurchases.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
