@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @using JetBrains.Annotations;
+@using Framework.Common.Web.Extensions;
+@using PointEx.Service;
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -7,6 +9,13 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                @{
+                    var service = IocContainer.GetContainer().Get<IBranchOfficeService>();
+                    var currentUser = IocContainer.GetContainer().Get<PointEx.Web.Infrastructure.ICurrentUser>();    
+                }     
+                @Html.ActionLink(currentUser.Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = currentUser.Shop.Id }, htmlAttributes: new { title = "Perfil" })           
+            </li>
             <li>
                 @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new {area = ""}, htmlAttributes: new {title = "Manage"})*@
                 @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Profile", routeValues: new { area = "Beneficiary" }, htmlAttributes: new { title = "Perfil" })
