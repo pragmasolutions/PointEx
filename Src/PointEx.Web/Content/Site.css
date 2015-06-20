@@ -86,3 +86,15 @@ textarea {
 .table form {
     display: inline-block;
 }
+
+.float-left {
+    float: left;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.white {
+    color: white;
+}
