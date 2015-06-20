@@ -106,6 +106,7 @@ namespace Framework.Data.EntityFramework.Repository
         public virtual T Get(Expression<Func<T, bool>> whereClause, params Expression<Func<T, object>>[] includes)
         {
             var dbset = DbSet.AsQueryable();
+            var list = dbset.ToList();
             foreach (var include in includes)
             {
                 dbset = dbset.Include(include);

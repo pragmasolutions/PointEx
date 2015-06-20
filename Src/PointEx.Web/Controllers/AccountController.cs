@@ -108,7 +108,7 @@ namespace PointEx.Web.Controllers
                         return RedirectToLocal(returnUrl);
                     }
 
-                    if (user.Roles.Any(r => r.Name == RolesNames.Admin))
+                    if (user.Roles.Any(r => r.Name == RolesNames.Admin || r.Name == RolesNames.SuperAdmin))
                     {
                         return RedirectToAction("Index", "Shop", new { area = "Admin" });
                     }

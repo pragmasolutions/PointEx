@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="Interfaces\IPointsExchangeService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />

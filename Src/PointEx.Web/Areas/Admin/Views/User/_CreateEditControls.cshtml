@@ -1,0 +1,20 @@
+﻿@using Microsoft.VisualStudio.Web.PageInspector.Runtime
+@model PointEx.Web.Models.UserForm
+
+@Html.HiddenFor(model => model.Id)
+
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Name">Nombre de usuario</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.UserName)
+        @Html.ValidationMessageFor(model => model.UserName)
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Email">E-mail</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+</div>
