@@ -1,9 +1,13 @@
 ﻿@using PointEx.Security
+@using PointEx.Web.Models
 
 
 <div class="menulateral">
+    <div class="buscador">
+        @Html.Partial("_SearchPrizes", model: new PrizeListFiltersModel())
+    </div>
     <div class="item">
-        Hola <br />
+        Hola <br/>
         <div class="nombre">
             @PointExContext.Beneficiary.Name
         </div>
@@ -15,6 +19,6 @@
         </div>
     </div>
 
-    
+
     <a href="/Beneficiary/Profile/History">Ver Detalle</a>
 </div>

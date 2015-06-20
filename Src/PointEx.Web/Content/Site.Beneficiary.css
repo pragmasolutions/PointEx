@@ -1,11 +1,9 @@
-﻿body{
-      padding-top: 50px !important;
+﻿body {
+  padding-top: 50px !important;
 }
-
 .nav-bar-beneficiary {
-    background-color: cadetblue;
+  background-color: cadetblue;
 }
-
 .menu-superior-container {
   width: 100%;
 }
@@ -37,29 +35,38 @@
   vertical-align: top;
 }
 .layout-container .td-menu-lateral {
-  background-color: beige;
+  background-color: #81BA25;
   width: 300px;
 }
 .layout-container .menulateral {
   width: 100%;
-  padding: 20px;
+  padding: 40px 20px;
+  font-weight: bold;
 }
 .layout-container .menulateral .nombre {
-  font-size: 120%;
-  color: blueviolet;
+  font-size: 130%;
+  color: lavender;
   font-weight: bold;
 }
 .layout-container .menulateral .tus-puntos {
-  font-size: 105%;
-  color: darkcyan;
+  font-size: 200%;
+  color: white;
   font-weight: bold;
 }
 .layout-container .menulateral .item {
   margin-bottom: 15px;
 }
+.layout-container .menulateral #search-box {
+  width: 300px;
+  margin-bottom: 20px;
+}
+.layout-container .menulateral a {
+  color: brown;
+  text-decoration: underline;
+}
 .layout-container .layout-body {
   width: 100%;
-  padding: 10px 20px;
+  padding: 20px 35px;
 }
 .green {
   color: yellowgreen;
@@ -68,5 +75,20 @@
 .red {
   color: red;
   font-weight: bold;
+}
+.profile-table {
+  margin-top: 20px;
+}
+.profile-table td {
+  padding: 6px;
+  border-bottom: 1px solid silver;
+  font-size: 120%;
+}
+.profile-table td.col1 {
+  color: darkgray;
+}
+.profile-table td.col2 {
+  padding: 6px 20px;
+  width: 500px;
 }
 /*# sourceMappingURL=Site.Beneficiary.css.map */
