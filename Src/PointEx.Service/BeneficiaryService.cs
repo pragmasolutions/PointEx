@@ -111,6 +111,15 @@ namespace PointEx.Service
                                                                                 b => b.PointsExchanges);
         }
 
+        public Beneficiary GetByUserId(string userId)
+        {
+            return Uow.Beneficiaries.Get(b => b.UserId == userId, s => s.Town, b => b.User, b => b.Town,
+                                                                                b => b.Cards,
+                                                                                b => b.Cards.Select(c => c.Purchases),
+                                                                                b => b.EducationalInstitution,
+                                                                                b => b.PointsExchanges);
+        }
+
         public List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();

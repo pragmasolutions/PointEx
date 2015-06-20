@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="col-md-9">
-            <h3>@prize.Name: @Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new { area = "", prize.Id }, htmlAttributes: null)</h3>
+            <h3>@Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new { area = "Beneficiary", prize.Id }, htmlAttributes: null)</h3>
             <h4>Puntos Necesarios: @prize.PointsNeeded</h4>
             <p class="prize-description">@prize.Description</p>
             <a class="btn btn-primary" href="@prize.GetDetailUrl()">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>

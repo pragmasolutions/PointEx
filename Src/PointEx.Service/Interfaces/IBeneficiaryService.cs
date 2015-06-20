@@ -17,6 +17,8 @@ namespace PointEx.Service
             int pageSize, out int pageTotal);
         Beneficiary GetById(int id);
 
+        Beneficiary GetByUserId(string userId);
+
         List<PointTransaction> GetTransactions(int beneficiaryId);
     }
 }

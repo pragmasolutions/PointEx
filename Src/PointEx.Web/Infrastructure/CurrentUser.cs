@@ -12,15 +12,18 @@ namespace PointEx.Web.Infrastructure
         private readonly IIdentity _identity;
         private readonly IShopService _shopService;
         private readonly ApplicationUserManager _applicationUserManager;
+        private readonly IBeneficiaryService _beneficiaryService;
 
         private ApplicationUser _user;
         private Shop _shop;
+        private Beneficiary _beneficiary;
 
-        public CurrentUser(IIdentity identity, IShopService shopService,ApplicationUserManager applicationUserManager)
+        public CurrentUser(IIdentity identity, IShopService shopService,ApplicationUserManager applicationUserManager,IBeneficiaryService beneficiaryService)
         {
             _identity = identity;
             _shopService = shopService;
             _applicationUserManager = applicationUserManager;
+            _beneficiaryService = beneficiaryService;
         }
 
         public Shop Shop
@@ -28,6 +31,14 @@ namespace PointEx.Web.Infrastructure
             get
             {
                 return _shop ?? (_shop = _shopService.GetByUserId(_identity.GetUserId()));
+            }
+        }
+
+        public Beneficiary Beneficiary
+        {
+            get
+            {
+                return _beneficiary ?? (_beneficiary = _beneficiaryService.GetByUserId(_identity.GetUserId()));
             }
         }
 
