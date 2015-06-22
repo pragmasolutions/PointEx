@@ -127,6 +127,7 @@
           <Property Name="Location" Type="geography" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -750,6 +751,7 @@
           <NavigationProperty Name="Town" Relationship="Self.FK_EducationalInstitution_Town" FromRole="EducationalInstitution" ToRole="Town" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Beneficiary" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -1534,6 +1536,7 @@
           <EntitySetMapping Name="EducationalInstitutions">
             <EntityTypeMapping TypeName="PointEx.Data.EducationalInstitution">
               <MappingFragment StoreEntitySet="EducationalInstitution">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

@@ -83,6 +83,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            var canRemove = _educationalInstitutionService.CanRemove(id);
+            if (!canRemove)
+            {
+                return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithError("Error: El establecimiento educativo tiene estudiantes asociados");
+            }
             _educationalInstitutionService.Delete(id);
 
             return RedirectToAction("Index", new EducationalInstitutionListFiltersModel().GetRouteValues()).WithSuccess("Establecimiento Educativo Eliminado");

@@ -26,6 +26,7 @@ namespace PointEx.Entities
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string Address { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Town Town { get; set; }
         public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
