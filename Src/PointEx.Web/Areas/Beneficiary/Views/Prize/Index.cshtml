@@ -6,19 +6,18 @@
 @{
     ViewBag.Title = "Premios";
 }
-@section ContainerTop{
-    @Html.Partial("_SearchPrizes", model: Model.Filters)
-}
+<h2>Listado de premios</h2>
+
 <hr>
 @foreach (var prize in Model.List)
 {
     <div class="row">
         <div class="col-md-3">
-            <a href="@prize.GetDetailUrl()">
+            <a href="@prize.GetDetailUrl()" class="prize-image">
                 @Html.Image(prize.GetImageUrl(200, 150))
             </a>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" style="padding-left: 55px;">
             <h3>@Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new { area = "Beneficiary", prize.Id }, htmlAttributes: null)</h3>
             <h4>Puntos Necesarios: @prize.PointsNeeded</h4>
             <p class="prize-description">@prize.Description</p>

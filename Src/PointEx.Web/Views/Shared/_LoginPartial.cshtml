@@ -6,13 +6,17 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new {area = ""}, htmlAttributes: new {title = "Manage"})*@
-                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Profile", routeValues: new { area = "Beneficiary" }, htmlAttributes: new { title = "Perfil" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
+            @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
+            {
+                @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
+            }
+            
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
     }
 }
 else

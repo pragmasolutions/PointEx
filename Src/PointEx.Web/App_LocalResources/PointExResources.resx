@@ -177,4 +177,13 @@
   <data name="LabelAll" xml:space="preserve">
     <value>Todos</value>
   </data>
+  <data name="CreateUserTitle" xml:space="preserve">
+    <value>Crear Usuario</value>
+  </data>
+  <data name="UserDetailTitle" xml:space="preserve">
+    <value>Detalle de Usuario</value>
+  </data>
+  <data name="EditUserTitle" xml:space="preserve">
+    <value>Editar Usuario</value>
+  </data>
 </root>

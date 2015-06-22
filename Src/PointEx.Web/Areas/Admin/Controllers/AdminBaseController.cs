@@ -4,7 +4,7 @@ using PointEx.Web.Controllers;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = RolesNames.Admin)]
+    [Authorize(Roles = "Administrator,SuperAdmin")]
     public abstract class AdminBaseController : BaseController
     {
     }

@@ -61,6 +61,7 @@ namespace PointEx.Web
             kernel.Bind<INotificationService>().To<NotificationService>().InRequestScope();
             kernel.Bind<IPointsExchangeService>().To<PointsExchangeService>().InRequestScope();
             kernel.Bind<IReportService>().To<ReportService>().InRequestScope();
+            kernel.Bind<IUserService>().To<UserService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);

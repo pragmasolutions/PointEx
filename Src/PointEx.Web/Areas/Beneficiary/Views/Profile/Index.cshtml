@@ -1,50 +1,58 @@
-﻿@using PointEx.Web.Models
+﻿@using PointEx.Web.Configuration
+@using PointEx.Web.Models
 @model PointEx.Entities.Beneficiary
 @{
     ViewBag.Title = "Información Personal";
     Layout = "~/Areas/Beneficiary/Views/Shared/_Layout.cshtml";
 }
-@section ContainerTop{
-    @Html.Partial("_SearchPrizes", model: new PrizeListFiltersModel())
-}
 <h2>Información Personal</h2>
 
 <div class="form-horizontal">
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, new { @class = "col-md-4 control-label" })
-        <div class="col-md-8">
-            @Html.DisplayFor(model => model.Name)
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.BirthDate, new {@class = "col-md-4 control-label"})
-        <div class="col-md-8">
-            @Html.DisplayFor(model => model.BirthDate)
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address, new { @class = "col-md-4 control-label" })
-        <div class="col-md-8">
-            @Html.DisplayFor(model => model.Address)
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TownId, new { @class = "col-md-4 control-label" })
-        <div class="col-md-8">
-            @Html.DisplayFor(model => model.Town.Name)
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EducationalInstitutionId, new { @class = "col-md-4 control-label" })
-        <div class="col-md-8">
-            @Html.DisplayFor(model => model.EducationalInstitution.Name)
-        </div>
-    </div>
+    <table class="profile-table">
+        <tr>
+            <td class="col1">
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td class="col2">
+                @Model.Name
+            </td>
+        </tr>
+        <tr>
+            <td class="col1">
+                @Html.LabelFor(model => model.BirthDate)
+            </td>
+            <td class="col2">
+                @(Model.BirthDate == null ? string.Empty : Model.BirthDate.Value.ToShortDateString())
+            </td>
+        </tr>
+        <tr>
+            <td class="col1">
+                @Html.LabelFor(model => model.Address)
+            </td>
+            <td class="col2">
+                @Model.Address
+            </td>
+        </tr>
+        <tr>
+            <td class="col1">
+                @Html.LabelFor(model => model.TownId)
+            </td>
+            <td class="col2">
+                @Model.Town.Name
+            </td>
+        </tr>
+        @if (AppSettings.Theme == ThemeEnum.Jovenes)
+        {
+            <tr>
+                <td class="col1">
+                    @Html.LabelFor(model => model.EducationalInstitutionId)
+                </td>
+                <td class="col2">
+                    @Model.EducationalInstitution.Name
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 
 
