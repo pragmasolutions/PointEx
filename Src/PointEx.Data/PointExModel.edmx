@@ -51,6 +51,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -1100,6 +1101,7 @@
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PointsExchanges" Relationship="PointEx.Data.FK_PointsExchange_Beneficiary" FromRole="Beneficiary" ToRole="PointsExchange" />
           <Property Name="IdentificationNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Beneficiary_AspNetUsers">
           <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
@@ -1624,6 +1626,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />

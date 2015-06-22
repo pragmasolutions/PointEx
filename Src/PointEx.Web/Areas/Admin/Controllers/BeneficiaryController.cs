@@ -31,7 +31,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var beneficiarys = _beneficiaryService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.TownId, filters.EducationalInstitutionId, filters.Page, DefaultPageSize, out pageTotal);
+            var beneficiarys = _beneficiaryService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.TownId,
+                filters.EducationalInstitutionId, false, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BeneficiaryDto>(beneficiarys, filters.Page, DefaultPageSize, pageTotal);
 

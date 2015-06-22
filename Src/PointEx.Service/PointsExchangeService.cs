@@ -67,5 +67,10 @@ namespace PointEx.Service
                 }
             }
         }
+
+        public IList<PointsExchange> GetAllByBeneficiaryId(int beneficiaryId)
+        {
+            return Uow.PointsExchanges.GetAll(pe => pe.BeneficiaryId == beneficiaryId).ToList();
+        }
     }
 }
