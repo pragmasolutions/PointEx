@@ -25,7 +25,7 @@ namespace PointEx.Service
 
         public IQueryable<EducationalInstitution> GetAll()
         {
-            return Uow.EducationalInstitutions.GetAll();
+            return Uow.EducationalInstitutions.GetAll().Where(e => !e.IsDeleted);
         }
 
         public List<EducationalInstitutionDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int pageIndex, int pageSize, out int pageTotal)
@@ -37,8 +37,9 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<EducationalInstitution, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
-                                                                        (!townId.HasValue || x.TownId == townId));
+            Expression<Func<EducationalInstitution, bool>> where = x => !x.IsDeleted && 
+                                                        ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
+                                                        (!townId.HasValue || x.TownId == townId));
 
             var results = Uow.EducationalInstitutions.GetAll(pagingCriteria,
                                                     where,
@@ -56,7 +57,7 @@ namespace PointEx.Service
 
         public EducationalInstitution GetByName(string name)
         {
-            return Uow.EducationalInstitutions.Get(e => e.Name == name);
+            return Uow.EducationalInstitutions.Get(e => e.Name == name && !e.IsDeleted);
         }
 
         public void Create(EducationalInstitution educationalInstitution)
@@ -86,7 +87,26 @@ namespace PointEx.Service
 
         public void Delete(int educationalInstitutionId)
         {
-            Uow.EducationalInstitutions.Delete(educationalInstitutionId);
+            var beneficiaries = Uow.Beneficiaries.GetAll()
+                    .Where(b => b.EducationalInstitutionId == educationalInstitutionId && !b.IsDeleted)
+                    .ToList();
+
+            foreach (var beneficiary in beneficiaries)
+            {
+                beneficiary.IsDeleted = true;
+                Uow.Beneficiaries.Edit(beneficiary);
+            }
+
+            if (beneficiaries.Any())
+            {
+                var school = Uow.EducationalInstitutions.Get(educationalInstitutionId);
+                school.IsDeleted = true;
+                Uow.EducationalInstitutions.Edit(school);
+            }
+            else
+            {
+                Uow.EducationalInstitutions.Delete(educationalInstitutionId);
+            }
             Uow.Commit();
         }
 
@@ -100,6 +120,18 @@ namespace PointEx.Service
             }
 
             return currentEducationalInstitution.Id == id;
+        }
+
+        public bool CanRemove(int educationInstitutionId)
+        {
+            var beneficiaries = Uow.Beneficiaries.GetAll().Where(b => educationInstitutionId == b.EducationalInstitutionId && !b.IsDeleted);
+
+            if (beneficiaries.Any())
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }
