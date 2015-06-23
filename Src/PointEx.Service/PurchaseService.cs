@@ -47,5 +47,10 @@ namespace PointEx.Service
                 p => p.Card.Beneficiary, p => p.BranchOffice);
             return purchases.Project().To<PurchaseDto>().ToList();
         }
+
+        public IList<Purchase> GetAllByBeneficiaryId(int beneficiaryId)
+        {
+            return Uow.Purchases.GetAll(p => p.Card.BeneficiaryId == beneficiaryId, p => p.Card).ToList();
+        }
     }
 }

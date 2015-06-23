@@ -21,7 +21,10 @@ namespace PointEx.Service
         private readonly IPrizeService _prizeService;
         private readonly INotificationService _notificationService;
 
-        public PointsExchangeService(IPointExUow uow, IClock clock, IBeneficiaryService beneficiaryService, IPrizeService prizeService, INotificationService notificationService)
+        public PointsExchangeService(IPointExUow uow, IClock clock, 
+            IBeneficiaryService beneficiaryService, 
+            IPrizeService prizeService, 
+            INotificationService notificationService)
         {
             _clock = clock;
             _beneficiaryService = beneficiaryService;

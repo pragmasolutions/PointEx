@@ -47,5 +47,8 @@ namespace PointEx.Entities
 
         [DisplayName("Dirección")]
         public string Address { get; set; }
+
+        [DisplayName("Escuela")]
+        public int? EducationalInstitutionId { get; set; }
     }
 }

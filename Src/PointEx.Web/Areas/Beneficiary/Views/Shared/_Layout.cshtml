@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Puntos</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
@@ -13,17 +13,23 @@
 <body>
     @Html.Partial("_FacebookInit")
 
-    <div class="navbar navbar-fixed-top nav-bar-beneficiary menu-superior-container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="menu">
-                <ul>
-                    <li><a href="/Beneficiary/Profile/Index">Home</a></li>
-                    <li><a href="/Beneficiary/Profile/Index">Mi Cuenta</a></li>
-                    <li>@Html.ActionLink("Catálogo", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
-                </ul>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Puntos", "Index", new {area = "Beneficiary", controller = "Profile"}, new {@class = "navbar-brand"})
             </div>
-            <div class="buscador">
-                @RenderSection("ContainerTop", required: false)
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", new {area = "Beneficiary", controller = "Profile"})</li>
+                    <li>@Html.ActionLink("Mi Cuenta", "Index", new { area = "Beneficiary", controller = "Profile" })</li>
+                    <li>@Html.ActionLink("Catálogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

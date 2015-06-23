@@ -78,6 +78,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\BeneficiaryDto.cs" />
     <Compile Include="Dto\BenefitDto.cs" />
     <Compile Include="Dto\BenefitBranchOfficeDto.cs" />

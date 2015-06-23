@@ -22,12 +22,16 @@ namespace PointEx.Service
     public class BeneficiaryService : ServiceBase, IBeneficiaryService
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly IPurchaseService _purchaseService;
         private readonly INotificationService _notificationService;
         private readonly IClock _clock;
 
-        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager,INotificationService notificationService, IClock clock)
+        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, 
+            IPurchaseService purchaseService,
+            INotificationService notificationService, IClock clock)
         {
             _userManager = userManager;
+            _purchaseService = purchaseService;
             _notificationService = notificationService;
             _clock = clock;
             Uow = uow;
@@ -59,9 +63,9 @@ namespace PointEx.Service
                     }
                     catch (Exception)
                     {
-                        
+
                     }
-                    
+
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;
@@ -91,8 +95,22 @@ namespace PointEx.Service
             var beneficiary = this.GetById(beneficiaryId);
             var user = Uow.Users.Get(u => u.Id == beneficiary.UserId);
 
-            Uow.Beneficiaries.Delete(beneficiary);
-            Uow.Users.Delete(user);
+            if (CanRemoveBeneficiary(beneficiaryId))
+            {
+                foreach (var card in beneficiary.Cards.ToArray())
+                {
+                    Uow.Cards.Delete(card);
+                    beneficiary.Cards.Remove(card);
+                }
+
+                Uow.Beneficiaries.Delete(beneficiary);
+                Uow.Users.Delete(user);
+            }
+            else
+            {
+                beneficiary.IsDeleted = true;
+                user.IsDeleted = true;
+            }
 
             Uow.Commit();
         }
@@ -111,7 +129,16 @@ namespace PointEx.Service
                                                                                 b => b.PointsExchanges);
         }
 
-        public List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex, int pageSize, out int pageTotal)
+        public Beneficiary GetByUserId(string userId)
+        {
+            return Uow.Beneficiaries.Get(b => b.UserId == userId, s => s.Town, b => b.User, b => b.Town,
+                                                                                b => b.Cards,
+                                                                                b => b.Cards.Select(c => c.Purchases),
+                                                                                b => b.EducationalInstitution,
+                                                                                b => b.PointsExchanges);
+        }
+
+        public List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, bool? deleted, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -120,9 +147,11 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<Beneficiary, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
-                                                             (!townId.HasValue || x.TownId == townId) &&
-                                                             (!educationalInstitutionId.HasValue || x.EducationalInstitutionId == educationalInstitutionId));
+            Expression<Func<Beneficiary, bool>> where =
+                x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
+                      (!townId.HasValue || x.TownId == townId) &&
+                      (!educationalInstitutionId.HasValue || x.EducationalInstitutionId == educationalInstitutionId) &&
+                      (!deleted.HasValue || x.IsDeleted == deleted));
 
             var results = Uow.Beneficiaries.GetAll(pagingCriteria,
                                                     where,
@@ -144,6 +173,30 @@ namespace PointEx.Service
                 transaction.Total = count;
             }
             return transactions.OrderByDescending(t => t.TransactionDate).ToList();
+        }
+
+        public IList<PointsExchange> GetPurchaseByBeneficiaryId(int beneficiaryId)
+        {
+            return Uow.PointsExchanges.GetAll(pe => pe.BeneficiaryId == beneficiaryId).ToList();
+        }
+
+        private bool CanRemoveBeneficiary(int beneficiaryId)
+        {
+            var prizeExachanges = this.GetPurchaseByBeneficiaryId(beneficiaryId);
+
+            if (prizeExachanges.Any())
+            {
+                return false;
+            }
+
+            var purchases = _purchaseService.GetAllByBeneficiaryId(beneficiaryId);
+
+            if (purchases.Any())
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

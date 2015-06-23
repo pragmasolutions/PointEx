@@ -15,6 +15,8 @@ namespace PointEx.Security.Model
             // Add custom user claims here
             return userIdentity;
         }
+
+        public bool IsDeleted { get; set; }
     }
 
     [NotMapped]

@@ -1,0 +1,34 @@
+﻿@using PagedList.Mvc
+@model PointEx.Web.Models.UserListModel
+<h3>Usuarios</h3>
+
+@Html.ActionLink("Crear Usuario", "Create", "User", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
+
+@Html.FilterButton()
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_Filters", Model.Filters)
+
+<div class="spacer">
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre de Usuario</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var user in Model.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(user.UserName, "Detail", "User", routeValues: new { area = "Admin", user.Id }, htmlAttributes: null)</td>
+                <td>@user.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))

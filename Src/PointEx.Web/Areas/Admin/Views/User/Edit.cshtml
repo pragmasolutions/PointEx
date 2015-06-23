@@ -1,0 +1,22 @@
+﻿@model PointEx.Web.Models.UserForm
+
+@{
+    ViewBag.Title = PointExResources.EditUserTitle;
+}
+
+<h3>@PointExResources.EditUserTitle</h3>
+@Html.BackButton("Index", "User", "Admin")
+<hr />
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    @Html.Partial("_CreateEditControls")
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@PointExResources.EditUserTitle" class="btn btn-default" />
+        </div>
+    </div>
+}

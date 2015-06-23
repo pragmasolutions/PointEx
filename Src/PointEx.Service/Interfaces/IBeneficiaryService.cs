@@ -13,10 +13,14 @@ namespace PointEx.Service
         void Edit(Beneficiary beneficiary);
         void Delete(int beneficiaryId);
         IQueryable<Beneficiary> GetAll();
-        List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, int pageIndex,
+        List<BeneficiaryDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int? educationalInstitutionId, bool? deleted, int pageIndex,
             int pageSize, out int pageTotal);
         Beneficiary GetById(int id);
 
+        Beneficiary GetByUserId(string userId);
+
         List<PointTransaction> GetTransactions(int beneficiaryId);
+
+        IList<PointsExchange> GetPurchaseByBeneficiaryId(int beneficiaryId);
     }
 }

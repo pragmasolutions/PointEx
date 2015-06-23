@@ -36,6 +36,7 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Beneficiary">
           <Key>
@@ -51,6 +52,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -134,6 +136,7 @@
           <Property Name="Location" Type="geography" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -774,6 +777,7 @@
           <NavigationProperty Name="Town" Relationship="Self.FK_EducationalInstitution_Town" FromRole="EducationalInstitution" ToRole="Town" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_EducationalInstitution" FromRole="EducationalInstitution" ToRole="Beneficiary" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -1063,6 +1067,7 @@
           <NavigationProperty Name="Roles" Relationship="PointEx.Data.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_AspNetUsers" FromRole="User" ToRole="Beneficiary" />
           <NavigationProperty Name="Shops" Relationship="PointEx.Data.FK_Shop_User" FromRole="User" ToRole="Shop" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="AspNetUserRoles">
           <End Type="PointEx.Data.Role" Role="AspNetRole" Multiplicity="*" />
@@ -1130,6 +1135,7 @@
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PointsExchanges" Relationship="PointEx.Data.FK_PointsExchange_Beneficiary" FromRole="Beneficiary" ToRole="PointsExchange" />
           <Property Name="IdentificationNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Beneficiary_AspNetUsers">
           <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
@@ -1584,6 +1590,7 @@
           <EntitySetMapping Name="EducationalInstitutions">
             <EntityTypeMapping TypeName="PointEx.Data.EducationalInstitution">
               <MappingFragment StoreEntitySet="EducationalInstitution">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1641,6 +1648,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PointEx.Data.User">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -1676,6 +1684,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />

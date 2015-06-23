@@ -133,6 +133,15 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear Usuario.
+        /// </summary>
+        public static string CreateUserTitle {
+            get {
+                return ResourceManager.GetString("CreateUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detalle Beneficio.
         /// </summary>
         public static string DetailBenefitTitle {
@@ -214,11 +223,29 @@ namespace PointEx.Web.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar Usuario.
+        /// </summary>
+        public static string EditUserTitle {
+            get {
+                return ResourceManager.GetString("EditUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detalle Establecimiento Educativo.
         /// </summary>
         public static string EducationalInstitutionDetailTitle {
             get {
                 return ResourceManager.GetString("EducationalInstitutionDetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intento de ingreso inválido..
+        /// </summary>
+        public static string InvalidLoginAttempt {
+            get {
+                return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
             }
         }
         
@@ -237,6 +264,15 @@ namespace PointEx.Web.App_LocalResources {
         public static string ShopDetailTitle {
             get {
                 return ResourceManager.GetString("ShopDetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalle de Usuario.
+        /// </summary>
+        public static string UserDetailTitle {
+            get {
+                return ResourceManager.GetString("UserDetailTitle", resourceCulture);
             }
         }
     }

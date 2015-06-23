@@ -28,7 +28,7 @@ namespace PointEx.Service
 
         public Card GetByNumber(string number)
         {
-            return Uow.Cards.Get(c => c.Number == number);
+            return Uow.Cards.Get(c => c.Number == number, c => c.Beneficiary);
         }
 
         public bool ValidateCardNumber(string cardNumber)
@@ -40,7 +40,17 @@ namespace PointEx.Service
                 return false;
             }
 
-            //TODO: Validate if the card is active.
+            if (card.Beneficiary.IsDeleted)
+            {
+                return false;
+            }
+
+            //Validate if the card is active.
+            if (card.EndDate.HasValue)
+            {
+                return false;
+            }
+
             return true;
         }
 
