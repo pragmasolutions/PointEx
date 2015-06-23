@@ -36,6 +36,7 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Beneficiary">
           <Key>
@@ -1034,6 +1035,7 @@
           <NavigationProperty Name="Roles" Relationship="PointEx.Data.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_AspNetUsers" FromRole="User" ToRole="Beneficiary" />
           <NavigationProperty Name="Shops" Relationship="PointEx.Data.FK_Shop_User" FromRole="User" ToRole="Shop" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="AspNetUserRoles">
           <End Type="PointEx.Data.Role" Role="AspNetRole" Multiplicity="*" />
@@ -1591,6 +1593,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PointEx.Data.User">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />

@@ -9,6 +9,7 @@ using PointEx.Data.Interfaces;
 using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
+using PointEx.Web.App_LocalResources;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Controllers
@@ -81,6 +82,12 @@ namespace PointEx.Web.Controllers
             var appuUser = await UserManager.FindByNameAsync(model.Email);
             if (appuUser != null)
             {
+                if (appuUser.IsDeleted)
+                {
+                    ModelState.AddModelError("", PointExResources.InvalidLoginAttempt);
+                    return View(model);
+                }
+
                 if (!await UserManager.IsEmailConfirmedAsync(appuUser.Id) && !await UserManager.IsInRoleAsync(appuUser.Id, RolesNames.Admin))
                 {
                     ModelState.AddModelError("", "Debe tener un correo electrónico de confirmación para iniciar sesión.");
@@ -100,7 +107,9 @@ namespace PointEx.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
                     var user = _uow.Users.Get(u => u.UserName == model.Email, u => u.Roles);
+
                     PointExContext.SetIdentity(user);
 
                     if (!string.IsNullOrEmpty(returnUrl))
@@ -117,14 +126,16 @@ namespace PointEx.Web.Controllers
                     {
                         return RedirectToAction("Index", "Purchase", new { area = "Shop" });
                     }
+
                     return RedirectToAction("Index", "Profile", new { area = "Beneficiary" });
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Intento de ingreso inválido.");
+                    ModelState.AddModelError("", PointExResources.InvalidLoginAttempt);
                     return View(model);
             }
         }

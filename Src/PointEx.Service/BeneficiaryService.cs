@@ -22,17 +22,15 @@ namespace PointEx.Service
     public class BeneficiaryService : ServiceBase, IBeneficiaryService
     {
         private readonly ApplicationUserManager _userManager;
-        private readonly IPointsExchangeService _pointsExchangeService;
         private readonly IPurchaseService _purchaseService;
         private readonly INotificationService _notificationService;
         private readonly IClock _clock;
 
-        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager,
-            IPointsExchangeService pointsExchangeService, IPurchaseService purchaseService,
+        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, 
+            IPurchaseService purchaseService,
             INotificationService notificationService, IClock clock)
         {
             _userManager = userManager;
-            _pointsExchangeService = pointsExchangeService;
             _purchaseService = purchaseService;
             _notificationService = notificationService;
             _clock = clock;
@@ -111,7 +109,7 @@ namespace PointEx.Service
             else
             {
                 beneficiary.IsDeleted = true;
-                _userManager.RemovePassword(user.Id);
+                user.IsDeleted = true;
             }
 
             Uow.Commit();
@@ -177,9 +175,14 @@ namespace PointEx.Service
             return transactions.OrderByDescending(t => t.TransactionDate).ToList();
         }
 
+        public IList<PointsExchange> GetPurchaseByBeneficiaryId(int beneficiaryId)
+        {
+            return Uow.PointsExchanges.GetAll(pe => pe.BeneficiaryId == beneficiaryId).ToList();
+        }
+
         private bool CanRemoveBeneficiary(int beneficiaryId)
         {
-            var prizeExachanges = _pointsExchangeService.GetAllByBeneficiaryId(beneficiaryId);
+            var prizeExachanges = this.GetPurchaseByBeneficiaryId(beneficiaryId);
 
             if (prizeExachanges.Any())
             {

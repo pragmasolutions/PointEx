@@ -20,5 +20,7 @@ namespace PointEx.Service
         Beneficiary GetByUserId(string userId);
 
         List<PointTransaction> GetTransactions(int beneficiaryId);
+
+        IList<PointsExchange> GetPurchaseByBeneficiaryId(int beneficiaryId);
     }
 }

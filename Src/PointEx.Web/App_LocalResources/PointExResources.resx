@@ -186,4 +186,7 @@
   <data name="EditUserTitle" xml:space="preserve">
     <value>Editar Usuario</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Intento de ingreso inválido.</value>
+  </data>
 </root>
