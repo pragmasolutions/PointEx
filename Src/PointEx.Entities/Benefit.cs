@@ -32,11 +32,13 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public System.DateTime DateFrom { get; set; }
         public Nullable<System.DateTime> DateTo { get; set; }
+        public Nullable<int> BenefitTypeId { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
         public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
         public virtual ICollection<SectionItem> SectionItems { get; set; }
+        public virtual BenefitType BenefitType { get; set; }
     }
 }

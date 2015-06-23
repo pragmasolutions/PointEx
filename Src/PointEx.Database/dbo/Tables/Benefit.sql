@@ -9,7 +9,9 @@
 	[DateTo]  DATETIME2 (7)		 NULL,
     [CreatedDate]  DATETIME2 (7) NOT NULL,
     [ModifiedDate] DATETIME2 (7) NULL,
+    [BenefitTypeId] INT NULL, 
     CONSTRAINT [FK_Benefit_Shop] FOREIGN KEY ([ShopId]) REFERENCES [dbo].[Shop] ([Id]), 
+	CONSTRAINT [FK_Benefit_BenefitTypes] FOREIGN KEY ([BenefitTypeId]) REFERENCES [dbo].[BenefitTypes] ([Id]), 
     CONSTRAINT [PK_Benefit] PRIMARY KEY ([Id])
 );
 
