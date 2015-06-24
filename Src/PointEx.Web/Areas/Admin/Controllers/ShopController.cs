@@ -25,7 +25,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var shops = _shopService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.CategoryId, filters.TownId, filters.Page, DefaultPageSize, out pageTotal);
+            var shops = _shopService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.CategoryId, filters.TownId, false, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<ShopDto>(shops, filters.Page, DefaultPageSize, pageTotal);
 

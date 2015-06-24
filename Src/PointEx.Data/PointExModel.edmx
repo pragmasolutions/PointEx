@@ -206,6 +206,7 @@
           <Property Name="Phone" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ShopCategory">
           <Key>
@@ -789,6 +790,7 @@
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <Property Name="Phone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="Shop" ToRole="BranchOffice" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -1565,6 +1567,7 @@
           <EntitySetMapping Name="Shops">
             <EntityTypeMapping TypeName="PointEx.Data.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

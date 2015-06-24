@@ -31,6 +31,7 @@ namespace PointEx.Entities
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string Phone { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual Town Town { get; set; }
