@@ -68,6 +68,7 @@
           <Property Name="DateTo" Type="datetime2" Precision="7" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
           <Key>
@@ -1284,6 +1285,7 @@
           <Property Name="DateTo" Type="DateTime" Precision="7" />
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1704,6 +1706,7 @@
           <EntitySetMapping Name="Benefits">
             <EntityTypeMapping TypeName="PointEx.Data.Benefit">
               <MappingFragment StoreEntitySet="Benefit">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="DateTo" ColumnName="DateTo" />
                 <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />

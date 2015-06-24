@@ -69,7 +69,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             _benefitService.Create(benefit);
 
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Premio Creado");
+            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Creado");
         }
 
         public ActionResult Edit(int id)
@@ -89,7 +89,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             _benefitService.Edit(benefitForm.ToBenefit());
 
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Premio Editado");
+            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Editado");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -97,7 +97,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         {
             _benefitService.Delete(id);
 
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Premio Eliminado");
+            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Eliminado");
         }
 
         public ActionResult IsNameAvailable(string name, int id)

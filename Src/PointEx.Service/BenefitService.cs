@@ -29,7 +29,7 @@ namespace PointEx.Service
 
         public IQueryable<Benefit> GetAll()
         {
-            return Uow.Benefits.GetAll();
+            return Uow.Benefits.GetAll(b => !b.IsDeleted);
         }
 
         public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, int pageIndex, int pageSize, out int pageTotal)
@@ -47,9 +47,10 @@ namespace PointEx.Service
                      (!shopId.HasValue || x.ShopId == shopId) &&
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
-                     x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)));
+                     x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
+                     !x.IsDeleted);
 
-            var results = Uow.Benefits.GetAll(pagingCriteria, where, 
+            var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes
                 b => b.Shop.ShopCategories,
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice));
@@ -61,17 +62,17 @@ namespace PointEx.Service
 
         public Benefit GetById(int id)
         {
-            return Uow.Benefits.Get(b => b.Id == id, b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice));
+            return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice));
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
         {
-            return Uow.Benefits.GetAll(b => b.ShopId == shopId);
+            return Uow.Benefits.GetAll(b => b.ShopId == shopId && !b.IsDeleted);
         }
 
         public Benefit GetByName(string name)
         {
-            return Uow.Benefits.Get(e => e.Name == name);
+            return Uow.Benefits.Get(b => b.Name == name && !b.IsDeleted);
         }
 
         public void Create(Benefit benefit)
@@ -119,8 +120,46 @@ namespace PointEx.Service
 
         public void Delete(int benefitId)
         {
-            Uow.Benefits.Delete(benefitId);
+            if (CanDeleteBenefit(benefitId))
+            {
+                var sectionItems = Uow.SectionItems.GetAll(si => si.BenefitId == benefitId).ToList();
+
+                foreach (var sectionItem in sectionItems)
+                {
+                    Uow.SectionItems.Delete(sectionItem);
+                }
+
+                var benefitFiles = Uow.BenefitFiles.GetAll(bf => bf.BenefitId == benefitId,bf => bf.File).ToList();
+
+                foreach (var benefitFile in benefitFiles)
+                {
+                    Uow.FileContents.Delete(benefitFile.FileId);
+                    Uow.Files.Delete(benefitFile.FileId);
+                    Uow.BenefitFiles.Delete(benefitFile.Id);
+                }
+
+                var benefitsBranchOffices = Uow.BenefitBranchOffice.GetAll(bof => bof.BenefitId == benefitId).ToList();
+
+                foreach (var benefitsBranchOffice in benefitsBranchOffices)
+                {
+                    Uow.BenefitBranchOffice.Delete(benefitsBranchOffice);
+                }
+
+                Uow.Benefits.Delete(benefitId);
+            }
+            else
+            {
+                var benefit = this.GetById(benefitId);
+
+                benefit.IsDeleted = true;
+            }
+
             Uow.Commit();
+        }
+
+        private bool CanDeleteBenefit(int benefitId)
+        {
+            return !Uow.Purchases.GetAll(p => p.BenefitId == benefitId).Any();
         }
 
         public bool IsNameAvailable(string name, int id)
@@ -134,7 +173,6 @@ namespace PointEx.Service
 
             return currentBenefit.Id == id;
         }
-
 
         public bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId)
         {
@@ -156,7 +194,7 @@ namespace PointEx.Service
 
         public IList<Benefit> GetOutstandingBenefits()
         {
-            return Uow.Benefits.GetAll(b => !b.DateTo.HasValue || b.DateTo >= _clock.Now,
+            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= _clock.Now) && !b.IsDeleted,
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();
