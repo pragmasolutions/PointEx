@@ -1,0 +1,37 @@
+﻿@model PointEx.Web.Models.AddMyShopForm
+
+@{
+    ViewBag.Title = "Adherir mi Comercio";
+}
+
+<h3>Adherir mi Comercio</h3>
+<hr />
+
+<p>
+    PointEx te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
+
+    Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
+</p>
+<div class="spacer"></div>
+<div class="alert alert-info" role="alert">
+    <strong>Requisitos</strong>
+    Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
+    <ul>
+        <li>Requicito 1.</li>
+        <li>Requicito 2.</li>
+    </ul>
+</div>
+
+@using (Html.BeginForm("AddMyShop", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Enviar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<div class="spacer"></div>
+<div class="spacer"></div>

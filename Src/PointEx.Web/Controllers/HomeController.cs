@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Framework.Common.Web.Alerts;
 using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
@@ -15,12 +17,19 @@ namespace PointEx.Web.Controllers
         private readonly ISectionItemService _sectionItemService;
         private readonly IBenefitService _benefitService;
         private readonly ICategoryService _categoryService;
+        private readonly INotificationService _notificationService;
+        private readonly ITownService _townService;
 
-        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService,ICategoryService categoryService)
+        public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
+            ICategoryService categoryService, 
+            INotificationService notificationService, 
+            ITownService townService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
             _categoryService = categoryService;
+            _notificationService = notificationService;
+            _townService = townService;
         }
 
         public ActionResult Index()
@@ -33,6 +42,30 @@ namespace PointEx.Web.Controllers
 
             return View(homeModel);
         }
+
+        public ActionResult AddMyShop()
+        {
+            AddMyShopForm form = new AddMyShopForm();
+            return View(form);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddMyShop(AddMyShopForm addMyShopForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(addMyShopForm);
+            }
+
+            var shop = addMyShopForm.ToShop();
+
+            shop.Town = _townService.GetById(addMyShopForm.TownId);
+
+            await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email);
+
+            return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
+        }
+
 
         public ActionResult About()
         {
