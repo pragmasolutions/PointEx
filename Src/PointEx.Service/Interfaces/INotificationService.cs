@@ -12,5 +12,6 @@ namespace PointEx.Service
     {
         Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate);
         Task SendAccountConfirmationEmail(string userId);
+        Task SendAddShopRequestEmail(Shop shop, string email);
     }
 }

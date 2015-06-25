@@ -165,6 +165,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -318,6 +319,7 @@
     <Compile Include="Models\Files\OrderImagesForm.cs" />
     <Compile Include="Models\Files\UploadImagesForm.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
+    <Compile Include="Models\Home\AddMyShopForm.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
     <Compile Include="Models\List\FilterBaseModel.cs" />
     <Compile Include="Models\List\IFilter.cs" />
@@ -363,6 +365,8 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="EmailTemplates\AddShopRequestConfirmation.html" />
+    <Content Include="EmailTemplates\AddShopRequest.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -597,6 +601,7 @@
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
+    <Content Include="Views\Home\AddMyShop.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BenefitTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>

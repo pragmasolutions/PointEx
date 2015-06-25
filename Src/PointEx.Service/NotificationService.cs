@@ -43,6 +43,28 @@ namespace PointEx.Service
             }
         }
 
+        public async Task SendAddShopRequestEmail(Shop shop, string email)
+        {
+            using (var client = GetSmtpClient())
+            {
+                var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
+
+                adminMail.Subject = "Solicitud Adherir Comercio";
+                adminMail.Body = GetAddShopRequestEmailBody(shop);
+                adminMail.IsBodyHtml = true;
+
+                await client.SendMailAsync(adminMail);
+
+                var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+
+                shopConfirmationEmail.Subject = "Solicitud Enviada";
+                shopConfirmationEmail.Body = GetAddShopRequestConfirmationEmailBody();
+                shopConfirmationEmail.IsBodyHtml = true;
+
+                await client.SendMailAsync(shopConfirmationEmail);
+            }
+        }
+
         private SmtpClient GetSmtpClient()
         {
             var credentialUserName = ConfigurationManager.AppSettings["EmailSentFrom"];
@@ -78,6 +100,35 @@ namespace PointEx.Service
             body = body.Replace("{BeneficiaryName}", beneficiary.Name);
             body = body.Replace("{ExchangeDate}", exchangeDate.ToShortDateString());
             body = body.Replace("{PrizePointsNeeded}", prize.PointsNeeded.ToString());
+
+            return body;
+        }
+
+        private string GetAddShopRequestEmailBody(Shop shop)
+        {
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/AddShopRequest.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{Name}", shop.Name);
+            body = body.Replace("{Address}", shop.Address);
+            body = body.Replace("{Phone}", shop.Phone);
+            body = body.Replace("{TownName}", shop.Town.Name);
+
+            return body;
+        }
+
+        private string GetAddShopRequestConfirmationEmailBody()
+        {
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/AddShopRequestConfirmation.html")))
+            {
+                body = reader.ReadToEnd();
+            }
 
             return body;
         }

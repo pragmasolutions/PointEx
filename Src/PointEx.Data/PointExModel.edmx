@@ -68,6 +68,7 @@
           <Property Name="DateTo" Type="datetime2" Precision="7" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="BenefitTypeId" Type="int" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
@@ -214,6 +215,7 @@
           <Property Name="Phone" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ShopCategory">
           <Key>
@@ -814,6 +816,7 @@
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
           <Property Name="Phone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="Shop" ToRole="BranchOffice" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -1312,6 +1315,7 @@
           <Property Name="DateTo" Type="DateTime" Precision="7" />
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" />
           <NavigationProperty Name="BenefitType" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="Benefit" ToRole="BenefitType" />
         </EntityType>
@@ -1618,6 +1622,7 @@
           <EntitySetMapping Name="Shops">
             <EntityTypeMapping TypeName="PointEx.Data.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1754,6 +1759,7 @@
           <EntitySetMapping Name="Benefits">
             <EntityTypeMapping TypeName="PointEx.Data.Benefit">
               <MappingFragment StoreEntitySet="Benefit">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="BenefitTypeId" ColumnName="BenefitTypeId" />
                 <ScalarProperty Name="DateTo" ColumnName="DateTo" />
                 <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />

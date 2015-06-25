@@ -16,6 +16,7 @@ using PointEx.Entities.Dto;
 using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
+using PointEx.Service.Exceptions;
 
 namespace PointEx.Service
 {
@@ -101,32 +102,58 @@ namespace PointEx.Service
         {
             var shop = this.GetById(shopId);
 
-            foreach (var category in shop.ShopCategories.ToArray())
+            if (shop == null)
             {
-                Uow.ShopCategories.Delete(category);
-                shop.ShopCategories.Remove(category);
+                throw new NotFoundException("No encontro el comercio");
             }
 
-            Uow.Shops.Delete(shop);
+            if (CanRemoveShop(shopId))
+            {
+                foreach (var category in shop.ShopCategories.ToArray())
+                {
+                    Uow.ShopCategories.Delete(category);
+                    shop.ShopCategories.Remove(category);
+                }
+
+                foreach (var branchOffice in shop.BranchOffices.ToArray())
+                {
+                    Uow.BranchOffices.Delete(branchOffice);
+                    shop.BranchOffices.Remove(branchOffice);
+                }
+
+                Uow.Users.Delete(shop.User);
+                Uow.Shops.Delete(shop);
+            }
+            else
+            {
+                shop.IsDeleted = true;
+                shop.User.IsDeleted = true;
+
+                //TODO: mark benefits as deleted.
+            }
+
             Uow.Commit();
         }
 
         public IQueryable<Shop> GetAll()
         {
-            return Uow.Shops.GetAll(whereClause: s => true, includes: s => s.Town);
+            return Uow.Shops.GetAll(whereClause: s => !s.IsDeleted, includes: s => s.Town);
         }
 
         public Shop GetById(int id)
         {
-            return Uow.Shops.Get(s => s.Id == id, s => s.ShopCategories.Select(cs => cs.Category),s => s.User);
+            return Uow.Shops.Get(s => s.Id == id && !s.IsDeleted,
+                s => s.ShopCategories.Select(cs => cs.Category),
+                s => s.User,
+                s => s.BranchOffices);
         }
 
         public Shop GetByUserId(string userId)
         {
-            return Uow.Shops.Get(s => s.UserId == userId);
+            return Uow.Shops.Get(s => s.UserId == userId && !s.IsDeleted);
         }
 
-        public List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex, int pageSize, out int pageTotal)
+        public List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, bool? deleted, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -137,7 +164,8 @@ namespace PointEx.Service
 
             Expression<Func<Shop, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
                                                       (!category.HasValue || x.ShopCategories.Any(c => c.Id == category)) &&
-                                                      (!townId.HasValue || x.TownId == townId));
+                                                      (!townId.HasValue || x.TownId == townId) &&
+                                                      (!deleted.HasValue || x.IsDeleted == deleted));
 
             var results = Uow.Shops.GetAll(pagingCriteria,
                                                     where,
@@ -147,6 +175,31 @@ namespace PointEx.Service
             pageTotal = results.PagedMetadata.TotalItemCount;
 
             return results.Entities.Project().To<ShopDto>().ToList();
+        }
+
+        private bool ShopHasPurchase(int shopId)
+        {
+            return Uow.Purchases.GetAll(pe => pe.ShopId == shopId).Any();
+        }
+
+        private bool ShopHasBenefits(int shopId)
+        {
+            return Uow.Benefits.GetAll(pe => pe.ShopId == shopId).Any();
+        }
+
+        private bool CanRemoveShop(int shopId)
+        {
+            if (ShopHasPurchase(shopId))
+            {
+                return false;
+            }
+
+            if (ShopHasBenefits(shopId))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

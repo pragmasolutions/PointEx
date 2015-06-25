@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav public">
                     <li>@Html.ActionLink("¿Como Funciona?", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Aderir mi Comercio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Aderir mi Comercio", "AddMyShop", "Home")</li>
                     <li>@Html.ActionLink("Catalogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
                     
                 </ul>
@@ -53,6 +53,7 @@
     <!-- Page Content -->
     <div id="wrapper">
         <div class="container">
+            <div class="container alert-container"></div>
             @RenderSection("ContainerTop", required: false)
             <div class="spacer"></div>
             <div class="spacer"></div>
