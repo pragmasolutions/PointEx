@@ -33,7 +33,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task ExchangePoints(int prizeId, int beneficiaryId)
+        public async Task ExchangePoints(int prizeId, int beneficiaryId, string theme)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -57,7 +57,7 @@ namespace PointEx.Service
 
                     Uow.PointsExchanges.Add(pointsExchange);
 
-                    await _notificationService.SendPointsExchangeConfirmationEmail(prize, beneficiary, pointsExchange.ExchangeDate);
+                    await _notificationService.SendPointsExchangeConfirmationEmail(prize, beneficiary, pointsExchange.ExchangeDate, theme);
 
                     await Uow.CommitAsync();
 

@@ -328,9 +328,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\PointEx.Service\EmailTemplates\PointExchangeConfirmationEmail.html">
-      <Link>EmailTemplates\PointExchangeConfirmationEmail.html</Link>
-    </Content>
     <Content Include="Areas\Shop\Views\Purchase\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -363,6 +360,8 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="EmailTemplates\Jovenes\PointExchangeConfirmationEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\PointExchangeConfirmationEmail.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -597,6 +596,8 @@
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
+    <Content Include="Views\Home\InformationRequest.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InformationRequestCause.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

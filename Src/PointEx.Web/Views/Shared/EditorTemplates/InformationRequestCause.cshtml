@@ -1,0 +1,16 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model string
+@{
+    var list = new List<SelectListItem>
+    {
+        new SelectListItem() {Value = "Perdí mi tarjeta"},
+        new SelectListItem() {Value = "Premios"},
+        new SelectListItem() {Value = "Beneficios"},
+        new SelectListItem() {Value = "Mi Comercio"},
+        new SelectListItem() {Value = "Problemas Técnicos"}
+    };
+    var selectList = new SelectList(list, "Value", "Value", Model);
+}
+
+@Html.DropDownList("", selectList, "Seleccione un motivo", new { @class = "form-control select2-control" })

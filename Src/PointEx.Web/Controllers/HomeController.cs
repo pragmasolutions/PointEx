@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PointEx.Data;
+using PointEx.Entities.Models;
 using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
@@ -62,6 +64,29 @@ namespace PointEx.Web.Controllers
                 default:
                     return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult InformationRequest()
+        {
+            InformationRequestModel model = new InformationRequestModel();
+            if (PointExContext.User != null)
+            {
+                switch (PointExContext.Role)
+                {
+                    case RolesNames.Beneficiary:
+                        var beneficiary = PointExContext.Beneficiary;
+                        model.Name = beneficiary.Name;
+                        break;
+                    case RolesNames.Shop:
+                        var shop = PointExContext.Shop;
+                        model.Name = string.Format("[Shop] {0}", shop.Name);
+                        model.PhoneNumber = shop.Phone;
+                        break;
+                }
+                model.Email = PointExContext.User.Email;
+            }
+            
+            return View(model);
         }
     }
 }
