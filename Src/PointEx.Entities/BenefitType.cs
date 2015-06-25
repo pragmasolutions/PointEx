@@ -19,7 +19,7 @@ namespace PointEx.Entities
             this.Benefits = new HashSet<Benefit>();
         }
     
-        public int Id { get; set; }
+        public PointEx.Entities.Enums.BenefitTypesEnum Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<Benefit> Benefits { get; set; }

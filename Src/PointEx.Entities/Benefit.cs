@@ -32,7 +32,7 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public System.DateTime DateFrom { get; set; }
         public Nullable<System.DateTime> DateTo { get; set; }
-        public Nullable<int> BenefitTypeId { get; set; }
+        public Nullable<PointEx.Entities.Enums.BenefitTypesEnum> BenefitTypeId { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }

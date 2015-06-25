@@ -10,6 +10,7 @@ using AutoMapper;
 using Framework.Common.Mapping;
 using Framework.Common.Web.Metadata;
 using PointEx.Entities;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Web.Models
 {
@@ -54,12 +55,16 @@ namespace PointEx.Web.Models
         [Display(Name = "Sucursales")]
         [NotMapped]
         public IEnumerable<int> BranchOfficesSelected { get; set; }
+                
+        [Display(Name = "BenefitType")]
+        public BenefitTypesEnum BenefitTypesSelected { get; set; }
 
         public Benefit ToBenefit()
         {
             var benefit = Mapper.Map<BenefitForm, Benefit>(this);
             benefit.BenefitBranchOffices =
                 this.BranchOfficesSelected.Select(branchOfficeId => new BenefitBranchOffice() { BranchOfficeId = branchOfficeId, BenefitId = this.Id }).ToArray();
+            benefit.BenefitTypeId = this.BenefitTypesSelected;
             return benefit;
         }
 
@@ -67,6 +72,7 @@ namespace PointEx.Web.Models
         {
             var form = Mapper.Map<Benefit, BenefitForm>(benefit);
             form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
+            form.BenefitTypesSelected = benefit.BenefitTypeId ?? 0;
             return form;
         }
     }

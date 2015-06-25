@@ -1312,7 +1312,7 @@
           <Property Name="DateTo" Type="DateTime" Precision="7" />
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
-          <Property Name="BenefitTypeId" Type="Int32" />
+          <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" />
           <NavigationProperty Name="BenefitType" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="Benefit" ToRole="BenefitType" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
@@ -1554,7 +1554,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="PointEx.Data.BenefitTypesEnum" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="BenefitType" ToRole="Benefit" />
         </EntityType>
@@ -1570,6 +1570,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="BenefitTypesEnum" a:ExternalTypeName="PointEx.Entities.Enums.BenefitTypesEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

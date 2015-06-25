@@ -597,6 +597,7 @@
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BenefitTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
