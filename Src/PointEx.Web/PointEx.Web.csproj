@@ -602,6 +602,7 @@
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
     <Content Include="Views\Home\AddMyShop.cshtml" />
+    <Content Include="Views\Home\FrequentlyAskedQuestions.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BenefitTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
