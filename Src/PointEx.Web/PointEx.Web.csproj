@@ -603,6 +603,7 @@
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
     <Content Include="Views\Home\AddMyShop.cshtml" />
     <Content Include="Views\Home\FrequentlyAskedQuestions.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

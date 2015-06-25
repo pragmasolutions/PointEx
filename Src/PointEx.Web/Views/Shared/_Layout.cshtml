@@ -42,9 +42,9 @@
                     <li>@Html.ActionLink("¿Como Funciona?", "Index", "Home")</li>
                     <li>@Html.ActionLink("Aderir mi Comercio", "AddMyShop", "Home")</li>
                     <li>@Html.ActionLink("Preguntas Frecuentes", "FrequentlyAskedQuestions", "Home")</li>
-                    
+
                     <li>@Html.ActionLink("Catalogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
-                    
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -72,11 +72,12 @@
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-4">
-                        <h4>Ayuda</h4>
-                        <p></p>
+                        <h3>Ayuda</h3>
+                        <p>@Html.ActionLink("Preguntas Frecuentes", "FrequentlyAskedQuestions", "Home")</p>
+                        <p>@Html.ActionLink("Terminos y Condiciones", "TermsAndConditions", "Home")</p>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h4>Seguinos en</h4>
+                        <h3>Seguinos en</h3>
                         <ul class="list-inline">
                             <li>
                                 <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
