@@ -66,6 +66,10 @@ namespace PointEx.Web.Controllers
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }
 
+        public ActionResult FrequentlyAskedQuestions()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {
