@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Models;
 using PointEx.Security.Model;
 
 namespace PointEx.Service
 {
     public interface INotificationService
     {
-        Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate);
+        Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme);
         Task SendAccountConfirmationEmail(string userId);
-        Task SendAddShopRequestEmail(Shop shop, string email);
+        Task SendInformationRequestEmail(InformationRequestModel request, string theme);
+        Task SendAddShopRequestEmail(Shop shop, string email, string theme);
     }
 }

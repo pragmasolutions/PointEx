@@ -4,6 +4,7 @@ using PagedList;
 using PointEx.Entities.Dto;
 using PointEx.Security;
 using PointEx.Service;
+using PointEx.Web.Configuration;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Beneficiary.Controllers
@@ -49,7 +50,7 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> ExchangePoints(int id, FormCollection formCollection)
         {
-            await _pointsExchangeService.ExchangePoints(id, PointExContext.Beneficiary.Id);
+            await _pointsExchangeService.ExchangePoints(id, PointExContext.Beneficiary.Id, AppSettings.Theme);
 
             return RedirectToAction("ExchangePointsSuccess", new { id });
         }
