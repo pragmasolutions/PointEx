@@ -605,6 +605,7 @@
     <Content Include="Views\Home\FrequentlyAskedQuestions.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BenefitType.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BenefitType.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
