@@ -196,3 +196,10 @@ footer {
             min-width: 500px;
         }
 }
+
+
+.branch-office-location-container {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+}

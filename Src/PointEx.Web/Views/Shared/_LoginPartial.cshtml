@@ -9,20 +9,18 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @{
-                    var service = IocContainer.GetContainer().Get<IBranchOfficeService>();
-                    var currentUser = IocContainer.GetContainer().Get<PointEx.Web.Infrastructure.ICurrentUser>();    
-                }     
-                @Html.ActionLink(currentUser.Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = currentUser.Shop.Id }, htmlAttributes: new { title = "Perfil" })           
+                @if (this.CurrentUser().Shop != null)
+                {
+                    @Html.ActionLink(this.CurrentUser().Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = this.CurrentUser().Shop.Id }, htmlAttributes: new { title = "Perfil" })
+                }
             </li>
             <li>
-                
-            <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
-            @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
-            {
-                @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
-            }
-            
+                <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
+                @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
+                {
+                    @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
+                }
+
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
