@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BenefitTypesService.cs" />
+    <Compile Include="Interfaces\IBenefitTypesService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="ReportService.cs" />

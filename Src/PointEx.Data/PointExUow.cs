@@ -40,7 +40,7 @@ namespace PointEx.Data
         public IRepository<Section> Sections { get { return GetStandardRepo<Section>(); } }
         public IRepository<SectionItem> SectionItems { get { return GetStandardRepo<SectionItem>(); } }        
         public IReportRepository Reports { get { return GetRepo<IReportRepository>(); } }
-        public IRepository<BenefitType> SectionItems { get { return GetStandardRepo<BenefitType>(); } }
+        public IRepository<BenefitType> BenefitTypes { get { return GetStandardRepo<BenefitType>(); } }
         
         public string ConnectionString
         {

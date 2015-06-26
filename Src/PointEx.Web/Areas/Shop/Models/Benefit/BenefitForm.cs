@@ -14,7 +14,7 @@ using PointEx.Entities.Enums;
 
 namespace PointEx.Web.Models
 {
-    public class BenefitForm : IMapFrom<Benefit>
+    public class BenefitForm : IMapFrom<Benefit>, IValidatableObject
     {
 
         public BenefitForm()
@@ -55,25 +55,33 @@ namespace PointEx.Web.Models
         [Display(Name = "Sucursales")]
         [NotMapped]
         public IEnumerable<int> BranchOfficesSelected { get; set; }
-                
-        [Display(Name = "BenefitType")]
-        public BenefitTypesEnum BenefitTypesSelected { get; set; }
+
+        [UIHint("BenefitType")]
+        [Display(Name = "Tipo Beneficio")]
+        public BenefitTypesEnum? BenefitTypeId { get; set; }
 
         public Benefit ToBenefit()
         {
             var benefit = Mapper.Map<BenefitForm, Benefit>(this);
             benefit.BenefitBranchOffices =
-                this.BranchOfficesSelected.Select(branchOfficeId => new BenefitBranchOffice() { BranchOfficeId = branchOfficeId, BenefitId = this.Id }).ToArray();
-            benefit.BenefitTypeId = this.BenefitTypesSelected;
+                this.BranchOfficesSelected.Select(branchOfficeId => new BenefitBranchOffice() { BranchOfficeId = branchOfficeId, BenefitId = this.Id }).ToArray();            
             return benefit;
         }
 
         public static BenefitForm FromBenefit(Benefit benefit)
         {
             var form = Mapper.Map<Benefit, BenefitForm>(benefit);
-            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
-            form.BenefitTypesSelected = benefit.BenefitTypeId ?? 0;
+            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);            
             return form;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Id != null && BenefitTypeId == BenefitTypesEnum.Discount)
+            {
+                if (!(DiscountPercentage.HasValue && DiscountPercentage.Value > 0 && DiscountPercentageCeiling.HasValue && DiscountPercentageCeiling.Value > 0))
+                yield return new ValidationResult("Debe ingresar los descuentos.");
+            }
         }
     }
 }
