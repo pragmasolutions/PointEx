@@ -6,7 +6,7 @@ html, body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -284px;
+    margin: 0 auto -284px; 
 }
 
 body {
@@ -196,14 +196,3 @@ footer {
             min-width: 500px;
         }
 }
-
-
-footer a {
-    color: #FFF;
-    font-weight: bold;
-}
-
-    footer a:hover {
-        color: #FFF;
-        font-weight: bold;
-    }

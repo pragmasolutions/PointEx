@@ -33,11 +33,13 @@ namespace PointEx.Entities
         public System.DateTime DateFrom { get; set; }
         public Nullable<System.DateTime> DateTo { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<PointEx.Entities.Enums.BenefitTypesEnum> BenefitTypeId { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
         public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
         public virtual ICollection<SectionItem> SectionItems { get; set; }
+        public virtual BenefitType BenefitType { get; set; }
     }
 }
