@@ -67,7 +67,7 @@
         <div> @Html.SocialLinkButtons(Model.Benefit.Name, Request.Url.ToString()) </div>
     </div>
     <div class="ratings">
-        <p class="pull-right">3 reviews</p>
+        @*<p class="pull-right">3 reviews</p>
         <p>
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star"></span>
@@ -75,14 +75,15 @@
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star-empty"></span>
             4.0 stars
-        </p>
+        </p>*@
     </div>
 </div>
 <!-- Map Section -->
 <div style="margin-bottom: 15px">
-    @Html.DisplayFor(model => model.Shop.Location, new { width = "100%", height = "300px", hide_input = true })
+    @Html.DisplayFor(model => model.Shop.Location, new {width = "100%", height = "300px", hide_input = true})
 </div>
-<div class="well">
+
+@*<div class="well">
     <div class="text-right">
         <a class="btn btn-success">Leave a Review</a>
     </div>
@@ -125,4 +126,4 @@
             <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
         </div>
     </div>
-</div>
+</div>*@
