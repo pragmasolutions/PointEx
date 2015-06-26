@@ -9,6 +9,8 @@ using PointEx.Entities.Models;
 using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
+using System.Threading.Tasks;
+using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Controllers
 {
@@ -17,12 +19,15 @@ namespace PointEx.Web.Controllers
         private readonly ISectionItemService _sectionItemService;
         private readonly IBenefitService _benefitService;
         private readonly ICategoryService _categoryService;
+        private readonly INotificationService _notificationService;
 
-        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService,ICategoryService categoryService)
+        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService,
+                            ICategoryService categoryService, INotificationService notificationService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
             _categoryService = categoryService;
+            _notificationService = notificationService;
         }
 
         public ActionResult Index()
@@ -87,6 +92,21 @@ namespace PointEx.Web.Controllers
             }
             
             return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> InformationRequest(InformationRequestModel model)
+        {
+            try
+            {
+                await _notificationService.SendInformationRequestEmail(model, AppSettings.Theme);
+                return View("SuccessfullRequest");
+            }
+            catch (Exception)
+            {
+                ViewBag.ErrorMessage = "Hubo un error en la solicitud. Por favor intente nuevamente más tarde";
+                return View(model);
+            }
         }
     }
 }

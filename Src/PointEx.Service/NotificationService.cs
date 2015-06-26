@@ -44,6 +44,28 @@ namespace PointEx.Service
             }
         }
 
+        public async Task SendAddShopRequestEmail(Shop shop, string email, string theme)
+        {
+            using (var client = GetSmtpClient())
+            {
+                var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
+
+                adminMail.Subject = "Solicitud Adherir Comercio";
+                adminMail.Body = GetAddShopRequestEmailBody(shop, theme);
+                adminMail.IsBodyHtml = true;
+
+                await client.SendMailAsync(adminMail);
+
+                var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+
+                shopConfirmationEmail.Subject = "Solicitud Enviada";
+                shopConfirmationEmail.Body = GetAddShopRequestConfirmationEmailBody(theme);
+                shopConfirmationEmail.IsBodyHtml = true;
+
+                await client.SendMailAsync(shopConfirmationEmail);
+            }
+        }
+
         private SmtpClient GetSmtpClient()
         {
             var credentialUserName = ConfigurationManager.AppSettings["EmailSentFrom"];
@@ -86,56 +108,84 @@ namespace PointEx.Service
 
         public async Task SendInformationRequestEmail(InformationRequestModel request, string theme)
         {
-            using (var client = GetSmtpClient())
+            var receivers = ConfigurationManager.AppSettings["RequestInformationReceivers"].Split(',');
+            foreach (var receiver in receivers)
             {
-                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["RequestInformationReceivers"]);
-                mail.Subject = "Canje de Premio";
-                mail.Body = GetInfoRequestForAdminsEmailBody(request, theme);
-                mail.IsBodyHtml = true;
+                using (var client = GetSmtpClient())
+                {
+                    var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], receiver);
+                    mail.Subject = "Nueva consulta";
+                    mail.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestToAdminEmail");
+                    mail.IsBodyHtml = true;
 
-                await client.SendMailAsync(mail);
+                    await client.SendMailAsync(mail);
+                }
             }
+            
 
             using (var client = GetSmtpClient())
             {
                 var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], request.Email);
-                mail.Subject = "Canje de Premio";
-                mail.Body = GetInforRequestAutomaticResponseEmailBody(request, theme);
+                mail.Subject = "Consulta Exitosa";
+                mail.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestAutomaticResponseEmail");
                 mail.IsBodyHtml = true;
 
                 await client.SendMailAsync(mail);
             }
         }
 
-        private string GetInfoRequestForAdminsEmailBody(InformationRequestModel request, string theme)
+        private string GetInformationRequestEmailBody(InformationRequestModel request, string theme, string filename)
         {
             string body = string.Empty;
 
-            var templatePath = String.Format("~/EmailTemplates/{0}/InfoRequestToAdminEmail.html", theme);
+            var templatePath = String.Format("~/EmailTemplates/{0}/{1}.html", theme, filename);
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
             {
                 body = reader.ReadToEnd();
             }
 
-            body = body.Replace("{PrizeName}", "valor");
+            body = body.Replace("{Name}", request.Name);
+            body = body.Replace("{Date}", String.Format("{0} {1}", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString()));
+            body = body.Replace("{Cause}", request.Cause);
+            body = body.Replace("{Text}", request.Text);
+            body = body.Replace("{Email}", request.Email);
+            body = body.Replace("{PhoneNumber}", request.PhoneNumber);
+            
 
             return body;
         }
 
-        private string GetInforRequestAutomaticResponseEmailBody(InformationRequestModel request, string theme)
+        private string GetAddShopRequestEmailBody(Shop shop, string theme)
         {
             string body = string.Empty;
 
-            var templatePath = String.Format("~/EmailTemplates/{0}/InfoRequestAutomaticResponseEmail.html", theme);
+            var templatePath = String.Format("~/EmailTemplates/{0}/AddShopRequest.html", theme);
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
             {
                 body = reader.ReadToEnd();
             }
 
-            body = body.Replace("{PrizeName}", "valor");
+            body = body.Replace("{Name}", shop.Name);
+            body = body.Replace("{Address}", shop.Address);
+            body = body.Replace("{Phone}", shop.Phone);
+            body = body.Replace("{TownName}", shop.Town.Name);
+
+            return body;
+        }
+
+        private string GetAddShopRequestConfirmationEmailBody(string theme)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/AddShopRequestConfirmation.html", theme);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
 
             return body;
         }
 
     }
 }
+
