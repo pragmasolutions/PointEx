@@ -53,6 +53,7 @@ namespace PointEx.Web
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.css",
                       "~/Content/bootstrap-fileinput/css/fileinput.css",
+                      "~/Content/bootstrap.vertical-tabs.css",
                       "~/Content/font-awesome.css",
                       "~/Content/select2.css",
                       "~/Content/pointex-homepage.css",

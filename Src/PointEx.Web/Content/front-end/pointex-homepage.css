@@ -6,7 +6,7 @@ html, body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -284px;
+    margin: 0 auto -284px; 
 }
 
 body {
@@ -198,12 +198,8 @@ footer {
 }
 
 
-footer a {
-    color: #FFF;
-    font-weight: bold;
+.branch-office-location-container {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
 }
-
-    footer a:hover {
-        color: #FFF;
-        font-weight: bold;
-    }

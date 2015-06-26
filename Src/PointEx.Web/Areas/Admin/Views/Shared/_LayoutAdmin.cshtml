@@ -1,10 +1,9 @@
-﻿@using PointEx.Security
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Puntos Admin</title>
+    <title>@ViewBag.Title Puntos Admin</title>
     @Styles.Render("~/Content/css")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
     @Scripts.Render("~/bundles/modernizr")
@@ -27,18 +26,14 @@
                     <li>@Html.ActionLink("Beneficiarios", "Index", new { area = "Admin", controller = "Beneficiary" })</li>
                     <li>@Html.ActionLink("Est. Educativos", "Index", new { area = "Admin", controller = "EducationalInstitution" })</li>
                     <li>@Html.ActionLink("Premios", "Index", new { area = "Admin", controller = "Prize" })</li>
-                    <li>@Html.ActionLink("Contenido Secciones", "Index", new {area = "Admin", controller = "Section"})</li>
-                    @if (PointExContext.Role == RolesNames.SuperAdmin)
-                    {
-                        <li>@Html.ActionLink("Usuarios", "Index", new { area = "Admin", controller = "User" })</li>
-                    }
+                    <li>@Html.ActionLink("Contenido Secciones", "Index", new { area = "Admin", controller = "Section" })</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Compras", "Purchases", new {area = "Admin", controller = "Report"})</li>
                             <li>@Html.ActionLink("Premios mas Canjeados", "MostExchangedPrizes", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Puntos Generados", "GeneratedPoints", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Beneficios más Usados", "MostUsedBenefits", new {area = "Admin", controller = "Report"})</li>
+                            <li>@Html.ActionLink("Puntos Generados", "GeneratedPoints", new { area = "Admin", controller = "Report" })</li>
+                            <li>@Html.ActionLink("Beneficios más Usados", "MostUsedBenefits", new { area = "Admin", controller = "Report" })</li>
                         </ul>
                     </li>
                 </ul>

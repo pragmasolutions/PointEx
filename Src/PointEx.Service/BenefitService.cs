@@ -12,6 +12,7 @@ using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Service.Exceptions;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Service
 {
@@ -107,12 +108,21 @@ namespace PointEx.Service
             }
 
             currentBenefit.ModifiedDate = _clock.Now;
-            currentBenefit.Description = benefit.Description;
-            currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
-            currentBenefit.DiscountPercentageCeiling = benefit.DiscountPercentageCeiling;
+            currentBenefit.Description = benefit.Description;            
             currentBenefit.Name = benefit.Name;
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
+            currentBenefit.BenefitTypeId = benefit.BenefitTypeId;
+            if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
+            {
+                currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
+                currentBenefit.DiscountPercentageCeiling = benefit.DiscountPercentageCeiling;
+            }
+            else
+            {
+                currentBenefit.DiscountPercentage = null;
+                currentBenefit.DiscountPercentageCeiling = null;
+            }
 
             Uow.Benefits.Edit(currentBenefit);
             Uow.Commit();

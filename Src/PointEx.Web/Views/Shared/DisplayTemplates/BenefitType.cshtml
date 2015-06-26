@@ -1,0 +1,31 @@
+﻿@model Enum
+
+@if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
+{    
+    string displayName = null;
+    foreach (SelectListItem item in EnumHelper.GetSelectList(ViewData.ModelMetadata, (Enum)Model))
+    {
+        if (item.Selected)
+        {
+            displayName = item.Text ?? item.Value;
+        }
+    }
+    
+    if (String.IsNullOrEmpty(displayName))
+    {
+        if (Model == null)
+        {
+            displayName = String.Empty;
+        }
+        else
+        {
+            displayName = Model.ToString();
+        }
+    }
+        
+    @Html.TextBox("", displayName, new { @class = "form-control", @readonly = true })
+}
+else
+{    
+    @Html.DisplayTextFor(model => model)
+}

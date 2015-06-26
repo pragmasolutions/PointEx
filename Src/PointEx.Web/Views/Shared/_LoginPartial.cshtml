@@ -1,22 +1,29 @@
 ﻿@using Microsoft.AspNet.Identity
-@using JetBrains.Annotations;
+@using Framework.Common.Web.Extensions;
+@using PointEx.Service;
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
-            @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
-            {
-                @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
-            }
-            
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @if (this.CurrentUser().Shop != null)
+                {
+                    @Html.ActionLink(this.CurrentUser().Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = this.CurrentUser().Shop.Id }, htmlAttributes: new { title = "Perfil" })
+                }
+            </li>
+            <li>
+                <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
+                @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
+                {
+                    @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
+                }
+
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else

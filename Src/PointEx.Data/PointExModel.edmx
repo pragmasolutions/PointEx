@@ -69,6 +69,7 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="BenefitTypeId" Type="int" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
           <Key>
@@ -86,6 +87,13 @@
           <Property Name="BenefitId" Type="int" Nullable="false" />
           <Property Name="FileId" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BenefitTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="BranchOffice">
           <Key>
@@ -257,6 +265,18 @@
             </Principal>
             <Dependent Role="Beneficiary">
               <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benefit_BenefitTypes">
+          <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="0..1" />
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="BenefitTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -599,6 +619,7 @@
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitBranchOffice" EntityType="Self.BenefitBranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenefitTypes" EntityType="Self.BenefitTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -623,6 +644,10 @@
           <AssociationSet Name="FK_Beneficiary_Town" Association="Self.FK_Beneficiary_Town">
             <End Role="Town" EntitySet="Town" />
             <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benefit_BenefitTypes" Association="Self.FK_Benefit_BenefitTypes">
+            <End Role="BenefitTypes" EntitySet="BenefitTypes" />
+            <End Role="Benefit" EntitySet="Benefit" />
           </AssociationSet>
           <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shop" />
@@ -1012,6 +1037,11 @@
             <Parameter Name="ShopId" Mode="In" Type="Int32" />
             <Parameter Name="EducationalInstitutionId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="BenefitTypes" EntityType="PointEx.Data.BenefitType" />
+          <AssociationSet Name="FK_Benefit_BenefitTypes" Association="PointEx.Data.FK_Benefit_BenefitTypes">
+            <End Role="BenefitType" EntitySet="BenefitTypes" />
+            <End Role="Benefit" EntitySet="Benefits" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1286,6 +1316,8 @@
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" />
+          <NavigationProperty Name="BenefitType" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="Benefit" ToRole="BenefitType" />
         </EntityType>
         <Association Name="FK_Benefit_Shop">
           <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="1" />
@@ -1522,6 +1554,27 @@
           <Property Type="Int32" Name="UsesCount" Nullable="true" />
           <Property Type="String" Name="BenefitName" Nullable="false" MaxLength="250" />
         </ComplexType>
+        <EntityType Name="BenefitType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="PointEx.Data.BenefitTypesEnum" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="BenefitType" ToRole="Benefit" />
+        </EntityType>
+        <Association Name="FK_Benefit_BenefitTypes">
+          <End Type="PointEx.Data.BenefitType" Role="BenefitType" Multiplicity="0..1" />
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="BenefitTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="BenefitTypesEnum" a:ExternalTypeName="PointEx.Entities.Enums.BenefitTypesEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1707,6 +1760,7 @@
             <EntityTypeMapping TypeName="PointEx.Data.Benefit">
               <MappingFragment StoreEntitySet="Benefit">
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="BenefitTypeId" ColumnName="BenefitTypeId" />
                 <ScalarProperty Name="DateTo" ColumnName="DateTo" />
                 <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -1824,6 +1878,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="BenefitTypes">
+            <EntityTypeMapping TypeName="PointEx.Data.BenefitType">
+              <MappingFragment StoreEntitySet="BenefitTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

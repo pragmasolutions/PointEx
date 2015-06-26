@@ -66,6 +66,9 @@
     <Compile Include="BenefitFile.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BenefitType.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BranchOffice.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -86,6 +89,7 @@
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\BenefitTypesEnum.cs" />
     <Compile Include="Extensions\Benefit.cs" />
     <Compile Include="Extensions\SectionItem.cs" />
     <Compile Include="Extensions\PointTransaction.cs" />

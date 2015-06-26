@@ -53,6 +53,8 @@
         <AssociationConnector Association="PointEx.Data.FK_SectionItem_Prize" />
         <AssociationConnector Association="PointEx.Data.FK_SectionItem_Section" />
         <AssociationConnector Association="PointEx.Data.FK_Purchase_BranchOffice" />
+        <EntityTypeShape EntityType="PointEx.Data.BenefitType" Width="1.5" PointX="4.375" PointY="3.875" />
+        <AssociationConnector Association="PointEx.Data.FK_Benefit_BenefitTypes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
