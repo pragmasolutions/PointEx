@@ -13,7 +13,7 @@ namespace PointEx.Service
         void Edit(Shop shop);
         void Delete(int shopId);
         IQueryable<Shop> GetAll();
-        List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, int pageIndex,
+        List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, bool? deleted, int pageIndex,
             int pageSize, out int pageTotal);
         Shop GetById(int id);
         Shop GetByUserId(string userId);

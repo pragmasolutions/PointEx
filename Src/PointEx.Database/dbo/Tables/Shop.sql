@@ -8,6 +8,7 @@
 	[Phone]        VARCHAR (250)     NULL,
     [CreatedDate]  DATETIME2 (7)     NOT NULL,
     [ModifiedDate] DATETIME2 (7)     NULL,
+	[IsDeleted]	   BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Shop] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Shop_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id]), 
     CONSTRAINT [FK_Shop_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id])

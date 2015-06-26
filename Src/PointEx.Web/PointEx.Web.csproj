@@ -165,6 +165,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -318,6 +319,7 @@
     <Compile Include="Models\Files\OrderImagesForm.cs" />
     <Compile Include="Models\Files\UploadImagesForm.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
+    <Compile Include="Models\Home\AddMyShopForm.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
     <Compile Include="Models\List\FilterBaseModel.cs" />
     <Compile Include="Models\List\IFilter.cs" />
@@ -607,6 +609,9 @@
     <Content Include="Views\Home\InformationRequest.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformationRequestCause.cshtml" />
     <Content Include="Views\Home\SuccessfullRequest.cshtml" />
+    <Content Include="Views\Home\AddMyShop.cshtml" />
+    <Content Include="Views\Home\FrequentlyAskedQuestions.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PointEx.Data;
 using PointEx.Entities.Models;
+using Framework.Common.Web.Alerts;
 using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
@@ -20,14 +22,18 @@ namespace PointEx.Web.Controllers
         private readonly IBenefitService _benefitService;
         private readonly ICategoryService _categoryService;
         private readonly INotificationService _notificationService;
+        private readonly ITownService _townService;
 
-        public HomeController(ISectionItemService sectionItemService,IBenefitService benefitService,
-                            ICategoryService categoryService, INotificationService notificationService)
+        public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
+            ICategoryService categoryService, 
+            INotificationService notificationService, 
+            ITownService townService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
             _categoryService = categoryService;
             _notificationService = notificationService;
+            _townService = townService;
         }
 
         public ActionResult Index()
@@ -39,6 +45,39 @@ namespace PointEx.Web.Controllers
             var homeModel = new HomeModel(sliderItems, outstandingItems, categories);
 
             return View(homeModel);
+        }
+
+        public ActionResult AddMyShop()
+        {
+            AddMyShopForm form = new AddMyShopForm();
+            return View(form);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddMyShop(AddMyShopForm addMyShopForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(addMyShopForm);
+            }
+
+            var shop = addMyShopForm.ToShop();
+
+            shop.Town = _townService.GetById(addMyShopForm.TownId);
+
+            await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email, AppSettings.Theme);
+
+            return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
+        }
+
+        public ActionResult FrequentlyAskedQuestions()
+        {
+            return View();
+        }
+
+        public ActionResult TermsAndConditions()
+        {
+            return View();
         }
 
         public ActionResult About()
