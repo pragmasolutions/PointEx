@@ -313,6 +313,7 @@
     <Compile Include="Infrastructure\Extensions\BenefitExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\FileExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HttpPostedFileBaseExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\WebPageRenderingBaseExtensions.cs" />
     <Compile Include="Infrastructure\ICurrentUser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Benefit\BenefitDetailModel.cs" />
@@ -330,9 +331,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\PointEx.Service\EmailTemplates\PointExchangeConfirmationEmail.html">
-      <Link>EmailTemplates\PointExchangeConfirmationEmail.html</Link>
-    </Content>
     <Content Include="Areas\Shop\Views\Purchase\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -345,6 +343,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.vertical-tabs.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
     <Content Include="Content\front-end\pointex-search.css" />
@@ -365,8 +364,16 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Jovenes\Site.css" />
-    <Content Include="EmailTemplates\AddShopRequestConfirmation.html" />
-    <Content Include="EmailTemplates\AddShopRequest.html" />
+    <Content Include="EmailTemplates\Jovenes\AddShopRequest.html" />
+    <Content Include="EmailTemplates\Jovenes\AddShopRequestConfirmation.html" />
+    <Content Include="EmailTemplates\Jovenes\InfoRequestAutomaticResponseEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\InfoRequestToAdminEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\PointExchangeConfirmationEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\AddShopRequest.html" />
+    <Content Include="EmailTemplates\TekovePoti\AddShopRequestConfirmation.html" />
+    <Content Include="EmailTemplates\TekovePoti\InfoRequestAutomaticResponseEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\InfoRequestToAdminEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\PointExchangeConfirmationEmail.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -601,6 +608,9 @@
     <Content Include="Views\Shared\_GooglePlusInit.cshtml" />
     <Content Include="Views\Shared\_ReportLoading.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BeneficiaryId.cshtml" />
+    <Content Include="Views\Home\InformationRequest.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InformationRequestCause.cshtml" />
+    <Content Include="Views\Home\SuccessfullRequest.cshtml" />
     <Content Include="Views\Home\AddMyShop.cshtml" />
     <Content Include="Views\Home\FrequentlyAskedQuestions.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BenefitType.cshtml" />
@@ -713,7 +723,8 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /E /Y "$(SolutionDir)PointEx.Service\EmailTemplates" "$(ProjectDir)EmailTemplates"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -33,7 +33,7 @@
         <div> @Html.SocialLinkButtons(Model.Name, Request.Url.ToString()) </div>
     </div>
     <div class="ratings">
-        <p class="pull-right">3 reviews</p>
+        @*<p class="pull-right">3 reviews</p>
         <p>
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star"></span>
@@ -41,11 +41,24 @@
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star-empty"></span>
             4.0 stars
-        </p>
+        </p>*@
     </div>
 </div>
 
-<div class="well">
+<div class="spacer">
+</div>
+<div class="spacer">
+</div>
+
+<div class="fb-comments col-lg-12" data-width="100%" data-href="@Request.Url" data-numposts="5"></div>
+
+<div class="spacer">
+</div>
+<div class="spacer">
+</div>
+
+
+@*<div class="well">
     <div class="text-right">
         <a class="btn btn-success">Leave a Review</a>
     </div>
@@ -88,6 +101,6 @@
             <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
         </div>
     </div>
-</div>
+</div>*@
 
 @Html.Partial("_ExchangePointsConfirmationModal", model: Model)

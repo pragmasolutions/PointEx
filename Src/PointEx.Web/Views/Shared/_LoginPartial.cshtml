@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Framework.Common.Web.Extensions;
+@using PointEx.Security
 @using PointEx.Service;
 @if (Request.IsAuthenticated)
 {
@@ -9,29 +10,26 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @{
-                    var service = IocContainer.GetContainer().Get<IBranchOfficeService>();
-                    var currentUser = IocContainer.GetContainer().Get<PointEx.Web.Infrastructure.ICurrentUser>();    
-                }     
-                @Html.ActionLink(currentUser.Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = currentUser.Shop.Id }, htmlAttributes: new { title = "Perfil" })           
+                @if (this.User.IsInRole(RolesNames.Shop))
+                {
+                    @Html.ActionLink(this.CurrentUser().Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = this.CurrentUser().Shop.Id }, htmlAttributes: new { title = "Perfil" })
+                }
             </li>
             <li>
-                
-            <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
-            @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
-            {
-                @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
-            }
-            
+                <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
+                @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
+                {
+                    @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
+                }
+
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><strong>Salir</strong></a></li>
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Ingresar", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

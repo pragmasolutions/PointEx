@@ -15,12 +15,14 @@ namespace PointEx.Web.Controllers
         private readonly IBenefitService _benefitService;
         private readonly IShopService _shopService;
         private readonly IBenefitFileService _benefitFileService;
+        private readonly IBranchOfficeService _branchOfficeService;
 
-        public BenefitController(IBenefitService benefitService, IShopService shopService, IBenefitFileService benefitFileService)
+        public BenefitController(IBenefitService benefitService, IShopService shopService, IBenefitFileService benefitFileService,IBranchOfficeService branchOfficeService)
         {
             _benefitService = benefitService;
             _shopService = shopService;
             _benefitFileService = benefitFileService;
+            _branchOfficeService = branchOfficeService;
         }
 
         public ActionResult Index(BenefitListFiltersModel filters)
@@ -47,8 +49,9 @@ namespace PointEx.Web.Controllers
 
             var shop = _shopService.GetById(benefit.ShopId);
             var images = _benefitFileService.GetByBenefitId(benefit.Id);
+            var branchOffices = _branchOfficeService.GetByShopId(benefit.ShopId);
 
-            var benefitDetailModel = new BenefitDetailModel(benefit, shop, images);
+            var benefitDetailModel = new BenefitDetailModel(benefit, shop, images, branchOffices);
 
             return View(benefitDetailModel);
         }

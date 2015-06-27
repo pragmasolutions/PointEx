@@ -4,9 +4,9 @@
 }
 
 <h2>@ViewBag.Title.</h2>
-<p class="text-info">
-    Por razones de seguridad debe cambiar su password de ingreso al sistema.
-</p>
+
+<h4>Por razones de seguridad debe cambiar su password de ingreso al sistema.</h4>
+<hr />
 
 @using (Html.BeginForm("FirstLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

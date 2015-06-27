@@ -98,3 +98,7 @@ textarea {
 .white {
     color: white;
 }
+
+.text-align-left {
+    text-align: left;
+}

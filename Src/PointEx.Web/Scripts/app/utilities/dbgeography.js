@@ -19,6 +19,8 @@
             }
         });
 
+        $map.addClass('map-canvas');
+
         $container.append($map);
 
         // Attempt to parse the lat/long coordinates out of this input element.
@@ -43,6 +45,8 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             maxZoom: 14
         });
+
+        $map.data('map', map);
 
         // Place a marker on it, representing the DBGeometry object's position.
         var marker = new google.maps.Marker({

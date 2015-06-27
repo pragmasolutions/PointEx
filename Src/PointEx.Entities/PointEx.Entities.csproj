@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Metadata\StudentMetadata.cs" />
     <Compile Include="Metadata\BeneficiaryMetadata.cs" />
+    <Compile Include="Models\InformationRequestModel.cs" />
     <Compile Include="PointExModel.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>

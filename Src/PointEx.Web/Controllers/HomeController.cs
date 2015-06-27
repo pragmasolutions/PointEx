@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PointEx.Data;
+using PointEx.Entities.Models;
 using Framework.Common.Web.Alerts;
 using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
+using System.Threading.Tasks;
+using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Controllers
 {
@@ -61,12 +65,17 @@ namespace PointEx.Web.Controllers
 
             shop.Town = _townService.GetById(addMyShopForm.TownId);
 
-            await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email);
+            await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email, AppSettings.Theme);
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }
 
         public ActionResult FrequentlyAskedQuestions()
+        {
+            return View();
+        }
+
+        public ActionResult TermsAndConditions()
         {
             return View();
         }
@@ -98,6 +107,44 @@ namespace PointEx.Web.Controllers
                     return Redirect("~/Beneficiary");
                 default:
                     return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult InformationRequest()
+        {
+            InformationRequestModel model = new InformationRequestModel();
+            if (PointExContext.User != null)
+            {
+                switch (PointExContext.Role)
+                {
+                    case RolesNames.Beneficiary:
+                        var beneficiary = PointExContext.Beneficiary;
+                        model.Name = beneficiary.Name;
+                        break;
+                    case RolesNames.Shop:
+                        var shop = PointExContext.Shop;
+                        model.Name = string.Format("[Shop] {0}", shop.Name);
+                        model.PhoneNumber = shop.Phone;
+                        break;
+                }
+                model.Email = PointExContext.User.Email;
+            }
+            
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> InformationRequest(InformationRequestModel model)
+        {
+            try
+            {
+                await _notificationService.SendInformationRequestEmail(model, AppSettings.Theme);
+                return View("SuccessfullRequest");
+            }
+            catch (Exception)
+            {
+                ViewBag.ErrorMessage = "Hubo un error en la solicitud. Por favor intente nuevamente más tarde";
+                return View(model);
             }
         }
     }

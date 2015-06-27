@@ -56,10 +56,10 @@ namespace PointEx.Web.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Recordarme?")]
         public bool RememberMe { get; set; }
     }
 
@@ -73,7 +73,7 @@ namespace PointEx.Web.Models
         [Required]
         [StringLength(100, ErrorMessage = "El Password debe ser tener almenos 6 caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
@@ -116,12 +116,12 @@ namespace PointEx.Web.Models
         [Required]
         [StringLength(100, ErrorMessage = "El campo {0} debe tener almenos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nuevo password")]
+        [Display(Name = "Nueva Contraseña")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Nuevo password")]
-        [Compare("NewPassword", ErrorMessage = "El nuevo password y la confirmación no coinciden.")]
+        [Display(Name = "Confirmar Nueva Contraseña")]
+        [Compare("NewPassword", ErrorMessage = "La nueva contraseña y la confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
