@@ -22,6 +22,7 @@
             <th>Nombre</th>
             <th class="text-right">Procentaje de Descuento</th>
             <th class="text-right">Tope Porcentaje de Descuento</th>
+            <th class="text-right">Tipo</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -31,6 +32,7 @@
                 <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
                 <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</td>
                 <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
+                <td class="text-right">@benefit.BenefitTypeName</td>
             </tr>
         }
     </tbody>

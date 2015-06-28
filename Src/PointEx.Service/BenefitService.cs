@@ -204,10 +204,12 @@ namespace PointEx.Service
 
         public IList<Benefit> GetOutstandingBenefits()
         {
-            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= _clock.Now) && !b.IsDeleted,
+            var today = _clock.Now.AddMonths(-3);
+            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && !b.IsDeleted,
                 b => b.Purchases,
                 b => b.Shop,
-                b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();
+                b => b.BenefitType,
+                b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();            
         }
     }
 }
