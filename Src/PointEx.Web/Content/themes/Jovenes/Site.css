@@ -66,9 +66,10 @@ a {
     color: white;
 }
 
-.navbar-inverse .navbar-nav li a:hover {
-    color: white;
-    font-weight: bold;
-    filter: alpha(opacity=1);
-    opacity: 1;
+.navbar-nav .dropdown-menu {
+    background-color: #1D8D14;
+}
+
+.navbar-nav .dropdown-menu li:hover, .navbar-nav .dropdown-menu li a:hover {
+    background-color: #62AB44 !important;
 }

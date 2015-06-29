@@ -2,6 +2,7 @@
 @using Framework.Common.Web.Extensions;
 @using PointEx.Security
 @using PointEx.Service;
+@using PointEx.Web.Configuration
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -15,11 +16,14 @@
                     @Html.ActionLink(this.CurrentUser().Shop.Name.ToUpper(), "Detail", "Shop", routeValues: new { area = "Admin", id = this.CurrentUser().Shop.Id }, htmlAttributes: new { title = "Perfil" })
                 }
             </li>
-            <li>
-                <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
-                @if (string.IsNullOrEmpty(Request.ServerVariables["http_referer"]))
+            <li style="height: 50px">
+                @if (!this.User.IsInRole(RolesNames.Shop))
                 {
-                    @Html.ActionLink("(Entrar)", "RedirectToDefault", "Home", htmlAttributes: new { title = "Perfil", @style = "float: left;" })
+                    <span class="float-left margin-top-15 white">@User.Identity.GetUserName()</span>
+                }
+                @if (PointEx.Web.Helpers.UrlHelper.IsInPublicSection())
+                {
+                    <a href="/Home/RedirectToDefault" style="float: left; margin-right: 10px;" title="Perfil">(Entrar)</a>
                 }
 
             </li>
