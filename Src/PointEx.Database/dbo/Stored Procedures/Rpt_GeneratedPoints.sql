@@ -16,7 +16,6 @@ BEGIN
 				WHEN 0 THEN 1
 				ELSE FLOOR(P.Amount / 100)
 			END	
-	  ,Beneficiary = B.Name
 	FROM
 	  Purchase P
 	  INNER JOIN Shop S
