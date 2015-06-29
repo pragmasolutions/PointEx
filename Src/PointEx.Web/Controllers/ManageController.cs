@@ -33,9 +33,9 @@ namespace PointEx.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -237,7 +237,7 @@ namespace PointEx.Web.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             AddErrors(result);
             return View(model);
@@ -332,7 +332,7 @@ namespace PointEx.Web.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -383,6 +383,6 @@ namespace PointEx.Web.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

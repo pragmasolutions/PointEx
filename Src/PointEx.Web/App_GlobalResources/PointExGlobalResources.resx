@@ -126,6 +126,9 @@
   <data name="FieldMustBeNumeric" xml:space="preserve">
     <value>El campo {0} debe ser un numero.</value>
   </data>
+  <data name="PasswordLength" xml:space="preserve">
+    <value>El campo {0} debe tener almenos {2} caracteres.</value>
+  </data>
   <data name="PropertyValueInvalid" xml:space="preserve">
     <value>El valor {0} no es valido para {1}</value>
   </data>

@@ -102,3 +102,8 @@ textarea {
 .text-align-left {
     text-align: left;
 }
+
+
+.nav.navbar-nav .dropdown .dropdown-menu a {
+    color: #000000;
+}

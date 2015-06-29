@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El campo {0} debe tener almenos {2} caracteres..
+        /// </summary>
+        internal static string PasswordLength {
+            get {
+                return ResourceManager.GetString("PasswordLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El valor {0} no es valido para {1}.
         /// </summary>
         internal static string PropertyValueInvalid {
