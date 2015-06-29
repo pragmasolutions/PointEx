@@ -1,0 +1,11 @@
+﻿@model PointEx.Web.Areas.Shop.Models.Reports.ShopReportFiltersModel
+
+<div id="report-container">
+
+    @Html.Partial("_ReportLoading")
+
+    <iframe id="report-iframe" onload=" window.parent.hideLoading(); "
+            style="width: 100%; height: 800px; margin-top: 10px; display: none"
+            src="@Model.GetPdfUrl()"></iframe>
+
+</div>

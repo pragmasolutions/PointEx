@@ -283,6 +283,7 @@
     <Compile Include="Areas\Beneficiary\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Beneficiary\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitFileController.cs" />
+    <Compile Include="Areas\Shop\Controllers\ReportController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopBaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\Shop\Controllers\BenefitController.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseListModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseListFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Purchase\PurchaseForm.cs" />
+    <Compile Include="Areas\Shop\Models\Reports\ShopRerportFiltersModel.cs" />
     <Compile Include="Areas\Shop\Models\Shop\ShopEditForm.cs" />
     <Compile Include="Areas\Shop\ShopAreaRegistration.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
@@ -308,6 +310,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Infrastructure\CurrentUser.cs" />
     <Compile Include="Infrastructure\Extensions\PrizeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\BenefitExtensions.cs" />
@@ -484,6 +487,11 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\EditorTemplates\UserForm.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Reports\BenefitsUsed.rdl" />
+    <Content Include="Areas\Shop\Views\Report\BenefitsUsed.cshtml" />
+    <Content Include="Areas\Shop\Views\Report\_DownloadButtons.cshtml" />
+    <Content Include="Areas\Shop\Views\Report\_Filters.cshtml" />
+    <Content Include="Areas\Shop\Views\Report\_ReportBox.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />

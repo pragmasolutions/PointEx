@@ -587,6 +587,16 @@
         <Function Name="Beneficiary_PurchasesAndExchanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BeneficiaryId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Rpt_BenefitsUsed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="From" Type="datetime2" Mode="In" />
+          <Parameter Name="To" Type="datetime2" Mode="In" />
+          <Parameter Name="ShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Rpt_BenefitsUsed_Chart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="From" Type="datetime2" Mode="In" />
+          <Parameter Name="To" Type="datetime2" Mode="In" />
+          <Parameter Name="ShopId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Rpt_GeneratedPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="From" Type="datetime2" Mode="In" />
           <Parameter Name="To" Type="datetime2" Mode="In" />
@@ -1042,6 +1052,16 @@
             <End Role="BenefitType" EntitySet="BenefitTypes" />
             <End Role="Benefit" EntitySet="Benefits" />
           </AssociationSet>
+          <FunctionImport Name="RptBenefitsUsed" ReturnType="Collection(PointEx.Data.RptBenefitsUsed)">
+            <Parameter Name="From" Mode="In" Type="DateTime" />
+            <Parameter Name="To" Mode="In" Type="DateTime" />
+            <Parameter Name="ShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RptBenefitsUsedChart" ReturnType="Collection(PointEx.Data.RptBenefitsUsedChart)">
+            <Parameter Name="From" Mode="In" Type="DateTime" />
+            <Parameter Name="To" Mode="In" Type="DateTime" />
+            <Parameter Name="ShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1547,6 +1567,7 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="Points" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Beneficiary1" Nullable="false" MaxLength="250" />
         </ComplexType>
         <ComplexType Name="RptMostUsedBenefits">
           <Property Type="String" Name="ShopName" Nullable="false" MaxLength="250" />
@@ -1575,6 +1596,16 @@
           </ReferentialConstraint>
         </Association>
         <EnumType Name="BenefitTypesEnum" a:ExternalTypeName="PointEx.Entities.Enums.BenefitTypesEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <ComplexType Name="RptBenefitsUsed">
+          <Property Type="String" Name="Beneficiary" Nullable="false" MaxLength="250" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Benefit" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="RptBenefitsUsedChart">
+          <Property Type="String" Name="Benefit" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1865,6 +1896,7 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="Beneficiary1" ColumnName="Beneficiary1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1886,6 +1918,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RptBenefitsUsed" FunctionName="PointEx.Data.Store.Rpt_BenefitsUsed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PointEx.Data.RptBenefitsUsed">
+                <ScalarProperty Name="Beneficiary" ColumnName="Beneficiary" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RptBenefitsUsedChart" FunctionName="PointEx.Data.Store.Rpt_BenefitsUsed_Chart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PointEx.Data.RptBenefitsUsedChart">
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

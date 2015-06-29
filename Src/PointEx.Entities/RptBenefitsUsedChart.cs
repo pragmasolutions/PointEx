@@ -11,14 +11,9 @@ namespace PointEx.Entities
 {
     using System;
     
-    public partial class RptGeneratedPoints
+    public partial class RptBenefitsUsedChart
     {
-        public string ShopName { get; set; }
-        public string Beneficiary { get; set; }
-        public string EducationalInstitutionName { get; set; }
-        public System.DateTime Date { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public Nullable<decimal> Points { get; set; }
-        public string Beneficiary1 { get; set; }
+        public string Benefit { get; set; }
+        public Nullable<int> Count { get; set; }
     }
 }

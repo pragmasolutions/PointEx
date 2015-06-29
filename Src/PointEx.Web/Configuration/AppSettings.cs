@@ -12,6 +12,24 @@ namespace PointEx.Web.Configuration
         {
             get { return ConfigurationManager.AppSettings["Theme"]; }
         }
+
+        public static string SiteBaseUrl
+        {
+            get
+            {
+                string url = string.Empty;
+                HttpRequest request = HttpContext.Current.Request;
+
+                if (request.IsSecureConnection)
+                    url = "https://";
+                else
+                    url = "http://";
+
+                url += request["HTTP_HOST"] + "/";
+
+                return url;
+            }
+        }
     }
 
     public abstract class ThemeEnum

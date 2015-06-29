@@ -143,5 +143,39 @@ namespace PointEx.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RptMostUsedBenefits>("RptMostUsedBenefits", fromParameter, toParameter, shopIdParameter, educationalInstitutionIdParameter);
         }
+    
+        public virtual ObjectResult<RptBenefitsUsed> RptBenefitsUsed(Nullable<System.DateTime> from, Nullable<System.DateTime> to, Nullable<int> shopId)
+        {
+            var fromParameter = from.HasValue ?
+                new ObjectParameter("From", from) :
+                new ObjectParameter("From", typeof(System.DateTime));
+    
+            var toParameter = to.HasValue ?
+                new ObjectParameter("To", to) :
+                new ObjectParameter("To", typeof(System.DateTime));
+    
+            var shopIdParameter = shopId.HasValue ?
+                new ObjectParameter("ShopId", shopId) :
+                new ObjectParameter("ShopId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RptBenefitsUsed>("RptBenefitsUsed", fromParameter, toParameter, shopIdParameter);
+        }
+    
+        public virtual ObjectResult<RptBenefitsUsedChart> RptBenefitsUsedChart(Nullable<System.DateTime> from, Nullable<System.DateTime> to, Nullable<int> shopId)
+        {
+            var fromParameter = from.HasValue ?
+                new ObjectParameter("From", from) :
+                new ObjectParameter("From", typeof(System.DateTime));
+    
+            var toParameter = to.HasValue ?
+                new ObjectParameter("To", to) :
+                new ObjectParameter("To", typeof(System.DateTime));
+    
+            var shopIdParameter = shopId.HasValue ?
+                new ObjectParameter("ShopId", shopId) :
+                new ObjectParameter("ShopId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RptBenefitsUsedChart>("RptBenefitsUsedChart", fromParameter, toParameter, shopIdParameter);
+        }
     }
 }

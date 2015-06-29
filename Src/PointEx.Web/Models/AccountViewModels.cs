@@ -71,7 +71,9 @@ namespace PointEx.Web.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "El Password debe ser tener almenos 6 caracteres.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(PointExGlobalResources),
+             ErrorMessageResourceName = "PasswordLength",
+             ErrorMessage = null, MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
@@ -114,7 +116,9 @@ namespace PointEx.Web.Models
     public class FirstLoginViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "El campo {0} debe tener almenos {2} caracteres.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(PointExGlobalResources), 
+            ErrorMessageResourceName = "PasswordLength", 
+            ErrorMessage = null, MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nueva Contraseña")]
         public string NewPassword { get; set; }
