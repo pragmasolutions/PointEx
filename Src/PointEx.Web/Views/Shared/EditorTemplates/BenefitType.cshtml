@@ -1,0 +1,11 @@
+﻿@using PointEx.Entities.Enums
+@model BenefitTypesEnum?
+
+@if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
+{
+    @Html.EnumDropDownListFor(model => model, htmlAttributes: new { @class = "form-control select2-control", placeholder = "Tipo de Beneficio" })
+}
+else
+{
+    @Html.TextBoxFor(model => model, htmlAttributes: new { @class = "form-control" })
+}
