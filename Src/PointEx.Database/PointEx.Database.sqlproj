@@ -96,6 +96,8 @@
     <Build Include="dbo\Stored Procedures\Rpt_GeneratedPoints.sql" />
     <Build Include="dbo\Stored Procedures\Rpt_MostUsedBenefits.sql" />
     <Build Include="dbo\Tables\BenefitTypes.sql" />
+    <Build Include="dbo\Stored Procedures\Rpt_BenefitsUsed.sql" />
+    <Build Include="dbo\Stored Procedures\Rpt_BenefitsUsed_Chart.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
