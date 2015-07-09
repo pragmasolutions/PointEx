@@ -113,6 +113,7 @@ namespace PointEx.Service
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
             currentBenefit.BenefitTypeId = benefit.BenefitTypeId;
+            currentBenefit.IsApproved = null;
             if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
             {
                 currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
