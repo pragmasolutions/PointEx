@@ -19,7 +19,13 @@ namespace PointEx.Entities.Dto
         public decimal? DiscountPercentageCeiling { get; set; }
         public int? DefaultFileId { get; set; }
         public string ShopName { get; set; }
-
+        public bool? IsApproved { get; set; }
+        public string BenefitStatus 
+        { 
+            get {
+                return (!this.IsApproved.HasValue)? "Pendiente" : ((this.IsApproved.Value)? "Aprobado" : "Rechazado");
+            } 
+        }
         public void CreateMappings(IConfiguration configuration)
         {
             Mapper.CreateMap<Benefit, BenefitDto>()

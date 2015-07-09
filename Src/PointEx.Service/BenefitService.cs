@@ -128,6 +128,15 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
+        public void Moderated(int benefitId, bool status)
+        {
+            var currentBenefit = this.GetById(benefitId);
+            currentBenefit.IsApproved = status;
+
+            Uow.Benefits.Edit(currentBenefit);
+            Uow.Commit();
+        }
+
         public void Delete(int benefitId)
         {
             if (CanDeleteBenefit(benefitId))
@@ -210,6 +219,35 @@ namespace PointEx.Service
                 b => b.Shop,
                 b => b.BenefitType,
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();            
+        }
+
+        public List<BenefitDto> GetPendingBenefit(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        {
+            var pagingCriteria = new PagingCriteria();
+
+            pagingCriteria.PageNumber = pageIndex;
+            pagingCriteria.PageSize = pageSize;
+            pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
+            pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
+
+            Expression<Func<Benefit, bool>> where =
+                x =>
+                    ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria) || x.Shop.Name.Contains(criteria)) &&
+                     (!shopId.HasValue || x.ShopId == shopId) &&
+                     (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
+                     (!townId.HasValue || x.Shop.TownId == townId ||
+                     x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
+                     !x.IsDeleted && !x.IsApproved.HasValue);
+
+            var results = Uow.Benefits.GetAll(pagingCriteria, where,
+                //Includes
+                b => b.Shop.ShopCategories,
+                b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
+                b => b.BenefitType);
+
+            pageTotal = results.PagedMetadata.TotalItemCount;
+
+            return results.Entities.Project().To<BenefitDto>().ToList();
         }
     }
 }

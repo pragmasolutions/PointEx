@@ -1,10 +1,10 @@
-﻿@using Framework.Common.Extentensions
+﻿@using PointEx.Web.Areas.Admin
+@using PointEx.Web.Areas.Shop.Models
+@using Framework.Common.Extentensions
 @using PagedList.Mvc
 @model PointEx.Web.Models.BenefitListModel
 
-<h3>Beneficios</h3>
-
-@Html.ActionLink("Crear Beneficio", "Create", "Benefit", routeValues: new { area = "Shop" }, htmlAttributes: new { @class = "btn btn-primary" })
+<h3>Moderar Beneficios</h3>
 
 @Html.FilterButton()
 
@@ -24,6 +24,8 @@
             <th class="text-right">Tope Porcentaje de Descuento</th>
             <th class="text-right">Tipo</th>
             <th class="text-right">Estado</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -34,9 +36,23 @@
                 <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</td>
                 <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
                 <td class="text-right">@benefit.BenefitTypeName</td>
-                <td class="text-right">@benefit.BenefitStatus</td>
+                <td class="text-right">@benefit.BenefitStatus</td>                
+                <td class="text-right">                    
+                    @Html.Partial("Benefit/_GridButton", new ViewDataDictionary{{"Id", benefit.Id }})
+                </td>
             </tr>
         }
     </tbody>
 </table>
 @Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#delete-form").on("submit", function () {
+                return confirm("Esta seguro que desea aprobar este beneficio?  Esta operacion no se puede deshacer.");
+            });
+        });
+    </script>
+}

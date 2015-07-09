@@ -35,26 +35,26 @@
         <AssociationConnector Association="PointEx.Data.FK_Prize_File" />
         <EntityTypeShape EntityType="PointEx.Data.FileContent" Width="1.5" PointX="10.5" PointY="21.625" />
         <AssociationConnector Association="PointEx.Data.FileFileContent" />
-        <EntityTypeShape EntityType="PointEx.Data.Benefit" Width="1.5" PointX="5.25" PointY="16.5" />
-        <AssociationConnector Association="PointEx.Data.FK_Benefit_Shop" />
-        <AssociationConnector Association="PointEx.Data.FK_Purchase_Benefit" />
         <EntityTypeShape EntityType="PointEx.Data.BenefitFile" Width="1.5" PointX="10.5" PointY="17.375" />
-        <AssociationConnector Association="PointEx.Data.FK_BenefitFile_Benefit" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitFile_File" />
         <EntityTypeShape EntityType="PointEx.Data.BranchOffice" Width="1.5" PointX="8.25" PointY="8" />
         <AssociationConnector Association="PointEx.Data.FK_BranchOffice_Shop" />
         <AssociationConnector Association="PointEx.Data.FK_BranchOffice_Town" />
         <EntityTypeShape EntityType="PointEx.Data.BenefitBranchOffice" Width="1.875" PointX="10.5" PointY="13.25" />
-        <AssociationConnector Association="PointEx.Data.FK_BenefitByBranchOffice_Benefit" />
         <AssociationConnector Association="PointEx.Data.FK_BenefitByBranchOffice_BranchOffice" />
         <EntityTypeShape EntityType="PointEx.Data.Section" Width="1.5" PointX="5.25" PointY="25.375" />
         <EntityTypeShape EntityType="PointEx.Data.SectionItem" Width="1.5" PointX="7.5" PointY="17.125" />
-        <AssociationConnector Association="PointEx.Data.FK_SectionItem_Benefit" />
         <AssociationConnector Association="PointEx.Data.FK_SectionItem_Prize" />
         <AssociationConnector Association="PointEx.Data.FK_SectionItem_Section" />
         <AssociationConnector Association="PointEx.Data.FK_Purchase_BranchOffice" />
         <EntityTypeShape EntityType="PointEx.Data.BenefitType" Width="1.5" PointX="4.375" PointY="3.875" />
+        <EntityTypeShape EntityType="PointEx.Data.Benefit" Width="1.5" PointX="6.625" PointY="2" />
         <AssociationConnector Association="PointEx.Data.FK_Benefit_BenefitTypes" />
+        <AssociationConnector Association="PointEx.Data.FK_Benefit_Shop" />
+        <AssociationConnector Association="PointEx.Data.FK_BenefitByBranchOffice_Benefit" />
+        <AssociationConnector Association="PointEx.Data.FK_BenefitFile_Benefit" />
+        <AssociationConnector Association="PointEx.Data.FK_Purchase_Benefit" />
+        <AssociationConnector Association="PointEx.Data.FK_SectionItem_Benefit" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
