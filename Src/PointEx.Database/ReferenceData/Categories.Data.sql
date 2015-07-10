@@ -3,8 +3,8 @@
 INSERT INTO [dbo].[Category] ([Id], [Name])
 SELECT  1, N'Indumentaria' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 1)
 
-INSERT INTO [dbo].[Category] ([Id], [Name])
-SELECT  2, N'Librería/juguetes' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 2)
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  2, N'Fotocopiadora / Impresiones', 'fa fa-print' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 2)
 
 INSERT INTO [dbo].[Category] ([Id], [Name])
 SELECT  3, N'Regalos' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 3)
@@ -49,15 +49,32 @@ INSERT INTO [dbo].[Category] ([Id], [Name])
 SELECT  16, N'Combustible' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 16)
 
 INSERT INTO [dbo].[Category] ([Id], [Name])
-SELECT  17, N'Construcción' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 17)
+SELECT  17, N'Lavandería' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 17)
 
 INSERT INTO [dbo].[Category] ([Id], [Name])
-SELECT  18, N'Alquiler De Autos' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 18)
+SELECT  18, N'Espectáculos' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 18)
 
-INSERT INTO [dbo].[Category] ([Id], [Name])
-SELECT  19, N'Pinturerías' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 19)
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  19, N'Cine', 'fa fa-film'  WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 19)
 
 INSERT INTO [dbo].[Category] ([Id], [Name])
 SELECT  20, N'Otros' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 20)
 
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  21, N'Recitales', 'fa fa-music' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 21)
+
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  22, N'Boliches', 'fa fa-fa-moon-o' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 22)
+
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  23, N'Festivales', 'fa fa-microphone' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 23)
+
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  24, N'Entradas a la cancha', 'fa fa-futbol-o' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 24)
+
+INSERT INTO [dbo].[Category] ([Id], [Name], [IconClass])
+SELECT  25, N'Farmacia', 'fa fa-plus-square' WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Category] WHERE Id = 25)
+
+
 SET IDENTITY_INSERT [dbo].[Category] OFF
+
