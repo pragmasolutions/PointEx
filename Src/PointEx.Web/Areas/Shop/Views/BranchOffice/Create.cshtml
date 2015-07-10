@@ -5,7 +5,7 @@
 }
 
 <h3>@PointExResources.CreateBranchOffice</h3>
-@Html.BackButton("Index", "BranchOffice", new { area = "Admin", shopId = Model.ShopId })
+@Html.BackButton("Index", "BranchOffice", new { area = "Shop", shopId = Model.ShopId })
 <hr />
 @using (Html.BeginForm("Create", "BranchOffice", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

@@ -22,6 +22,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Sucursales", "Index", new { area = "Shop", controller = "BranchOffice" })</li>
                     <li>@Html.ActionLink("Compras del Dia", "Index", new { area = "Shop", controller = "Purchase" })</li>
                     <li>@Html.ActionLink("Beneficios", "Index", new {area = "Shop", controller = "Benefit"})</li>
                     <li>@Html.ActionLink("Editar Perfil", "Edit", new {area = "Shop", controller = "Shop"})</li>

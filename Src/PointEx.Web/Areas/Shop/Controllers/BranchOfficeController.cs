@@ -5,26 +5,29 @@ using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities.Dto;
 using PointEx.Service;
-using PointEx.Web.Areas.Admin.Models;
+using PointEx.Web.Areas.Shop.Models;
 using PointEx.Web.Controllers;
 using PointEx.Web.Infrastructure;
 using PointEx.Web.Models;
 
-namespace PointEx.Web.Areas.Admin.Controllers
+namespace PointEx.Web.Areas.Shop.Controllers
 {
-    public class BranchOfficeController : AdminBaseController
+    public class BranchOfficeController : ShopBaseController
     {
         private readonly IBranchOfficeService _branchOfficeService;
         private readonly IShopService _shopService;
+        private readonly ICurrentUser _currentUser;
 
-        public BranchOfficeController(IBranchOfficeService branchOfficeService, IShopService shopService)
+        public BranchOfficeController(IBranchOfficeService branchOfficeService, IShopService shopService, ICurrentUser currentUser)
         {
             _branchOfficeService = branchOfficeService;
             _shopService = shopService;
+            _currentUser = currentUser;
         }
 
-        public ActionResult Index(int shopId)
+        public ActionResult Index()
         {
+            var shopId = _currentUser.Shop.Id;
             var branchOffices = _branchOfficeService.GetByShopId(shopId);
             var shop = _shopService.GetById(shopId);
 
@@ -40,11 +43,10 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return View(shopForm);
         }
 
-        public ActionResult Create(int shopId)
-        {
-            var shop = _shopService.GetById(shopId);
+        public ActionResult Create()
+        {            
             var shopForm = new BranchOfficeForm();
-            shopForm.ShopName = shop.Name;
+            shopForm.ShopName = _currentUser.Shop.Name;         
             return View(shopForm);
         }
 
@@ -57,6 +59,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             }
 
             var shop = shopForm.ToBranchOffice();
+            shop.ShopId = _currentUser.Shop.Id;
 
             _branchOfficeService.Create(shop);
 

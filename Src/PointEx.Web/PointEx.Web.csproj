@@ -252,7 +252,7 @@
     <Compile Include="Areas\Admin\Controllers\SectionItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\EducationalInstitutionController.cs" />
-    <Compile Include="Areas\Admin\Controllers\BranchOfficeController.cs" />
+    <Compile Include="Areas\Shop\Controllers\BranchOfficeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Models\User\UserForm.cs" />
@@ -447,10 +447,10 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Areas\Shop\Views\Shop\Edit.cshtml" />
     <Content Include="Areas\Shop\Views\Shop\EditorTemplates\ShopEditForm.cshtml" />
-    <Content Include="Areas\Admin\Views\BranchOffice\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\BranchOffice\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\BranchOffice\EditorTemplates\BranchOfficeForm.cshtml" />
-    <Content Include="Areas\Admin\Views\BranchOffice\Edit.cshtml" />
+    <Content Include="Areas\Shop\Views\BranchOffice\Index.cshtml" />
+    <Content Include="Areas\Shop\Views\BranchOffice\Create.cshtml" />
+    <Content Include="Areas\Shop\Views\BranchOffice\EditorTemplates\BranchOfficeForm.cshtml" />
+    <Content Include="Areas\Shop\Views\BranchOffice\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SectionItem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SectionItem\OrderItems.cshtml" />
     <Content Include="Areas\Admin\Views\Section\Index.cshtml" />
