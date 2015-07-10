@@ -18,3 +18,14 @@
         </div>
     </div>
 }
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".form-horizontal").on("submit", function () {
+                return alert("El beneficio tendrá que ser revisado. Durante dicho período, el beneficio no estará disponible.");
+            });
+        });
+    </script>
+}

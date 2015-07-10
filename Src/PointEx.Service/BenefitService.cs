@@ -49,7 +49,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted);
+                     !x.IsDeleted && x.IsApproved.HasValue && x.IsApproved.Value);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes
@@ -84,6 +84,7 @@ namespace PointEx.Service
             }
 
             benefit.CreatedDate = _clock.Now;
+            benefit.IsApproved = false;
             Uow.Benefits.Add(benefit);
             Uow.Commit();
         }
@@ -113,7 +114,7 @@ namespace PointEx.Service
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
             currentBenefit.BenefitTypeId = benefit.BenefitTypeId;
-            currentBenefit.IsApproved = null;
+            currentBenefit.IsApproved = false;
             if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
             {
                 currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
@@ -238,7 +239,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted && !x.IsApproved.HasValue);
+                     !x.IsDeleted && x.IsApproved.HasValue && !x.IsApproved.Value);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes

@@ -4,7 +4,11 @@
 @using PagedList.Mvc
 @model PointEx.Web.Models.BenefitListModel
 
-<h3>Moderar Beneficios</h3>
+@{
+    ViewBag.Title = "Beneficios Pendientes";
+}
+
+<h3>Benecios Pendientes de Aprobación</h3>
 
 @Html.FilterButton()
 
@@ -50,7 +54,7 @@
 {
     <script>
         $(function () {
-            $("#delete-form").on("submit", function () {
+            $(".approved-form").on("submit", function () {
                 return confirm("Esta seguro que desea aprobar este beneficio?  Esta operacion no se puede deshacer.");
             });
         });
