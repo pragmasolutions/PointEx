@@ -18,7 +18,7 @@ namespace PointEx.Entities
         public int BenefitId { get; set; }
         public int BranchOfficeId { get; set; }
     
-        public virtual Benefit Benefit { get; set; }
         public virtual BranchOffice BranchOffice { get; set; }
+        public virtual Benefit Benefit { get; set; }
     }
 }

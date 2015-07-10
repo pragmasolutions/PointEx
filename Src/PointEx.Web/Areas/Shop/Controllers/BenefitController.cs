@@ -43,6 +43,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
+            ViewBag.IsApproved = benefit.IsApproved.HasValue;
             return View(benefitForm);
         }
 

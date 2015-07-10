@@ -20,8 +20,8 @@ namespace PointEx.Entities
         public Nullable<int> PrizeId { get; set; }
         public int Order { get; set; }
     
-        public virtual Benefit Benefit { get; set; }
         public virtual Prize Prize { get; set; }
         public virtual Section Section { get; set; }
+        public virtual Benefit Benefit { get; set; }
     }
 }

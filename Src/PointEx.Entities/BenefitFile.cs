@@ -19,7 +19,7 @@ namespace PointEx.Entities
         public int FileId { get; set; }
         public int Order { get; set; }
     
-        public virtual Benefit Benefit { get; set; }
         public virtual File File { get; set; }
+        public virtual Benefit Benefit { get; set; }
     }
 }

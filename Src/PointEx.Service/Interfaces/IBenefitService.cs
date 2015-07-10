@@ -22,10 +22,15 @@ namespace PointEx.Service
 
         void Edit(Benefit benefit);
 
+        void Moderated(int benefitId, bool status);
+
         void Delete(int enefitId);
 
         bool IsNameAvailable(string name, int id);
 
         bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId);
+
+        List<BenefitDto> GetPendingBenefit(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria,
+            int pageIndex, int pageSize, out int pageTotal);
     }
 }

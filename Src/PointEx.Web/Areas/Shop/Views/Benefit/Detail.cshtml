@@ -25,6 +25,18 @@
         </div>
     </div>
 </div>
+@if (ViewBag.IsApproved)
+{
+    <div class="col-md-offset-2 col-sm-pull-10">
+        <img src="/Content/images/pointex-approved.jpg?width=320&height=150" alt="Disponible" title="Disponible" />
+    </div>
+}
+else
+{
+    <div class="col-md-offset-2 col-sm-pull-10">
+        <img src="/Content/images/pointex-warning.png?width=320&height=150" alt="Pendiente de aprobación" title="Pendiente de aprobación" />
+    </div>   
+}
 
 
 @section scripts

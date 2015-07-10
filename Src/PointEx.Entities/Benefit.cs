@@ -16,9 +16,9 @@ namespace PointEx.Entities
     {
         public Benefit()
         {
-            this.Purchases = new HashSet<Purchase>();
-            this.BenefitFiles = new HashSet<BenefitFile>();
             this.BenefitBranchOffices = new HashSet<BenefitBranchOffice>();
+            this.BenefitFiles = new HashSet<BenefitFile>();
+            this.Purchases = new HashSet<Purchase>();
             this.SectionItems = new HashSet<SectionItem>();
         }
     
@@ -28,18 +28,19 @@ namespace PointEx.Entities
         public Nullable<decimal> DiscountPercentage { get; set; }
         public Nullable<decimal> DiscountPercentageCeiling { get; set; }
         public int ShopId { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public System.DateTime DateFrom { get; set; }
         public Nullable<System.DateTime> DateTo { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<PointEx.Entities.Enums.BenefitTypesEnum> BenefitTypeId { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
     
-        public virtual Shop Shop { get; set; }
-        public virtual ICollection<Purchase> Purchases { get; set; }
-        public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
-        public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
-        public virtual ICollection<SectionItem> SectionItems { get; set; }
         public virtual BenefitType BenefitType { get; set; }
+        public virtual Shop Shop { get; set; }
+        public virtual ICollection<BenefitBranchOffice> BenefitBranchOffices { get; set; }
+        public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<SectionItem> SectionItems { get; set; }
     }
 }
