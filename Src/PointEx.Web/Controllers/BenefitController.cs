@@ -42,18 +42,27 @@ namespace PointEx.Web.Controllers
         {
             var benefit = _benefitService.GetById(id);
 
-            if (benefit == null)
+            if (benefit.IsApproved.HasValue && benefit.IsApproved.Value)
             {
-                return HttpNotFound();
+                if (benefit == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var shop = _shopService.GetById(benefit.ShopId);
+                var images = _benefitFileService.GetByBenefitId(benefit.Id);
+                var branchOffices = _branchOfficeService.GetByShopId(benefit.ShopId);
+
+                var benefitDetailModel = new BenefitDetailModel(benefit, shop, images, branchOffices);
+
+                return View(benefitDetailModel);
+            }
+            else
+            {
+                throw new HttpException(404, "Not found");
             }
 
-            var shop = _shopService.GetById(benefit.ShopId);
-            var images = _benefitFileService.GetByBenefitId(benefit.Id);
-            var branchOffices = _branchOfficeService.GetByShopId(benefit.ShopId);
-
-            var benefitDetailModel = new BenefitDetailModel(benefit, shop, images, branchOffices);
-
-            return View(benefitDetailModel);
+            
         }
     }
 }

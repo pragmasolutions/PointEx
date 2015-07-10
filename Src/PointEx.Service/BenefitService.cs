@@ -216,7 +216,7 @@ namespace PointEx.Service
         public IList<Benefit> GetOutstandingBenefits()
         {
             var today = _clock.Now.AddMonths(-3);
-            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && !b.IsDeleted,
+            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && (b.IsApproved.HasValue && b.IsApproved.Value) && !b.IsDeleted,
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitType,

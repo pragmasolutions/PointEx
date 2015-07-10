@@ -23,7 +23,7 @@ namespace PointEx.Entities.Dto
         public string BenefitStatus 
         { 
             get {
-                return (!this.IsApproved.HasValue)? "Pendiente" : ((this.IsApproved.Value)? "Aprobado" : "Rechazado");
+                return (!this.IsApproved.HasValue)? "Pendiente" : ((this.IsApproved.Value)? "Aprobado" : "Pendiente");
             } 
         }
         public void CreateMappings(IConfiguration configuration)
