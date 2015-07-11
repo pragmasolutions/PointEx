@@ -51,7 +51,7 @@ namespace PointEx.Security.Managers
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService = new OutlookEmailService();
+            manager.EmailService = new SendGridEmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)

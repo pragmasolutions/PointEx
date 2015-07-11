@@ -7,7 +7,7 @@
 @{
     ViewBag.Title = Model.Name;
 
-    var canChangePrize = PointExContext.Beneficiary.Points >= Model.PointsNeeded;
+    var canChangePrize = this.CurrentUser().Beneficiary.Points >= Model.PointsNeeded;
 }
 
 

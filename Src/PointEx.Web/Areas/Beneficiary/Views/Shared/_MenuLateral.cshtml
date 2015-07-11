@@ -8,14 +8,14 @@
     </div>
     <div class="item">
         Hola <br/>
-        <div class="nombre">
-            @PointExContext.Beneficiary.Name
+        <div class="nombre">            
+            @this.CurrentUser().Beneficiary.Name
         </div>
     </div>
     <div class="item">
         Tus Puntos:
         <div class="tus-puntos">
-            @PointExContext.Beneficiary.Points
+            @this.CurrentUser().Beneficiary.Points
         </div>
     </div>
 

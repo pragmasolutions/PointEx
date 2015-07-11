@@ -13,6 +13,7 @@ using PointEx.Service;
 using PointEx.Web.Models;
 using System.Threading.Tasks;
 using PointEx.Web.Configuration;
+using PointEx.Web.Infrastructure;
 
 namespace PointEx.Web.Controllers
 {
@@ -23,17 +24,20 @@ namespace PointEx.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly INotificationService _notificationService;
         private readonly ITownService _townService;
+        private readonly ICurrentUser _currentUser;
 
         public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
             ICategoryService categoryService, 
             INotificationService notificationService, 
-            ITownService townService)
+            ITownService townService,
+            ICurrentUser currentUser)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
             _categoryService = categoryService;
             _notificationService = notificationService;
             _townService = townService;
+            _currentUser = currentUser;
         }
 
         public ActionResult Index()
@@ -118,7 +122,7 @@ namespace PointEx.Web.Controllers
                 switch (PointExContext.Role)
                 {
                     case RolesNames.Beneficiary:
-                        var beneficiary = PointExContext.Beneficiary;
+                        var beneficiary = _currentUser.Beneficiary;
                         model.Name = beneficiary.Name;
                         break;
                     case RolesNames.Shop:

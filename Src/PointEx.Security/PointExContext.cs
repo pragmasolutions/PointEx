@@ -47,27 +47,27 @@ namespace PointEx.Security
             }
         }
 
-        public static Beneficiary Beneficiary
-        {
-            get
-            {
-                if (Role == RolesNames.Beneficiary)
-                {
-                    if (HttpContext.Current.Session["Beneficiary"] == null)
-                    {
+        //public static Beneficiary Beneficiary
+        //{
+        //    get
+        //    {
+        //        if (Role == RolesNames.Beneficiary)
+        //        {
+        //            if (HttpContext.Current.Session["Beneficiary"] == null)
+        //            {
 
-                        var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == User.Id, b => b.User, b => b.Town,
-                                                                                b => b.Cards, 
-                                                                                b => b.Cards.Select(c => c.Purchases),
-                                                                                b => b.EducationalInstitution,
-                                                                                b => b.PointsExchanges);
-                        HttpContext.Current.Session["Beneficiary"] = beneficiary;
-                    }
-                    return HttpContext.Current.Session["Beneficiary"] as Beneficiary;
-                }
-                return null;
-            }
-        }
+        //                var beneficiary = _uow.Beneficiaries.Get(b => b.UserId == User.Id, b => b.User, b => b.Town,
+        //                                                                        b => b.Cards,
+        //                                                                        b => b.Cards.Select(c => c.Purchases),
+        //                                                                        b => b.EducationalInstitution,
+        //                                                                        b => b.PointsExchanges);
+        //                HttpContext.Current.Session["Beneficiary"] = beneficiary;
+        //            }
+        //            return HttpContext.Current.Session["Beneficiary"] as Beneficiary;
+        //        }
+        //        return null;
+        //    }
+        //}
 
         public static Shop Shop
         {

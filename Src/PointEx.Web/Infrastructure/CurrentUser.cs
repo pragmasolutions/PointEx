@@ -4,6 +4,7 @@ using PointEx.Entities;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service;
+using PointEx.Security;
 
 namespace PointEx.Web.Infrastructure
 {
@@ -40,7 +41,12 @@ namespace PointEx.Web.Infrastructure
         {
             get
             {
-                return _beneficiary ?? (_beneficiary = _beneficiaryService.GetByUserId(_identity.GetUserId()));
+                if (PointExContext.Role == RolesNames.Beneficiary)
+                {
+                    return _beneficiary == null? (_beneficiary = _beneficiaryService.GetByUserId(_identity.GetUserId())) : _beneficiary;
+                }
+
+                return null;                
             }
         }
 

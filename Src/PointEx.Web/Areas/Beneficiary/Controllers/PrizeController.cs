@@ -6,6 +6,7 @@ using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Configuration;
 using PointEx.Web.Models;
+using PointEx.Web.Infrastructure;
 
 namespace PointEx.Web.Areas.Beneficiary.Controllers
 {
@@ -13,18 +14,20 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
     {
         private readonly IPrizeService _prizeService;
         private readonly IPointsExchangeService _pointsExchangeService;
+        private readonly ICurrentUser _currentUser; 
 
-        public PrizeController(IPrizeService prizeService, IPointsExchangeService pointsExchangeService)
+        public PrizeController(IPrizeService prizeService, IPointsExchangeService pointsExchangeService, ICurrentUser currentUser)
         {
             _prizeService = prizeService;
             _pointsExchangeService = pointsExchangeService;
+            _currentUser = currentUser;
         }
 
         public ActionResult Index(PrizeListFiltersModel filters)
         {
             int pageTotal;
 
-            int? maxPointsNeeded = filters.WithinReach ? PointExContext.Beneficiary.Points : (int?)null;
+            int? maxPointsNeeded = filters.WithinReach ? _currentUser.Beneficiary.Points : (int?)null;
 
             var prizes = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, maxPointsNeeded, filters.Page, DefaultPageSize, out pageTotal);
 
@@ -50,7 +53,7 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> ExchangePoints(int id, FormCollection formCollection)
         {
-            await _pointsExchangeService.ExchangePoints(id, PointExContext.Beneficiary.Id, AppSettings.Theme);
+            await _pointsExchangeService.ExchangePoints(id, _currentUser.Beneficiary.Id, AppSettings.Theme);
 
             return RedirectToAction("ExchangePointsSuccess", new { id });
         }
