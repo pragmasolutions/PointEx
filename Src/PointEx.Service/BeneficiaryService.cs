@@ -24,15 +24,17 @@ namespace PointEx.Service
         private readonly ApplicationUserManager _userManager;
         private readonly IPurchaseService _purchaseService;
         private readonly INotificationService _notificationService;
+        private readonly ICardService _cardService;
         private readonly IClock _clock;
 
         public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, 
             IPurchaseService purchaseService,
-            INotificationService notificationService, IClock clock)
+            INotificationService notificationService, IClock clock, ICardService cardService)
         {
             _userManager = userManager;
             _purchaseService = purchaseService;
             _notificationService = notificationService;
+            _cardService = cardService;
             _clock = clock;
             Uow = uow;
         }
@@ -66,6 +68,10 @@ namespace PointEx.Service
 
                     }
 
+                    var card = new Card();
+                    card.IssueDate = _clock.Now;
+                    card.Number = _cardService.GenerateNumber();
+                    beneficiary.Cards.Add(card);
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;

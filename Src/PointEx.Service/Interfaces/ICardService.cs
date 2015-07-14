@@ -13,5 +13,6 @@ namespace PointEx.Service
         Card CancelCard(int cardId);
         void Create(Card card);
         bool IsCardNumberAvailable(string number);
+        string GenerateNumber();
     }
 }

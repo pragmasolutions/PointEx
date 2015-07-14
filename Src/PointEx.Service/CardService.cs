@@ -15,6 +15,10 @@ namespace PointEx.Service
     {
         private readonly IClock _clock;
 
+        private const string charsAlphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        private const string charsNumeric = "0123456789";
+
         public CardService(IPointExUow uow, IClock clock)
         {
             _clock = clock;
@@ -88,6 +92,7 @@ namespace PointEx.Service
                 throw new ApplicationException("El numero de tarjeta no esta disponible");
             }
 
+            card.Number = GenerateNumber();
             card.IssueDate = _clock.Now;
             Uow.Cards.Add(card);
             Uow.Commit();
@@ -97,6 +102,29 @@ namespace PointEx.Service
         {
             var card = this.GetByNumber(number);
             return card == null;
+        }
+
+        public string GenerateNumber()
+        {
+            var random = new Random();
+
+            var resultAlphabetic = new string(
+                Enumerable.Repeat(charsAlphabetic, 3)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+
+            var resultNumeric = new string(
+                Enumerable.Repeat(charsNumeric, 6)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+
+            var resultNumber = string.Format("{0}-{1}", resultAlphabetic, resultNumeric);
+            var exist = IsCardNumberAvailable(resultNumber);
+            if (!exist)
+                this.GenerateNumber();
+
+            return resultNumber;
+            
         }
     }
 }

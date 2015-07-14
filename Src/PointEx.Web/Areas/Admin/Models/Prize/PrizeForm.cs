@@ -64,7 +64,7 @@ namespace PointEx.Web.Models
                         Id = this.ImageFileId,
                         FileContent = new FileContent()
                     };
-                }
+                }                
             }
 
             return prize;
