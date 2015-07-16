@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(prize.Name, "Detail", "Prize", routeValues: new {area = "Admin", prize.Id}, htmlAttributes: null)</td>
-                <td>TODO: Short Descip</td>
+                <td class="col-overflow-elipsis col-max-width-200">@prize.Description</td>
                 <td>@prize.PointsNeeded</td>
             </tr>
         }

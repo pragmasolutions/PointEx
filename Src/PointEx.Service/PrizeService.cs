@@ -63,7 +63,7 @@ namespace PointEx.Service
             {
                 throw new ApplicationException("Un Premio con el mismo nombre ya ha sido creado");
             }
-
+                        
             prize.CreatedDate = _clock.Now;
             Uow.Prizes.Add(prize);
             Uow.Commit();

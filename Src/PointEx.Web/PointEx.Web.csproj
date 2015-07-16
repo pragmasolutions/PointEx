@@ -361,6 +361,7 @@
     <Content Include="Content\images\microsoft-word.png" />
     <Content Include="Content\images\noimage.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\pointex-tables.css" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\front-end\pointex-homepage.css" />
     <Content Include="Content\Site.Beneficiary.css">

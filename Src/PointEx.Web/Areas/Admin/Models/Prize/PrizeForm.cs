@@ -41,7 +41,7 @@ namespace PointEx.Web.Models
         public File File { get; set; }
 
         [HiddenInput]
-        public int ImageFileId { get; set; }
+        public int? ImageFileId { get; set; }
 
         [HiddenInput]
         public bool OriginalFileWasRemoved { get; set; }
@@ -57,11 +57,11 @@ namespace PointEx.Web.Models
             else
             {
                 //if the file was not removed we send the same file content
-                if (!OriginalFileWasRemoved && this.ImageFileId != default(int))
+                if (!OriginalFileWasRemoved && this.ImageFileId != default(int) && this.ImageFileId.HasValue)
                 {
                     prize.File = new File
                     {
-                        Id = this.ImageFileId,
+                        Id = this.ImageFileId.Value,
                         FileContent = new FileContent()
                     };
                 }                

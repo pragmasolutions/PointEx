@@ -1,0 +1,10 @@
+﻿tbody tr td.col-overflow-elipsis {
+  -moz-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;  
+}
+
+tbody tr td.col-max-width-200 {
+  max-width: 200px;
+}
