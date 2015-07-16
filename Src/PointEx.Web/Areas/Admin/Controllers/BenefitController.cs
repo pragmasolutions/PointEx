@@ -29,7 +29,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetPendingBenefit("CreatedDate", "ASC", filters.CategoryId, filters.TownId, _currentUser.Shop.Id, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetPendingBenefit("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
