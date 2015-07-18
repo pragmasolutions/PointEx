@@ -49,7 +49,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted && x.IsApproved.HasValue && x.IsApproved.Value);
+                     !x.IsDeleted);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes
