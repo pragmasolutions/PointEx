@@ -34,7 +34,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Puntos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @switch (PointEx.Web.Configuration.AppSettings.Theme)
+                { 
+                    case "Jovenes":
+                        @Html.ActionLink("Tarjeta Jóven", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        break;
+                    case "Tekove":
+                        @Html.ActionLink("Tekove Poti", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        break;
+                }                
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

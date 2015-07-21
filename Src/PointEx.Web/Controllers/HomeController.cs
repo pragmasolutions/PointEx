@@ -46,8 +46,7 @@ namespace PointEx.Web.Controllers
             var outstandingItems = _benefitService.GetOutstandingBenefits();
             var categories = _categoryService.GetAll().ToList();
 
-            var homeModel = new HomeModel(sliderItems, outstandingItems, categories);
-
+            var homeModel = new HomeModel(sliderItems, outstandingItems, categories);            
             return View(homeModel);
         }
 
