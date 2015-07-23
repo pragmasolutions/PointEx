@@ -24,12 +24,14 @@ namespace PointEx.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly INotificationService _notificationService;
         private readonly ITownService _townService;
+        private readonly IEducationalInstitutionService _educationalInstitutionService;
         private readonly ICurrentUser _currentUser;
 
         public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
             ICategoryService categoryService, 
             INotificationService notificationService, 
             ITownService townService,
+            IEducationalInstitutionService educationalInstitutionService,
             ICurrentUser currentUser)
         {
             _sectionItemService = sectionItemService;
@@ -37,6 +39,7 @@ namespace PointEx.Web.Controllers
             _categoryService = categoryService;
             _notificationService = notificationService;
             _townService = townService;
+            _educationalInstitutionService = educationalInstitutionService;
             _currentUser = currentUser;
         }
 
@@ -56,6 +59,12 @@ namespace PointEx.Web.Controllers
             return View(form);
         }
 
+        public ActionResult AddBeneficiary()
+        {
+            AddBeneficiaryForm form = new AddBeneficiaryForm();
+            return View(form);
+        }
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> AddMyShop(AddMyShopForm addMyShopForm)
         {
@@ -69,6 +78,28 @@ namespace PointEx.Web.Controllers
             shop.Town = _townService.GetById(addMyShopForm.TownId);
 
             await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email, AppSettings.Theme);
+
+            return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddBeneficiary(AddBeneficiaryForm addBeneficiaryForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(addBeneficiaryForm);
+            }
+
+            var beneficiary = addBeneficiaryForm.ToBeneficiary();
+
+            beneficiary.Town = _townService.GetById(addBeneficiaryForm.TownId);
+
+            if (addBeneficiaryForm.EducationalInstitutionId.HasValue)
+            {
+                beneficiary.EducationalInstitution = _educationalInstitutionService.GetById(addBeneficiaryForm.EducationalInstitutionId.Value);
+            }
+
+            await _notificationService.SendAddBeneficiaryRequestEmail(beneficiary, addBeneficiaryForm.Email, AppSettings.Theme);
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }

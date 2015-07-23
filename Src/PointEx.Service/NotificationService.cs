@@ -66,6 +66,28 @@ namespace PointEx.Service
             }
         }
 
+        public async Task SendAddBeneficiaryRequestEmail(Beneficiary beneficiary, string email, string theme)
+        {
+            using (var client = GetSmtpClient())
+            {
+                var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
+
+                adminMail.Subject = "Solicitud Adherir Comercio";
+                adminMail.Body = GetAddBeneficiaryRequestEmailBody(beneficiary, theme);
+                adminMail.IsBodyHtml = true;
+
+                await client.SendMailAsync(adminMail);
+
+                var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+
+                shopConfirmationEmail.Subject = "Solicitud Enviada";
+                shopConfirmationEmail.Body = GetAddBeneficiaryRequestConfirmationEmailBody(theme);
+                shopConfirmationEmail.IsBodyHtml = true;
+
+                await client.SendMailAsync(shopConfirmationEmail);
+            }
+        }
+
         private SmtpClient GetSmtpClient()
         {
             var credentialUserName = ConfigurationManager.AppSettings["EmailSentFrom"];
@@ -173,6 +195,28 @@ namespace PointEx.Service
             return body;
         }
 
+        private string GetAddBeneficiaryRequestEmailBody(Beneficiary beneficiary, string theme)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/AddBeneficiaryRequest.html", theme);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{Name}", beneficiary.Name);
+            body = body.Replace("{Address}", beneficiary.Address);
+            if (beneficiary.EducationalInstitutionId.HasValue)
+            {
+                body = body.Replace("{EducationInstitution}", beneficiary.EducationalInstitution.Name);
+            }
+
+            body = body.Replace("{TownName}", beneficiary.Town.Name);
+
+            return body;
+        }
+
         private string GetAddShopRequestConfirmationEmailBody(string theme)
         {
             string body = string.Empty;
@@ -254,6 +298,19 @@ namespace PointEx.Service
 
             return body;
         }
+        private string GetAddBeneficiaryRequestConfirmationEmailBody(string theme)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/AddBeneficiaryRequestConfirmation.html", theme);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            return body;
+        }
+
     }
 }
 
