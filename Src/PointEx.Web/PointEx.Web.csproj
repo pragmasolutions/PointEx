@@ -371,6 +371,9 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="EmailTemplates\Jovenes\BenefitApprovedEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\PendingBenefitUpdateEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\PendingBenefitEmail.html" />
     <Content Include="EmailTemplates\Jovenes\AddShopRequest.html" />
     <Content Include="EmailTemplates\Jovenes\AddShopRequestConfirmation.html" />
     <Content Include="EmailTemplates\Jovenes\InfoRequestAutomaticResponseEmail.html" />
@@ -378,8 +381,10 @@
     <Content Include="EmailTemplates\Jovenes\PointExchangeConfirmationEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\AddShopRequest.html" />
     <Content Include="EmailTemplates\TekovePoti\AddShopRequestConfirmation.html" />
+    <Content Include="EmailTemplates\TekovePoti\BenefitApprovedEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\InfoRequestAutomaticResponseEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\InfoRequestToAdminEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\PendingBenefitEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\PointExchangeConfirmationEmail.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -694,6 +699,7 @@
     <Content Include="App_GlobalResources\PointExGlobalResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PointExGlobalResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="App_LocalResources\PointExResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
