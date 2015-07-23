@@ -323,6 +323,7 @@
     <Compile Include="Models\Benefit\BenefitDetailModel.cs" />
     <Compile Include="Models\Files\OrderImagesForm.cs" />
     <Compile Include="Models\Files\UploadImagesForm.cs" />
+    <Compile Include="Models\Home\AddBeneficiaryForm.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\Home\AddMyShopForm.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />
@@ -371,7 +372,9 @@
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="EmailTemplates\Jovenes\AddBeneficiaryRequest.html" />
     <Content Include="EmailTemplates\Jovenes\AddShopRequest.html" />
+    <Content Include="EmailTemplates\Jovenes\AddBeneficiaryRequestConfirmation.html" />
     <Content Include="EmailTemplates\Jovenes\AddShopRequestConfirmation.html" />
     <Content Include="EmailTemplates\Jovenes\InfoRequestAutomaticResponseEmail.html" />
     <Content Include="EmailTemplates\Jovenes\InfoRequestToAdminEmail.html" />
@@ -630,6 +633,7 @@
     <Content Include="Views\Home\TermsAndConditions.cshtml" />
     <Content Include="Views\Shared\Benefit\_Filters.cshtml" />
     <Content Include="Views\Shared\Benefit\_GridButton.cshtml" />
+    <Content Include="Views\Home\AddBeneficiary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

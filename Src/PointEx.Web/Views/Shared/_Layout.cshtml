@@ -49,10 +49,9 @@
                 <ul class="nav navbar-nav public">
                     <li>@Html.ActionLink("¿Como Funciona?", "Index", "Home")</li>
                     <li>@Html.ActionLink("Aderir mi Comercio", "AddMyShop", "Home")</li>
-                    <li>@Html.ActionLink("Preguntas Frecuentes", "FrequentlyAskedQuestions", "Home")</li>
-
+                    <li>@Html.ActionLink("Preguntas Frecuentes", "FrequentlyAskedQuestions", "Home")</li>                    
                     <li>@Html.ActionLink("Catalogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
-
+                    <li>@Html.ActionLink("Registrarme", "AddBeneficiary", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
