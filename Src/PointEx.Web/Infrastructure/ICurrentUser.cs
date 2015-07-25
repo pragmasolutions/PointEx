@@ -1,4 +1,5 @@
 ﻿using PointEx.Entities;
+using PointEx.Security.Model;
 
 namespace PointEx.Web.Infrastructure
 {
@@ -6,5 +7,7 @@ namespace PointEx.Web.Infrastructure
 	{
         Shop Shop { get; }
         Beneficiary Beneficiary { get; }
+        User PointexUser { get; }
+        ApplicationUser User { get; }
 	}
 }

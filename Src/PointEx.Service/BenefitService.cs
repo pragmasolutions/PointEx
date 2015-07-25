@@ -63,7 +63,9 @@ namespace PointEx.Service
 
         public Benefit GetById(int id)
         {
-            return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice));
+            return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, 
+                b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
+                b => b.Shop, b => b.Shop.User);
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
@@ -78,7 +80,7 @@ namespace PointEx.Service
 
         public void Create(Benefit benefit)
         {
-            if (!IsNameAvailable(benefit.Description, benefit.Id))
+            if (!IsNameAvailable(benefit.Name, benefit.Id))
             {
                 throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
             }
@@ -91,7 +93,7 @@ namespace PointEx.Service
 
         public void Edit(Benefit benefit)
         {
-            if (!IsNameAvailable(benefit.Description, benefit.Id))
+            if (!IsNameAvailable(benefit.Name, benefit.Id))
             {
                 throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
             }
@@ -136,6 +138,7 @@ namespace PointEx.Service
             currentBenefit.IsApproved = status;
 
             Uow.Benefits.Edit(currentBenefit);
+
             Uow.Commit();
         }
 

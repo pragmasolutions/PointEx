@@ -8,7 +8,9 @@ using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 using PointEx.Web.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 using PointEx.Web.Areas.Admin.Controllers;
+using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
@@ -17,10 +19,13 @@ namespace PointEx.Web.Areas.Admin.Controllers
         private readonly IBenefitService _benefitService;        
         private readonly ICurrentUser _currentUser;
         private readonly IBranchOfficeService _branchOfficeService;
+        private readonly INotificationService _notificationService;
 
-        public BenefitController(IBenefitService benefitService, ICurrentUser currentUser, IBranchOfficeService branchOffice)
+        public BenefitController(IBenefitService benefitService, ICurrentUser currentUser, IBranchOfficeService branchOffice,
+                                INotificationService notificationService)
         {
-            _benefitService = benefitService;            
+            _benefitService = benefitService;
+            _notificationService = notificationService;
             _currentUser = currentUser;
             _branchOfficeService = branchOffice;
         }
@@ -53,9 +58,12 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
                
         [HttpPost]
-        public ActionResult Approved(int id)
+        public async Task<ActionResult> Approved(int id)
         {
             _benefitService.Moderated(id, true);
+
+            var benefit = _benefitService.GetById(id);
+            await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
 
             return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
         }

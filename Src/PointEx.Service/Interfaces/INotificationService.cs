@@ -14,7 +14,9 @@ namespace PointEx.Service
         Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme);
         Task SendAccountConfirmationEmail(string userId);
         Task SendInformationRequestEmail(InformationRequestModel request, string theme);
+        Task SendPendingBenefitEmail(string benefitName, string beneficiaryEmail, bool created, string theme);
         Task SendAddShopRequestEmail(Shop shop, string email, string theme);
         Task SendAddBeneficiaryRequestEmail(Beneficiary beneficiary, string email, string theme);
+        Task SendBenefitApprovedMail(Benefit benefit, string siteBaseUrl);
     }
 }

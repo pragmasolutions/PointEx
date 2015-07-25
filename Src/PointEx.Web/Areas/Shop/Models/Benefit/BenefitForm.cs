@@ -25,6 +25,9 @@ namespace PointEx.Web.Models
         [HiddenInput]
         public int Id { get; set; }
 
+        [HiddenInput]
+        public bool? IsApproved { get; set; }
+
         [Required]
         [Display(Name = "Nombre")]
         [Remote("IsNameAvailable", "Benefit", "Shop", ErrorMessage = "Ya existe un beneficio con este nombre", AdditionalFields = "Id")]

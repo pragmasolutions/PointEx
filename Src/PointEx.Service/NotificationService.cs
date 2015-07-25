@@ -231,6 +231,74 @@ namespace PointEx.Service
             return body;
         }
 
+        public async Task SendPendingBenefitEmail(string benefitName, string beneficiaryEmail, bool created, string theme)
+        {
+            var subject = created
+                ? "Beneficio pendiente de aprobación"
+                : "Modificación de beneficio pendiente de aprobación";
+            var template = created
+                ? "PendingBenefitEmail"
+                : "PendingBenefitUpdateEmail";
+            using (var client = GetSmtpClient())
+            {
+                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiaryEmail);
+                mail.Subject = subject;
+                mail.Body = GetPendingBenefitEmailBody(benefitName, theme, template);
+                mail.IsBodyHtml = true;
+
+                await client.SendMailAsync(mail);
+            }
+        }
+
+        
+        private string GetPendingBenefitEmailBody(string benefitName, string theme, string templateName)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/{1}.html", theme, templateName);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{BenefitName}", benefitName);
+
+            return body;
+        }
+
+
+        public async Task SendBenefitApprovedMail(Benefit benefit, string siteBaseUrl)
+        {
+            var email = benefit.Shop.User.Email;
+
+            using (var client = GetSmtpClient())
+            {
+                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+                mail.Subject = "Beneficio Aprobado";
+
+                mail.Body = GetBenefitApprovedEmailBody(benefit, siteBaseUrl);
+                mail.IsBodyHtml = true;
+
+                await client.SendMailAsync(mail);
+            }
+        }
+
+        private string GetBenefitApprovedEmailBody(Benefit benefit, string siteBaseUrl)
+        {
+            string body = string.Empty;
+            var theme = ConfigurationManager.AppSettings["Theme"];
+            var templatePath = String.Format("~/EmailTemplates/{0}/{1}.html", theme, "BenefitApprovedEmail");
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{BenefitName}", benefit.Name);
+            body = body.Replace("{BaseUrl}", siteBaseUrl);
+            body = body.Replace("{BenefitId}", benefit.Id.ToString());
+
+            return body;
+        }
         private string GetAddBeneficiaryRequestConfirmationEmailBody(string theme)
         {
             string body = string.Empty;
