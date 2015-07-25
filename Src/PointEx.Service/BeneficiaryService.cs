@@ -91,8 +91,17 @@ namespace PointEx.Service
 
         public void Edit(Beneficiary beneficiary)
         {
-            beneficiary.ModifiedDate = _clock.Now;
-            Uow.Beneficiaries.Edit(beneficiary);
+            var currentBeneficiary = this.GetById(beneficiary.Id);
+
+            currentBeneficiary.Address = beneficiary.Address;
+            currentBeneficiary.BirthDate = beneficiary.BirthDate;
+            currentBeneficiary.EducationalInstitutionId = beneficiary.EducationalInstitutionId;
+            currentBeneficiary.Name = beneficiary.Name;
+            currentBeneficiary.IdentificationNumber = beneficiary.IdentificationNumber;
+            currentBeneficiary.TownId = beneficiary.TownId;
+            currentBeneficiary.ModifiedDate = _clock.Now;
+
+            Uow.Beneficiaries.Edit(currentBeneficiary);
             Uow.Commit();
         }
 

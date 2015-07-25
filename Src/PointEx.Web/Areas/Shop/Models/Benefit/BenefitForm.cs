@@ -35,6 +35,10 @@ namespace PointEx.Web.Models
         [Required]
         public string Description { get; set; }
 
+        [UIHint("BenefitType")]
+        [Display(Name = "Tipo Beneficio")]
+        public BenefitTypesEnum? BenefitTypeId { get; set; }
+
         [Display(Name = @"Porcentaje de Descuento")]
         [UIHint("Percentage")]
         public decimal? DiscountPercentage { get; set; }
@@ -55,11 +59,7 @@ namespace PointEx.Web.Models
         [Display(Name = "Sucursales")]
         [NotMapped]
         public IEnumerable<int> BranchOfficesSelected { get; set; }
-
-        [UIHint("BenefitType")]
-        [Display(Name = "Tipo Beneficio")]
-        public BenefitTypesEnum? BenefitTypeId { get; set; }
-
+        
         public Benefit ToBenefit()
         {
             var benefit = Mapper.Map<BenefitForm, Benefit>(this);

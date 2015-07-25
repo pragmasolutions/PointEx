@@ -61,7 +61,7 @@ namespace PointEx.Web.Controllers
 
         public ActionResult AddBeneficiary()
         {
-            AddBeneficiaryForm form = new AddBeneficiaryForm();
+            BeneficiaryForm form = new BeneficiaryForm();
             return View(form);
         }
 
@@ -83,7 +83,7 @@ namespace PointEx.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddBeneficiary(AddBeneficiaryForm addBeneficiaryForm)
+        public async Task<ActionResult> AddBeneficiary(BeneficiaryForm addBeneficiaryForm)
         {
             if (!ModelState.IsValid)
             {

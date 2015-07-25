@@ -72,19 +72,19 @@ namespace PointEx.Service
             {
                 var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
 
-                adminMail.Subject = "Solicitud Adherir Comercio";
+                adminMail.Subject = "Solicitud Alta Beneficiario";
                 adminMail.Body = GetAddBeneficiaryRequestEmailBody(beneficiary, theme);
                 adminMail.IsBodyHtml = true;
 
                 await client.SendMailAsync(adminMail);
 
-                var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+                var beneficiaryConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
 
-                shopConfirmationEmail.Subject = "Solicitud Enviada";
-                shopConfirmationEmail.Body = GetAddBeneficiaryRequestConfirmationEmailBody(theme);
-                shopConfirmationEmail.IsBodyHtml = true;
+                beneficiaryConfirmationEmail.Subject = "Solicitud Enviada";
+                beneficiaryConfirmationEmail.Body = GetAddBeneficiaryRequestConfirmationEmailBody(theme);
+                beneficiaryConfirmationEmail.IsBodyHtml = true;
 
-                await client.SendMailAsync(shopConfirmationEmail);
+                await client.SendMailAsync(beneficiaryConfirmationEmail);
             }
         }
 
@@ -198,8 +198,9 @@ namespace PointEx.Service
         private string GetAddBeneficiaryRequestEmailBody(Beneficiary beneficiary, string theme)
         {
             string body = string.Empty;
-
+                         
             var templatePath = String.Format("~/EmailTemplates/{0}/AddBeneficiaryRequest.html", theme);
+            
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
             {
                 body = reader.ReadToEnd();
@@ -207,12 +208,12 @@ namespace PointEx.Service
 
             body = body.Replace("{Name}", beneficiary.Name);
             body = body.Replace("{Address}", beneficiary.Address);
+            body = body.Replace("{TownName}", beneficiary.Town.Name);
+
             if (beneficiary.EducationalInstitutionId.HasValue)
             {
                 body = body.Replace("{EducationInstitution}", beneficiary.EducationalInstitution.Name);
-            }
-
-            body = body.Replace("{TownName}", beneficiary.Town.Name);
+            }           
 
             return body;
         }

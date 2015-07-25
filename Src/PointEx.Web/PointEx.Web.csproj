@@ -379,6 +379,8 @@
     <Content Include="EmailTemplates\Jovenes\InfoRequestAutomaticResponseEmail.html" />
     <Content Include="EmailTemplates\Jovenes\InfoRequestToAdminEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PointExchangeConfirmationEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\AddBeneficiaryRequest.html" />
+    <Content Include="EmailTemplates\TekovePoti\AddBeneficiaryRequestConfirmation.html" />
     <Content Include="EmailTemplates\TekovePoti\AddShopRequest.html" />
     <Content Include="EmailTemplates\TekovePoti\AddShopRequestConfirmation.html" />
     <Content Include="EmailTemplates\TekovePoti\InfoRequestAutomaticResponseEmail.html" />
@@ -472,7 +474,6 @@
     <Content Include="Areas\Beneficiary\Views\Prize\Detail.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\_ExchangePointsConfirmationModal.cshtml" />
     <Content Include="Areas\Beneficiary\Views\Prize\ExchangePointsSuccess.cshtml" />
-    <Content Include="Areas\Admin\Views\Beneficiary\_CreateEditControls.cshtml" />
     <Content Include="Reports\Purchases.rdl" />
     <Content Include="Areas\Admin\Views\Report\Purchases.cshtml" />
     <Content Include="Areas\Admin\Views\Report\_Filters.cshtml" />
@@ -634,6 +635,7 @@
     <Content Include="Views\Shared\Benefit\_Filters.cshtml" />
     <Content Include="Views\Shared\Benefit\_GridButton.cshtml" />
     <Content Include="Views\Home\AddBeneficiary.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_CreateEditControls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

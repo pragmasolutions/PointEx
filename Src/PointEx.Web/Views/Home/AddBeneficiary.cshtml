@@ -1,4 +1,4 @@
-﻿@model PointEx.Web.Models.AddBeneficiaryForm
+﻿@model PointEx.Web.Models.BeneficiaryForm
 @{
     ViewBag.Title = "Solicitud de Alta Beneficiario";
 }
@@ -25,12 +25,15 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @Html.EditorForModel()
+
+    @Html.Partial("Beneficiary/_CreateEditControls")
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Enviar" class="btn btn-default" />
+            <input type="submit" value="Crear Beneficiario" class="btn btn-default" />
         </div>
     </div>
 }
+
 <div class="spacer"></div>
 <div class="spacer"></div>
