@@ -17,7 +17,7 @@ namespace PointEx.Web.Helpers
                 String.Format("{0}Shop", baseUrl),
                 String.Format("{0}Beneficiary", baseUrl)
             };
-            return !areas.Contains(HttpContext.Current.Request.Url.ToString());
+            return !areas.Any(a => HttpContext.Current.Request.Url.ToString().IndexOf(a, StringComparison.CurrentCultureIgnoreCase) != -1);
         }
     }
 }

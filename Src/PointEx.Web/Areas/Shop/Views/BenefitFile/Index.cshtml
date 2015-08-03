@@ -5,8 +5,8 @@
 <h3>Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
 
 @Html.BackButton("Detail", "Benefit", new { area = "Shop", Model.Benefit.Id }, "Volver al detalle")
-@Html.ActionLink("Subir Images", "UploadImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("Ordenar Images", "OrderImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Subir Imágenes", "UploadImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Ordenar Imágenes", "OrderImages", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Benefit.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 
 <div class="spacer">
 </div>
