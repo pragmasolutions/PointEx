@@ -24,24 +24,6 @@
                                 data_initial_preview = currentImage,
                                 data_overwrite_initial = "true",
                                 data_min_image_width = 640,
-                                data_min_image_height = 480                                
+                                data_min_image_height = 480                                                                    
                             })
 
-
-@section scripts
-{
-    <script>
-        $(document).on('ready', function () {
-            // the file input
-            var $el = $('#file-4'), initPlugin = function () {
-                $el.fileinput({
-                    uploadUrl: '/file-upload-single/1',
-                    uploadExtraData: { kvId: '10' },
-                    dropZoneEnabled: false,
-                }).off('filepreupload').on('filepreupload', function () {
-                    alert("Initial pre-upload message!");
-                });
-            }
-        });
-    </script>
-}
