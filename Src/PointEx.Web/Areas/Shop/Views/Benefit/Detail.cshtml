@@ -9,7 +9,54 @@
 @Html.ActionLink("Imagenes", "Index", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 <hr />
 <div class="form-horizontal">
-    @Html.DisplayForModel()
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.Name)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Name)            
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.Description)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Description)            
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.BenefitTypeId)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.BenefitTypeId)            
+        </div>
+    </div>
+    <div class="form-group hiddenByBenefitType">
+        @Html.BootstrapLabelFor(model => model.DiscountPercentage)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DiscountPercentage)            
+        </div>
+    </div>
+    <div class="form-group hiddenByBenefitType">
+        @Html.BootstrapLabelFor(model => model.DiscountPercentageCeiling)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DiscountPercentageCeiling)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.DateFrom)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DateFrom)            
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.DateTo)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DateTo)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabelFor(model => model.BranchOfficesSelected)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.BranchOfficesSelected)            
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             @using (Html.BeginForm("Delete", "Benefit", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
@@ -46,6 +93,16 @@ else
             $("#delete-form").on("submit", function () {
                 return confirm("Esta seguro que desea eliminar este beneficio?  Esta operacion no se puede deshacer.");
             });
+        });       
+
+        $(function () {
+            var typeValue = $("#BenefitTypeId").attr("data-id");            
+            if (typeValue != 1) {
+                $(".hiddenByBenefitType").closest(".form-group").hide();                
+            }
+            else {
+                $(".hiddenByBenefitType").closest(".form-group").show();
+            }
         });
     </script>
 }

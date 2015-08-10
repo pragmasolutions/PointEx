@@ -1,4 +1,4 @@
-﻿@model Enum
+﻿@model PointEx.Entities.Enums.BenefitTypesEnum
 
 @if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
 {    
@@ -23,7 +23,7 @@
         }
     }
         
-    @Html.TextBox("", displayName, new { @class = "form-control", @readonly = true })
+    @Html.TextBox("", displayName, new { @class = "form-control", @readonly = true, @data_id= (int)Model })
 }
 else
 {    
