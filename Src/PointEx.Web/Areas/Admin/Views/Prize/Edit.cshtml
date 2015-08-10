@@ -14,24 +14,7 @@
     @Html.EditorForModel()
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Editar Premio" class="btn btn-default" />
+            <input id="btnSubmit" type="submit" value="Editar Premio" class="btn btn-default" />
         </div>
     </div>
-}
-
-@section scripts
-{
-    <script>
-        $('#Files').on('fileloaded', function (event, file, previewId, index, reader) {
-            $("#btnSubmit").removeAttr("disabled");
-        });
-
-        $('#Files').on('fileclear', function (event) {
-            $("#btnSubmit").removeAttr("disabled");
-        });
-
-        $("#Files").on('fileuploaderror', function (event, data, previewId, index) {
-            $("#btnSubmit").attr("disabled", "true");
-        });
-    </script>
 }

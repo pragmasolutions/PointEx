@@ -38,6 +38,7 @@ namespace PointEx.Web
                       "~/Scripts/bootstrap-datepicker.es.js",
                       "~/Scripts/fileinput.js",
                       "~/Scripts/fileinput_locale_es.js",
+                      "~/Scripts/ImageUploadValidation.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/lib")

@@ -523,6 +523,7 @@
     <Content Include="Scripts\globalize.culture.es-AR.js" />
     <Content Include="Scripts\globalize.init.js" />
     <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\ImageUploadValidation.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jQuery-Picture-Cut-master\picturecut.jquery.json" />
