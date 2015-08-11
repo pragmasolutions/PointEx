@@ -489,6 +489,12 @@
                     case 'maxFileSize':
                         self[key] = getNum(value);
                         break;
+                    case 'minImageWidth':
+                        self[key] = getNum(value);
+                        break;
+                    case 'minImageHeight':
+                        self[key] = getNum(value);
+                        break;
                     default:
                         self[key] = value;
                         break;
