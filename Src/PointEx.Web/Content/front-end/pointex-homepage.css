@@ -6,22 +6,18 @@ html, body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -284px;
+    margin: 0 auto -315px;
 }
 
 .main-background {
     background-image: url(images/mail-background.jpg);
+    margin-right: auto;
+    margin-left: auto;
+    width: 78%
 }
 
 #wrapper .container {
-}
-
-.inner-container {
-    margin-left: 10px;
-    margin-right: 10px;
     background-color: #FFF;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 body {
@@ -80,6 +76,10 @@ footer {
         padding: 25px 0;
         background-color: #015507;
     }
+
+    foo a:hover {
+            color: #ccc;
+        }
 
 .btn-social {
     display: inline-block;

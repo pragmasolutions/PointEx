@@ -55,6 +55,8 @@ namespace PointEx.Web.Models
             var shop = Mapper.Map<ShopForm, Shop>(this);
             shop.ShopCategories =
                 this.CategoriesSelected.Select(categoryId => new ShopCategory() { CategoryId = categoryId, ShopId = this.Id }).ToArray();
+            shop.User = new User();
+            shop.User.Email = this.Email;
             return shop;
         }
 
