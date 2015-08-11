@@ -6,13 +6,13 @@ html, body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -315px;
+    margin: 0 auto -284px;
 }
 
 .main-background {
     margin-right: auto;
     margin-left: auto;
-    width: 78%
+    width: 65%
 }
 
 #wrapper .container {
@@ -77,7 +77,7 @@ footer {
         background-color: #015507;
     }
 
-    foo a:hover {
+    footer a:hover {
             color: #ccc;
         }
 
