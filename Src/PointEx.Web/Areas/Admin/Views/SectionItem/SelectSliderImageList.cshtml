@@ -1,0 +1,42 @@
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
+@model PointEx.Web.Models.AddSliderImageModel
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var sliderImage in Model.SliderImageListModel.List)
+        {
+            <tr>
+                <td>@Html.ActionLink(sliderImage.Name, "Detail", "SliderImage", routeValues: new { area = "Admin", sliderImage.Id }, htmlAttributes: null)</td>
+                <td>
+
+                    @if (Model.SelectedSliderImageIds.Any(id => id == sliderImage.Id))
+                    {
+                        <p>Imágen ya agregada</p>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("AddSliderImage", "SectionItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.Hidden("SliderImageId", sliderImage.Id)
+                            @Html.Hidden("SectionId", Model.SectionId)
+
+                            <input type="submit" value="Seleccionar" class="btn btn-default" />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.SliderImageListModel.List, page => Url.Action("AddSliderImage", Model.SliderImageListModel.Filters.GetRouteValues(page)))
+
+

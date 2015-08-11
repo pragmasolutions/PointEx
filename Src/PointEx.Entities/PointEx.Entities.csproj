@@ -78,6 +78,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\SliderImageDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\BeneficiaryDto.cs" />
     <Compile Include="Dto\BenefitDto.cs" />
@@ -168,7 +169,6 @@
     <None Include="packages.config" />
     <None Include="PointExModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PointExModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

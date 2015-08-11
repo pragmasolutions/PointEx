@@ -41,6 +41,7 @@ namespace PointEx.Data
         public IRepository<SectionItem> SectionItems { get { return GetStandardRepo<SectionItem>(); } }        
         public IReportRepository Reports { get { return GetRepo<IReportRepository>(); } }
         public IRepository<BenefitType> BenefitTypes { get { return GetStandardRepo<BenefitType>(); } }
+        public IRepository<SliderImage> SliderImages { get { return GetStandardRepo<SliderImage>(); } }
         
         public string ConnectionString
         {

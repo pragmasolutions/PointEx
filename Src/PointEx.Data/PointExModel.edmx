@@ -234,6 +234,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -1671,6 +1673,8 @@
           <Property Name="FileId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="File" Relationship="PointEx.Data.FK_SliderImage_File" FromRole="SliderImage" ToRole="File" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_SliderImage" FromRole="SliderImage" ToRole="SectionItem" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
         </EntityType>
         <Association Name="FK_SliderImage_File">
           <End Type="PointEx.Data.File" Role="File" Multiplicity="1" />
@@ -2031,6 +2035,8 @@
           <EntitySetMapping Name="SliderImages">
             <EntityTypeMapping TypeName="PointEx.Data.SliderImage">
               <MappingFragment StoreEntitySet="SliderImage">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

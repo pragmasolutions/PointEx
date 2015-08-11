@@ -9,7 +9,7 @@ namespace PointEx.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-2.1.2.min.js"));
+                        "~/Scripts/jquery-2.1.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/globalize").Include(
                         "~/Scripts/jquery.validate-vsdoc.js",

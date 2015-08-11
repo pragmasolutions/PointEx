@@ -13,15 +13,14 @@ namespace PointEx.Entities
             get
             {
                 if (this.Benefit != null)
-                {
                     return this.Benefit.DefaultFileId;
-                }
-
+                
                 if (this.Prize != null)
-                {
                     return this.Prize.ImageFileId;
-                }
 
+                if (this.SliderImage != null)
+                    return this.SliderImage.FileId;
+                
                 return null;
             }
         }

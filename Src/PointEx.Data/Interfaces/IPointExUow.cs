@@ -28,6 +28,7 @@ namespace PointEx.Data.Interfaces
         IRepository<Section> Sections { get; }
         IRepository<SectionItem> SectionItems { get; }
         IRepository<BenefitType> BenefitTypes { get; }
+        IRepository<SliderImage> SliderImages { get; }
 
         PointExDbContext DbContext { get; }
     }

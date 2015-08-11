@@ -22,6 +22,12 @@ namespace Framework.Common.Web.Helpers
             return MvcHtmlString.Create(html);
         }
 
+        public static MvcHtmlString BackButton(this HtmlHelper helper, string url, string buttonText = "Volver al Listado")
+        {
+            var html = String.Format("<a href=\"{0}\" class=\"btn btn-primary btn-back-to-list\"><span class=\"glyphicon glyphicon-arrow-left\"></span> {1}</a>", url, buttonText);
+            return MvcHtmlString.Create(html);
+        }
+
         public static MvcHtmlString FilterButton(this HtmlHelper helper, string filterContainer = "filter-container")
         {
             var html =

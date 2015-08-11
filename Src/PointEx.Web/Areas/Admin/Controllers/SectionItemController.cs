@@ -20,13 +20,16 @@ namespace PointEx.Web.Areas.Admin.Controllers
         private readonly ISectionService _sectionService;
         private readonly IBenefitService _benefitService;
         private readonly IPrizeService _prizeService;
+        private readonly ISliderImageService _sliderImageService;
 
-        public SectionItemController(ISectionItemService sectionItemService, ISectionService sectionService, IBenefitService benefitService, IPrizeService prizeService)
+        public SectionItemController(ISectionItemService sectionItemService, ISectionService sectionService, 
+            IBenefitService benefitService, IPrizeService prizeService, ISliderImageService sliderImageService)
         {
             _sectionItemService = sectionItemService;
             _sectionService = sectionService;
             _benefitService = benefitService;
             _prizeService = prizeService;
+            _sliderImageService = sliderImageService;
         }
 
         public ActionResult Index(int sectionId)
@@ -153,6 +156,47 @@ namespace PointEx.Web.Areas.Admin.Controllers
             _sectionItemService.Create(sectionItem);
 
             return RedirectToAction("Index", new { sectionId = addPrizeForm.SectionId }).WithSuccess("Premio Agregado");
+        }
+
+        public ActionResult AddSliderImage(SliderImageListFiltersModel filters, int sectionId)
+        {
+            var section = _sectionService.GetById(sectionId);
+
+            int pageTotal = 0;
+            var images = _sliderImageService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<SliderImageDto>(images, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new SliderImageListModel(pagedList, filters);
+
+            var sectionItems = _sectionItemService.GetBySectionId(sectionId);
+
+            var addSliderImageModel = new AddSliderImageModel();
+
+            addSliderImageModel.SectionName = section.Name;
+            addSliderImageModel.SliderImageListModel = listModel;
+            addSliderImageModel.SelectedSliderImageIds = sectionItems.Where(si => si.SliderImageId.HasValue).Select(si => si.SliderImageId.GetValueOrDefault()).ToList();
+            addSliderImageModel.SectionId = sectionId;
+
+            return View(addSliderImageModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult AddSliderImage(AddSliderImageForm addSliderImageForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var sectionItem = new SectionItem();
+
+            sectionItem.SectionId = addSliderImageForm.SectionId;
+            sectionItem.SliderImageId = addSliderImageForm.SliderImageId;
+
+            _sectionItemService.Create(sectionItem);
+
+            return RedirectToAction("Index", new { sectionId = addSliderImageForm.SectionId }).WithSuccess("Imágen Agregada");
         }
 
         [HttpPost, ValidateAntiForgeryToken]

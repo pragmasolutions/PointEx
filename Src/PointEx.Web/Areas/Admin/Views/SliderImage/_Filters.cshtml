@@ -1,0 +1,15 @@
+﻿@model PointEx.Web.Models.SliderImageListFiltersModel
+
+<div id="filter-container" class="collapse">
+    @using (Html.BeginForm("Index", "SliderImage", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.Criteria)
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-default pull-left"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </div>
+    }
+</div>

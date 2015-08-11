@@ -22,6 +22,8 @@ namespace PointEx.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int FileId { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual File File { get; set; }
         public virtual ICollection<SectionItem> SectionItems { get; set; }

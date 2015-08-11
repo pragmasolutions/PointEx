@@ -1,0 +1,10 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+@model PointEx.Web.Models.AddSliderImageModel
+
+<div id="filter-container" class="collapse">
+    @using (Html.BeginForm("AddSliderImage", "SectionItem", FormMethod.Get))
+    {
+        @Html.HiddenFor(model => model.SectionId)
+        @Html.Partial("_SliderImageFiltersFields", Model.SliderImageListModel.Filters)
+    }
+</div>

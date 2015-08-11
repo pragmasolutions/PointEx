@@ -1,0 +1,23 @@
+﻿@model PointEx.Web.Models.SliderImageForm
+
+@{
+    ViewBag.Title = "Crear Imágen";
+}
+
+<h3>Crear Imágen</h3>
+
+
+@Html.BackButton("/Admin/SectionItem/AddSliderImage?sectionId=" + Model.SectionId)
+<hr />
+
+@using (Html.BeginForm("Create", "SliderImage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="btnSubmit" type="submit" value="Crear Imágen" class="btn btn-default" />
+        </div>
+    </div>
+}
