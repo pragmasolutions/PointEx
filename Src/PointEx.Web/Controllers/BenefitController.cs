@@ -17,7 +17,7 @@ namespace PointEx.Web.Controllers
         private readonly IBenefitFileService _benefitFileService;
         private readonly IBranchOfficeService _branchOfficeService;
 
-        public BenefitController(IBenefitService benefitService, IShopService shopService, IBenefitFileService benefitFileService,IBranchOfficeService branchOfficeService)
+        public BenefitController(IBenefitService benefitService, IShopService shopService, IBenefitFileService benefitFileService, IBranchOfficeService branchOfficeService)
         {
             _benefitService = benefitService;
             _shopService = shopService;
@@ -29,7 +29,7 @@ namespace PointEx.Web.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, true, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
@@ -62,7 +62,7 @@ namespace PointEx.Web.Controllers
                 throw new HttpException(404, "Not found");
             }
 
-            
+
         }
     }
 }

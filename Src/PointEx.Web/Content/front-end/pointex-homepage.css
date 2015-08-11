@@ -77,7 +77,7 @@ footer {
         background-color: #015507;
     }
 
-    foo a:hover {
+    footer a:hover {
             color: #ccc;
         }
 

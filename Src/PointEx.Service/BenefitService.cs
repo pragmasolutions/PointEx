@@ -33,7 +33,7 @@ namespace PointEx.Service
             return Uow.Benefits.GetAll(b => !b.IsDeleted);
         }
 
-        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria,bool? approved, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -46,6 +46,7 @@ namespace PointEx.Service
                 x =>
                     ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria) || x.Shop.Name.Contains(criteria)) &&
                      (!shopId.HasValue || x.ShopId == shopId) &&
+                     (!approved.HasValue || x.IsApproved == approved) &&
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
