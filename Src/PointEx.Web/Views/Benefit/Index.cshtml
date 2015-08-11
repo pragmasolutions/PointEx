@@ -11,6 +11,11 @@
     @Html.Partial("_SearchBenefits", model: Model.Filters)
 }
 <hr>
+
+@section banner{
+    <img src="/Content/images/banner-beneficios.jpg" width="100%" alt="Beneficios" />
+}
+
 @foreach (var benefit in Model.List)
 {
     <div class="row">
