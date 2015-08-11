@@ -1,7 +1,9 @@
 ﻿@using PagedList.Mvc
 @model PointEx.Web.Models.PrizeListModel
 
-<h3>Premios</h3>
+@section banner{
+    <img src="/Content/images/banner-premios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
 
 @Html.ActionLink("Crear Premio", "Create", "Prize", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
 

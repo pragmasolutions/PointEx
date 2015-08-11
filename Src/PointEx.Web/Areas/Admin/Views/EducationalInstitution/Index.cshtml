@@ -1,7 +1,9 @@
 ﻿@using PagedList.Mvc
 @model PointEx.Web.Models.EducationalInstitutionListModel
 
-<h3>Establecimiento Educativos</h3>
+@section banner{
+    <img src="/Content/images/banner-establecimiento.jpg" width="100%" alt="Beneficios" /><br/><br />
+}
 
 @Html.ActionLink("Crear Establecimiento Educativo", "Create", "EducationalInstitution", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
 

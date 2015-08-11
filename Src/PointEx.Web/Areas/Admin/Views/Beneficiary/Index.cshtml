@@ -1,6 +1,10 @@
 ﻿@using PagedList.Mvc
 @model PointEx.Web.Models.BeneficiaryListModel
-<h3>Beneficiarios</h3>
+
+
+@section banner{
+    <img src="/Content/images/banner-beneficiarios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
 
 @Html.ActionLink("Crear Beneficiario", "Create", "Beneficiary", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
 

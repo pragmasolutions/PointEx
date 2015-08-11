@@ -33,24 +33,26 @@
         </div>
     </div>
 
-    <div class="container body-content">
-        <table class="layout-container">
-            <tr>
-                <td class="td-menu-lateral">
-                    @Html.Partial("~/Areas/Beneficiary/Views/Shared/_MenuLateral.cshtml")
-                </td>
-                <td>
-                    <div class="layout-body">
-                        @RenderBody()
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - PointEx</p>
-        </footer>
-    </div>
+
+<div class="container body-content">
+    @RenderSection("banner", required: false)
+    <table class="layout-container">
+        <tr>
+            <td class="td-menu-lateral">
+                @Html.Partial("~/Areas/Beneficiary/Views/Shared/_MenuLateral.cshtml")
+            </td>
+            <td>
+                <div class="layout-body">
+                    @RenderBody()
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - PointEx</p>
+    </footer>
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/globalize")
