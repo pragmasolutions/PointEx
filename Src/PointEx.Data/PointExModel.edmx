@@ -201,6 +201,7 @@
           <Property Name="SectionId" Type="int" Nullable="false" />
           <Property Name="BenefitId" Type="int" />
           <Property Name="PrizeId" Type="int" />
+          <Property Name="SliderImageId" Type="int" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Shop">
@@ -225,6 +226,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SliderImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -537,6 +546,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SectionItem_SliderImage">
+          <End Role="SliderImage" Type="Self.SliderImage" Multiplicity="0..1" />
+          <End Role="SectionItem" Type="Self.SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SliderImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="SliderImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Shop_Town">
           <End Role="Town" Type="Self.Town" Multiplicity="1" />
           <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
@@ -582,6 +603,18 @@
             </Principal>
             <Dependent Role="ShopCategory">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SliderImage_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="SliderImage" Type="Self.SliderImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SliderImage">
+              <PropertyRef Name="FileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -643,6 +676,7 @@
           <EntitySet Name="SectionItem" EntityType="Self.SectionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SliderImage" EntityType="Self.SliderImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Beneficiary_AspNetUsers" Association="Self.FK_Beneficiary_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -744,6 +778,10 @@
             <End Role="Section" EntitySet="Section" />
             <End Role="SectionItem" EntitySet="SectionItem" />
           </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_SliderImage" Association="Self.FK_SectionItem_SliderImage">
+            <End Role="SliderImage" EntitySet="SliderImage" />
+            <End Role="SectionItem" EntitySet="SectionItem" />
+          </AssociationSet>
           <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
             <End Role="Town" EntitySet="Town" />
             <End Role="Shop" EntitySet="Shop" />
@@ -759,6 +797,10 @@
           <AssociationSet Name="FK_ShopCategory_Shop" Association="Self.FK_ShopCategory_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="ShopCategory" EntitySet="ShopCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SliderImage_File" Association="Self.FK_SliderImage_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="SliderImage" EntitySet="SliderImage" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1063,6 +1105,15 @@
             <End Role="Benefit" EntitySet="Benefits" />
             <End Role="SectionItem" EntitySet="SectionItems" />
           </AssociationSet>
+          <EntitySet Name="SliderImages" EntityType="PointEx.Data.SliderImage" />
+          <AssociationSet Name="FK_SliderImage_File" Association="PointEx.Data.FK_SliderImage_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="SliderImage" EntitySet="SliderImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionItem_SliderImage" Association="PointEx.Data.FK_SectionItem_SliderImage">
+            <End Role="SliderImage" EntitySet="SliderImages" />
+            <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1284,6 +1335,7 @@
           <NavigationProperty Name="Prizes" Relationship="PointEx.Data.FK_Prize_File" FromRole="File" ToRole="Prize" />
           <NavigationProperty Name="FileContent" Relationship="PointEx.Data.FileFileContent" FromRole="File" ToRole="FileContent" />
           <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_File" FromRole="File" ToRole="BenefitFile" />
+          <NavigationProperty Name="SliderImages" Relationship="PointEx.Data.FK_SliderImage_File" FromRole="File" ToRole="SliderImage" />
         </EntityType>
         <Association Name="FK_Prize_File">
           <End Type="PointEx.Data.File" Role="File" Multiplicity="0..1" />
@@ -1431,6 +1483,8 @@
           <NavigationProperty Name="Section" Relationship="PointEx.Data.FK_SectionItem_Section" FromRole="SectionItem" ToRole="Section" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Benefit" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="SectionItem" ToRole="Benefit" />
+          <Property Name="SliderImageId" Type="Int32" />
+          <NavigationProperty Name="SliderImage" Relationship="PointEx.Data.FK_SectionItem_SliderImage" FromRole="SectionItem" ToRole="SliderImage" />
         </EntityType>
         <Association Name="FK_SectionItem_Prize">
           <End Type="PointEx.Data.Prize" Role="Prize" Multiplicity="0..1" />
@@ -1605,6 +1659,40 @@
             </Principal>
             <Dependent Role="SectionItem">
               <PropertyRef Name="BenefitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SliderImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="File" Relationship="PointEx.Data.FK_SliderImage_File" FromRole="SliderImage" ToRole="File" />
+          <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_SliderImage" FromRole="SliderImage" ToRole="SectionItem" />
+        </EntityType>
+        <Association Name="FK_SliderImage_File">
+          <End Type="PointEx.Data.File" Role="File" Multiplicity="1" />
+          <End Type="PointEx.Data.SliderImage" Role="SliderImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SliderImage">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionItem_SliderImage">
+          <End Type="PointEx.Data.SliderImage" Role="SliderImage" Multiplicity="0..1" />
+          <End Type="PointEx.Data.SectionItem" Role="SectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SliderImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionItem">
+              <PropertyRef Name="SliderImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1845,6 +1933,7 @@
           <EntitySetMapping Name="SectionItems">
             <EntityTypeMapping TypeName="PointEx.Data.SectionItem">
               <MappingFragment StoreEntitySet="SectionItem">
+                <ScalarProperty Name="SliderImageId" ColumnName="SliderImageId" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PrizeId" ColumnName="PrizeId" />
                 <ScalarProperty Name="BenefitId" ColumnName="BenefitId" />
@@ -1934,6 +2023,15 @@
                 <ScalarProperty Name="DiscountPercentageCeiling" ColumnName="DiscountPercentageCeiling" />
                 <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SliderImages">
+            <EntityTypeMapping TypeName="PointEx.Data.SliderImage">
+              <MappingFragment StoreEntitySet="SliderImage">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

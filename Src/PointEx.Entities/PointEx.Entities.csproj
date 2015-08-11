@@ -153,6 +153,9 @@
     <Compile Include="ShopCategory.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SliderImage.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Town.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>

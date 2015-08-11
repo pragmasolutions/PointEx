@@ -12,18 +12,18 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class SectionItem
+    public partial class SliderImage
     {
-        public int Id { get; set; }
-        public int SectionId { get; set; }
-        public Nullable<int> BenefitId { get; set; }
-        public Nullable<int> PrizeId { get; set; }
-        public int Order { get; set; }
-        public Nullable<int> SliderImageId { get; set; }
+        public SliderImage()
+        {
+            this.SectionItems = new HashSet<SectionItem>();
+        }
     
-        public virtual Prize Prize { get; set; }
-        public virtual Section Section { get; set; }
-        public virtual Benefit Benefit { get; set; }
-        public virtual SliderImage SliderImage { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int FileId { get; set; }
+    
+        public virtual File File { get; set; }
+        public virtual ICollection<SectionItem> SectionItems { get; set; }
     }
 }
