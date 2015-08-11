@@ -10,7 +10,6 @@ html, body {
 }
 
 .main-background {
-    background-image: url(images/mail-background.jpg);
     margin-right: auto;
     margin-left: auto;
     width: 78%
@@ -18,6 +17,7 @@ html, body {
 
 #wrapper .container {
     background-color: #FFF;
+    background-image: url(images/mail-background.jpg);
 }
 
 body {

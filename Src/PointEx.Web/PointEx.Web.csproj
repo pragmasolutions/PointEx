@@ -355,10 +355,18 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
     <Content Include="Content\front-end\images\mail-background.jpg" />
-    <Content Include="Content\images\banner-beneficiarios.jpg" />
-    <Content Include="Content\images\banner-beneficios.jpg" />
-    <Content Include="Content\images\banner-establecimiento.jpg" />
-    <Content Include="Content\images\banner-premios.jpg" />
+    <Content Include="Content\images\banner-beneficiarios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner-beneficios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner-establecimiento.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner-premios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\pointex-approved.jpg" />
     <Content Include="Content\images\pointex-warning.png" />
     <Content Include="Content\front-end\pointex-search.css" />
