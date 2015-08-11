@@ -354,7 +354,9 @@
     <Content Include="Content\bootstrap.vertical-tabs.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
-    <Content Include="Content\front-end\images\mail-background.jpg" />
+    <Content Include="Content\front-end\images\mail-background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\banner-beneficiarios.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

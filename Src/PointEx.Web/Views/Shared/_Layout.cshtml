@@ -63,8 +63,9 @@
 <div id="wrapper">
     <div class="main-background">
         <div class="container">
-            <div style="background-color: #FFF; margin: 0 4px;">
-                @RenderSection("banner", required: false)
+            @RenderSection("banner", required: false)
+            <div style="background-color: #FFF; padding: 5px 20px;">
+
                 <div class="container alert-container"></div>
                 @RenderSection("ContainerTop", required: false)
                 <div class="spacer"></div>
