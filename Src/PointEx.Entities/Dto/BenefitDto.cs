@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Framework.Common.Mapping;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Entities.Dto
 {
@@ -14,6 +15,7 @@ namespace PointEx.Entities.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public BenefitTypesEnum? BenefitTypeId { get; set; }
         public string BenefitTypeName { get; set; }
         public decimal? DiscountPercentage { get; set; }
         public decimal? DiscountPercentageCeiling { get; set; }

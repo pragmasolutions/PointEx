@@ -65,7 +65,7 @@ namespace PointEx.Service
         {
             return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, 
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
-                b => b.Shop, b => b.Shop.User);
+                b => b.Shop, b => b.Shop.User, b => b.BenefitType);
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)

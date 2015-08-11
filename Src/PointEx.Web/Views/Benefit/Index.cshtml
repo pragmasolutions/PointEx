@@ -2,6 +2,7 @@
 @using Microsoft.Web.Mvc
 @using PagedList.Mvc
 @using PointEx.Web.Infrastructure.Extensions
+@using PointEx.Entities.Enums
 @model PointEx.Web.Models.BenefitListModel
 @{
     ViewBag.Title = "Beneficios";
@@ -20,10 +21,18 @@
         </div>
         <div class="col-md-9">
             <h3>@benefit.ShopName: @Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "", benefit.Id }, htmlAttributes: null)</h3>
+            @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
+            {
+                <h4>@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
+            }
+            else
+            {
+                <h4>@(benefit.BenefitTypeId == null ? string.Empty : benefit.BenefitTypeName)</h4>
+            }
             <h4>@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
             <p class="benefit-description">@benefit.Description</p>
             <a class="btn btn-primary" href="@benefit.GetDetailUrl()">Ver<span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
+    </div>
     </div>
     <hr>
 }

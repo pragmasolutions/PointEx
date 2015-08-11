@@ -2,6 +2,7 @@
 @using Framework.Common.Web.Helpers
 @using PointEx.Web.Infrastructure.Extensions
 @using PointEx.Web.Models
+@using PointEx.Entities.Enums
 @model PointEx.Web.Models.BenefitDetailModel
 @{
     ViewBag.Title = Model.Benefit.Name;
@@ -51,7 +52,14 @@
     }
 
     <div class="caption-full">
-        <h1 class="pull-right benefit-type-info-detail">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
+        @if (Model.Benefit.BenefitTypeId == BenefitTypesEnum.Discount)
+        {
+            <h1 class="pull-right benefit-type-info-detail">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
+        }
+        else
+        {
+            <h1 class="pull-right benefit-type-info-detail">@(Model.Benefit.BenefitType == null ? string.Empty : Model.Benefit.BenefitType.Name)</h1>
+        }        
         <h3 class="benefit-name-detail">
             @Model.Shop.Name <a href="#">@Model.Benefit.Name</a>
         </h3>
