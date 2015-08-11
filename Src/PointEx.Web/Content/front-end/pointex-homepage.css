@@ -6,17 +6,31 @@ html, body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -284px; 
+    margin: 0 auto -284px;
+}
+
+.main-background {
+    background-image: url(images/mail-background.jpg);
+}
+
+#wrapper .container {
+}
+
+.inner-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #FFF;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 50px;
 }
 
 /* Header */
 .pointex-header {
-    background-color: #006400;
-    background-image: url(images/header.png);
+    background-color: #01781C;
 }
 
 .pointex-header {
@@ -55,7 +69,7 @@ footer {
 
     footer .footer-above {
         padding-top: 50px;
-        background-color: #2B9016;
+        background-color: #01781C;
     }
 
     footer .footer-col {
@@ -64,7 +78,7 @@ footer {
 
     footer .footer-below {
         padding: 25px 0;
-        background-color: #81BB27;
+        background-color: #015507;
     }
 
 .btn-social {
@@ -202,4 +216,44 @@ footer {
     margin-bottom: 15px;
     display: inline-block;
     width: 100%;
+}
+
+
+.sub-title {
+    background-color: #00C50B;
+    color: #FFF;
+    padding: 5px 5px 5px 15px;
+}
+
+.benifit-short-detail {
+    background-color: #EFEFEF;
+}
+
+.benefit-type-info {
+    color: #FB362D;
+    margin-top: 16px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.benefit-name {
+    color: #000;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+
+
+.categories {
+    font-size: 1.2em;
+}
+
+.categories .fa {
+    color: #DDDDDD;
+    margin-right: 8px;
+}
+
+.line-bottom {
+    background-color: #06C422;
+    height: 10px;
 }

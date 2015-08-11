@@ -1,6 +1,13 @@
-﻿body {
+﻿@font-face {
+  font-family: 'Myriad Pro';
+  src: url('../fonts/MYRIADPRO-REGULAR.OTF');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
     padding-top: 50px;
-    /*padding-bottom: 20px;*/
+    font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */

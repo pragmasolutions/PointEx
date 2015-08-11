@@ -12,8 +12,8 @@
 }
 
 <div class="col-md-3">
-    <p class="lead">Categorias</p>
-    <div class="list-group">
+    <p class="lead sub-title">Categorias</p>
+    <div class="list-group categories">
         @foreach (var category in Model.Categories)
         {
             <a href="@Url.Action("Index", "Benefit", new { categoryId = category.Id })" class="list-group-item"><i class="@category.IconClass"></i> @category.Name</a>
@@ -54,24 +54,24 @@
             </div>
         </div>
     </div>
-    <h2>DESTACADOS</h2>
+    <p class=" lead sub-title">Destacados</p>
     <div class="row">
         @foreach (var benefit in Model.OutstandingBenefits)
         {
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
                     <img src="@benefit.GetDefaultImageUrl(320,150)" alt="">
-                    <div class="caption">
+                    <div class="caption benifit-short-detail">
                         @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
                         {
-                            <h4 class="pull-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
+                            <h4 class="pull-right benefit-type-info">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
                         }
                         else
                         {
-                            <h4 class="pull-right">@(benefit.BenefitType == null ? string.Empty : benefit.BenefitType.Name)</h4>
+                            <h4 class="pull-right benefit-type-info">@(benefit.BenefitType == null ? string.Empty : benefit.BenefitType.Name)</h4>
                         }
                         <h4>
-                            <a href="@benefit.GetDetailUrl()">@benefit.Shop.Name</a>
+                            <a href="@benefit.GetDetailUrl()" class="benefit-name">@benefit.Shop.Name</a>
                         </h4>
                         <p class="benefit-description">
                             @benefit.Description

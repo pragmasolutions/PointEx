@@ -39,17 +39,17 @@
 
                 @if (PointEx.Web.Helpers.UrlHelper.IsInPublicSection())
                 {
-                    <a href="/Home/RedirectToDefault" style="float: left; margin-right: 10px;" title="Perfil">(Entrar)</a>
+                    <a href="/Home/RedirectToDefault" style="float: left; margin-right: 10px;" title="Perfil">(ENTRAR)</a>
                 }
 
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()"><strong>Salir</strong></a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><strong>SALIR</strong></a></li>
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Ingresar", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("INGRESAR", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

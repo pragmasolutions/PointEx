@@ -1,5 +1,5 @@
 ﻿body {
-    font-family: pt sans narrow;
+    /*font-family: pt sans narrow;*/
 }
 
 .public.navbar-nav li:hover {
@@ -23,8 +23,8 @@
 
 .btn-primary {
   color: #fff;
-  background-color: #81BB27 !important;
-    border: 1px solid #62AB44 !important;
+  background-color: #05C51A !important;
+    border: 1px solid #05C51A !important;
 }
 a.btn-primary:hover {
   background-color: #62AB44 !important;

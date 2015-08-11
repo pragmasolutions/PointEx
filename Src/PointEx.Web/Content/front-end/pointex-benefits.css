@@ -1,3 +1,14 @@
 .benefit-description {
     word-wrap: break-word;
 }
+
+.benefit-type-info-detail {
+    color: #FB362D;
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+.benefit-name-detail {
+    color: #000;
+    font-weight: bold;
+}

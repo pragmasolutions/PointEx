@@ -51,8 +51,8 @@
     }
 
     <div class="caption-full">
-        <h1 class="pull-right">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
-        <h3>
+        <h1 class="pull-right benefit-type-info-detail">@Model.Benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h1>
+        <h3 class="benefit-name-detail">
             @Model.Shop.Name <a href="#">@Model.Benefit.Name</a>
         </h3>
         @if (!Model.BranchOffices.Any())
@@ -61,7 +61,7 @@
                 Direccion: @Model.Shop.Address
             </h4>
             <h4>
-                Teléfono:
+                Teléfono: @Model.Shop.Phone
             </h4>
         }
 
