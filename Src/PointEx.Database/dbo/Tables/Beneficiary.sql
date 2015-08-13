@@ -10,6 +10,7 @@
     [CreatedDate]              DATETIME2 (7)  NOT NULL,
     [ModifiedDate]             DATETIME2 (7)  NULL,
 	[IsDeleted]				   BIT NOT NULL DEFAULT 0,
+    [Sex] INT NOT NULL DEFAULT 1, 
     CONSTRAINT [PK_Beneficiary] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Beneficiary_AspNetUsers] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_Beneficiary_EducationalInstitution] FOREIGN KEY ([EducationalInstitutionId]) REFERENCES [dbo].[EducationalInstitution] ([Id]),

@@ -708,6 +708,8 @@
     <Content Include="Views\Home\AddBeneficiary.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_CreateEditControls.cshtml" />
     <Content Include="Views\Shared\Benefit\_RejectButton.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Sex.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Sex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
