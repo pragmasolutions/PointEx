@@ -1569,8 +1569,7 @@
           <Property Type="String" Name="EducationalInstitutionName" Nullable="false" MaxLength="250" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Points" Nullable="true" Precision="19" />
-          <Property Type="String" Name="Beneficiary1" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="Points" Nullable="true" />
         </ComplexType>
         <ComplexType Name="RptMostUsedBenefits">
           <Property Type="String" Name="ShopName" Nullable="false" MaxLength="250" />
@@ -2023,7 +2022,6 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Points" ColumnName="Points" />
-                <ScalarProperty Name="Beneficiary1" ColumnName="Beneficiary1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

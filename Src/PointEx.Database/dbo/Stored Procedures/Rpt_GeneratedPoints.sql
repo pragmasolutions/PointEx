@@ -12,10 +12,7 @@ BEGIN
 	  ,EducationalInstitutionName = E.Name 
 	  ,[Date] = P.PurchaseDate
 	  ,Amount = SUM(P.Amount) 
-	  ,Points = CASE FLOOR(P.Amount / 100)
-				WHEN 0 THEN 1
-				ELSE FLOOR(P.Amount / 100)
-			END	
+	  ,Points = CAST(FLOOR(P.Amount) as int)
 	FROM
 	  Purchase P
 	  INNER JOIN Shop S

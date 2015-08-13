@@ -18,7 +18,6 @@ namespace PointEx.Entities
         public string EducationalInstitutionName { get; set; }
         public System.DateTime Date { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        public Nullable<decimal> Points { get; set; }
-        public string Beneficiary1 { get; set; }
+        public Nullable<int> Points { get; set; }
     }
 }
