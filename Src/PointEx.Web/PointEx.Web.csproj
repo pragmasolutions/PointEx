@@ -704,9 +704,10 @@
     <Content Include="Views\Shared\DisplayTemplates\BenefitType.cshtml" />
     <Content Include="Views\Home\TermsAndConditions.cshtml" />
     <Content Include="Views\Shared\Benefit\_Filters.cshtml" />
-    <Content Include="Views\Shared\Benefit\_GridButton.cshtml" />
+    <Content Include="Views\Shared\Benefit\_ApproveButton.cshtml" />
     <Content Include="Views\Home\AddBeneficiary.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_CreateEditControls.cshtml" />
+    <Content Include="Views\Shared\Benefit\_RejectButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

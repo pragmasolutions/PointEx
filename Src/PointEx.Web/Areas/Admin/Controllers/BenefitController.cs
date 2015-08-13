@@ -72,9 +72,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public void Rejected(int id)
+        public ActionResult Rejected(int id)
         {
             _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
+
+            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
         }       
     }
 }

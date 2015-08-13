@@ -57,6 +57,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             var benefitForm = BenefitForm.FromBenefit(benefit);
             ViewBag.IsApproved = benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved;
             ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
+            ViewBag.ShowApprovalButtons = _currentUser.Shop == null && benefit.BenefitStatusId == (int) BenefitStatusEnum.Pending;
             return View(benefitForm);
         }
 

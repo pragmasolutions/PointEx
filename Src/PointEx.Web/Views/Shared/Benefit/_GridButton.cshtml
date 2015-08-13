@@ -1,9 +1,0 @@
-﻿@using PointEx.Web.Areas.Admin
-
-<div class="col-md-offset-2 col-md-10">
-    @using (Html.BeginForm("Approved", "Benefit", new { id = @ViewData["Id"] }, FormMethod.Post, new { @class = "approved-form" }))
-    {
-        @Html.AntiForgeryToken()
-        <button type="submit" class="btn btn-primary">Aprobar</button>
-    }
-</div>
