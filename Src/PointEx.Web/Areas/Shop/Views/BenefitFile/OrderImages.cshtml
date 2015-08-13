@@ -4,7 +4,12 @@
 
 @{
     ViewBag.Title = "Ordenar Imagenes Beneficio";
+    if (ViewBag.ReturnController == "Admin")
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }
+
 
 <h3>Ordenar Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
 @Html.BackButton("Index", "BenefitFile", new { area = "Shop", benefitId = Model.Id })

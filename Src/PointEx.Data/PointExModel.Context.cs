@@ -51,6 +51,7 @@ namespace PointEx.Data
         public virtual DbSet<BenefitType> BenefitTypes { get; set; }
         public virtual DbSet<Benefit> Benefits { get; set; }
         public virtual DbSet<SliderImage> SliderImages { get; set; }
+        public virtual DbSet<BenefitStatus> BenefitStatuses { get; set; }
     
         public virtual ObjectResult<PointTransaction> BeneficiaryPurchasesAndExchanges(Nullable<int> beneficiaryId)
         {

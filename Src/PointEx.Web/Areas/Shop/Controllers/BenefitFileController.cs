@@ -7,22 +7,27 @@ using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Enums;
 using PointEx.Service;
 using PointEx.Web.Controllers;
+using PointEx.Web.Infrastructure;
 using PointEx.Web.Infrastructure.Extensions;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Shop.Controllers
 {
-    public class BenefitFileController : ShopBaseController
+    [Authorize(Roles = "Administrator, SuperAdmin, Shop")]
+    public class BenefitFileController : BaseController
     {
         private readonly IBenefitFileService _benefitFileService;
         private readonly IBenefitService _benefitService;
+        private readonly ICurrentUser _currentUser;
 
-        public BenefitFileController(IBenefitFileService benefitFileService, IBenefitService benefitService)
+        public BenefitFileController(IBenefitFileService benefitFileService, IBenefitService benefitService, ICurrentUser currentUser)
         {
             _benefitFileService = benefitFileService;
             _benefitService = benefitService;
+            _currentUser = currentUser;
         }
 
         public ActionResult Index(int benefitId)
@@ -33,7 +38,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             var benefitFilesModel = new BenefitFilesModel();
             benefitFilesModel.Benefit = benefit;
             benefitFilesModel.BenefitFiles = benefitFiles;
-
+            ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
             return View(benefitFilesModel);
         }
 
@@ -47,7 +52,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             orderImagesForm.Id = benefitId;
             orderImagesForm.Benefit = benefit;
             orderImagesForm.Items = benefitFiles.Select(bf => new ImageToOrderModel() { Id = bf.Id, Url = bf.File.GetUrl() }).ToList();
-
+            ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
             return View(orderImagesForm);
         }
 
@@ -77,6 +82,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             benefitForm.Benefit = benefit;
             benefitForm.Id = benefitId;
+            ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
 
             return View(benefitForm);
         }
@@ -108,6 +114,10 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             _benefitFileService.Create(benefitFiles);
 
+            var b = _benefitService.GetById(uploadImagesForm.Id);
+            b.BenefitStatusId = (int) BenefitStatusEnum.Pending;
+            _benefitService.Edit(b);
+            
             return RedirectToAction("Index", new { benefitId = uploadImagesForm.Id }).WithSuccess("Imagenes subidas");
         }
 

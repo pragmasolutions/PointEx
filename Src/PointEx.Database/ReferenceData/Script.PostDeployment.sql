@@ -14,3 +14,4 @@ Post-Deployment Script Template
 :r .\Categories.Data.sql
 :r .\Section.Data.sql
 :r .\BenefitTypes.Data.sql
+:r .\BenefitStatus.Data.sql

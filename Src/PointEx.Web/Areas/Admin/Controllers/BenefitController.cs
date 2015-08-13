@@ -9,6 +9,8 @@ using PointEx.Web.Models;
 using PointEx.Web.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using PointEx.Entities;
+using PointEx.Entities.Enums;
 using PointEx.Web.Areas.Admin.Controllers;
 using PointEx.Web.Configuration;
 
@@ -47,6 +49,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
+            ViewBag.IsApproved = benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved;
             return View(benefitForm);
         }        
 
@@ -60,7 +63,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult> Approved(int id)
         {
-            _benefitService.Moderated(id, true);
+            _benefitService.Moderated(id, (int)BenefitStatusEnum.Approved);
 
             var benefit = _benefitService.GetById(id);
             await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
@@ -71,7 +74,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         [HttpPost]
         public void Rejected(int id)
         {
-            _benefitService.Moderated(id, false);
+            _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
         }       
     }
 }

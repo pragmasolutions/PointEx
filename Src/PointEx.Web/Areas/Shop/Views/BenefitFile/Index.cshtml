@@ -1,7 +1,12 @@
 ﻿@using Microsoft.Web.Mvc
 @using PointEx.Web.Infrastructure.Extensions
 @model PointEx.Web.Models.BenefitFilesModel
-
+@{
+    if (ViewBag.ReturnController == "Admin")
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+}
 <h3>Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>
 
 @Html.BackButton("Detail", "Benefit", new { area = "Shop", Model.Benefit.Id }, "Volver al detalle")

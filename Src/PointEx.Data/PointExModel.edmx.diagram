@@ -58,6 +58,8 @@
         <EntityTypeShape EntityType="PointEx.Data.SliderImage" Width="1.5" PointX="10.5" PointY="24.5" />
         <AssociationConnector Association="PointEx.Data.FK_SliderImage_File" />
         <AssociationConnector Association="PointEx.Data.FK_SectionItem_SliderImage" />
+        <EntityTypeShape EntityType="PointEx.Data.BenefitStatus" Width="1.5" PointX="9.375" PointY="0.875" />
+        <AssociationConnector Association="PointEx.Data.FK_Benefit_BenefitStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

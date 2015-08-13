@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Enums;
 using PointEx.Service;
 using PointEx.Web.Controllers;
 using PointEx.Web.Infrastructure.Extensions;
@@ -81,7 +82,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             int pageTotal = 0;
             var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId,
-                filters.ShopId, filters.Criteria,true, filters.Page, DefaultPageSize, out pageTotal);
+                filters.ShopId, filters.Criteria, (int)BenefitStatusEnum.Approved, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 

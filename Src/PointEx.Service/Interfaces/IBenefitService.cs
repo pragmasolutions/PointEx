@@ -15,14 +15,14 @@ namespace PointEx.Service
 
         IQueryable<Benefit> GetAllByShopId(int shopId);
 
-        List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId,int? townId, int? shopId, string criteria,bool? approved,
-            int pageIndex, int pageSize, out int pageTotal);
+        List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId,int? townId, int? shopId, string criteria,
+            int? benefitStatusId, int pageIndex, int pageSize, out int pageTotal);
 
         void Create(Benefit benefit);
 
         void Edit(Benefit benefit);
 
-        void Moderated(int benefitId, bool status);
+        void Moderated(int benefitId, int statusId);
 
         void Delete(int enefitId);
 

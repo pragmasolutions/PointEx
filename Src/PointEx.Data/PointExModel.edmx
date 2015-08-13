@@ -70,7 +70,7 @@
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="BenefitTypeId" Type="int" />
-          <Property Name="IsApproved" Type="bit" />
+          <Property Name="BenefitStatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
           <Key>
@@ -88,6 +88,13 @@
           <Property Name="BenefitId" Type="int" Nullable="false" />
           <Property Name="FileId" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BenefitStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitTypes">
           <Key>
@@ -277,6 +284,18 @@
             </Principal>
             <Dependent Role="Beneficiary">
               <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benefit_BenefitStatus">
+          <End Role="BenefitStatus" Type="Self.BenefitStatus" Multiplicity="1" />
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="BenefitStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -665,6 +684,7 @@
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitBranchOffice" EntityType="Self.BenefitBranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenefitStatus" EntityType="Self.BenefitStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitTypes" EntityType="Self.BenefitTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
@@ -691,6 +711,10 @@
           <AssociationSet Name="FK_Beneficiary_Town" Association="Self.FK_Beneficiary_Town">
             <End Role="Town" EntitySet="Town" />
             <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benefit_BenefitStatus" Association="Self.FK_Benefit_BenefitStatus">
+            <End Role="BenefitStatus" EntitySet="BenefitStatus" />
+            <End Role="Benefit" EntitySet="Benefit" />
           </AssociationSet>
           <AssociationSet Name="FK_Benefit_BenefitTypes" Association="Self.FK_Benefit_BenefitTypes">
             <End Role="BenefitTypes" EntitySet="BenefitTypes" />
@@ -1115,6 +1139,11 @@
           <AssociationSet Name="FK_SectionItem_SliderImage" Association="PointEx.Data.FK_SectionItem_SliderImage">
             <End Role="SliderImage" EntitySet="SliderImages" />
             <End Role="SectionItem" EntitySet="SectionItems" />
+          </AssociationSet>
+          <EntitySet Name="BenefitStatuses" EntityType="PointEx.Data.BenefitStatus" />
+          <AssociationSet Name="FK_Benefit_BenefitStatus" Association="PointEx.Data.FK_Benefit_BenefitStatus">
+            <End Role="BenefitStatu" EntitySet="BenefitStatuses" />
+            <End Role="Benefit" EntitySet="Benefits" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -1584,13 +1613,14 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" />
-          <Property Name="IsApproved" Type="Boolean" />
           <NavigationProperty Name="BenefitType" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="Benefit" ToRole="BenefitType" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
           <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="Benefit" ToRole="BenefitFile" />
           <NavigationProperty Name="Purchases" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Benefit" ToRole="Purchase" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
+          <Property Name="BenefitStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BenefitStatus" Relationship="PointEx.Data.FK_Benefit_BenefitStatus" FromRole="Benefit" ToRole="BenefitStatu" />
         </EntityType>
         <Association Name="FK_Benefit_BenefitTypes">
           <End Type="PointEx.Data.BenefitType" Role="BenefitType" Multiplicity="0..1" />
@@ -1697,6 +1727,26 @@
             </Principal>
             <Dependent Role="SectionItem">
               <PropertyRef Name="SliderImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BenefitStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_BenefitStatus" FromRole="BenefitStatu" ToRole="Benefit" />
+        </EntityType>
+        <Association Name="FK_Benefit_BenefitStatus">
+          <End Type="PointEx.Data.BenefitStatus" Role="BenefitStatu" Multiplicity="1" />
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenefitStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="BenefitStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2016,7 +2066,7 @@
           <EntitySetMapping Name="Benefits">
             <EntityTypeMapping TypeName="PointEx.Data.Benefit">
               <MappingFragment StoreEntitySet="Benefit">
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="BenefitStatusId" ColumnName="BenefitStatusId" />
                 <ScalarProperty Name="BenefitTypeId" ColumnName="BenefitTypeId" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -2038,6 +2088,14 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BenefitStatuses">
+            <EntityTypeMapping TypeName="PointEx.Data.BenefitStatus">
+              <MappingFragment StoreEntitySet="BenefitStatus">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

@@ -2,10 +2,14 @@
 
 @{
     ViewBag.Title = PointExResources.DetailBenefitTitle;
+    if (ViewBag.ReturnController == "Admin")
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }
 
 <h3>@PointExResources.DetailBenefitTitle</h3>
-@Html.BackButton("Index", "Benefit", "Shop")
+@Html.BackButton("Index", "Benefit", (string)ViewBag.ReturnController)
 @Html.ActionLink("Imagenes", "Index", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 <hr />
 <div class="form-horizontal">
@@ -77,12 +81,6 @@
     <div class="col-md-offset-2 col-sm-pull-10">
         <img src="/Content/images/pointex-approved.jpg?width=320&height=150" alt="Disponible" title="Disponible" />
     </div>
-}
-else
-{
-    <div class="col-md-offset-2 col-sm-pull-10">
-        <img src="/Content/images/pointex-warning.png?width=320&height=150" alt="Pendiente de aprobación" title="Pendiente de aprobación" />
-    </div>   
 }
 
 
