@@ -19,6 +19,5 @@ namespace PointEx.Entities
         public System.DateTime Date { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<decimal> Points { get; set; }
-        public string Beneficiary1 { get; set; }
     }
 }
