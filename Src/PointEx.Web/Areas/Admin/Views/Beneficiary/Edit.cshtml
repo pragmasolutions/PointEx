@@ -1,4 +1,5 @@
-﻿@model PointEx.Web.Models.BeneficiaryForm
+﻿@using PointEx.Web.Configuration
+@model PointEx.Web.Models.BeneficiaryForm
 
 @{
     ViewBag.Title = PointExResources.EditBeneficiaryTitle;
@@ -19,4 +20,37 @@
             <input type="submit" value="@PointExResources.EditBeneficiaryTitle" class="btn btn-default" />
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            debugger;
+            if ('@AppSettings.Theme' == 'Jovenes') {
+                var $town = $("#TownId");
+                $town.on("change", function(e) {
+                    var id = $(this).val();
+                    
+                    if (id) {
+                        $('#EducationalInstitutionId').prop('disabled', true);
+                        $.getJSON('/EducationalInstitution/GetListByTown/' + id, function(data) {
+                            $('#EducationalInstitutionId').prop('disabled', false);
+
+                            $("#EducationalInstitutionId").select2({
+                                data: data
+                            });
+                        });
+                    } else {
+                        $("#EducationalInstitutionId").val('');
+
+                        //$("#EducationalInstitutionId").select2('data', { id: null, text: null })
+                        //$("#EducationalInstitutionId").select2({
+                        //    data: null
+                        //});
+                        //$('#EducationalInstitutionId').prop('disabled', true);
+                    }
+                });
+            }
+        });
+    </script>
 }

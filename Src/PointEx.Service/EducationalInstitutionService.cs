@@ -133,5 +133,11 @@ namespace PointEx.Service
             
             return true;
         }
+
+
+        public List<EducationalInstitution> GetByTown(int townId)
+        {
+            return Uow.EducationalInstitutions.GetAll().Where(e => e.TownId == townId).ToList();
+        }
     }
 }

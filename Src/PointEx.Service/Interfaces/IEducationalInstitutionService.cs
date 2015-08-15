@@ -23,5 +23,7 @@ namespace PointEx.Service
         bool IsNameAvailable(string name, int id);
 
         bool CanRemove(int educationInstitutionId);
+
+        List<EducationalInstitution> GetByTown(int townId);
     }
 }
