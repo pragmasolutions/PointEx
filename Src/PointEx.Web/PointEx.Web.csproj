@@ -295,6 +295,7 @@
     <Compile Include="Areas\Shop\Controllers\BenefitController.cs" />
     <Compile Include="Areas\Shop\Controllers\ShopController.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitFilesModel.cs" />
+    <Compile Include="Areas\Shop\Models\Benefit\CreateBenefitForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\OrderBenefitImagesForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\UploadBenefitImageForm.cs" />
     <Compile Include="Areas\Shop\Models\Benefit\BenefitForm.cs" />
@@ -560,6 +561,7 @@
     <Content Include="Areas\Admin\Views\SliderImage\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\SliderImage\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SliderImage\Index.cshtml" />
+    <Content Include="Areas\Shop\Views\Benefit\EditorTemplates\CreateBenefitForm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />

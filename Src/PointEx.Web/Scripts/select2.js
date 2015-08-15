@@ -4224,48 +4224,56 @@ S2.define('select2/dropdown/closeOnSelect',[
 });
 
 S2.define('select2/i18n/en',[],function () {
-  // English
-  return {
-    errorLoading: function () {
-      return 'The results could not be loaded.';
-    },
-    inputTooLong: function (args) {
-      var overChars = args.input.length - args.maximum;
+    // Spanish
+    return {
+        errorLoading: function () {
+            return 'La carga falló';
+        },
+        inputTooLong: function (args) {
+            var remainingChars = args.input.length - args.maximum;
 
-      var message = 'Please delete ' + overChars + ' character';
+            var message = 'Por favor, elimine ' + remainingChars + ' car';
 
-      if (overChars != 1) {
-        message += 's';
-      }
+            if (remainingChars == 1) {
+                message += 'ácter';
+            } else {
+                message += 'acteres';
+            }
 
-      return message;
-    },
-    inputTooShort: function (args) {
-      var remainingChars = args.minimum - args.input.length;
+            return message;
+        },
+        inputTooShort: function (args) {
+            var remainingChars = args.minimum - args.input.length;
 
-      var message = 'Please enter ' + remainingChars + ' or more characters';
+            var message = 'Por favor, introduzca ' + remainingChars + ' car';
 
-      return message;
-    },
-    loadingMore: function () {
-      return 'Loading more results…';
-    },
-    maximumSelected: function (args) {
-      var message = 'You can only select ' + args.maximum + ' item';
+            if (remainingChars == 1) {
+                message += 'ácter';
+            } else {
+                message += 'acteres';
+            }
 
-      if (args.maximum != 1) {
-        message += 's';
-      }
+            return message;
+        },
+        loadingMore: function () {
+            return 'Cargando más resultados…';
+        },
+        maximumSelected: function (args) {
+            var message = 'Sólo puede seleccionar ' + args.maximum + ' elemento';
 
-      return message;
-    },
-    noResults: function () {
-      return 'No results found';
-    },
-    searching: function () {
-      return 'Searching…';
-    }
-  };
+            if (args.maximum != 1) {
+                message += 's';
+            }
+
+            return message;
+        },
+        noResults: function () {
+            return 'No se encontraron resultados';
+        },
+        searching: function () {
+            return 'Buscando…';
+        }
+    };
 });
 
 S2.define('select2/defaults',[
