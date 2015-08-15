@@ -30,8 +30,8 @@ namespace PointEx.Web.Areas.Shop.Controllers
         private readonly INotificationService _notificationService;
         private readonly IBenefitFileService _benefitFileService;
 
-        public BenefitController(IBenefitService benefitService, IShopService shopService, ICurrentUser currentUser, 
-            IBranchOfficeService branchOffice, INotificationService notificationService,IBenefitFileService benefitFileService)
+        public BenefitController(IBenefitService benefitService, IShopService shopService, ICurrentUser currentUser,
+            IBranchOfficeService branchOffice, INotificationService notificationService, IBenefitFileService benefitFileService)
         {
             _benefitService = benefitService;
             _shopService = shopService;
@@ -45,7 +45,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, _currentUser.Shop.Id, filters.Criteria,null, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, _currentUser.Shop.Id, filters.Criteria, null, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
@@ -55,14 +55,22 @@ namespace PointEx.Web.Areas.Shop.Controllers
             return View(listModel);
         }
 
-        
+
         public ActionResult Detail(int id)
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
-            ViewBag.IsApproved = benefit.BenefitStatusId == BenefitStatusEnum.Approved;
-            ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
-            ViewBag.ShowApprovalButtons = _currentUser.Shop == null && benefit.BenefitStatusId == BenefitStatusEnum.Pending;
+
+            ViewBag.BenefitStatus = benefit.BenefitStatus != null 
+                ? benefit.BenefitStatus.Name 
+                : string.Empty;
+
+            ViewBag.ReturnController = _currentUser.Shop != null 
+                ? "Shop" 
+                : "Admin";
+
+            ViewBag.ShowApprovalButtons = User.IsInRole(RolesNames.Admin) && benefit.BenefitStatusId == BenefitStatusEnum.Pending;
+
             return View(benefitForm);
         }
 
@@ -90,7 +98,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
                 benefit.ShopId = currentShop.Id;
 
                 _benefitService.Create(benefit);
-                                
+
                 if (benefitForm.Files.Any(f => f != null))
                 {
                     List<BenefitFile> benefitFiles = new List<BenefitFile>();
@@ -104,7 +112,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
                     }
 
                     _benefitFileService.Create(benefitFiles);
-                }                                
+                }
 
                 var email = _currentUser.PointexUser.Email;
 
@@ -114,7 +122,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("","Hubo un error en la solicitud. Por favor intente nuevamente más tarde");
+                ModelState.AddModelError("", "Hubo un error en la solicitud. Por favor intente nuevamente más tarde");
                 return View(benefitForm);
             }
         }

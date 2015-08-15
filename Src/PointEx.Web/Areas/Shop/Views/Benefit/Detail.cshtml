@@ -18,8 +18,6 @@
     @Html.Partial("Benefit/_ApproveButton", new ViewDataDictionary { { "Id", Model.Id } })
 }
 
-
-
 <hr />
 <div class="form-horizontal">
     <div class="form-group">
@@ -67,7 +65,13 @@
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.BranchOfficesSelected)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.BranchOfficesSelected)            
+            @Html.DisplayFor(model => model.BranchOfficesSelected)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.BootstrapLabel("BenefitStatus")
+        <div class="col-md-10">
+            @Html.Display("BenefitStatus")
         </div>
     </div>
     <div class="form-group">
@@ -85,13 +89,6 @@
         </div>
     </div>
 </div>
-@if (ViewBag.IsApproved)
-{
-    <div class="col-md-offset-2 col-sm-pull-10">
-        <img src="/Content/images/pointex-approved.jpg?width=320&height=150" alt="Disponible" title="Disponible" />
-    </div>
-}
-
 
 @section scripts
 {

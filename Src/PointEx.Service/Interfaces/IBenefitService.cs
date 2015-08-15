@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Service
 {
@@ -16,7 +17,7 @@ namespace PointEx.Service
         IQueryable<Benefit> GetAllByShopId(int shopId);
 
         List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId,int? townId, int? shopId, string criteria,
-            int? benefitStatusId, int pageIndex, int pageSize, out int pageTotal);
+            BenefitStatusEnum? benefitStatusId, int pageIndex, int pageSize, out int pageTotal);
 
         void Create(Benefit benefit);
 

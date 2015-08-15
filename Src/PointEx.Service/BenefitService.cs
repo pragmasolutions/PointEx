@@ -33,7 +33,7 @@ namespace PointEx.Service
             return Uow.Benefits.GetAll(b => !b.IsDeleted);
         }
 
-        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, int? benefitStatusId, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, BenefitStatusEnum? benefitStatusId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -46,7 +46,7 @@ namespace PointEx.Service
                 x =>
                     ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria) || x.Shop.Name.Contains(criteria)) &&
                      (!shopId.HasValue || x.ShopId == shopId) &&
-                     (!benefitStatusId.HasValue || x.BenefitStatusId == (BenefitStatusEnum)benefitStatusId) &&
+                     (!benefitStatusId.HasValue || x.BenefitStatusId == benefitStatusId.Value) &&
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
@@ -66,7 +66,7 @@ namespace PointEx.Service
         {
             return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, 
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
-                b => b.Shop, b => b.Shop.User, b => b.BenefitType);
+                b => b.Shop, b => b.Shop.User, b => b.BenefitType, b => b.BenefitStatus);
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
