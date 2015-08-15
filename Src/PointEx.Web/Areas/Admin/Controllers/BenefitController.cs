@@ -106,15 +106,15 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var benefit = _benefitService.GetById(id);
             await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
 
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
+            return RedirectToAction("RejectedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
         }
 
         [HttpPost]
         public ActionResult Rejected(int id)
         {
             _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
-            
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
+
+            return RedirectToAction("ApprovedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
         }       
     }
 }
