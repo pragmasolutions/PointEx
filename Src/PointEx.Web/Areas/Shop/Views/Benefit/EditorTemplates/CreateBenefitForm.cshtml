@@ -1,0 +1,66 @@
+﻿@using Framework.Common.Web.Helpers
+@model PointEx.Web.Models.CreateBenefitForm
+@Html.HiddenFor(model => model.Id)
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Name)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Description)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.BenefitTypeId)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.BenefitTypeId)
+        @Html.ValidationMessageFor(model => model.BenefitTypeId)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.DiscountPercentage)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DiscountPercentage)
+        @Html.ValidationMessageFor(model => model.DiscountPercentage)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.DiscountPercentageCeiling)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DiscountPercentageCeiling)
+        @Html.ValidationMessageFor(model => model.DiscountPercentageCeiling)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.DateFrom)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DateFrom)
+        @Html.ValidationMessageFor(model => model.DateFrom)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.DateTo)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DateTo)
+        @Html.ValidationMessageFor(model => model.DateTo)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.BranchOfficesSelected)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.BranchOfficesSelected)
+        @Html.ValidationMessageFor(model => model.BranchOfficesSelected)
+    </div>
+</div>
+<div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Files)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Files)
+        @Html.ValidationMessageFor(model => model.Files)
+    </div>
+</div>
