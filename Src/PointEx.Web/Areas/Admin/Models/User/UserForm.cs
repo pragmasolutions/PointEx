@@ -8,13 +8,22 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
 using PointEx.Entities;
+using PointEx.Security;
 using PointEx.Security.Model;
 using Resources;
 
 namespace PointEx.Web.Models
 {
+    
     public class UserForm : IMapFrom<User>
     {
+        public enum AdminRoleEnum
+        {
+            Admin = 1,
+            BeneficiaryAdmin = 2,
+            ShopAdmin = 3
+        }
+
         [HiddenInput]
         public string Id { get; set; }
 
@@ -26,6 +35,11 @@ namespace PointEx.Web.Models
         [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Rol")]
+        [UIHint("RoleId")]
+        public AdminRoleEnum RoleId { get; set; }
 
         public User ToUser()
         {
@@ -39,6 +53,18 @@ namespace PointEx.Web.Models
             form.UserName = user.UserName;
             form.Email = user.Email;
 
+            switch (user.Roles.First().Name)
+            {
+                case RolesNames.Admin:
+                    form.RoleId = AdminRoleEnum.Admin;
+                    break;
+                case RolesNames.ShopAdmin:
+                    form.RoleId = AdminRoleEnum.ShopAdmin;
+                    break;
+                case RolesNames.BeneficiaryAdmin:
+                    form.RoleId = AdminRoleEnum.BeneficiaryAdmin;
+                    break;
+            }
             return form;
         }
     }

@@ -38,10 +38,11 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Compras", "Purchases", new {area = "Admin", controller = "Report"})</li>
                             <li>@Html.ActionLink("Premios mas Canjeados", "MostExchangedPrizes", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Puntos Generados", "GeneratedPoints", new { area = "Admin", controller = "Report" })</li>
-                            <li>@Html.ActionLink("Beneficios más Usados", "MostUsedBenefits", new { area = "Admin", controller = "Report" })</li>
+                            <li>@Html.ActionLink("Puntos Generados", "GeneratedPoints", new {area = "Admin", controller = "Report"})</li>
+                            <li>@Html.ActionLink("Beneficios más Usados", "MostUsedBenefits", new {area = "Admin", controller = "Report"})</li>
                         </ul>
                     </li>
+                    <li>@Html.ActionLink("Usuarios", "Index", new { area = "Admin", controller = "User" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,0 +1,14 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model PointEx.Web.Models.UserForm.AdminRoleEnum
+@{
+    var list = new List<KeyValuePair<int, string>>
+    {
+        new KeyValuePair<int, string>(1, "Administrador") ,
+        new KeyValuePair<int, string>(2, "Administrador de Beneficiarios") ,
+        new KeyValuePair<int, string>(3, "Administrador de Comercios") 
+    };
+    var selectList = list.ToSelectListItem((int)Model, t => t.Key, t => t.Value, t => t.Key.ToString());
+}
+
+@Html.DropDownList("", selectList, "Seleccione Rol", new { @class = "form-control select2-control" })

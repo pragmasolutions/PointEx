@@ -18,3 +18,11 @@
         @Html.ValidationMessageFor(model => model.Email)
     </div>
 </div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label" for="RoleId">Rol</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.RoleId)
+        @Html.ValidationMessageFor(model => model.RoleId)
+    </div>
+</div>

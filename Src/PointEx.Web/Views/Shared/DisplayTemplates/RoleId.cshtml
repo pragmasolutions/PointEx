@@ -1,0 +1,22 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Security
+@using PointEx.Service
+@using PointEx.Web.Models
+@model PointEx.Web.Models.UserForm.AdminRoleEnum
+@{
+    string value = string.Empty;
+    switch (Model)
+    {
+        case UserForm.AdminRoleEnum.Admin:
+            value = RolesNames.Admin;
+            break;
+        case UserForm.AdminRoleEnum.ShopAdmin:
+            value = RolesNames.ShopAdmin;
+            break;
+        case UserForm.AdminRoleEnum.BeneficiaryAdmin:
+            value = RolesNames.BeneficiaryAdmin;
+            break;
+    }
+}
+
+@Html.TextBox("", value, new { @class = "form-control", @readonly = true })
