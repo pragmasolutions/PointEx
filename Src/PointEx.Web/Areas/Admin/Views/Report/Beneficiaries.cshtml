@@ -1,0 +1,20 @@
+﻿@using Framework.Report
+@model PointEx.Web.Models.ReportFiltersModel
+@{
+    ViewBag.Title = "Beneficios mas Usados";
+}
+
+<h3>Beneficiarios</h3>
+
+<div>
+    @Html.Partial("_DownloadButtons")
+
+    @Html.FilterButton()
+</div>
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_BeneficiariesFilters")
+
+@Html.Partial("_ReportBox")

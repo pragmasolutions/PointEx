@@ -100,6 +100,8 @@
     <Build Include="dbo\Stored Procedures\Rpt_BenefitsUsed_Chart.sql" />
     <Build Include="dbo\Tables\SliderImage.sql" />
     <Build Include="dbo\Tables\BenefitStatus.sql" />
+    <Build Include="dbo\Functions\CalculateAge.sql" />
+    <Build Include="dbo\Stored Procedures\Rpt_Beneficiaries.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />

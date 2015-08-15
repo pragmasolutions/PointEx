@@ -25,7 +25,7 @@ namespace PointEx.Service
 
         public IQueryable<EducationalInstitution> GetAll()
         {
-            return Uow.EducationalInstitutions.GetAll().Where(e => !e.IsDeleted);
+            return Uow.EducationalInstitutions.GetAll(whereClause: null, includes: x => x.Town).Where(e => !e.IsDeleted);
         }
 
         public List<EducationalInstitutionDto> GetAll(string sortBy, string sortDirection, string criteria, int? townId, int pageIndex, int pageSize, out int pageTotal)
@@ -37,7 +37,7 @@ namespace PointEx.Service
             pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
             pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
 
-            Expression<Func<EducationalInstitution, bool>> where = x => !x.IsDeleted && 
+            Expression<Func<EducationalInstitution, bool>> where = x => !x.IsDeleted &&
                                                         ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria)) &&
                                                         (!townId.HasValue || x.TownId == townId));
 
@@ -130,7 +130,7 @@ namespace PointEx.Service
             {
                 return false;
             }
-            
+
             return true;
         }
 

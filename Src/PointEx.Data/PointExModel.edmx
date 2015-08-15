@@ -643,6 +643,13 @@
         <Function Name="Beneficiary_PurchasesAndExchanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BeneficiaryId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Rpt_Beneficiaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="From" Type="datetime2" Mode="In" />
+          <Parameter Name="To" Type="datetime2" Mode="In" />
+          <Parameter Name="TownId" Type="int" Mode="In" />
+          <Parameter Name="Sex" Type="int" Mode="In" />
+          <Parameter Name="EducationalInstitutionId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Rpt_BenefitsUsed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="From" Type="datetime2" Mode="In" />
           <Parameter Name="To" Type="datetime2" Mode="In" />
@@ -1146,6 +1153,13 @@
             <End Role="BenefitStatu" EntitySet="BenefitStatuses" />
             <End Role="Benefit" EntitySet="Benefits" />
           </AssociationSet>
+          <FunctionImport Name="RptBeneficiaries" ReturnType="Collection(PointEx.Data.RptBeneficiaries)">
+            <Parameter Name="From" Mode="In" Type="DateTime" />
+            <Parameter Name="To" Mode="In" Type="DateTime" />
+            <Parameter Name="TownId" Mode="In" Type="Int32" />
+            <Parameter Name="Sex" Mode="In" Type="Int32" />
+            <Parameter Name="EducationalInstitutionId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1752,6 +1766,13 @@
           </ReferentialConstraint>
         </Association>
         <EnumType Name="BenefitStatusEnum" a:ExternalTypeName="PointEx.Entities.Enums.BenefitStatusEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <ComplexType Name="RptBeneficiaries">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="Age" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="EducationalInstitutionName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Town" Nullable="false" MaxLength="250" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2103,6 +2124,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RptBeneficiaries" FunctionName="PointEx.Data.Store.Rpt_Beneficiaries">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PointEx.Data.RptBeneficiaries">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="EducationalInstitutionName" ColumnName="EducationalInstitutionName" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

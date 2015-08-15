@@ -45,7 +45,7 @@ namespace PointEx.Service
 
         public IList<RptMostUsedBenefits> MostUsedBenefits(DateTime? from, DateTime? to, int? shopId, int? educationalInstitutionId)
         {
-            return Uow.DbContext.RptMostUsedBenefits(from, to,shopId, educationalInstitutionId).ToList();
+            return Uow.DbContext.RptMostUsedBenefits(from, to, shopId, educationalInstitutionId).ToList();
         }
 
 
@@ -57,6 +57,11 @@ namespace PointEx.Service
         public IList<RptBenefitsUsedChart> BenefitsUsedChart(DateTime? from, DateTime? to, int shopId)
         {
             return Uow.DbContext.RptBenefitsUsedChart(from, to, shopId).ToList();
+        }
+
+        public IList<RptBeneficiaries> Beneficiaries(DateTime? from, DateTime? to, int? sex, int? townId, int? educationalInstitutionId)
+        {
+            return Uow.DbContext.RptBeneficiaries(from, to, townId, sex, educationalInstitutionId).ToList();
         }
     }
 }

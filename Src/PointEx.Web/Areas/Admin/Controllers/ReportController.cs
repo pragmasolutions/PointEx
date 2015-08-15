@@ -20,14 +20,16 @@ namespace PointEx.Web.Areas.Admin.Controllers
         private readonly IEducationalInstitutionService _educationalInstitutionService;
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly IReportService _reportService;
+        private readonly ITownService _townService;
 
-        public ReportController(IShopService shopService, IEducationalInstitutionService educationalInstitutionService, 
-                                IBeneficiaryService beneficiaryService, IReportService reportService)
+        public ReportController(IShopService shopService, IEducationalInstitutionService educationalInstitutionService,
+                                IBeneficiaryService beneficiaryService, IReportService reportService,ITownService townService)
         {
             _shopService = shopService;
             _educationalInstitutionService = educationalInstitutionService;
             _beneficiaryService = beneficiaryService;
             _reportService = reportService;
+            _townService = townService;
         }
 
         public ActionResult Purchases(ReportFiltersModel filters)
@@ -85,7 +87,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 .SetParameter("BeneficiaryName", beneficiaryName)
                 .SetParameter("ShopName", shopName);
 
-            var points = _reportService.GeneratedPoints(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(), 
+            var points = _reportService.GeneratedPoints(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
                 filters.ShopId, filters.BeneficiaryId, filters.EducationalInstitutionId);
 
             reporteFactory.SetDataSource("GeneratedPointsDataSet", points)
@@ -158,6 +160,50 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             reporteFactory.SetDataSource("MostUsedBenefitsDataSet", mostUsedBenefits)
                           .SetFullPath(Server.MapPath("~/Reports/MostUsedBenefits.rdl"));
+
+            byte[] reportFile = reporteFactory.Render(filters.ReportType);
+
+            return File(reportFile, reporteFactory.MimeType);
+        }
+
+        public ActionResult Beneficiaries(ReportBeneficiariesFiltersModel filters)
+        {
+            if (filters != null)
+                filters.ReportName = "Beneficiaries";
+
+            return View(filters);
+        }
+
+        public ActionResult GenerateReportBeneficiaries(ReportBeneficiariesFiltersModel filters)
+        {
+            var reporteFactory = new ReportFactory();
+
+            var educationalInstitutionName = filters.EducationalInstitutionId.HasValue
+                ? _educationalInstitutionService.GetById(filters.EducationalInstitutionId.Value).Name
+                : PointExResources.LabelAll;
+
+            var townName = filters.TownId.HasValue
+                ? _townService.GetById(filters.TownId.Value).Name
+                : PointExResources.LabelAll;
+
+            var sexDescription = filters.Sex.HasValue
+                ? filters.Sex.Value == 1 ? "MASCULINO" : "FEMENINO" 
+                : PointExResources.LabelAll;
+
+            reporteFactory
+                .SetParameter("From", filters.From.ToShortDateString(null))
+                .SetParameter("To", filters.To.ToShortDateString(null))
+                .SetParameter("EducationalInstitutionName", educationalInstitutionName)
+                .SetParameter("TownName", townName)
+                .SetParameter("SexDescription", sexDescription);
+
+            var beneficiaries = _reportService.Beneficiaries(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
+                filters.Sex,
+                filters.TownId,
+                filters.EducationalInstitutionId);
+
+            reporteFactory.SetDataSource("BeneficiariesDataSet", beneficiaries)
+                          .SetFullPath(Server.MapPath("~/Reports/Beneficiaries.rdl"));
 
             byte[] reportFile = reporteFactory.Render(filters.ReportType);
 

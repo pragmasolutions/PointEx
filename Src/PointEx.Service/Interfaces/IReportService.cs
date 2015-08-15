@@ -19,5 +19,8 @@ namespace PointEx.Service
         IList<RptBenefitsUsed> BenefitsUsed(DateTime? from, DateTime? to, int shopId);
 
         IList<RptBenefitsUsedChart> BenefitsUsedChart(DateTime? from, DateTime? to, int shopId);
+
+        IList<RptBeneficiaries> Beneficiaries(DateTime? from, DateTime? to, int? sex, int? townId,
+            int? educationalInstitutionId);
     }
 }

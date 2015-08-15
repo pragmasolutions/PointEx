@@ -134,6 +134,9 @@
     <Compile Include="Role.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RptBeneficiaries.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RptBenefitsUsed.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
