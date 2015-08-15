@@ -33,37 +33,46 @@
         </div>
     </div>
 
+<div id="wrapper">
+    <div class="main-background">
+        <div class="container">
+            @RenderSection("banner", required: false)
+            <div style="background-color: #FFF; padding: 0 30px;">
 
-<div class="container body-content">
-    @RenderSection("banner", required: false)
-    <table class="layout-container">
-        <tr>
-            <td class="td-menu-lateral">
-                @Html.Partial("~/Areas/Beneficiary/Views/Shared/_MenuLateral.cshtml")
-            </td>
-            <td>
-                <div class="layout-body">
-                    @RenderBody()
-                </div>
-            </td>
-        </tr>
-    </table>
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - PointEx</p>
-    </footer>
+                <table class="layout-container">
+                    <tr>
+                        <td class="td-menu-lateral">
+                            @{ Html.RenderAction("MenuLateral", "Layout", new { area = "Beneficiary"});}
+                        </td>
+                        <td>
+                            <div class="layout-body">
+                                @RenderBody()
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="push"></div>
+                <hr/>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/globalize")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/lib")
-    @Scripts.Render("~/bundles/app")
+@Html.Partial("_Footer")
 
-    @Html.Partial("_TwitterInit")
-    @Html.Partial("_GooglePlusInit")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/globalize")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/lib")
+@Scripts.Render("~/bundles/app")
 
-    @RenderSection("scripts", required: false)
+@Html.Partial("_TwitterInit")
+@Html.Partial("_GooglePlusInit")
+
+@RenderSection("scripts", required: false)
+
 </body>
 </html>

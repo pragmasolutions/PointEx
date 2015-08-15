@@ -51,7 +51,7 @@ body {
 
 /* Footer */
 footer, .push {
-    height: 284px; /* .push must be the same height as .footer */
+    height: 264px; /* .push must be the same height as .footer */
     margin: 0;
 }
 
@@ -64,12 +64,12 @@ footer {
     }
 
     footer .footer-above {
-        padding-top: 50px;
+        padding-top: 20px;
         background-color: #01781C;
     }
 
     footer .footer-col {
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
 
     footer .footer-below {
