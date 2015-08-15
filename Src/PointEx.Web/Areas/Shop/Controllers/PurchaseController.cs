@@ -68,9 +68,5 @@ namespace PointEx.Web.Areas.Shop.Controllers
             return RedirectToAction("Index").WithSuccess("Compra Creada");
         }
 
-        public ActionResult ValidateCardNumber(string cardNumber)
-        {
-            return Json(_cardService.ValidateCardNumber(cardNumber), JsonRequestBehavior.AllowGet);
-        }
     }
 }

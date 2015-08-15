@@ -58,27 +58,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return View(beneficiaryCards);
         }
-
-        public ActionResult CreateCard(int beneficiaryId)
-        {
-            var createCardForm = new CreateCardForm();
-            createCardForm.BeneficiaryId = beneficiaryId;
-            return View(createCardForm);
-        }
-
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateCard(CreateCardForm createCardForm)
+        public ActionResult GenerateCard(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(createCardForm);
-            }
-
-            var card = createCardForm.ToCard();
-
-            _cardService.Create(card);
-
-            return RedirectToAction("Cards", new { id = createCardForm.BeneficiaryId }).WithSuccess("Tarjeta Creada");
+            _cardService.Generate(id);
+            return RedirectToAction("Cards", new { id = id }).WithSuccess("Tarjeta Generada");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -167,9 +151,5 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Eliminado");
         }
 
-        public ActionResult IsCardNumberAvailable(string number)
-        {
-            return Json(_cardService.IsCardNumberAvailable(number), JsonRequestBehavior.AllowGet);
-        }
     }
 }
