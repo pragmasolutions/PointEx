@@ -59,7 +59,7 @@
                 @RenderSection("banner", required: false)
                 <div style="background-color: #FFF; padding: 5px 20px;">
 
-                    <div class="container alert-container"></div>
+                    <div class="container alert-container" style="padding-left: 0 !important;"></div>
                     @RenderSection("ContainerTop", required: false)
                     <div class="spacer"></div>
                     <div class="spacer"></div>
@@ -91,5 +91,6 @@
 
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
+
 </body>
 </html>
