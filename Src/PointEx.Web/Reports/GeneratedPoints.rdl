@@ -834,7 +834,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Beneficiary:</Value>
+                    <Value>Beneficiario:</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
