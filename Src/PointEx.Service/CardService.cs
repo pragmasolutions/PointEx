@@ -15,10 +15,6 @@ namespace PointEx.Service
     {
         private readonly IClock _clock;
 
-        private const string charsAlphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        private const string charsNumeric = "0123456789";
-
         public CardService(IPointExUow uow, IClock clock)
         {
             _clock = clock;
@@ -33,29 +29,6 @@ namespace PointEx.Service
         public Card GetByNumber(string number)
         {
             return Uow.Cards.Get(c => c.Number == number, c => c.Beneficiary);
-        }
-
-        public bool ValidateCardNumber(string cardNumber)
-        {
-            var card = this.GetByNumber(cardNumber);
-
-            if (card == null)
-            {
-                return false;
-            }
-
-            if (card.Beneficiary.IsDeleted)
-            {
-                return false;
-            }
-
-            //Validate if the card is active.
-            if (card.EndDate.HasValue)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public IList<Card> GetByBeneficiaryId(int beneficiaryId)
@@ -84,47 +57,36 @@ namespace PointEx.Service
 
             return card;
         }
-
-        public void Create(Card card)
+        
+        public bool Generate(int beneficiaryId)
         {
-            if (!IsCardNumberAvailable(card.Number))
+            var beneficiary = Uow.Beneficiaries.Get(b => b.Id == beneficiaryId, b => b.Cards);
+            var cardNumber = GenerateNumber(beneficiary);
+
+            foreach (var active in beneficiary.Cards.Where(c => c.EndDate == null))
             {
-                throw new ApplicationException("El numero de tarjeta no esta disponible");
+                active.EndDate = DateTime.Now;
+                Uow.Cards.Edit(active);
             }
 
-            card.Number = GenerateNumber();
-            card.IssueDate = _clock.Now;
+            var card = new Card()
+            {
+                BeneficiaryId = beneficiaryId,
+                IssueDate = DateTime.Now,
+                Number = cardNumber
+            };
             Uow.Cards.Add(card);
             Uow.Commit();
+            return true;
         }
 
-        public bool IsCardNumberAvailable(string number)
+        public string GenerateNumber(Beneficiary beneficiary)
         {
-            var card = this.GetByNumber(number);
-            return card == null;
-        }
+            var next = beneficiary.Cards.Count();
 
-        public string GenerateNumber()
-        {
-            var random = new Random();
-
-            var resultAlphabetic = new string(
-                Enumerable.Repeat(charsAlphabetic, 3)
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
-
-            var resultNumeric = new string(
-                Enumerable.Repeat(charsNumeric, 6)
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
-
-            var resultNumber = string.Format("{0}-{1}", resultAlphabetic, resultNumeric);
-            var exist = IsCardNumberAvailable(resultNumber);
-            if (!exist)
-                this.GenerateNumber();
-
-            return resultNumber;
-            
+            var number = next < 10 ? String.Format("0{0}", next) : next.ToString();
+            var cardNumber = String.Format("{0}{1}", beneficiary.IdentificationNumber, number);
+            return cardNumber;
         }
     }
 }

@@ -4,9 +4,10 @@
 <div>
     @Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
 
-    @if (Model.Cards.All(c => c.EndDate.HasValue))
+    @using (Html.BeginForm("GenerateCard", "Beneficiary", new { area = "Admin", id = Model.Beneficiary.Id }, FormMethod.Post, new { @class = "generate-form" }))
     {
-        @Html.ActionLink("Crear Tarjeta", "CreateCard", "Beneficiary", routeValues: new { area = "Admin", beneficiaryId = Model.Beneficiary.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Generar tarjeta</button>
     }
 </div>
 
@@ -49,9 +50,15 @@
 {
     <script>
         $(function () {
-            $(".cancel-card-form").on("submit", function () {
-                return confirm("Esta seguro que desea cancelar esta tarjeta?  Esta operacion no se puede deshacer.");
+            $(".generate-form").on("submit", function () {
+                return confirm("Si existen tarjetas previas del beneficiario, éstas quedarán inactivas luego de la generación de una nueva tarjeta. Está seguro que desea continuar?");
             });
         });
     </script>
 }
+
+<style>
+    form.generate-form {
+        display: inline;
+    }
+</style>

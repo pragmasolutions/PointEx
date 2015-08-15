@@ -265,7 +265,6 @@
     <Compile Include="Areas\Admin\Models\User\UserListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\User\UserListModel.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryCardsModel.cs" />
-    <Compile Include="Areas\Admin\Models\Beneficiary\CreateCardForm.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryForm.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\BeneficiaryListModel.cs" />
@@ -495,7 +494,6 @@
     <Content Include="Areas\Admin\Views\Beneficiary\Cards.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\DisplayTemplates\BeneficiaryForm.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\EditorTemplates\BeneficiaryForm.cshtml" />
-    <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\UploadImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\OrderImages.cshtml" />
     <Content Include="Areas\Shop\Views\BenefitFile\Index.cshtml" />
