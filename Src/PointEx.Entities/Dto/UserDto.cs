@@ -9,10 +9,17 @@ using Framework.Common.Mapping;
 
 namespace PointEx.Entities.Dto
 {
-    public class UserDto : IMapFrom<User>
+    public class UserDto : IHaveCustomMappings
     {
         public string Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public string RoleName { get; set; }
+
+        public void CreateMappings(IConfiguration configuration)
+        {
+            configuration.CreateMap<User, UserDto>()
+                .ForMember(r => r.RoleName, r => r.MapFrom(x => x.Roles.FirstOrDefault().Name));
+        }
     }
 }

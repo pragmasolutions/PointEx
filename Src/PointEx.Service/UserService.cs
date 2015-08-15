@@ -33,7 +33,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(ApplicationUser applicationUser)
+        public async Task Create(ApplicationUser applicationUser, string roleName)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -51,7 +51,7 @@ namespace PointEx.Service
                         throw new ApplicationException(result.Errors.FirstOrDefault());
                     }
 
-                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Admin);
+                    await _userManager.AddToRoleAsync(applicationUser.Id, roleName);
 
                     try
                     {
@@ -96,6 +96,11 @@ namespace PointEx.Service
             return Uow.Users.Get(u => u.Id == id, s => s.Roles);
         }
 
+        public Role GetRoleById(string roleId)
+        {
+            return Uow.Roles.Get(r => r.Id == roleId);
+        }
+
         public List<UserDto> GetAll(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria
@@ -132,7 +137,9 @@ namespace PointEx.Service
 
             Expression<Func<User, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.UserName.Contains(criteria)) &&
                                                            (string.IsNullOrEmpty(criteria) || x.Email.Contains(criteria)) &&
-                                                           x.Roles.Any(r => r.Name == RolesNames.Admin));
+                                                           (x.Roles.Any(r => r.Name == RolesNames.Admin)
+                                                           || x.Roles.Any(r => r.Name == RolesNames.BeneficiaryAdmin)
+                                                           || x.Roles.Any(r => r.Name == RolesNames.ShopAdmin)));
 
             var results = Uow.Users.GetAll(pagingCriteria,
                                                     where,

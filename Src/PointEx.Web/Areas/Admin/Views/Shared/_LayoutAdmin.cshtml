@@ -27,6 +27,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beneficios<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Pendientes", "Index", new { area = "Admin", controller = "Benefit" })</li>
+                            <li>@Html.ActionLink("Aprobados", "ApprovedBenefit", new {area = "Admin", controller = "Benefit"})</li>
+                            <li>@Html.ActionLink("Rechazados", "RejectedBenefit", new { area = "Admin", controller = "Benefit" })</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Beneficiarios", "Index", new { area = "Admin", controller = "Beneficiary" })</li>
@@ -43,6 +45,7 @@
                             <li>@Html.ActionLink("Beneficiarios", "Beneficiaries", new { area = "Admin", controller = "Report" })</li>
                         </ul>
                     </li>
+                    <li>@Html.ActionLink("Usuarios", "Index", new { area = "Admin", controller = "User" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -50,7 +53,7 @@
     </div>
 <div class="container body-content">
     @RenderSection("banner", required: false)
-    <div class="container alert-container"></div>
+    <div class="container alert-container" style="padding-left: 0 !important;"></div>
     @RenderBody()
     <hr/>
     <footer>
@@ -66,5 +69,11 @@
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
+
+<style>
+    .alert-success {
+        width: 1170px !important;
+    }
+</style>
 </body>
 </html>

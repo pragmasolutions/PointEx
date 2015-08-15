@@ -19,6 +19,7 @@
         <tr>
             <th>Nombre de Usuario</th>
             <th>Email</th>
+            <th>Rol</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -27,6 +28,7 @@
             <tr>
                 <td>@Html.ActionLink(user.UserName, "Detail", "User", routeValues: new { area = "Admin", user.Id }, htmlAttributes: null)</td>
                 <td>@user.Email</td>
+                <td>@(user.RoleName == "Administrator" ? "Administrador" : (user.RoleName == "ShopAdmin" ? "Administrador de comercios" : "Administrador de beneficiarios"))</td>
             </tr>
         }
     </tbody>

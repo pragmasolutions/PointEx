@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Common.Web.Alerts;
@@ -70,7 +72,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             try
             {
-                await _userService.Create(user);
+                var newRole = MapRoleFromEnum(userForm.RoleId);
+
+                await _userService.Create(user, newRole.Name);
             }
             catch (ApplicationException ex)
             {
@@ -100,9 +104,30 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var user = _userService.GetById(id);
             user.Email = userForm.Email;
             user.UserName = userForm.UserName;
+            var newRole = MapRoleFromEnum(userForm.RoleId);
+            user.Roles.Clear();
+            user.Roles.Add(newRole);
             _userService.Edit(user);
 
             return RedirectToAction("Index", new UserListFiltersModel().GetRouteValues()).WithSuccess("Usuario Editado");
+        }
+
+        private Role MapRoleFromEnum(UserForm.AdminRoleEnum roleEnum)
+        {
+            var roleId = string.Empty;
+            switch (roleEnum)
+            {
+                case UserForm.AdminRoleEnum.Admin:
+                    roleId = Role.Admin;
+                    break;
+                case UserForm.AdminRoleEnum.ShopAdmin:
+                    roleId = Role.ShopAdmin;
+                    break;
+                case UserForm.AdminRoleEnum.BeneficiaryAdmin:
+                    roleId = Role.BeneficiaryAdmin;
+                    break;
+            }
+            return _userService.GetRoleById(roleId);
         }
 
         [HttpPost, ValidateAntiForgeryToken]

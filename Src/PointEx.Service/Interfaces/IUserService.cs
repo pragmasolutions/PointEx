@@ -9,12 +9,13 @@ namespace PointEx.Service
 {
     public interface IUserService : IServive
     {
-        Task Create(ApplicationUser applicationUser);
+        Task Create(ApplicationUser applicationUser, string roleName);
         void Edit(User user);
         void Delete(string userId);
         IQueryable<User> GetAll();
         List<UserDto> GetAll(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal);
         List<UserDto> GetAllAdministrators(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal);
         User GetById(string id);
+        Role GetRoleById(string roleId);
     }
 }
