@@ -2,16 +2,17 @@
 @using PointEx.Web.Areas.Shop.Models
 @using Framework.Common.Extentensions
 @using PagedList.Mvc
+@using PointEx.Entities.Enums
 @model PointEx.Web.Models.BenefitListModel
 
 @{
-    ViewBag.Title = "Beneficios Pendientes";
+    ViewBag.Title = ViewBag.TabTitle;
 }
 
 @section banner{
     <img src="/Content/images/banner-beneficios.jpg" width="100%" alt="Beneficios" />
 }
-<h3>Benecios Pendientes de Aprobación</h3>
+<h3>@ViewBag.Title</h3>
 
 @Html.FilterButton()
 
@@ -44,8 +45,19 @@
                 <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
                 <td class="text-right">@benefit.BenefitTypeName</td>
                 <td class="text-right">@benefit.BenefitStatusName</td>                
-                <td class="text-right">                    
-                    <button type="button" class="btn btn-primary" onclick="location.href = '/Shop/Benefit/Detail/@benefit.Id';">Detalle</button>
+                <td class="text-right"> 
+                    @if (ViewBag.ViewMode == BenefitStatusEnum.Pending)
+                    {
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/Shop/Benefit/Detail/@benefit.Id';">Detalle</button>
+                    }
+                    @if (ViewBag.ViewMode == BenefitStatusEnum.Approved)
+                    {
+                        @Html.Partial("Benefit/_RejectButton", new ViewDataDictionary { { "Id", benefit.Id } })
+                    }
+                    @if (ViewBag.ViewMode == BenefitStatusEnum.Rejected)
+                    {
+                        @Html.Partial("Benefit/_ApproveButton", new ViewDataDictionary { { "Id", benefit.Id } })
+                    }
                 </td>
             </tr>
         }

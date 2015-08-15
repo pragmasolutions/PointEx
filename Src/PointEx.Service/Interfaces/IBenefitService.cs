@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Service
 {
@@ -30,7 +31,7 @@ namespace PointEx.Service
 
         bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId);
 
-        List<BenefitDto> GetPendingBenefit(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria,
-            int pageIndex, int pageSize, out int pageTotal);
+        List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, BenefitStatusEnum status, string criteria,
+            int pageIndex, int pageSize, out int pageTotal);        
     }
 }
