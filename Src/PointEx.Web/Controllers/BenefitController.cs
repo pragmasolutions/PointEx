@@ -49,7 +49,7 @@ namespace PointEx.Web.Controllers
                 return HttpNotFound();
             }
 
-            if (benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved)
+            if (benefit.BenefitStatusId == BenefitStatusEnum.Approved)
             {
                 var shop = _shopService.GetById(benefit.ShopId);
                 var images = _benefitFileService.GetByBenefitId(benefit.Id);
