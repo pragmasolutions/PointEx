@@ -4,14 +4,12 @@
 @using PointEx.Web.Infrastructure.Extensions
 @model PointEx.Web.Models.PrizeListModel
 @{
-    ViewBag.Title = "Premios";
+    ViewBag.Title = "Catálogo de Premios";
 }
 
 @section banner{
-    <img src="/Content/images/banner-premios.jpg" width="100%" alt="Premios" />
+    <img src="/Content/images/banner_catalogopremios.jpg" width="100%" alt="Premios" />
 }
-
-<h2>Listado de premios</h2>
 
 <hr>
 @foreach (var prize in Model.List)

@@ -257,6 +257,7 @@
     <Compile Include="Areas\Admin\Models\SliderImage\SliderImageForm.cs" />
     <Compile Include="Areas\Admin\Models\SliderImage\SliderImageListFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\SliderImage\SliderImageListModel.cs" />
+    <Compile Include="Areas\Beneficiary\Controllers\LayoutController.cs" />
     <Compile Include="Areas\Shop\Controllers\BranchOfficeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
@@ -375,16 +376,39 @@
     <Content Include="Content\images\banner-premios.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\pointex-approved.jpg" />
-    <Content Include="Content\images\pointex-warning.png" />
+    <Content Include="Content\images\banner_catalogopremios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner_micuenta.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\profile-man.jpg" />
+    <Content Include="Content\images\stars.png" />
+    <Content Include="Content\images\pointex-approved.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pointex-warning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\front-end\pointex-search.css" />
     <Content Include="Content\front-end\pointex-prizes.css" />
     <Content Include="Content\front-end\pointex-benefits.css" />
-    <Content Include="Content\images\adobe-acrobat.png" />
-    <Content Include="Content\images\loading100X100.gif" />
-    <Content Include="Content\images\microsoft-excel.png" />
-    <Content Include="Content\images\microsoft-word.png" />
-    <Content Include="Content\images\noimage.png" />
+    <Content Include="Content\images\adobe-acrobat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\loading100X100.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\microsoft-excel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\microsoft-word.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\noimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\profile-woman.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pointex-tables.css" />
     <Content Include="Content\select2.css" />
@@ -712,12 +736,14 @@
     <Content Include="Views\Shared\Benefit\_RejectButton.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Sex.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Sex.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Beneficiary\Models\" />
     <Folder Include="Content\themes\TekovePoti\" />
     <Folder Include="Views\File\" />
+    <Folder Include="Views\Layout\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

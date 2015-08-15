@@ -13,6 +13,15 @@ namespace PointEx.Web.Configuration
             get { return ConfigurationManager.AppSettings["Theme"]; }
         }
 
+        public static string ThemeTitle
+        {
+            get
+            {
+                return Theme == "Jovenes" ? "TARJETA JÓVEN" : "TEKOVÉ POTÍ";
+            }
+        }
+        
+
         public static string SiteBaseUrl
         {
             get

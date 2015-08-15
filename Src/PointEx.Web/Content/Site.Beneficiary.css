@@ -35,23 +35,24 @@
   vertical-align: top;
 }
 .layout-container .td-menu-lateral {
-  background-color: #81BA25;
+  background-color: #01791C;
   width: 300px;
 }
 .layout-container .menulateral {
   width: 100%;
   padding: 40px 20px;
   font-weight: bold;
+  font-size: 16px;
 }
 .layout-container .menulateral .nombre {
-  font-size: 130%;
+  font-size: 30px;
   color: lavender;
   font-weight: bold;
 }
 .layout-container .menulateral .tus-puntos {
-  font-size: 200%;
+  font-size: 60px;
   color: white;
-  font-weight: bold;
+  font-weight: 800;
 }
 .layout-container .menulateral .item {
   margin-bottom: 15px;
@@ -60,9 +61,17 @@
   width: 300px;
   margin-bottom: 20px;
 }
-.layout-container .menulateral a {
-  color: brown;
+.layout-container .menulateral a,
+.layout-container .menulateral a:visited {
+  color: #FFFC00;
   text-decoration: underline;
+}
+.layout-container .menulateral div.stars {
+  margin-bottom: 5px;
+}
+.layout-container .menulateral div.img {
+  margin-top: 8px;
+  margin-bottom: 15px;
 }
 .layout-container .layout-body {
   width: 100%;

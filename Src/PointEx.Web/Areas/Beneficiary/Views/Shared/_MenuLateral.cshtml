@@ -3,15 +3,24 @@
 
 
 <div class="menulateral">
+    <div class="stars">
+        <img src="/Content/images/stars.png"/>
+    </div>
     <div class="buscador">
         @Html.Partial("_SearchPrizes", model: new PrizeListFiltersModel())
     </div>
+
+    <div class="img">
+        <img src="@ViewBag.PictureUrl" />
+    </div>
+
     <div class="item">
         Hola <br/>
-        <div class="nombre">            
+        <div class="nombre">
             @this.CurrentUser().Beneficiary.Name
         </div>
     </div>
+    <br/>
     <div class="item">
         Tus Puntos:
         <div class="tus-puntos">
