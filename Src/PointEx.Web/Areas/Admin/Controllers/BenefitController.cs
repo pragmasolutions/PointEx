@@ -49,7 +49,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
-            ViewBag.IsApproved = benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved;
+            ViewBag.IsApproved = benefit.BenefitStatusId == BenefitStatusEnum.Approved;
             return View(benefitForm);
         }        
 
