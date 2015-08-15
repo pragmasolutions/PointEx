@@ -27,6 +27,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beneficios<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Pendientes", "Index", new { area = "Admin", controller = "Benefit" })</li>
+                            <li>@Html.ActionLink("Aprobados", "ApprovedBenefit", new {area = "Admin", controller = "Benefit"})</li>
+                            <li>@Html.ActionLink("Rechazados", "RejectedBenefit", new { area = "Admin", controller = "Benefit" })</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Beneficiarios", "Index", new { area = "Admin", controller = "Beneficiary" })</li>

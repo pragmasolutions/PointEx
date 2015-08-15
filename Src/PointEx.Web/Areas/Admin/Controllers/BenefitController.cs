@@ -36,13 +36,51 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetPendingBenefit("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Pending, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
             var listModel = new BenefitListModel(pagedList, filters);
 
+            ViewBag.ViewMode = BenefitStatusEnum.Pending;
+            ViewBag.TabTitle = "Beneficios Pendientes";
+            ViewBag.Title = "Beneficios Pendientes de Aprobación";
+
             return View(listModel);
+        }
+
+        public ActionResult ApprovedBenefit(BenefitListFiltersModel filters)
+        {
+            int pageTotal;
+
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Approved, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new BenefitListModel(pagedList, filters);
+
+            ViewBag.ViewMode = BenefitStatusEnum.Approved;
+            ViewBag.TabTitle = "Beneficios Aprobados";
+            ViewBag.Title = "Beneficios Aprobados";
+
+            return View("Index", listModel);
+        }
+
+        public ActionResult RejectedBenefit(BenefitListFiltersModel filters)
+        {
+            int pageTotal;
+
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Rejected, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new BenefitListModel(pagedList, filters);
+
+            ViewBag.ViewMode = BenefitStatusEnum.Rejected;
+            ViewBag.TabTitle = "Beneficios Rechazados";
+            ViewBag.Title = "Beneficios Rechazados";
+
+            return View("Index", listModel);
         }
 
         public ActionResult Detail(int id)
@@ -75,7 +113,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Rejected(int id)
         {
             _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
-
+            
             return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
         }       
     }

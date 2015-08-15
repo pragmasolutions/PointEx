@@ -24,7 +24,9 @@
     <script>
         $(function () {
             $(".form-horizontal").on("submit", function () {
-                return alert("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
+                if ($('#frmCreate').valid()) {
+                    return alert("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
+                }
             });
         });       
 

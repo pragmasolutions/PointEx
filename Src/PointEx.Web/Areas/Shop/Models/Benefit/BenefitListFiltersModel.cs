@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Web.Routing;
 using PointEx.Web.Models.List;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Web.Models
 {
@@ -23,6 +24,10 @@ namespace PointEx.Web.Models
         [UIHint("TownId")]
         public int? TownId { get; set; }
 
+        [Display(Name = "Estado")]
+        [UIHint("BenefitStatusId")]
+        public BenefitStatusEnum? BenefitStatusId { get; set; }        
+
         public override RouteValueDictionary GetRouteValues(int page = 1)
         {
             var routeValues = base.GetRouteValues(page);
@@ -30,6 +35,7 @@ namespace PointEx.Web.Models
             routeValues.Add("ShopId", this.ShopId);
             routeValues.Add("CategoryId", this.CategoryId);
             routeValues.Add("TownId", this.TownId);
+            routeValues.Add("BenefitStatusId", this.BenefitStatusId);
             return routeValues;
         }
     }

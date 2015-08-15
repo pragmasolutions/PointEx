@@ -227,7 +227,7 @@ namespace PointEx.Service
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();            
         }
 
-        public List<BenefitDto> GetPendingBenefit(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, BenefitStatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -243,7 +243,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted && x.BenefitStatusId == BenefitStatusEnum.Pending);
+                     !x.IsDeleted && x.BenefitStatusId == status);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes
