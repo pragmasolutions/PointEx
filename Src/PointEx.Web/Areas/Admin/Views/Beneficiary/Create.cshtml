@@ -24,33 +24,3 @@
         </div>
     </div>
 }
-
-@section scripts{
-    <script>
-        $(function () {
-            if ('@AppSettings.Theme' == 'Jovenes') {
-                $('#EducationalInstitutionId').prop('disabled', true);
-
-                var $town = $("#TownId");
-                $town.on("change", function(e) {
-                    var id = $(this).val();
-                    if (id) {
-                        $('#EducationalInstitutionId').prop('disabled', true);
-                        $.getJSON('/EducationalInstitution/GetListByTown/' + id, function(data) {
-                            $('#EducationalInstitutionId').prop('disabled', false);
-
-                            $("#EducationalInstitutionId").select2({
-                                data: data
-                            });
-                        });
-                    } else {
-                        $("#EducationalInstitutionId").select2({
-                            data: []
-                        });
-                        $('#EducationalInstitutionId').prop('disabled', true);
-                    }
-                });
-            }
-        });
-    </script>
-}
