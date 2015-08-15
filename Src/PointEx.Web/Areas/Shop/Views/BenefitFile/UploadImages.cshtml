@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Subir Imagenes Beneficio";
+    if (ViewBag.ReturnController == "Admin")
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }
 
 <h3>Subir Imagenes Beneficio: <strong>@Model.Benefit.Name</strong></h3>

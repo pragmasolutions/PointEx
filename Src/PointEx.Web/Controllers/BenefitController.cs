@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using PointEx.Entities;
 using PointEx.Entities.Dto;
+using PointEx.Entities.Enums;
 using PointEx.Service;
 using PointEx.Web.Models;
 
@@ -29,7 +31,7 @@ namespace PointEx.Web.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, true, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, (int)BenefitStatusEnum.Approved, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
@@ -42,13 +44,13 @@ namespace PointEx.Web.Controllers
         {
             var benefit = _benefitService.GetById(id);
 
-            if (benefit.IsApproved.HasValue && benefit.IsApproved.Value)
+            if (benefit == null)
             {
-                if (benefit == null)
-                {
-                    return HttpNotFound();
-                }
+                return HttpNotFound();
+            }
 
+            if (benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved)
+            {
                 var shop = _shopService.GetById(benefit.ShopId);
                 var images = _benefitFileService.GetByBenefitId(benefit.Id);
                 var branchOffices = _branchOfficeService.GetByShopId(benefit.ShopId);

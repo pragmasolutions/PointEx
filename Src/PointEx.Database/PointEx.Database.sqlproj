@@ -98,6 +98,8 @@
     <Build Include="dbo\Tables\BenefitTypes.sql" />
     <Build Include="dbo\Stored Procedures\Rpt_BenefitsUsed.sql" />
     <Build Include="dbo\Stored Procedures\Rpt_BenefitsUsed_Chart.sql" />
+    <Build Include="dbo\Tables\SliderImage.sql" />
+    <Build Include="dbo\Tables\BenefitStatus.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PointEx.Database.publish.xml" />
@@ -105,6 +107,7 @@
     <None Include="ReferenceData\Categories.Data.sql" />
     <None Include="ReferenceData\Section.Data.sql" />
     <None Include="ReferenceData\BenefitTypes.Data.sql" />
+    <None Include="ReferenceData\BenefitStatus.Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />

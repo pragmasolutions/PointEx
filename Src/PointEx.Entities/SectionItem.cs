@@ -19,9 +19,11 @@ namespace PointEx.Entities
         public Nullable<int> BenefitId { get; set; }
         public Nullable<int> PrizeId { get; set; }
         public int Order { get; set; }
+        public Nullable<int> SliderImageId { get; set; }
     
         public virtual Prize Prize { get; set; }
         public virtual Section Section { get; set; }
         public virtual Benefit Benefit { get; set; }
+        public virtual SliderImage SliderImage { get; set; }
     }
 }

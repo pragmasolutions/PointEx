@@ -10,12 +10,15 @@ using PointEx.Web.Models;
 using PointEx.Web.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using PointEx.Entities.Enums;
 using PointEx.Entities.Models;
+using PointEx.Security;
 using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Areas.Shop.Controllers
 {
-    public class BenefitController : ShopBaseController
+    [Authorize(Roles = "Administrator, SuperAdmin, Shop")]
+    public class BenefitController : BaseController
     {
         private readonly IBenefitService _benefitService;
         private readonly IShopService _shopService;
@@ -43,14 +46,18 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             var listModel = new BenefitListModel(pagedList, filters);
 
+
             return View(listModel);
         }
 
+        
         public ActionResult Detail(int id)
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
-            ViewBag.IsApproved = benefit.IsApproved.HasValue;
+            ViewBag.IsApproved = benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved;
+            ViewBag.ReturnController = _currentUser.Shop != null ? "Shop" : "Admin";
+            ViewBag.ShowApprovalButtons = _currentUser.Shop == null && benefit.BenefitStatusId == (int) BenefitStatusEnum.Pending;
             return View(benefitForm);
         }
 
@@ -107,7 +114,12 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             var benefit = benefitForm.ToBenefit();
 
-            var approved = benefit.IsApproved.GetValueOrDefault();
+            var approved = benefit.BenefitStatusId == (int)BenefitStatusEnum.Approved;
+
+            if (_currentUser.Shop != null)
+            {
+                benefit.BenefitStatusId = (int) BenefitStatusEnum.Pending;
+            }
             _benefitService.Edit(benefit);
 
             if (approved)

@@ -10,14 +10,14 @@ html, body {
 }
 
 .main-background {
-    background-image: url(images/mail-background.jpg);
     margin-right: auto;
     margin-left: auto;
-    width: 78%
+    width: 65%
 }
 
 #wrapper .container {
     background-color: #FFF;
+    background-image: url(images/mail-background.jpg);
 }
 
 body {
@@ -231,15 +231,15 @@ footer {
 
 .benefit-type-info {
     color: #FB362D;
-    margin-top: 16px;
+    
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .benefit-name {
     color: #000;
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 

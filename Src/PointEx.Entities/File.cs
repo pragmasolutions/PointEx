@@ -18,6 +18,7 @@ namespace PointEx.Entities
         {
             this.Prizes = new HashSet<Prize>();
             this.BenefitFiles = new HashSet<BenefitFile>();
+            this.SliderImages = new HashSet<SliderImage>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,6 @@ namespace PointEx.Entities
         public virtual ICollection<Prize> Prizes { get; set; }
         public virtual FileContent FileContent { get; set; }
         public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
+        public virtual ICollection<SliderImage> SliderImages { get; set; }
     }
 }

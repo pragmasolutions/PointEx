@@ -31,6 +31,7 @@ namespace PointEx.Entities
         public string Address { get; set; }
         public string IdentificationNumber { get; set; }
         public bool IsDeleted { get; set; }
+        public int Sex { get; set; }
     
         public virtual User User { get; set; }
         public virtual EducationalInstitution EducationalInstitution { get; set; }

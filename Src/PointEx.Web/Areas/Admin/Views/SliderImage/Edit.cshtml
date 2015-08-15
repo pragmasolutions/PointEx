@@ -1,0 +1,20 @@
+﻿@model PointEx.Web.Models.SliderImageForm
+
+@{
+    ViewBag.Title = "Editar Imágen";
+}
+
+<h3>Editar Imágen</h3>
+@Html.BackButton("Index", "SliderImage", "Admin")
+<hr />
+@using (Html.BeginForm("Edit", "SliderImage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="btnSubmit" type="submit" value="Editar Imágen" class="btn btn-default" />
+        </div>
+    </div>
+}

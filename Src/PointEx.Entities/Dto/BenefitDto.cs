@@ -21,11 +21,19 @@ namespace PointEx.Entities.Dto
         public decimal? DiscountPercentageCeiling { get; set; }
         public int? DefaultFileId { get; set; }
         public string ShopName { get; set; }
-        public bool? IsApproved { get; set; }
-        public string BenefitStatus 
+        public int BenefitStatusId { get; set; }
+        public string BenefitStatusName 
         { 
             get {
-                return (!this.IsApproved.HasValue)? "Pendiente" : ((this.IsApproved.Value)? "Aprobado" : "Pendiente");
+                switch (BenefitStatusId)
+                {
+                    case (int)BenefitStatusEnum.Approved:
+                        return "Aprobado";
+                    case (int)BenefitStatusEnum.Rejected:
+                        return "Rechazado";
+                    default:
+                        return "Pendiente";
+                }
             } 
         }
         public void CreateMappings(IConfiguration configuration)

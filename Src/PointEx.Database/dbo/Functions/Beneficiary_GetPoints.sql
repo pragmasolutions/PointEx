@@ -9,10 +9,7 @@ BEGIN
 	DECLARE @Purchases INT
 	DECLARE @Exchanges INT
 	
-	SELECT @Purchases =	ISNULL((CASE FLOOR(P.Amount / 100)
-				WHEN 0 THEN 1
-				ELSE FLOOR(P.Amount / 100)
-			END), 0)
+	SELECT @Purchases =	ISNULL(FLOOR(P.Amount), 0)
 	FROM Purchase P
 		LEFT JOIN [Card] C
 			ON P.CardId = C.Id

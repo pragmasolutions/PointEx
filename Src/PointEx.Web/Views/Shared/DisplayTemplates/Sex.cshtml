@@ -1,0 +1,6 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model int?
+
+
+@Html.TextBox("", Model == 2 ? "Femenino" : "Masculino", new { @class = "form-control", @readonly = true })

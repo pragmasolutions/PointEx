@@ -43,23 +43,12 @@
                 <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</td>
                 <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
                 <td class="text-right">@benefit.BenefitTypeName</td>
-                <td class="text-right">@benefit.BenefitStatus</td>                
+                <td class="text-right">@benefit.BenefitStatusName</td>                
                 <td class="text-right">                    
-                    @Html.Partial("Benefit/_GridButton", new ViewDataDictionary{{"Id", benefit.Id }})
+                    <button type="button" class="btn btn-primary" onclick="location.href = '/Shop/Benefit/Detail/@benefit.Id';">Detalle</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 @Html.PagedListPager(Model.List, page => Url.Action("Index", Model.Filters.GetRouteValues(page)))
-
-@section scripts
-{
-    <script>
-        $(function () {
-            $(".approved-form").on("submit", function () {
-                return confirm("Esta seguro que desea aprobar este beneficio?  Esta operacion no se puede deshacer.");
-            });
-        });
-    </script>
-}

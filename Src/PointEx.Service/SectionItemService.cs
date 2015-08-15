@@ -25,7 +25,10 @@ namespace PointEx.Service
 
         public IList<SectionItem> GetBySectionId(int sectionId)
         {
-            return Uow.SectionItems.GetAll(si => si.SectionId == sectionId, si => si.Benefit.BenefitFiles, si => si.Prize).OrderBy(c => c.Order).ToList();
+            return Uow.SectionItems.GetAll(si => si.SectionId == sectionId, 
+                            si => si.Benefit.BenefitFiles, 
+                            si => si.Prize,
+                            si => si.SliderImage).OrderBy(c => c.Order).ToList();
         }
 
         public SectionItem GetById(int sectionItemId)
@@ -35,7 +38,11 @@ namespace PointEx.Service
 
         public IList<SectionItem> GetBySectionName(string sectionName)
         {
-            return Uow.SectionItems.GetAll(si => si.Section.Name == sectionName, si => si.Benefit.BenefitFiles, si => si.Prize, si => si.Section).OrderBy(c => c.Order).ToList();
+            return Uow.SectionItems.GetAll(si => si.Section.Name == sectionName, 
+                                        si => si.Benefit.BenefitFiles, 
+                                        si => si.Prize,
+                                        si => si.SliderImage, 
+                                        si => si.Section).OrderBy(c => c.Order).ToList();
         }
 
         public void Order(int sectionItemId, IList<int> sectionItemIdsOrdered)

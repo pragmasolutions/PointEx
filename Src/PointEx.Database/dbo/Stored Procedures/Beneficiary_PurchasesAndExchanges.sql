@@ -16,10 +16,7 @@ BEGIN
 			P.PurchaseDate,
 			'Acumulación por compra en ' + UPPER(S.Name),
 			0,
-			CASE FLOOR(P.Amount / 100)
-				WHEN 0 THEN 1
-				ELSE FLOOR(P.Amount / 100)
-			END	
+			FLOOR(P.Amount)
 	FROM Purchase P
 		LEFT JOIN [Card] C
 			ON P.CardId = C.Id

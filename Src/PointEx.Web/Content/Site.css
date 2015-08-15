@@ -110,6 +110,10 @@ textarea {
     text-align: left;
 }
 
+.all-width {
+    width: 100%;
+}
+
 
 .nav.navbar-nav .dropdown .dropdown-menu a {
     /*color: #000000;*/

@@ -2,11 +2,24 @@
 
 @{
     ViewBag.Title = PointExResources.DetailBenefitTitle;
+    if (ViewBag.ReturnController == "Admin")
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }
 
 <h3>@PointExResources.DetailBenefitTitle</h3>
-@Html.BackButton("Index", "Benefit", "Shop")
+@Html.BackButton("Index", "Benefit", (string)ViewBag.ReturnController)
 @Html.ActionLink("Imagenes", "Index", "BenefitFile", routeValues: new { area = "Shop", benefitId = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+&nbsp; &nbsp; &nbsp;
+@if (ViewBag.ShowApprovalButtons)
+{
+    @Html.Partial("Benefit/_RejectButton", new ViewDataDictionary { { "Id", Model.Id } })
+    @Html.Partial("Benefit/_ApproveButton", new ViewDataDictionary { { "Id", Model.Id } })
+}
+
+
+
 <hr />
 <div class="form-horizontal">
     <div class="form-group">
@@ -78,12 +91,6 @@
         <img src="/Content/images/pointex-approved.jpg?width=320&height=150" alt="Disponible" title="Disponible" />
     </div>
 }
-else
-{
-    <div class="col-md-offset-2 col-sm-pull-10">
-        <img src="/Content/images/pointex-warning.png?width=320&height=150" alt="Pendiente de aprobación" title="Pendiente de aprobación" />
-    </div>   
-}
 
 
 @section scripts
@@ -91,18 +98,39 @@ else
     <script>
         $(function () {
             $("#delete-form").on("submit", function () {
-                return confirm("Esta seguro que desea eliminar este beneficio?  Esta operacion no se puede deshacer.");
+                return confirm("Está seguro que desea eliminar este beneficio?  Esta operación no se puede deshacer.");
             });
-        });       
 
-        $(function () {
-            var typeValue = $("#BenefitTypeId").attr("data-id");            
+            var typeValue = $("#BenefitTypeId").attr("data-id");
             if (typeValue != 1) {
-                $(".hiddenByBenefitType").closest(".form-group").hide();                
+                $(".hiddenByBenefitType").closest(".form-group").hide();
             }
             else {
                 $(".hiddenByBenefitType").closest(".form-group").show();
             }
-        });
+
+            $(".approved-form").on("submit", function () {
+                return confirm("Está seguro que desea aprobar este beneficio?  Esta operación no se puede deshacer.");
+            });
+
+            $(".rejected-form").on("submit", function () {
+                return confirm("Está seguro que desea rechazar este beneficio?  Esta operación no se puede deshacer.");
+            });
+        });  
     </script>
 }
+
+<style>
+    .rejected-form, .approved-form {
+        display: inline;
+    }
+
+    .rejected-form button {
+        background-color: #FB362D !important;
+        border-color: darkred !important;
+    } 
+
+    .rejected-form button:hover {
+        background-color: orangered !important;
+    } 
+</style>

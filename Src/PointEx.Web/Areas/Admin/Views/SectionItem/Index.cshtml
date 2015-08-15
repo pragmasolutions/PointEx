@@ -7,6 +7,7 @@
 @Html.BackButton("Index", "Section", new { area = "Admin" })
 @Html.ActionLink("Agregar Beneficio", "AddBenefit", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 @Html.ActionLink("Agregar Premio", "AddPrize", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Agregar Imágen", "AddSliderImage", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 @Html.ActionLink("Ordenar Items", "OrderItems", "SectionItem", routeValues: new { area = "Admin", sectionId = Model.Section.Id }, htmlAttributes: new { @class = "btn btn-primary" })
 
 <div class="spacer">

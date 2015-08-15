@@ -66,6 +66,9 @@
     <Compile Include="BenefitFile.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BenefitStatus.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BenefitType.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -78,6 +81,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\SliderImageDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\BeneficiaryDto.cs" />
     <Compile Include="Dto\BenefitDto.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\BenefitStatusEnum.cs" />
     <Compile Include="Enums\BenefitTypesEnum.cs" />
     <Compile Include="Extensions\Benefit.cs" />
     <Compile Include="Extensions\SectionItem.cs" />
@@ -106,6 +111,11 @@
       <DependentUpon>PointExModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PointExModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PointsExchange.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
@@ -153,6 +163,9 @@
     <Compile Include="ShopCategory.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SliderImage.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Town.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -165,7 +178,7 @@
     <None Include="packages.config" />
     <None Include="PointExModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PointExModel.cs</LastGenOutput>
+      <LastGenOutput>PointExModel1.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

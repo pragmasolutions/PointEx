@@ -1,0 +1,13 @@
+﻿@using Framework.Common.Web.Extensions
+@using PointEx.Service
+@model int?
+@{
+    var list = new List<KeyValuePair<int, string>>
+    {
+        new KeyValuePair<int, string>(1, "Masculino") ,
+        new KeyValuePair<int, string>(2, "Femenino") 
+    };
+    var selectList = list.ToSelectListItem(Model, t => t.Key, t => t.Value, t => t.Key.ToString());
+}
+
+@Html.DropDownList("", selectList, "Seleccione Sexo", new { @class = "form-control select2-control" })

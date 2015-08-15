@@ -1,0 +1,7 @@
+﻿@using PointEx.Web.Areas.Admin
+
+@using (Html.BeginForm("Rejected", "Benefit", new { area = "Admin", id = @ViewData["Id"] }, FormMethod.Post, new { @class = "rejected-form" }))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Rechazar</button>
+}

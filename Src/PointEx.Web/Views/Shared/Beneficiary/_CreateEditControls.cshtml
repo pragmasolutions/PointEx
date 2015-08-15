@@ -16,6 +16,13 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label" for="Sex">Sexo</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Sex)
+        @Html.ValidationMessageFor(model => model.Sex)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label" for="TownId">Localidad</label>
     <div class="col-md-10">
         @Html.EditorFor(model => model.TownId)

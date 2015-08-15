@@ -1,0 +1,27 @@
+﻿@using Framework.Common.Extentensions
+@using PagedList.Mvc
+@model PointEx.Web.Models.AddSliderImageModel
+
+@{
+    ViewBag.Title = "Agregar Items";
+}
+
+<h3>Agregar imágenes a sección: <strong>@Model.SectionName</strong>
+</h3>
+
+@Html.ActionLink("Crear Imágen", "Create", "SliderImage", routeValues: new { area = "Admin", sectionId = Model.SectionId}, htmlAttributes: new { @class = "btn btn-primary" })
+@Html.BackButton("Index", "SectionItem", new { area = "Admin", sectionId = Model.SectionId })
+<hr />
+
+@Html.FilterButton()
+
+<div class="spacer">
+</div>
+
+@Html.Partial("_SliderImageFilters", Model)
+
+<div class="spacer">
+</div>
+
+@Html.Partial("SelectSliderImageList", Model)
+

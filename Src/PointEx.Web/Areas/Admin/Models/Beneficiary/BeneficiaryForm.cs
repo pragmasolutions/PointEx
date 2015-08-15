@@ -31,6 +31,11 @@ namespace PointEx.Web.Models
         [Required]
         public int TownId { get; set; }
 
+        [UIHint("Sex")]
+        [Display(Name = "Sexo")]
+        [Required]
+        public int Sex { get; set; }
+
         [Required]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
