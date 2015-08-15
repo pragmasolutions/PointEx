@@ -9,7 +9,7 @@
 @Html.BackButton("Index", "Benefit", "Shop")
 <hr />
 
-@using (Html.BeginForm("Create", "Benefit", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Benefit", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frmCreate", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -26,14 +26,15 @@
     <script>
         $(function () {
             $(".form-horizontal").on("submit", function () {
-                return alert("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
+                if ($('#frmCreate').valid()) {
+                    return alert("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
+                }
             });
-        });        
+        });
 
         $("#BenefitTypeId").change(function () {
             var typeValue = $(this).val();
-            if (typeValue != 1)
-            {
+            if (typeValue != 1) {
                 $("#DiscountPercentage").closest(".form-group").hide();
                 $("#DiscountPercentageCeiling").closest(".form-group").hide();
             }

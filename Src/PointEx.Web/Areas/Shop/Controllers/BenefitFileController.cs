@@ -115,7 +115,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             _benefitFileService.Create(benefitFiles);
 
             var b = _benefitService.GetById(uploadImagesForm.Id);
-            b.BenefitStatusId = (int) BenefitStatusEnum.Pending;
+            b.BenefitStatusId = BenefitStatusEnum.Pending;
             _benefitService.Edit(b);
             
             return RedirectToAction("Index", new { benefitId = uploadImagesForm.Id }).WithSuccess("Imagenes subidas");

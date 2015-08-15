@@ -33,6 +33,14 @@
         </tr>
         <tr>
             <td class="col1">
+                @Html.LabelFor(model => model.Sex)
+            </td>
+            <td class="col2">
+                @(Model.Sex == 1 ? "Masculino" : "Femenino")
+            </td>
+        </tr>
+        <tr>
+            <td class="col1">
                 @Html.LabelFor(model => model.Address)
             </td>
             <td class="col2">

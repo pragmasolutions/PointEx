@@ -70,7 +70,7 @@ namespace PointEx.Service
 
                     var card = new Card();
                     card.IssueDate = _clock.Now;
-                    card.Number = _cardService.GenerateNumber();
+                    card.Number = _cardService.GenerateNumber(beneficiary);
                     beneficiary.Cards.Add(card);
 
                     beneficiary.CreatedDate = _clock.Now;

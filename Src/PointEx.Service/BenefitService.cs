@@ -46,7 +46,7 @@ namespace PointEx.Service
                 x =>
                     ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria) || x.Shop.Name.Contains(criteria)) &&
                      (!shopId.HasValue || x.ShopId == shopId) &&
-                     (!benefitStatusId.HasValue || x.BenefitStatusId == benefitStatusId) &&
+                     (!benefitStatusId.HasValue || x.BenefitStatusId == (BenefitStatusEnum)benefitStatusId) &&
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
@@ -87,7 +87,7 @@ namespace PointEx.Service
             }
 
             benefit.CreatedDate = _clock.Now;
-            benefit.BenefitStatusId = (int)BenefitStatusEnum.Pending;
+            benefit.BenefitStatusId = BenefitStatusEnum.Pending;
             Uow.Benefits.Add(benefit);
             Uow.Commit();
         }
@@ -117,7 +117,7 @@ namespace PointEx.Service
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
             currentBenefit.BenefitTypeId = benefit.BenefitTypeId;
-            currentBenefit.BenefitStatusId = (int)BenefitStatusEnum.Pending;
+            currentBenefit.BenefitStatusId = BenefitStatusEnum.Pending;
             if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
             {
                 currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
@@ -136,7 +136,7 @@ namespace PointEx.Service
         public void Moderated(int benefitId, int statusId)
         {
             var currentBenefit = this.GetById(benefitId);
-            currentBenefit.BenefitStatusId = statusId;
+            currentBenefit.BenefitStatusId = (BenefitStatusEnum)statusId;
 
             Uow.Benefits.Edit(currentBenefit);
 
@@ -220,7 +220,7 @@ namespace PointEx.Service
         public IList<Benefit> GetOutstandingBenefits()
         {
             var today = _clock.Now.AddMonths(-3);
-            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && b.BenefitStatusId == (int)BenefitStatusEnum.Approved && !b.IsDeleted,
+            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && b.BenefitStatusId == BenefitStatusEnum.Approved && !b.IsDeleted,
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitType,
@@ -243,7 +243,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted && x.BenefitStatusId == (int)BenefitStatusEnum.Pending);
+                     !x.IsDeleted && x.BenefitStatusId == BenefitStatusEnum.Pending);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes

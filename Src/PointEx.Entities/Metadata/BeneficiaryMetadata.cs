@@ -49,5 +49,8 @@ namespace PointEx.Entities
 
         [DisplayName("Escuela")]
         public int? EducationalInstitutionId { get; set; }
+
+        [DisplayName("Sexo")]
+        public int Sex { get; set; }
     }
 }

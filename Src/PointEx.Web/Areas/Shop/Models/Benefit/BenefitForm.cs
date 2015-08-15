@@ -38,8 +38,9 @@ namespace PointEx.Web.Models
         [Required]
         public string Description { get; set; }
 
-        [UIHint("BenefitType")]
+        [UIHint("BenefitType")]        
         [Display(Name = "Tipo Beneficio")]
+        [Required]
         public BenefitTypesEnum? BenefitTypeId { get; set; }
 
         [Display(Name = @"Porcentaje de Descuento")]
