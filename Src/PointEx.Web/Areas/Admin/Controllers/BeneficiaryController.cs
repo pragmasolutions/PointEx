@@ -76,7 +76,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var beneficiaryForm = new BeneficiaryForm();
-
+            
             //we hardcode the institutionId so we don't get validation errors at client side
             if (AppSettings.Theme == ThemeEnum.TekovePoti)
             {
@@ -139,7 +139,6 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 beneficiaryForm.EducationalInstitutionId = null;
             }
             _beneficiaryService.Edit(beneficiaryForm.ToBeneficiary());
-
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Editado");
         }
 

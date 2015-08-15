@@ -1,8 +1,13 @@
 ﻿@model PointEx.Web.Models.PrizeForm
-
 @{
     ViewBag.Title = PointExResources.DetailPrizeTitle;
 }
+
+@section banner{
+    <img src="/Content/images/banner-premios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
+
+
 
 <h3>@PointExResources.DetailPrizeTitle</h3>
 @Html.BackButton("Index", "Prize", "Admin")

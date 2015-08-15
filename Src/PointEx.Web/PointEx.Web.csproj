@@ -311,6 +311,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BenefitController.cs" />
+    <Compile Include="Controllers\EducationalInstitutionController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -740,6 +741,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Beneficiary\Models\" />
     <Folder Include="Content\themes\TekovePoti\" />
+    <Folder Include="Views\EducationInstitution\" />
     <Folder Include="Views\File\" />
     <Folder Include="Views\Layout\" />
   </ItemGroup>

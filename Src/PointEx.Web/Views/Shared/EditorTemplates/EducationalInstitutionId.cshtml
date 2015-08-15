@@ -3,7 +3,7 @@
 @model int?
 @{
     var service = IocContainer.GetContainer().Get<IEducationalInstitutionService>();
-    var selectList = service.GetAll().Where(e => !e.IsDeleted).ToSelectListItem(Model, e => e.Id, e => e.Name, e => e.Id.ToString());
+    var selectList = service.GetAll().Where(e => !e.IsDeleted).ToSelectListItem(Model, e => e.Id, e => e.FullName, e => e.Id.ToString());
 }
 
 @Html.DropDownList("", selectList, "Seleccione Est. Educativo", new { @class = "form-control select2-control" })

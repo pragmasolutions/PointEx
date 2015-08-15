@@ -51,7 +51,7 @@
     </div>
 <div class="container body-content">
     @RenderSection("banner", required: false)
-    <div class="container alert-container"></div>
+    <div class="container alert-container" style="padding-left: 0 !important;"></div>
     @RenderBody()
     <hr/>
     <footer>
@@ -67,5 +67,11 @@
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
+
+<style>
+    .alert-success {
+        width: 1170px !important;
+    }
+</style>
 </body>
 </html>

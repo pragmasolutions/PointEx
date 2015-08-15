@@ -1,7 +1,11 @@
-﻿@model PointEx.Web.Models.BeneficiaryForm
-
+﻿@using PointEx.Web.Configuration
+@model PointEx.Web.Models.BeneficiaryForm
 @{
     ViewBag.Title = PointExResources.CreateBeneficiaryTitle;
+}
+
+@section banner{
+    <img src="/Content/images/banner-beneficiarios.jpg" width="100%" alt="Beneficios" /><br /><br />
 }
 
 <h3>@PointExResources.CreateBeneficiaryTitle</h3>
