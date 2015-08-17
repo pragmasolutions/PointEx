@@ -1,0 +1,60 @@
+﻿@model PointEx.Web.Models.CreateCardForm
+@{
+    ViewBag.Title = "Crear Tarjeta";
+}
+@section banner{
+    <img src="/Content/images/banner-beneficiarios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
+
+
+<h3>Crear Tarjeta</h3>
+@Html.BackButton("Cards", "Beneficiary", new { area = "Admin", id = Model.BeneficiaryId })
+<hr />
+@using (Html.BeginForm("CreateCard", "Beneficiary", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    @Html.HiddenFor(model => model.BeneficiaryId)
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="BeneficiaryName">Beneficiario</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BeneficiaryName)
+            @Html.ValidationMessageFor(model => model.BeneficiaryName)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="BirthDate">Fecha de Nacimiento</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BirthDate)
+            @Html.ValidationMessageFor(model => model.BirthDate)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="ExpirationDate">Fecha de Vecimiento</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ExpirationDate)
+            @Html.ValidationMessageFor(model => model.ExpirationDate)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear Tarjeta" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="/Scripts/app/Card/CreateCard.js"></script>
+    <script>
+        $(function() {
+            //card.initialize();
+            $('#BirthDate').attr('disabled', 'disabled');
+            $('#BeneficiaryName').attr('disabled', 'disabled');
+            
+        })
+    </script>
+}

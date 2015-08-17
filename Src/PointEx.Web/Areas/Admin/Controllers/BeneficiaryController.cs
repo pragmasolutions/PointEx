@@ -59,6 +59,34 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return View(beneficiaryCards);
         }
+
+        public ActionResult CreateCard(int beneficiaryId)
+        {
+            var createCardForm = new CreateCardForm();
+            var beneficiary = _beneficiaryService.GetById(beneficiaryId);
+            createCardForm.BeneficiaryId = beneficiaryId;
+            createCardForm.BeneficiaryName = beneficiary.Name;
+            createCardForm.BirthDate = beneficiary.BirthDate.GetValueOrDefault();
+            createCardForm.ExpirationDate = _cardService.CalculateExpirationDate(beneficiary.BirthDate.GetValueOrDefault());
+
+            return View(createCardForm);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateCard(CreateCardForm createCardForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(createCardForm);
+            }
+
+            var card = createCardForm.ToCard();
+
+            _cardService.Create(card);
+
+            return RedirectToAction("Cards", new { id = createCardForm.BeneficiaryId }).WithSuccess("Tarjeta Creada");
+        }
+
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult GenerateCard(int id)
         {

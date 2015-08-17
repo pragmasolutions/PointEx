@@ -107,6 +107,7 @@
     <Compile Include="FileContent.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\CardMetadata.cs" />
     <Compile Include="Metadata\StudentMetadata.cs" />
     <Compile Include="Metadata\BeneficiaryMetadata.cs" />
     <Compile Include="Models\InformationRequestModel.cs" />

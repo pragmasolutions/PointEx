@@ -42,6 +42,7 @@ namespace PointEx.Web.Models
 
         [Display(Name = "Fecha de Nacimiento")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime? BirthDate { get; set; }
 
         [UIHint("EducationalInstitutionId")]

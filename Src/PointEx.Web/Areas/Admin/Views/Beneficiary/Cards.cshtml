@@ -1,14 +1,30 @@
-﻿@model PointEx.Web.Models.BeneficiaryCardsModel
-<h3>Tarjetas Beneficiario:  <strong>@(Model.Beneficiary.Name)</strong></h3>
+﻿@using PointEx.Web.Configuration
+@model PointEx.Web.Models.BeneficiaryCardsModel
+
+@section banner{
+    <img src="/Content/images/banner-beneficiarios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
+
+<h3>Tarjetas de Beneficiario:  &nbsp;<strong>@(Model.Beneficiary.Name)</strong></h3>
 
 <div>
     @Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
 
-    @using (Html.BeginForm("GenerateCard", "Beneficiary", new { area = "Admin", id = Model.Beneficiary.Id }, FormMethod.Post, new { @class = "generate-form" }))
+    @if (AppSettings.Theme == ThemeEnum.Jovenes)
     {
-        @Html.AntiForgeryToken()
-        <button type="submit" class="btn btn-primary">Generar tarjeta</button>
+        @Html.ActionLink("Crear Tarjeta", "CreateCard", "Beneficiary", routeValues: new { area = "Admin", beneficiaryId = Model.Beneficiary.Id }, htmlAttributes: new { @class = "btn btn-primary" })
     }
+    else
+    {
+        using (Html.BeginForm("GenerateCard", "Beneficiary", new { area = "Admin", id = Model.Beneficiary.Id }, FormMethod.Post, new { @class = "generate-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">Generar tarjeta</button>
+        }
+
+    }
+    
+
 </div>
 
 <hr />
@@ -16,9 +32,13 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Fecha de Expedición</th>
+            <th>Fecha de expedición</th>
             <th>Número</th>
-            <th>Fecha Cancelación</th>
+            @if (AppSettings.Theme == ThemeEnum.Jovenes)
+            {
+                <th>Fecha  de vencimiento</th>
+            }
+            <th>Fecha de cancelación</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -27,13 +47,17 @@
             <tr>
                 <td>@card.IssueDate.ToShortDateString()</td>
                 <td>@card.Number</td>
+                @if (AppSettings.Theme == ThemeEnum.Jovenes)
+                {
+                    <td>@card.ExpirationDate.GetValueOrDefault().ToShortDateString()</td>
+                }
                 <td>
                     @if (!card.EndDate.HasValue)
                     {
                         using (Html.BeginForm("CancelCard", "Beneficiary", new {id = card.Id}, FormMethod.Post, new {@class = "cancel-card-form"}))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-warning">Cancel</button>
+                            <button type="submit" class="btn btn-warning">Cancelar</button>
                         }
                     }
                     else
@@ -49,7 +73,11 @@
 @section scripts
 {
     <script>
-        $(function () {
+        $(function() {
+            $(".cancel-card-form").on("submit", function() {
+                return confirm("Esta seguro que desea cancelar esta tarjeta?  Esta operacion no se puede deshacer.");
+            });
+
             $(".generate-form").on("submit", function () {
                 return confirm("Si existen tarjetas previas del beneficiario, éstas quedarán inactivas luego de la generación de una nueva tarjeta. Está seguro que desea continuar?");
             });

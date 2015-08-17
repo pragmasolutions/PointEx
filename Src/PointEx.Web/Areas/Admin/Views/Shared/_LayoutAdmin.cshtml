@@ -22,32 +22,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 @{ Html.RenderAction("Menu", "Layout", new { area = "Admin"});}
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Comercios", "Index", new { area = "Admin", controller = "Shop" })</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beneficios<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Pendientes", "Index", new { area = "Admin", controller = "Benefit" })</li>
-                            <li>@Html.ActionLink("Aprobados", "ApprovedBenefit", new {area = "Admin", controller = "Benefit"})</li>
-                            <li>@Html.ActionLink("Rechazados", "RejectedBenefit", new { area = "Admin", controller = "Benefit" })</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Beneficiarios", "Index", new { area = "Admin", controller = "Beneficiary" })</li>
-                    <li>@Html.ActionLink("Est. Educativos", "Index", new { area = "Admin", controller = "EducationalInstitution" })</li>
-                    <li>@Html.ActionLink("Premios", "Index", new { area = "Admin", controller = "Prize" })</li>
-                    <li>@Html.ActionLink("Contenido Secciones", "Index", new { area = "Admin", controller = "Section" })</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Compras", "Purchases", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Premios mas Canjeados", "MostExchangedPrizes", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Puntos Generados", "GeneratedPoints", new { area = "Admin", controller = "Report" })</li>
-                            <li>@Html.ActionLink("Beneficios más Usados", "MostUsedBenefits", new {area = "Admin", controller = "Report"})</li>
-                            <li>@Html.ActionLink("Beneficiarios", "Beneficiaries", new { area = "Admin", controller = "Report" })</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Usuarios", "Index", new { area = "Admin", controller = "User" })</li>
-                </ul>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

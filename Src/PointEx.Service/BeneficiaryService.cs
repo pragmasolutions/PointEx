@@ -71,6 +71,7 @@ namespace PointEx.Service
                     var card = new Card();
                     card.IssueDate = _clock.Now;
                     card.Number = _cardService.GenerateNumber(beneficiary);
+                    card.ExpirationDate = _cardService.CalculateExpirationDate(beneficiary.BirthDate.GetValueOrDefault());
                     beneficiary.Cards.Add(card);
 
                     beneficiary.CreatedDate = _clock.Now;

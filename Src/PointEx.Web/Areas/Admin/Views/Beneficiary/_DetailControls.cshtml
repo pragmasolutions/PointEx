@@ -1,0 +1,55 @@
+﻿@using PointEx.Web.Configuration
+@model PointEx.Web.Models.BeneficiaryForm
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Name">Nombre</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label" for="IdentificationNumber">DNI</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.IdentificationNumber)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Sex">Sexo</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label" for="TownId">Localidad</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.TownId)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Address">Dirección</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label" for="BirthDate">Fecha de Nacimiento</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.BirthDate)
+    </div>
+</div>
+@if (AppSettings.Theme == ThemeEnum.Jovenes)
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="EducationalInstitutionId">Establecimiento Educativo</label>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.EducationalInstitutionId)
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    <label class="col-md-2 control-label" for="Email">Email</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Email)
+
+    </div>
+</div>

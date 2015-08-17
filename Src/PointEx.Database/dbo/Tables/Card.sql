@@ -4,6 +4,7 @@
     [Number]    VARCHAR (50)  NOT NULL,
     [IssueDate] DATETIME2 (7) NOT NULL,
 	[EndDate] DATETIME2 (7)   NULL,
+	[ExpirationDate] DATETIME2 (7) NULL,
     CONSTRAINT [PK_Card] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Card_Student] FOREIGN KEY ([BeneficiaryId]) REFERENCES [dbo].[Beneficiary] ([Id])
 );

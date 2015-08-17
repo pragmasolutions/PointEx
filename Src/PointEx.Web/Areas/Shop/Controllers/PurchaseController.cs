@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using PagedList;
 using PointEx.Entities.Dto;
 using PointEx.Service;
+using PointEx.Web.Configuration;
 using PointEx.Web.Controllers;
 using PointEx.Web.Infrastructure;
 using PointEx.Web.Models;
@@ -51,7 +52,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
             var purchase = purchaseForm.ToPurchase();
 
             var card = _cardService.GetByNumber(purchaseForm.CardNumber);
-
+            
             purchase.ShopId = _currentUser.Shop.Id;
             purchase.CardId = card.Id;
 
@@ -68,5 +69,10 @@ namespace PointEx.Web.Areas.Shop.Controllers
             return RedirectToAction("Index").WithSuccess("Compra Creada");
         }
 
+        public ActionResult ValidateCardNumber(string cardNumber)
+        {
+            var validateExpirationDate = AppSettings.Theme == ThemeEnum.Jovenes;
+            return Json(_cardService.ValidateCardNumber(cardNumber, validateExpirationDate), JsonRequestBehavior.AllowGet);
+        }
     }
 }

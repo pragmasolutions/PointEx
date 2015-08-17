@@ -1,4 +1,5 @@
 ﻿@using PagedList.Mvc
+@using PointEx.Web.Configuration
 @model PointEx.Web.Models.BeneficiaryListModel
 
 
@@ -24,7 +25,11 @@
             <th>Nombre</th>
             <th>Direccion</th>
             <th>Localidad</th>
-            <th>Establecimiento Educativo</th>
+            @if (AppSettings.Theme == ThemeEnum.Jovenes)
+            {
+                <th>Establecimiento Educativo</th>
+            }
+            
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -34,7 +39,11 @@
                 <td>@Html.ActionLink(beneficiary.Name, "Detail", "Beneficiary", routeValues: new { area = "Admin", beneficiary.Id }, htmlAttributes: null)</td>
                 <td>TODO</td>
                 <td>@beneficiary.TownName</td>
-                <td>@beneficiary.EducationalInstitutionName</td>
+                @if (AppSettings.Theme == ThemeEnum.Jovenes)
+                {
+                    <td>@beneficiary.EducationalInstitutionName</td>
+                }
+                
             </tr>
         }
     </tbody>

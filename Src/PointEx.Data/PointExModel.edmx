@@ -126,6 +126,7 @@
           <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IssueDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="EndDate" Type="datetime2" Precision="7" />
+          <Property Name="ExpirationDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -852,6 +853,7 @@
           <Property Name="BeneficiaryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Beneficiary" Relationship="PointEx.Data.FK_Card_Student1" FromRole="Card" ToRole="Beneficiary" />
           <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="7" />
         </EntityType>
         <EntityType Name="EducationalInstitution">
           <Key>
@@ -1782,6 +1784,7 @@
           <EntitySetMapping Name="Cards">
             <EntityTypeMapping TypeName="PointEx.Data.Card">
               <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

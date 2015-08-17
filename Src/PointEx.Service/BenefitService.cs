@@ -71,7 +71,7 @@ namespace PointEx.Service
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
         {
-            return Uow.Benefits.GetAll(b => b.ShopId == shopId && !b.IsDeleted);
+            return Uow.Benefits.GetAll(b => b.ShopId == shopId && !b.IsDeleted && b.BenefitStatusId == BenefitStatusEnum.Approved);
         }
 
         public Benefit GetByName(string name)

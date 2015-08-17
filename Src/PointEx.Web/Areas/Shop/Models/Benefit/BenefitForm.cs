@@ -75,7 +75,7 @@ namespace PointEx.Web.Models
         public static BenefitForm FromBenefit(Benefit benefit)
         {
             var form = Mapper.Map<Benefit, BenefitForm>(benefit);
-            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);            
+            form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
             return form;
         }
 
