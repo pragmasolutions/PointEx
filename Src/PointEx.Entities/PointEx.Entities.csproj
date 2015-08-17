@@ -81,6 +81,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dto\MenuItem.cs" />
     <Compile Include="Dto\SliderImageDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\BeneficiaryDto.cs" />

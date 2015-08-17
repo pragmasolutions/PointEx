@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenefitTypesService.cs" />
+    <Compile Include="LayoutService.cs" />
     <Compile Include="Interfaces\IBenefitTypesService.cs" />
+    <Compile Include="Interfaces\ILayoutService.cs" />
     <Compile Include="Interfaces\ISliderImageService.cs" />
     <Compile Include="SliderImageService.cs" />
     <Compile Include="UserService.cs" />

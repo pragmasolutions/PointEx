@@ -139,6 +139,10 @@ namespace PointEx.Web.Controllers
                     return Redirect("~/Shop");
                 case RolesNames.Beneficiary:
                     return Redirect("~/Beneficiary");
+                case RolesNames.BeneficiaryAdmin:
+                    return Redirect("~/Admin/Beneficiary");
+                case RolesNames.ShopAdmin:
+                    return Redirect("~/Admin/Shop");
                 default:
                     return RedirectToAction("Index");
             }

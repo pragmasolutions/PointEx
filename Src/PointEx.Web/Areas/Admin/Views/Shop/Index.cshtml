@@ -1,7 +1,10 @@
 ﻿@using PagedList.Mvc
 @model PointEx.Web.Areas.Admin.Models.ShopListModel
 
-<h3>Comercios</h3>
+@section banner{
+    <img src="/Content/images/banner-comercios.jpg" width="100%" alt="Beneficios" /><br /><br />
+}
+
 
 @Html.ActionLink("Crear Comercio", "Create", "Shop", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
 

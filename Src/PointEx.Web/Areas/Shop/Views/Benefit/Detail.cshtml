@@ -1,11 +1,14 @@
 ﻿@model PointEx.Web.Models.BenefitForm
-
 @{
     ViewBag.Title = PointExResources.DetailBenefitTitle;
     if (ViewBag.ReturnController == "Admin")
     {
         Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     }
+}
+
+@section banner{
+    <img src="/Content/images/banner-beneficios.jpg" width="100%" alt="Beneficios" />
 }
 
 <h3>@PointExResources.DetailBenefitTitle</h3>

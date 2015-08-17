@@ -12,7 +12,8 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class ShopController : AdminBaseController
+    [Authorize(Roles = "Administrator,SuperAdmin,ShopAdmin")]
+    public class ShopController : BaseController
     {
         private readonly IShopService _shopService;
 

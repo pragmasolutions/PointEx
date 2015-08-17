@@ -113,20 +113,20 @@ namespace PointEx.Web.Controllers
                     PointExContext.SetIdentity(user);
 
                     if (!string.IsNullOrEmpty(returnUrl))
-                    {
                         return RedirectToLocal(returnUrl);
-                    }
-
+                    
                     if (user.Roles.Any(r => r.Name == RolesNames.Admin || r.Name == RolesNames.SuperAdmin))
-                    {
                         return RedirectToAction("Index", "Shop", new { area = "Admin" });
-                    }
-
+                    
                     if (user.Roles.Any(r => r.Name == RolesNames.Shop))
-                    {
                         return RedirectToAction("Index", "Purchase", new { area = "Shop" });
-                    }
 
+                    if (user.Roles.Any(r => r.Name == RolesNames.BeneficiaryAdmin))
+                        return RedirectToAction("Index", "Beneficiary", new { area = "Admin" });
+
+                    if (user.Roles.Any(r => r.Name == RolesNames.ShopAdmin))
+                        return RedirectToAction("Index", "Shop", new { area = "Admin" });
+                    
                     return RedirectToAction("Index", "Profile", new { area = "Beneficiary" });
 
                 case SignInStatus.LockedOut:

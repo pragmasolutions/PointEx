@@ -14,7 +14,8 @@ using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    public class BeneficiaryController : AdminBaseController
+    [Authorize(Roles = "Administrator,SuperAdmin,BeneficiaryAdmin")]
+    public class BeneficiaryController : BaseController
     {
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly ApplicationUserManager _userManager;

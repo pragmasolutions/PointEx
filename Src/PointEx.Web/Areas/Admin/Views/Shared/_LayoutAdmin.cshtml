@@ -21,7 +21,8 @@
                 @Html.ActionLink("Administración", "Index", new { area = "Admin", controller = "Shop" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @{ Html.RenderAction("Menu", "Layout", new { area = "Admin"});}
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Comercios", "Index", new { area = "Admin", controller = "Shop" })</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beneficios<span class="caret"></span></a>
@@ -46,7 +47,7 @@
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Usuarios", "Index", new { area = "Admin", controller = "User" })</li>
-                </ul>
+                </ul>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

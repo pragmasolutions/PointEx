@@ -64,6 +64,7 @@ namespace PointEx.Web
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
             kernel.Bind<IBenefitTypesService>().To<BenefitTypesService>().InRequestScope();
             kernel.Bind<ISliderImageService>().To<SliderImageService>().InRequestScope();
+            kernel.Bind<ILayoutService>().To<LayoutService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);
