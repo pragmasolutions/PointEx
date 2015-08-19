@@ -21,46 +21,49 @@
     </div>
 </div>
 <div class="col-md-9">
-    <div class="row carousel-holder">
-        <div class="col-md-12">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                @{
-                    var sliderItemIndex = 0;
-                }
-                <ol class="carousel-indicators">
-                    @foreach (var item in Model.SliderItems)
-                    {
-                        <li data-target="#carousel-example-generic"
-                            data-slide-to="@sliderItemIndex"
-                            @(item == Model.SliderItems.First() ? "active" : string.Empty)></li>
+    @if (Model.SliderItems.Any())
+    {
+        <div class="row carousel-holder">
+            <div class="col-md-12">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    @{
+        var sliderItemIndex = 0;
+                    }
+                    <ol class="carousel-indicators">
+                        @foreach (var item in Model.SliderItems)
+                        {
+                            <li data-target="#carousel-example-generic"
+                                data-slide-to="@sliderItemIndex"
+                                @(item == Model.SliderItems.First() ? "active" : string.Empty)></li>
 
-                        sliderItemIndex++;
-                    }
-                </ol>
-                <div class="carousel-inner">
-                    @foreach (var item in Model.SliderItems)
-                    {
-                        <div class="item @(item == Model.SliderItems.First() ? "active" : string.Empty)">
-                            <img class="slide-image active" src="@item.GetImageUrl(800, 300)" alt="">
-                        </div>
-                    }
+                            sliderItemIndex++;
+                        }
+                    </ol>
+                    <div class="carousel-inner">
+                        @foreach (var item in Model.SliderItems)
+                        {
+                            <div class="item @(item == Model.SliderItems.First() ? "active" : string.Empty)">
+                                <img class="slide-image active" src="@item.GetImageUrl(800, 300)" alt="">
+                            </div>
+                        }
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
-                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
             </div>
         </div>
-    </div>
+    }
     <p class=" lead sub-title">Destacados</p>
     <div class="row">
         @foreach (var benefit in Model.OutstandingBenefits)
         {
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img src="@benefit.GetDefaultImageUrl(320,150)" alt="">
+                    <img src="@benefit.GetDefaultImageUrl(320, 150)" alt="">
                     <div class="caption benifit-short-detail">
                         <table class="all-width">
                             <tr>
