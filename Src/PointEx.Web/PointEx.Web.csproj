@@ -591,6 +591,7 @@
     <Content Include="Areas\Admin\Views\Layout\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
+    <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\Card\CreateCard.js" />
