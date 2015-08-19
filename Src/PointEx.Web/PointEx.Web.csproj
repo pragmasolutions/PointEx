@@ -375,7 +375,9 @@
     <Content Include="Content\images\banner-beneficios.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\banner-comercios.jpg" />
+    <Content Include="Content\images\banner-comercios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\banner-establecimiento.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -388,11 +390,21 @@
     <Content Include="Content\images\banner_micuenta.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\banner-reportes.jpg" />
-    <Content Include="Content\images\banner_secciones.jpg" />
-    <Content Include="Content\images\banner_usuarios.jpg" />
-    <Content Include="Content\images\profile-man.jpg" />
-    <Content Include="Content\images\stars.png" />
+    <Content Include="Content\images\banner-reportes.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner_secciones.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\banner_usuarios.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\profile-man.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\stars.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\pointex-approved.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -417,7 +429,9 @@
     <Content Include="Content\images\noimage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\profile-woman.jpg" />
+    <Content Include="Content\images\profile-woman.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pointex-tables.css" />
     <Content Include="Content\select2.css" />
