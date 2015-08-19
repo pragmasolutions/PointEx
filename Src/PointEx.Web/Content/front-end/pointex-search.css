@@ -70,3 +70,7 @@
 #search-box .select2-hidden-accessible {
     position: absolute;
 }
+
+#search-box .dropdown-menu-search-prices {
+    min-width: 300px;
+}
