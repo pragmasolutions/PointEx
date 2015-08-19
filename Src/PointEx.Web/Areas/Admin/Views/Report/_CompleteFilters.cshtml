@@ -1,4 +1,6 @@
-﻿@model PointEx.Web.Models.GeneratedPointsReportFiltersModel
+﻿@using Microsoft.VisualStudio.Web.PageInspector.Runtime
+@using AppSettings = PointEx.Web.Configuration.AppSettings
+@model PointEx.Web.Models.GeneratedPointsReportFiltersModel
 
 <div id="filter-container" class="collapse">
     @using (Html.BeginForm(Model.ReportName, "Report", FormMethod.Get, new { area = "Admin" }))
@@ -11,18 +13,21 @@
                 @Html.EditorFor(model => model.To)
             </div>
             <div class="col-sm-4">
-                @Html.EditorFor(model => model.EducationalInstitutionId)
+                @Html.EditorFor(model => model.ShopId)
             </div>
         </div>
         <div class="spacer">
         </div>
         <div class="row">
             <div class="col-sm-4">
-                @Html.EditorFor(model => model.ShopId)
-            </div>
-            <div class="col-sm-4">
                 @Html.EditorFor(model => model.BeneficiaryId)
             </div>
+            @if (AppSettings.ShowEducationalInstitution)
+            {
+                <div class="col-sm-4">
+                    @Html.EditorFor(model => model.EducationalInstitutionId)
+                </div>
+            }
             <div class="col-sm-4 pull-right">
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </div>

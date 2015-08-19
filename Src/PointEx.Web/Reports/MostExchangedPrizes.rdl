@@ -232,6 +232,9 @@
             <Height>0.6cm</Height>
             <Width>2.60805cm</Width>
             <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -261,6 +264,9 @@
             <Height>0.6cm</Height>
             <Width>5.76382cm</Width>
             <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -485,7 +491,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -495,7 +500,11 @@
             <TablixColumnHierarchy>
               <TablixMembers>
                 <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -643,6 +652,10 @@
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>EducationalInstitutionName</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShowEducationalInstitution">
+      <DataType>Boolean</DataType>
+      <Prompt>ShowEducationalInstitution</Prompt>
     </ReportParameter>
   </ReportParameters>
   <Language>es-AR</Language>

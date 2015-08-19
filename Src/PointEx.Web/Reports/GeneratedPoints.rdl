@@ -23,6 +23,15 @@
           <QueryParameter Name="@To">
             <Value>=Parameters!To.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@ShopId">
+            <Value>=Parameters!ShopId.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@BeneficiaryId">
+            <Value>=Parameters!BeneficiaryId.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@EducationalInstitutionId">
+            <Value>=Parameters!EducationalInstitutionId.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>Rpt_GeneratedPoints</CommandText>
@@ -50,7 +59,7 @@
         </Field>
         <Field Name="Points">
           <DataField>Points</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -169,7 +178,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.0152cm</Top>
+            <Top>1.97993cm</Top>
             <Left>2.61148cm</Left>
             <Height>0.6cm</Height>
             <Width>5.65799cm</Width>
@@ -297,11 +306,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>1.94465cm</Top>
-            <Left>8.878cm</Left>
+            <Top>2.68576cm</Top>
+            <Left>0.0762cm</Left>
             <Height>0.6cm</Height>
             <Width>2.60805cm</Width>
             <ZIndex>7</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -326,11 +338,14 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.87409cm</Top>
-            <Left>11.48605cm</Left>
+            <Top>2.68576cm</Top>
+            <Left>2.67225cm</Left>
             <Height>0.6cm</Height>
             <Width>5.76382cm</Width>
             <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -770,7 +785,11 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -812,8 +831,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.75631cm</Top>
-            <Left>2.64676cm</Left>
+            <Top>1.97993cm</Top>
+            <Left>11.41328cm</Left>
             <Height>0.6cm</Height>
             <Width>5.65799cm</Width>
             <ZIndex>10</ZIndex>
@@ -844,8 +863,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>2.72104cm</Top>
-            <Left>0.11148cm</Left>
+            <Top>1.97993cm</Top>
+            <Left>8.878cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>11</ZIndex>
@@ -983,6 +1002,25 @@
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>BeneficiaryName</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShowEducationalInstitution">
+      <DataType>Boolean</DataType>
+      <Prompt>ShowEducationalInstitution</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShopId">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Shop Id</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BeneficiaryId">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Beneficiary Id</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EducationalInstitutionId">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Educational Institution Id</Prompt>
     </ReportParameter>
   </ReportParameters>
   <Language>es-AR</Language>

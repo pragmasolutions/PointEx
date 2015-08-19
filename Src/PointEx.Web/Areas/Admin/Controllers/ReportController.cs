@@ -9,6 +9,7 @@ using Framework.Report;
 using PointEx.Entities;
 using PointEx.Service;
 using PointEx.Web.App_LocalResources;
+using PointEx.Web.Configuration;
 using PointEx.Web.Models;
 
 namespace PointEx.Web.Areas.Admin.Controllers
@@ -51,7 +52,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 .SetParameter("From", filters.From.ToShortDateString(null))
                 .SetParameter("To", filters.To.ToShortDateString(null))
                 .SetParameter("EducationalInstitutionName", educationalInstitutionName)
-                .SetParameter("ShopName", shopName);
+                .SetParameter("ShopName", shopName)
+                .SetParameter("ShowEducationalInstitution", AppSettings.ShowEducationalInstitution.ToString());
 
             var purchaces = _reportService.Purchases(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(), filters.ShopId,
                 filters.EducationalInstitutionId);
@@ -85,7 +87,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 .SetParameter("To", filters.To.ToShortDateString(null))
                 .SetParameter("EducationalInstitutionName", educationalInstitutionName)
                 .SetParameter("BeneficiaryName", beneficiaryName)
-                .SetParameter("ShopName", shopName);
+                .SetParameter("ShopName", shopName)
+                .SetParameter("ShowEducationalInstitution", AppSettings.ShowEducationalInstitution.ToString());
 
             var points = _reportService.GeneratedPoints(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
                 filters.ShopId, filters.BeneficiaryId, filters.EducationalInstitutionId);
@@ -117,7 +120,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
             reporteFactory
                 .SetParameter("From", filters.From.ToShortDateString(null))
                 .SetParameter("To", filters.To.ToShortDateString(null))
-                .SetParameter("EducationalInstitutionName", educationalInstitutionName);
+                .SetParameter("EducationalInstitutionName", educationalInstitutionName)
+                .SetParameter("ShowEducationalInstitution", AppSettings.ShowEducationalInstitution.ToString());
 
             var prizesReport = _reportService.MostExchangedPrizes(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
                 filters.EducationalInstitutionId);
@@ -152,7 +156,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 .SetParameter("From", filters.From.ToShortDateString(null))
                 .SetParameter("To", filters.To.ToShortDateString(null))
                 .SetParameter("EducationalInstitutionName", educationalInstitutionName)
-                .SetParameter("ShopName", shopName);
+                .SetParameter("ShopName", shopName)
+                .SetParameter("ShowEducationalInstitution", AppSettings.ShowEducationalInstitution.ToString());
 
             var mostUsedBenefits = _reportService.MostUsedBenefits(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
                 filters.ShopId,
@@ -195,7 +200,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 .SetParameter("To", filters.To.ToShortDateString(null))
                 .SetParameter("EducationalInstitutionName", educationalInstitutionName)
                 .SetParameter("TownName", townName)
-                .SetParameter("SexDescription", sexDescription);
+                .SetParameter("SexDescription", sexDescription)
+                .SetParameter("ShowEducationalInstitution", AppSettings.ShowEducationalInstitution.ToString());
 
             var beneficiaries = _reportService.Beneficiaries(filters.From.AbsoluteStart(), filters.To.AbsoluteEnd(),
                 filters.Sex,

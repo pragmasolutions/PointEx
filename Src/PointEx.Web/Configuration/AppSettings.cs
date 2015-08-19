@@ -20,7 +20,11 @@ namespace PointEx.Web.Configuration
                 return Theme == "Jovenes" ? "TARJETA JÓVEN" : "TEKOVÉ POTÍ";
             }
         }
-        
+
+        public static bool ShowEducationalInstitution
+        {
+            get { return AppSettings.Theme == ThemeEnum.Jovenes; }
+        }
 
         public static string SiteBaseUrl
         {

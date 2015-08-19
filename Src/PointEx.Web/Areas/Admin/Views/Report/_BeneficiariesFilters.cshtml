@@ -1,4 +1,5 @@
-﻿@model PointEx.Web.Models.ReportBeneficiariesFiltersModel
+﻿@using PointEx.Web.Configuration
+@model PointEx.Web.Models.ReportBeneficiariesFiltersModel
 
 <div id="filter-container" class="collapse">
     @using (Html.BeginForm(Model.ReportName, "Report", FormMethod.Get, new { area = "Admin" }))
@@ -20,9 +21,12 @@
             <div class="col-sm-4">
                 @Html.EditorFor(model => model.TownId)
             </div>
-            <div class="col-sm-4">
-                @Html.EditorFor(model => model.EducationalInstitutionId)
-            </div>
+            @if (AppSettings.ShowEducationalInstitution)
+            {
+                <div class="col-sm-4">
+                    @Html.EditorFor(model => model.EducationalInstitutionId)
+                </div>
+            }
             <div class="col-sm-4 pull-right">
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </div>

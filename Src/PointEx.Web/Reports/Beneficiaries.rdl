@@ -307,6 +307,9 @@
             <Height>0.6cm</Height>
             <Width>2.60805cm</Width>
             <ZIndex>7</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -336,6 +339,9 @@
             <Height>0.6cm</Height>
             <Width>5.76382cm</Width>
             <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -373,6 +379,7 @@
                       <CellContents>
                         <Textbox Name="Textbox3">
                           <CanGrow>true</CanGrow>
+                          <CanShrink>true</CanShrink>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -572,6 +579,7 @@
                       <CellContents>
                         <Textbox Name="Name">
                           <CanGrow>true</CanGrow>
+                          <CanShrink>true</CanShrink>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -728,7 +736,11 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=Not(Parameters!ShowEducationalInstitution.Value)</Hidden>
+                  </Visibility>
+                </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1074,7 +1086,7 @@
               </Style>
             </ChartBorderSkin>
             <ChartNoDataMessage Name="NoDataMessage">
-              <Caption>No Data Available</Caption>
+              <Caption>Sin Datos</Caption>
               <Style>
                 <BackgroundGradientType>None</BackgroundGradientType>
                 <TextAlign>General</TextAlign>
@@ -1394,7 +1406,7 @@
               </Style>
             </ChartBorderSkin>
             <ChartNoDataMessage Name="NoDataMessage">
-              <Caption>No Data Available</Caption>
+              <Caption>Sin Datos</Caption>
               <Style>
                 <BackgroundGradientType>None</BackgroundGradientType>
                 <TextAlign>General</TextAlign>
@@ -1403,7 +1415,7 @@
             </ChartNoDataMessage>
             <DataSetName>BeneficiariesDataSet</DataSetName>
             <Top>6.09106cm</Top>
-            <Left>7.90787cm</Left>
+            <Left>7.90786cm</Left>
             <Height>5cm</Height>
             <Width>7.57026cm</Width>
             <ZIndex>14</ZIndex>
@@ -1555,6 +1567,10 @@
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>SexDescription</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShowEducationalInstitution">
+      <DataType>Boolean</DataType>
+      <Prompt>ShowEducationalInstitution</Prompt>
     </ReportParameter>
   </ReportParameters>
   <Language>es-AR</Language>
