@@ -101,5 +101,10 @@ namespace PointEx.Service
             Uow.SectionItems.Delete(sectionItemId);
             Uow.Commit();
         }
+        
+        public IList<SectionItem> GetBySliderImage(int sliderImageId)
+        {
+            return Uow.SectionItems.GetAll().Where(s => s.SliderImageId == sliderImageId).ToList();
+        }
     }
 }

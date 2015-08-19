@@ -1,20 +1,26 @@
 ﻿@model PointEx.Web.Models.SliderImageForm
-
 @{
     ViewBag.Title = "Detalle de Imágen";
 }
 
+@section banner{
+    <img src="/Content/images/banner_secciones.jpg" width="100%" alt="Contenido de Secciones" /><br /><br />
+}
+
 <h3>Detalle de Imágen</h3>
-@Html.BackButton("Index", "SliderImage", "Admin")
+<a href="/Admin/SectionItem/AddSliderImage?sectionId=@Model.SectionId" class="btn btn-primary btn-back-to-list">
+    <span class="glyphicon glyphicon-arrow-left"></span> Volver al Listado
+</a>
+
 <hr />
 <div class="form-horizontal">
     @Html.DisplayForModel()
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            @using (Html.BeginForm("Delete", "SliderImage", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
+            @using (Html.BeginForm("Delete", "SliderImage", new { id = Model.Id, sectionId = Model.SectionId }, FormMethod.Post, new { id = "delete-form" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ActionLink("Editar Imágen", "Edit", "SliderImage", routeValues: new { area = "Admin", Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                @Html.ActionLink("Editar Imágen", "Edit", "SliderImage", routeValues: new { area = "Admin", id = Model.Id, sectionId = Model.SectionId }, htmlAttributes: new { @class = "btn btn-primary" })
                 <button type="submit" class="btn btn-warning">Eliminar Imágen</button>
             }
         </div>
@@ -27,7 +33,7 @@
     <script>
         $(function () {
             $("#delete-form").on("submit", function () {
-                return confirm("Esta seguro que desea eliminar esta imágen?  Esta operacion no se puede deshacer.");
+                return confirm("Está seguro que desea eliminar esta imágen?  Esta operación no se puede deshacer.");
             });
         });
     </script>

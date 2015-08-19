@@ -388,6 +388,9 @@
     <Content Include="Content\images\banner_micuenta.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\images\banner-reportes.jpg" />
+    <Content Include="Content\images\banner_secciones.jpg" />
+    <Content Include="Content\images\banner_usuarios.jpg" />
     <Content Include="Content\images\profile-man.jpg" />
     <Content Include="Content\images\stars.png" />
     <Content Include="Content\images\pointex-approved.jpg">
@@ -567,7 +570,6 @@
     <Content Include="Areas\Admin\Views\SliderImage\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SliderImage\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\SliderImage\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\SliderImage\Index.cshtml" />
     <Content Include="Areas\Shop\Views\Benefit\EditorTemplates\CreateBenefitForm.cshtml" />
     <Content Include="Reports\Beneficiaries.rdl" />
     <Content Include="Areas\Admin\Views\Report\Beneficiaries.cshtml" />

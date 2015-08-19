@@ -2,6 +2,10 @@
 @using PointEx.Web.Infrastructure.Extensions
 @model PointEx.Web.Models.SectionItemsModel
 
+@section banner{
+    <img src="/Content/images/banner_secciones.jpg" width="100%" alt="Contenido de Secciones" /><br /><br />
+}
+
 <h3>Items Sección: <strong>@Model.Section.Name</strong></h3>
 
 @Html.BackButton("Index", "Section", new { area = "Admin" })

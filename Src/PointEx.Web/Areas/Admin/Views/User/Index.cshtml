@@ -1,5 +1,12 @@
 ﻿@using PagedList.Mvc
 @model PointEx.Web.Models.UserListModel
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+@section banner{
+    <img src="/Content/images/banner_usuarios.jpg" width="100%" alt="Usuarios" /><br /><br />
+}
 <h3>Usuarios</h3>
 
 @Html.ActionLink("Crear Usuario", "Create", "User", routeValues: new { area = "Admin" }, htmlAttributes: new { @class = "btn btn-primary" })
