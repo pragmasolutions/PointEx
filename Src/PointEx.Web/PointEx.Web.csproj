@@ -445,6 +445,9 @@
     <Content Include="Content\themes\Jovenes\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\themes\TekovePoti\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

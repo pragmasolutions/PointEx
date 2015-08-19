@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>@AppSettings.ThemeTitle</title>
 
     @Styles.Render("~/Content/css")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
@@ -35,7 +35,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @if (AppSettings.Theme == ThemeEnum.Jovenes)
+                {
+                    @Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    <a href="/Home">
+                        <img src="/Content/themes/TekovePoti/images/TekovePoti-Logo.png" height="42" style="margin-right: 10px;"/>
+                    </a>
+                }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
