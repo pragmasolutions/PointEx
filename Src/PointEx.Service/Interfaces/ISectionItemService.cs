@@ -17,5 +17,7 @@ namespace PointEx.Service
         void Delete(int sectionItemId);
 
         void Order(int sectionId, IList<int> sectionItemIdsOrdered);
+
+        IList<SectionItem> GetBySliderImage(int sliderImageId);
     }
 }

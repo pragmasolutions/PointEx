@@ -1,9 +1,12 @@
 ﻿@using Framework.Common.Extentensions
 @using PagedList.Mvc
 @model PointEx.Web.Models.AddSliderImageModel
-
 @{
     ViewBag.Title = "Agregar Items";
+}
+
+@section banner{
+    <img src="/Content/images/banner_secciones.jpg" width="100%" alt="Contenido de Secciones" /><br /><br />
 }
 
 <h3>Agregar imágenes a sección: <strong>@Model.SectionName</strong>

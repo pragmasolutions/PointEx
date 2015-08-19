@@ -2,35 +2,38 @@
 @using Microsoft.Web.Mvc
 @using PointEx.Web.Infrastructure.Extensions
 @model PointEx.Web.Models.OrderSectionItemsForm
+@{
+    ViewBag.Title = "Ordenar Items Sección";
+}
 
-    @{
-        ViewBag.Title = "Ordenar Items Sección";
-    }
+@section banner{
+    <img src="/Content/images/banner_secciones.jpg" width="100%" alt="Contenido de Secciones" /><br /><br />
+}
 
-    <h3>Ordenar Items Sección: <strong>@Model.Section.Name</strong></h3>
-    @Html.BackButton("Index", "SectionItem", new { area = "Admin", sectionId = Model.Id })
-    <hr />
-    @using (Html.BeginForm("OrderItems", "SectionItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.Id)
-        <ul class="list-group list-group-sortable">
-            @foreach (var sectionItem in Model.Items)
-            {
-                <li class="list-group-item">
-                    @using (Html.BeginCollectionItem("Items"))
-                    {
-                        @Html.Hidden("Id", sectionItem.Id)
-                        @Html.Image(sectionItem.GetImageUrl())
-                    }
-                </li>
-            }
-        </ul>
+<h3>Ordenar Items Sección: <strong>@Model.Section.Name</strong></h3>
+@Html.BackButton("Index", "SectionItem", new { area = "Admin", sectionId = Model.Id })
+<hr />
+@using (Html.BeginForm("OrderItems", "SectionItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    <ul class="list-group list-group-sortable">
+        @foreach (var sectionItem in Model.Items)
+        {
+            <li class="list-group-item">
+                @using (Html.BeginCollectionItem("Items"))
+                {
+                    @Html.Hidden("Id", sectionItem.Id)
+                    @Html.Image(sectionItem.GetImageUrl())
+                }
+            </li>
+        }
+    </ul>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Ordenar Imagenes" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Ordenar Imagenes" class="btn btn-default" />
         </div>
-    }
+    </div>
+}

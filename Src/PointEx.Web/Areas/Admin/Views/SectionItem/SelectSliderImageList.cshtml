@@ -13,7 +13,7 @@
         @foreach (var sliderImage in Model.SliderImageListModel.List)
         {
             <tr>
-                <td>@Html.ActionLink(sliderImage.Name, "Detail", "SliderImage", routeValues: new { area = "Admin", sliderImage.Id }, htmlAttributes: null)</td>
+                <td>@Html.ActionLink(sliderImage.Name, "Detail", "SliderImage", routeValues: new { area = "Admin", id = sliderImage.Id, sectionId = Model.SectionId }, htmlAttributes: null)</td>
                 <td>
 
                     @if (Model.SelectedSliderImageIds.Any(id => id == sliderImage.Id))

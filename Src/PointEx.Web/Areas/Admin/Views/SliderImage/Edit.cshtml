@@ -1,11 +1,18 @@
 ﻿@model PointEx.Web.Models.SliderImageForm
-
 @{
     ViewBag.Title = "Editar Imágen";
 }
 
+@section banner{
+    <img src="/Content/images/banner_secciones.jpg" width="100%" alt="Contenido de Secciones" /><br /><br />
+}
+
 <h3>Editar Imágen</h3>
-@Html.BackButton("Index", "SliderImage", "Admin")
+
+<a href="/Admin/SliderImage/Detail/@Model.Id?sectionId=@Model.SectionId" class="btn btn-primary btn-back-to-list">
+    <span class="glyphicon glyphicon-arrow-left"></span> Volver a detalle
+</a>
+
 <hr />
 @using (Html.BeginForm("Edit", "SliderImage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {

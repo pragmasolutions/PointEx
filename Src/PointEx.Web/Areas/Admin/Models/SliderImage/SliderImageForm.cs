@@ -13,7 +13,7 @@ using PointEx.Web.Infrastructure.Extensions;
 
 namespace PointEx.Web.Models
 {
-    public class SliderImageForm : IMapFrom<Prize>
+    public class SliderImageForm : IMapFrom<SliderImage>
     {
         [HiddenInput]
         public int Id { get; set; }

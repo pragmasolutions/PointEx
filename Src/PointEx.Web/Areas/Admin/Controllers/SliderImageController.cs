@@ -9,16 +9,20 @@ using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 using System;
 using System.Web.Routing;
+using Framework.Data.Helpers;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
     public class SliderImageController : AdminBaseController
     {
         private readonly ISliderImageService _sliderImageService;
+        private readonly ISectionItemService _sectionItemService;
+        
 
-        public SliderImageController(ISliderImageService sliderImageService)
+        public SliderImageController(ISliderImageService sliderImageService, ISectionItemService sectionItemService)
         {
             _sliderImageService = sliderImageService;
+            _sectionItemService = sectionItemService;
         }
 
         public ActionResult Index(SliderImageListFiltersModel filters)
@@ -34,10 +38,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return View(listModel);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id, int sectionId)
         {
             var sliderImage = _sliderImageService.GetById(id);
             var sliderImageForm = SliderImageForm.FromSliderImage(sliderImage);
+            sliderImageForm.SectionId = sectionId;
             return View(sliderImageForm);
         }
 
@@ -63,10 +68,11 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return RedirectToAction("AddSliderImage", "SectionItem", new {@sectionId = sliderImageForm.SectionId}).WithSuccess("Imágen Creada");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int sectionId)
         {
             var sliderImage = _sliderImageService.GetById(id);
             var sliderImageForm = SliderImageForm.FromSliderImage(sliderImage);
+            sliderImageForm.SectionId = sectionId;
             return View(sliderImageForm);
         }
 
@@ -80,15 +86,20 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             _sliderImageService.Edit(sliderImageForm.ToSliderImage());
 
-            return RedirectToAction("Index", new SliderImageListFiltersModel().GetRouteValues()).WithSuccess("Imágen Editado");
+            return Redirect("/Admin/SectionItem/AddSliderImage?sectionId=" + sliderImageForm.SectionId).WithSuccess("Imágen Editada");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, int sectionId, FormCollection collection)
         {
+            var sectionItems = _sectionItemService.GetBySliderImage(id);
+            foreach (var item in sectionItems)
+            {
+                _sectionItemService.Delete(item.Id);
+            }
             _sliderImageService.Delete(id);
 
-            return RedirectToAction("Index", new SliderImageListFiltersModel().GetRouteValues()).WithSuccess("Imágen Eliminado");
+            return Redirect("/Admin/SectionItem/AddSliderImage?sectionId=" + sectionId).WithSuccess("Imágen Eliminada");
         }
 
         public ActionResult IsNameAvailable(string name, int id)
