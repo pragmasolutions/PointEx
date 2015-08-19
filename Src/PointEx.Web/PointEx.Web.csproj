@@ -442,7 +442,15 @@
     <Content Include="Content\Site.Beneficiary.min.css">
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
-    <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="Content\themes\Jovenes\Site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\themes\TekovePoti\Site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="EmailTemplates\Jovenes\BenefitApprovedEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitUpdateEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitEmail.html" />
@@ -774,7 +782,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Beneficiary\Models\" />
-    <Folder Include="Content\themes\TekovePoti\" />
     <Folder Include="Views\EducationInstitution\" />
     <Folder Include="Views\File\" />
     <Folder Include="Views\Layout\" />
