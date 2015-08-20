@@ -86,7 +86,7 @@ a {
 
 #wrapper {
     /*background: url(/Content/themes/TekovePoti/images/back-gradient.jpg) repeat-x !important;*/
-    background-color: #E6D8D8 !important;
+    /*background-color: #E6D8D8 !important;*/
 }
 
 #wrapper .container {
@@ -97,7 +97,7 @@ a {
 
 /* Header */
 .pointex-header {
-    background-color: #82003B;
+    background-color: #7CA23D;
 }
 
 footer {
@@ -110,7 +110,7 @@ footer h3 {
 
 footer .footer-above {
     padding-top: 20px;
-    background-color: #E63B3B;
+    background-color: #FFD902;
 }
 
 footer .footer-col {
@@ -119,7 +119,7 @@ footer .footer-col {
 
 footer .footer-below {
     padding: 25px 0;
-    background-color: #82003B;
+    background-color: #7CA23D;
 }
 
 footer a:hover {
@@ -127,7 +127,12 @@ footer a:hover {
 }
 
 .sub-title {
-    background-color: #E63B3B;
+    background-color: #D41903;
     color: #FFF;
     padding: 5px 5px 5px 15px;
+}
+
+h4.benefit-type-info,
+h1.benefit-type-info-detail {
+    color: #6E31AA;
 }

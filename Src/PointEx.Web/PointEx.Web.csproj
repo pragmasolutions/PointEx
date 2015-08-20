@@ -445,6 +445,7 @@
     <Content Include="Content\themes\Jovenes\images\background-img.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\themes\Jovenes\images\tarjoven.png" />
     <Content Include="Content\themes\Jovenes\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

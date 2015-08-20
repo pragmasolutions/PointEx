@@ -44,8 +44,12 @@ body {
 
 /* Footer */
 footer, .push {
-    height: 264px; /* .push must be the same height as .footer */
+    height: 284px; /* .push must be the same height as .footer */
     margin: 0;
+}
+
+footer div.footer-below {
+    padding: 30px 0;
 }
 
 .btn-social {
