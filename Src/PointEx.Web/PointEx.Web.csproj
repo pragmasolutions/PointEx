@@ -442,7 +442,16 @@
     <Content Include="Content\Site.Beneficiary.min.css">
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
+    <Content Include="Content\themes\Jovenes\images\background-img.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\themes\Jovenes\Site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\themes\TekovePoti\images\back-gradient.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\themes\TekovePoti\images\background-img.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png">

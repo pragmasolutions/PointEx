@@ -83,3 +83,51 @@ a {
 .navbar-nav .dropdown-menu li:hover, .navbar-nav .dropdown-menu li a:hover {
     background-color: #62AB44 !important;
 }
+
+#wrapper {
+    /*background: url(/Content/themes/TekovePoti/images/back-gradient.jpg) repeat-x !important;*/
+    background-color: #E6D8D8 !important;
+}
+
+#wrapper .container {
+    background-color: #FFF;
+    background-image: url(/Content/themes/TekovePoti/images/background-img.jpg);
+}
+
+
+/* Header */
+.pointex-header {
+    background-color: #82003B;
+}
+
+footer {
+    color: #FFF;
+}
+
+footer h3 {
+    margin-bottom: 30px;
+}
+
+footer .footer-above {
+    padding-top: 20px;
+    background-color: #E63B3B;
+}
+
+footer .footer-col {
+    margin-bottom: 20px;
+}
+
+footer .footer-below {
+    padding: 25px 0;
+    background-color: #82003B;
+}
+
+footer a:hover {
+    color: #ccc;
+}
+
+.sub-title {
+    background-color: #E63B3B;
+    color: #FFF;
+    padding: 5px 5px 5px 15px;
+}
