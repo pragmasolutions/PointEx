@@ -10,40 +10,19 @@
 <h3>@PointExResources.EditBenefitTitle</h3>
 @Html.BackButton("Index", "Benefit", "Shop")
 <hr />
-@using (Html.BeginForm("Edit", "Benefit", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Benefit", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "create-edit-benefit-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.EditorForModel()
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Editar Beneficio" class="btn btn-default" />
+            <input type="submit" value="Editar Beneficio" name="formSubmit" class="btn btn-default" />
         </div>
     </div>
 }
 
 @section scripts
 {
-    <script>
-        $(function () {
-            $(".form-horizontal").on("submit", function () {
-                if ($('#frmCreate').valid()) {
-                    return alert("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
-                }
-            });
-        });       
-
-        $("#BenefitTypeId").change(function () {
-            var typeValue = $(this).val();
-            if (typeValue != 1) {
-                $("#DiscountPercentage").closest(".form-group").hide();
-                $("#DiscountPercentageCeiling").closest(".form-group").hide();
-            }
-            else {
-                $("#DiscountPercentage").closest(".form-group").show();
-                $("#DiscountPercentageCeiling").closest(".form-group").show();
-            }
-        }).trigger("change");
-
-    </script>
+    @Scripts.Render("~/Scripts/app/create-edit-benefit.js")
 }
