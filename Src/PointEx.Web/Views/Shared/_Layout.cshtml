@@ -37,7 +37,10 @@
                 </button>
                 @if (AppSettings.Theme == ThemeEnum.Jovenes)
                 {
-                    @Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <a href="/Home">
+                        <img src="/Content/themes/Jovenes/images/tarjoven.png" height="42" style="margin-right: 10px;margin-top: 10px" />
+                    </a>
+                    @*@Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 }
                 else
                 {
@@ -81,7 +84,6 @@
                     <div class="push"></div>
                 </div>
             </div>
-            <div class="line-bottom"></div>
         </div>
     </div>
 

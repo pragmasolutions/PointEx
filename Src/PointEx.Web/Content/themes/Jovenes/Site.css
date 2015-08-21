@@ -83,3 +83,45 @@ a {
 .navbar-nav .dropdown-menu li:hover, .navbar-nav .dropdown-menu li a:hover {
     background-color: #62AB44 !important;
 }
+
+#wrapper .container {
+    background-color: #FFF;
+    background-image: url(/Content/themes/Jovenes/images/background-img.jpg);
+}
+
+/* Header */
+.pointex-header {
+    background-color: #01781C;
+}
+
+footer {
+    color: #FFF;
+}
+
+    footer h3 {
+        margin-bottom: 30px;
+    }
+
+    footer .footer-above {
+        padding-top: 20px;
+        background-color: #01781C;
+    }
+
+    footer .footer-col {
+        margin-bottom: 20px;
+    }
+
+    footer .footer-below {
+        padding: 25px 0;
+        background-color: #015507;
+    }
+
+    footer a:hover {
+          color: #ccc;
+     }
+
+.sub-title {
+    background-color: #00C50B;
+    color: #FFF;
+    padding: 5px 5px 5px 15px;
+}
