@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Service.Exceptions;
 using PointEx.Entities.Enums;
+using PointEx.Security;
 
 namespace PointEx.Service
 {
@@ -20,11 +22,13 @@ namespace PointEx.Service
     {
         private readonly IClock _clock;
         private readonly IBranchOfficeService _branchOfficeService;
+        private readonly INotificationService _notificationService;
 
-        public BenefitService(IPointExUow uow, IClock clock, IBranchOfficeService branchOfficeService)
+        public BenefitService(IPointExUow uow, IClock clock, IBranchOfficeService branchOfficeService, INotificationService notificationService)
         {
             _clock = clock;
             _branchOfficeService = branchOfficeService;
+            _notificationService = notificationService;
             Uow = uow;
         }
 
@@ -92,7 +96,7 @@ namespace PointEx.Service
             Uow.Commit();
         }
 
-        public void Edit(Benefit benefit)
+        public async Task Edit(Benefit benefit, IPrincipal currentUser, string shopEmail, string theme)
         {
             if (!IsNameAvailable(benefit.Name, benefit.Id))
             {
@@ -100,6 +104,13 @@ namespace PointEx.Service
             }
 
             var currentBenefit = this.GetById(benefit.Id);
+
+            var sendPendingConfirmationEmail = currentBenefit.BenefitStatusId == BenefitStatusEnum.Approved && currentUser.IsInRole(RolesNames.Shop);
+
+            if (sendPendingConfirmationEmail)
+            {
+                await _notificationService.SendPendingBenefitEmail(benefit.Name, shopEmail, false, theme);
+            }
 
             foreach (var branchOffice in currentBenefit.BenefitBranchOffices.ToArray())
             {
@@ -117,7 +128,12 @@ namespace PointEx.Service
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
             currentBenefit.BenefitTypeId = benefit.BenefitTypeId;
-            currentBenefit.BenefitStatusId = BenefitStatusEnum.Pending;
+
+            if (currentUser.IsInRole(RolesNames.Shop))
+            {
+                currentBenefit.BenefitStatusId = BenefitStatusEnum.Pending;
+            }
+
             if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
             {
                 currentBenefit.DiscountPercentage = benefit.DiscountPercentage;
@@ -130,6 +146,8 @@ namespace PointEx.Service
             }
 
             Uow.Benefits.Edit(currentBenefit);
+
+
             Uow.Commit();
         }
 

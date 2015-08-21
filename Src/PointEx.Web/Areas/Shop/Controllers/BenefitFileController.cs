@@ -9,6 +9,7 @@ using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Entities.Enums;
 using PointEx.Service;
+using PointEx.Web.Configuration;
 using PointEx.Web.Controllers;
 using PointEx.Web.Infrastructure;
 using PointEx.Web.Infrastructure.Extensions;
@@ -115,8 +116,10 @@ namespace PointEx.Web.Areas.Shop.Controllers
             _benefitFileService.Create(benefitFiles);
 
             var b = _benefitService.GetById(uploadImagesForm.Id);
+
             b.BenefitStatusId = BenefitStatusEnum.Pending;
-            _benefitService.Edit(b);
+
+            _benefitService.Edit(b, User, _currentUser.PointexUser.Email, AppSettings.Theme);
             
             return RedirectToAction("Index", new { benefitId = uploadImagesForm.Id }).WithSuccess("Imagenes subidas");
         }

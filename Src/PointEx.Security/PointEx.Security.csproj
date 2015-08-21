@@ -88,7 +88,6 @@
     <Compile Include="PointExContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesNames.cs" />
-    <Compile Include="Services\SendGridEmailService.cs" />
     <Compile Include="Services\OutlookEmailService.cs" />
     <Compile Include="Services\SmsService.cs" />
   </ItemGroup>
@@ -112,6 +111,10 @@
     <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
       <Project>{a68b9035-3037-4a58-88a8-38478b967681}</Project>
       <Name>PointEx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Notification\PointEx.Notification.csproj">
+      <Project>{F968AA57-B917-454B-8D16-A4AED3531518}</Project>
+      <Name>PointEx.Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

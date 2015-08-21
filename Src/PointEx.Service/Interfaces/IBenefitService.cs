@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Entities.Enums;
@@ -21,7 +23,7 @@ namespace PointEx.Service
 
         void Create(Benefit benefit);
 
-        void Edit(Benefit benefit);
+        Task Edit(Benefit benefit, IPrincipal currentUser, string shopEmail, string theme);
 
         void Moderated(int benefitId, int statusId);
 

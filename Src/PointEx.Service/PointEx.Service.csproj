@@ -72,18 +72,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenefitTypesService.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="LayoutService.cs" />
     <Compile Include="Interfaces\IBenefitTypesService.cs" />
     <Compile Include="Interfaces\ILayoutService.cs" />
     <Compile Include="Interfaces\ISliderImageService.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="SliderImageService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="Interfaces\IPointsExchangeService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
-    <Compile Include="NotificationService.cs" />
-    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />
     <Compile Include="PointsExchangeService.cs" />
     <Compile Include="SectionItemService.cs" />
@@ -140,6 +140,10 @@
     <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
       <Project>{A68B9035-3037-4A58-88A8-38478B967681}</Project>
       <Name>PointEx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Notification\PointEx.Notification.csproj">
+      <Project>{F968AA57-B917-454B-8D16-A4AED3531518}</Project>
+      <Name>PointEx.Notification</Name>
     </ProjectReference>
     <ProjectReference Include="..\PointEx.Security\PointEx.Security.csproj">
       <Project>{218D008B-8761-432A-A871-D044F1859DC7}</Project>
