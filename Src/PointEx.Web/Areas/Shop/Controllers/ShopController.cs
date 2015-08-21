@@ -39,6 +39,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
                         
             shopEditForm.Id = _currentUser.Shop.Id;
             shopEditForm.Name = _currentUser.Shop.Name;
+
             _shopService.Edit(shopEditForm.ToShop());
 
             return RedirectToAction("Index", "Purchase").WithSuccess("Perfíl Actualizado");

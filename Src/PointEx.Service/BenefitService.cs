@@ -147,7 +147,6 @@ namespace PointEx.Service
 
             Uow.Benefits.Edit(currentBenefit);
 
-
             Uow.Commit();
         }
 
