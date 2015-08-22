@@ -27,5 +27,15 @@ namespace Framework.Common.Web.Helpers
 				@class = "col-md-2 control-label"
 			});
 		}
+
+        public static IHtmlString BootstrapLabel(
+                this HtmlHelper helper,
+                string propertyName, string displayName)
+        {
+            return helper.Label(propertyName, displayName, new
+            {
+                @class = "col-md-2 control-label"
+            });
+        }
 	}
 }
