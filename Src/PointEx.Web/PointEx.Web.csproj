@@ -445,6 +445,7 @@
     <Content Include="Content\themes\Jovenes\images\background-img.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\themes\Jovenes\images\tarjoven.png" />
     <Content Include="Content\themes\Jovenes\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -613,7 +614,7 @@
     <None Include="Properties\PublishProfiles\tokove - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\app\Card\CreateCard.js" />
+    <Content Include="Scripts\app\create-edit-benefit.js" />
     <Content Include="Scripts\app\utilities\bootstrapAlerts.js" />
     <Content Include="Scripts\app\utilities\controls.unobtrusive.js" />
     <Content Include="Scripts\autoNumeric-1.9.25.js" />
@@ -843,6 +844,10 @@
     <ProjectReference Include="..\PointEx.Entities\PointEx.Entities.csproj">
       <Project>{A68B9035-3037-4A58-88A8-38478B967681}</Project>
       <Name>PointEx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointEx.Notification\PointEx.Notification.csproj">
+      <Project>{F968AA57-B917-454B-8D16-A4AED3531518}</Project>
+      <Name>PointEx.Notification</Name>
     </ProjectReference>
     <ProjectReference Include="..\PointEx.Security\PointEx.Security.csproj">
       <Project>{218d008b-8761-432a-a871-d044f1859dc7}</Project>

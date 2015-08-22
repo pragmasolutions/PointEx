@@ -9,8 +9,9 @@ namespace PointEx.Service
 {
     public interface IShopService
     {
-        Task Create(Shop shop, ApplicationUser applicationUser);
+        Task Create(Shop shop, string shopEmail);
         void Edit(Shop shop);
+        void Edit(Shop shop, string shopEmail);
         void Delete(int shopId);
         IQueryable<Shop> GetAll();
         List<ShopDto> GetAll(string sortBy, string sortDirection, string criteria, int? category, int? townId, bool? deleted, int pageIndex,

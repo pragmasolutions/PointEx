@@ -26,25 +26,25 @@
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.Name)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.Name)            
+            @Html.DisplayFor(model => model.Name)
         </div>
     </div>
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.Description)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.Description)            
+            @Html.DisplayFor(model => model.Description)
         </div>
     </div>
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.BenefitTypeId)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.BenefitTypeId)            
+            @Html.DisplayFor(model => model.BenefitTypeId)
         </div>
     </div>
     <div class="form-group hiddenByBenefitType">
         @Html.BootstrapLabelFor(model => model.DiscountPercentage)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.DiscountPercentage)            
+            @Html.DisplayFor(model => model.DiscountPercentage)
         </div>
     </div>
     <div class="form-group hiddenByBenefitType">
@@ -56,7 +56,7 @@
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.DateFrom)
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.DateFrom)            
+            @Html.DisplayFor(model => model.DateFrom)
         </div>
     </div>
     <div class="form-group">
@@ -72,25 +72,28 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.BootstrapLabel("BenefitStatus")
+        @Html.BootstrapLabel("BenefitStatus", "Estado")
         <div class="col-md-10">
             @Html.Display("BenefitStatus")
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @using (Html.BeginForm("Delete", "Benefit", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="row">
-                    <div class="col-lg-12">
-                        @Html.ActionLink("Editar Beneficio", "Edit", "Benefit", routeValues: new { area = "Shop", Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                        <button type="submit" class="btn btn-warning">Eliminar Beneficio</button>
+    @if (!ViewBag.ShowApprovalButtons)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @using (Html.BeginForm("Delete", "Benefit", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.ActionLink("Editar Beneficio", "Edit", "Benefit", routeValues: new { area = "Shop", Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                            <button type="submit" class="btn btn-warning">Eliminar Beneficio</button>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
+    }
 </div>
 
 @section scripts
@@ -116,7 +119,7 @@
             $(".rejected-form").on("submit", function () {
                 return confirm("Está seguro que desea rechazar este beneficio?  Esta operación no se puede deshacer.");
             });
-        });  
+        });
     </script>
 }
 
@@ -125,12 +128,12 @@
         display: inline;
     }
 
-    .rejected-form button {
-        background-color: #FB362D !important;
-        border-color: darkred !important;
-    } 
+        .rejected-form button {
+            background-color: #FB362D !important;
+            border-color: darkred !important;
+        }
 
-    .rejected-form button:hover {
-        background-color: orangered !important;
-    } 
+            .rejected-form button:hover {
+                background-color: orangered !important;
+            }
 </style>

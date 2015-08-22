@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using PointEx.Entities;
 using PointEx.Entities.Models;
+using PointEx.Notification.Interfaces;
 using PointEx.Security.Managers;
 
 namespace PointEx.Service
@@ -16,10 +17,12 @@ namespace PointEx.Service
     public class NotificationService : INotificationService
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly IEmailService _emailService;
 
-        public NotificationService(ApplicationUserManager userManager)
+        public NotificationService(ApplicationUserManager userManager, IEmailService emailService)
         {
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         public async Task SendAccountConfirmationEmail(string userId)
@@ -32,81 +35,52 @@ namespace PointEx.Service
 
         public async Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme)
         {
-            using (var client = GetSmtpClient())
-            {
-                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiary.User.Email);
+            var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiary.User.Email);
 
-                mail.Subject = "Canje de Premio";
-                mail.Body = GetPointsExchangeConfirmationEmailBody(prize, beneficiary, exchangeDate, theme);
-                mail.IsBodyHtml = true;
+            mail.Subject = "Canje de Premio";
+            mail.Body = GetPointsExchangeConfirmationEmailBody(prize, beneficiary, exchangeDate, theme);
+            mail.IsBodyHtml = true;
 
-                await client.SendMailAsync(mail);
-            }
+            await _emailService.SendMailAsync(mail);
         }
 
         public async Task SendAddShopRequestEmail(Shop shop, string email, string theme)
         {
-            using (var client = GetSmtpClient())
-            {
-                var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
+            var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
 
-                adminMail.Subject = "Solicitud Adherir Comercio";
-                adminMail.Body = GetAddShopRequestEmailBody(shop, theme);
-                adminMail.IsBodyHtml = true;
+            adminMail.Subject = "Solicitud Adherir Comercio";
+            adminMail.Body = GetAddShopRequestEmailBody(shop, theme);
+            adminMail.IsBodyHtml = true;
 
-                await client.SendMailAsync(adminMail);
+            await _emailService.SendMailAsync(adminMail);
 
-                var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+            var shopConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
 
-                shopConfirmationEmail.Subject = "Solicitud Enviada";
-                shopConfirmationEmail.Body = GetAddShopRequestConfirmationEmailBody(theme);
-                shopConfirmationEmail.IsBodyHtml = true;
+            shopConfirmationEmail.Subject = "Solicitud Enviada";
+            shopConfirmationEmail.Body = GetAddShopRequestConfirmationEmailBody(theme);
+            shopConfirmationEmail.IsBodyHtml = true;
 
-                await client.SendMailAsync(shopConfirmationEmail);
-            }
+            await _emailService.SendMailAsync(shopConfirmationEmail);
+
         }
 
         public async Task SendAddBeneficiaryRequestEmail(Beneficiary beneficiary, string email, string theme)
         {
-            using (var client = GetSmtpClient())
-            {
-                var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
+            var adminMail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], ConfigurationManager.AppSettings["AddShopRequestAdminEmail"]);
 
-                adminMail.Subject = "Solicitud Alta Beneficiario";
-                adminMail.Body = GetAddBeneficiaryRequestEmailBody(beneficiary, theme);
-                adminMail.IsBodyHtml = true;
+            adminMail.Subject = "Solicitud Alta Beneficiario";
+            adminMail.Body = GetAddBeneficiaryRequestEmailBody(beneficiary, theme);
+            adminMail.IsBodyHtml = true;
 
-                await client.SendMailAsync(adminMail);
+            await _emailService.SendMailAsync(adminMail);
 
-                var beneficiaryConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+            var beneficiaryConfirmationEmail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
 
-                beneficiaryConfirmationEmail.Subject = "Solicitud Enviada";
-                beneficiaryConfirmationEmail.Body = GetAddBeneficiaryRequestConfirmationEmailBody(theme);
-                beneficiaryConfirmationEmail.IsBodyHtml = true;
+            beneficiaryConfirmationEmail.Subject = "Solicitud Enviada";
+            beneficiaryConfirmationEmail.Body = GetAddBeneficiaryRequestConfirmationEmailBody(theme);
+            beneficiaryConfirmationEmail.IsBodyHtml = true;
 
-                await client.SendMailAsync(beneficiaryConfirmationEmail);
-            }
-        }
-
-        private SmtpClient GetSmtpClient()
-        {
-            var credentialUserName = ConfigurationManager.AppSettings["EmailSentFrom"];
-
-            var pwd = ConfigurationManager.AppSettings["EmailPassword"];
-
-            SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SmptClient"]);
-
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-
-            NetworkCredential credentials =
-                new NetworkCredential(credentialUserName, pwd);
-
-            client.EnableSsl = true;
-            client.Credentials = credentials;
-
-            return client;
+            await _emailService.SendMailAsync(beneficiaryConfirmationEmail);
         }
 
         private string GetPointsExchangeConfirmationEmailBody(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme)
@@ -133,27 +107,21 @@ namespace PointEx.Service
             var receivers = ConfigurationManager.AppSettings["RequestInformationReceivers"].Split(',');
             foreach (var receiver in receivers)
             {
-                using (var client = GetSmtpClient())
-                {
-                    var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], receiver);
-                    mail.Subject = "Nueva consulta";
-                    mail.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestToAdminEmail");
-                    mail.IsBodyHtml = true;
-
-                    await client.SendMailAsync(mail);
-                }
-            }
-            
-
-            using (var client = GetSmtpClient())
-            {
-                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], request.Email);
-                mail.Subject = "Consulta Exitosa";
-                mail.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestAutomaticResponseEmail");
+                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], receiver);
+                mail.Subject = "Nueva consulta";
+                mail.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestToAdminEmail");
                 mail.IsBodyHtml = true;
 
-                await client.SendMailAsync(mail);
+                await _emailService.SendMailAsync(mail);
             }
+
+
+            var mailSuccessfulQuery = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], request.Email);
+            mailSuccessfulQuery.Subject = "Consulta Exitosa";
+            mailSuccessfulQuery.Body = GetInformationRequestEmailBody(request, theme, "InfoRequestAutomaticResponseEmail");
+            mailSuccessfulQuery.IsBodyHtml = true;
+
+            await _emailService.SendMailAsync(mailSuccessfulQuery);
         }
 
         private string GetInformationRequestEmailBody(InformationRequestModel request, string theme, string filename)
@@ -172,7 +140,6 @@ namespace PointEx.Service
             body = body.Replace("{Text}", request.Text);
             body = body.Replace("{Email}", request.Email);
             body = body.Replace("{PhoneNumber}", request.PhoneNumber);
-            
 
             return body;
         }
@@ -198,9 +165,9 @@ namespace PointEx.Service
         private string GetAddBeneficiaryRequestEmailBody(Beneficiary beneficiary, string theme)
         {
             string body = string.Empty;
-                         
+
             var templatePath = String.Format("~/EmailTemplates/{0}/AddBeneficiaryRequest.html", theme);
-            
+
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
             {
                 body = reader.ReadToEnd();
@@ -213,7 +180,7 @@ namespace PointEx.Service
             if (beneficiary.EducationalInstitutionId.HasValue)
             {
                 body = body.Replace("{EducationInstitution}", beneficiary.EducationalInstitution.Name);
-            }           
+            }
 
             return body;
         }
@@ -239,18 +206,17 @@ namespace PointEx.Service
             var template = created
                 ? "PendingBenefitEmail"
                 : "PendingBenefitUpdateEmail";
-            using (var client = GetSmtpClient())
-            {
-                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiaryEmail);
-                mail.Subject = subject;
-                mail.Body = GetPendingBenefitEmailBody(benefitName, theme, template);
-                mail.IsBodyHtml = true;
 
-                await client.SendMailAsync(mail);
-            }
+
+            var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiaryEmail);
+            mail.Subject = subject;
+            mail.Body = GetPendingBenefitEmailBody(benefitName, theme, template);
+            mail.IsBodyHtml = true;
+
+            await _emailService.SendMailAsync(mail);
         }
 
-        
+
         private string GetPendingBenefitEmailBody(string benefitName, string theme, string templateName)
         {
             string body = string.Empty;
@@ -271,16 +237,13 @@ namespace PointEx.Service
         {
             var email = benefit.Shop.User.Email;
 
-            using (var client = GetSmtpClient())
-            {
-                var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
-                mail.Subject = "Beneficio Aprobado";
+            var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+            mail.Subject = "Beneficio Aprobado";
 
-                mail.Body = GetBenefitApprovedEmailBody(benefit, siteBaseUrl);
-                mail.IsBodyHtml = true;
+            mail.Body = GetBenefitApprovedEmailBody(benefit, siteBaseUrl);
+            mail.IsBodyHtml = true;
 
-                await client.SendMailAsync(mail);
-            }
+            await _emailService.SendMailAsync(mail);
         }
 
         private string GetBenefitApprovedEmailBody(Benefit benefit, string siteBaseUrl)
@@ -311,7 +274,6 @@ namespace PointEx.Service
 
             return body;
         }
-
     }
 }
 

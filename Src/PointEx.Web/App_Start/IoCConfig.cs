@@ -12,6 +12,8 @@ using Ninject.Web.Common;
 using PointEx.Data;
 using PointEx.Data.Helpers;
 using PointEx.Data.Interfaces;
+using PointEx.Notification;
+using PointEx.Notification.Interfaces;
 using PointEx.Security.Managers;
 using PointEx.Service;
 using PointEx.Web.Infrastructure;
@@ -65,6 +67,8 @@ namespace PointEx.Web
             kernel.Bind<IBenefitTypesService>().To<BenefitTypesService>().InRequestScope();
             kernel.Bind<ISliderImageService>().To<SliderImageService>().InRequestScope();
             kernel.Bind<ILayoutService>().To<LayoutService>().InRequestScope();
+
+            kernel.Bind<IEmailService>().To<SendGridEmailService>().InRequestScope();
 
             kernel.Bind<ICurrentUser>().To<CurrentUser>().InRequestScope();
             kernel.Bind<IIdentity>().ToMethod(c => HttpContext.Current.User.Identity);

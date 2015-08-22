@@ -34,16 +34,18 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(Shop shop, ApplicationUser applicationUser)
+        public async Task Create(Shop shop, string shopEmail)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
                 {
-                    if (_userManager.FindByEmail(applicationUser.Email) != null)
+                    if (_userManager.FindByEmail(shopEmail) != null)
                     {
                         throw new ApplicationException("Ya existe un usuario con ese email.");
                     }
+
+                    var applicationUser = new ApplicationUser { UserName = shopEmail, Email = shopEmail };
 
                     var result = await _userManager.CreateAsync(applicationUser);
 
@@ -74,6 +76,11 @@ namespace PointEx.Service
 
         public void Edit(Shop shop)
         {
+            Edit(shop, null);
+        }
+
+        public void Edit(Shop shop, string shopEmail)
+        {
             var currentShop = this.GetById(shop.Id);
 
             foreach (var category in currentShop.ShopCategories.ToArray())
@@ -92,9 +99,14 @@ namespace PointEx.Service
             currentShop.TownId = shop.TownId;
             currentShop.Location = shop.Location;
             currentShop.ModifiedDate = _clock.Now;
-            currentShop.User.Email = shop.User.Email;
+
+            if (!string.IsNullOrEmpty(shopEmail))
+            {
+                currentShop.User.Email = shopEmail;
+            }
 
             Uow.Shops.Edit(currentShop);
+
             Uow.Commit();
         }
 

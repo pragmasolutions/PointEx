@@ -58,11 +58,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             var shop = shopForm.ToShop();
 
-            var user = new ApplicationUser { UserName = shopForm.Email, Email = shopForm.Email };
-
             try
             {
-                await _shopService.Create(shop, user);
+                await _shopService.Create(shop, shopForm.Email);
             }
             catch (ApplicationException ex)
             {
@@ -88,7 +86,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 return View(shopForm);
             }
 
-            _shopService.Edit(shopForm.ToShop());
+            _shopService.Edit(shopForm.ToShop(), shopForm.Email);
 
             return RedirectToAction("Index", new ShopListFiltersModel().GetRouteValues()).WithSuccess("Comercio Editado");
         }

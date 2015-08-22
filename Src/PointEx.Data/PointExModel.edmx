@@ -70,7 +70,7 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="BenefitTypeId" Type="int" />
+          <Property Name="BenefitTypeId" Type="int" Nullable="false" />
           <Property Name="BenefitStatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
@@ -302,7 +302,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Benefit_BenefitTypes">
-          <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="0..1" />
+          <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="1" />
           <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BenefitTypes">
@@ -1629,7 +1629,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" />
+          <Property Name="BenefitTypeId" Type="PointEx.Data.BenefitTypesEnum" Nullable="false" />
           <NavigationProperty Name="BenefitType" Relationship="PointEx.Data.FK_Benefit_BenefitTypes" FromRole="Benefit" ToRole="BenefitType" />
           <NavigationProperty Name="Shop" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Benefit" ToRole="Shop" />
           <NavigationProperty Name="BenefitBranchOffices" Relationship="PointEx.Data.FK_BenefitByBranchOffice_Benefit" FromRole="Benefit" ToRole="BenefitBranchOffice" />
@@ -1640,7 +1640,7 @@
           <NavigationProperty Name="BenefitStatus" Relationship="PointEx.Data.FK_Benefit_BenefitStatus" FromRole="Benefit" ToRole="BenefitStatu" />
         </EntityType>
         <Association Name="FK_Benefit_BenefitTypes">
-          <End Type="PointEx.Data.BenefitType" Role="BenefitType" Multiplicity="0..1" />
+          <End Type="PointEx.Data.BenefitType" Role="BenefitType" Multiplicity="1" />
           <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BenefitType">

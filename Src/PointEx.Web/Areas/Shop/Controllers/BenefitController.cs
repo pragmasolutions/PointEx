@@ -144,19 +144,8 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             var benefit = benefitForm.ToBenefit();
 
-            var approved = benefit.BenefitStatusId == BenefitStatusEnum.Approved;
+             await _benefitService.Edit(benefit, User, _currentUser.PointexUser.Email, AppSettings.Theme);
 
-            if (_currentUser.Shop != null)
-            {
-                benefit.BenefitStatusId = BenefitStatusEnum.Pending;
-            }
-            _benefitService.Edit(benefit);
-
-            if (approved)
-            {
-                var email = _currentUser.PointexUser.Email;
-                await _notificationService.SendPendingBenefitEmail(benefit.Name, email, false, AppSettings.Theme);
-            }
             return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Editado");
         }
 
