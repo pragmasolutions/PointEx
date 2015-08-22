@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Framework.Common.Web.Extensions;
 using PointEx.Entities;
 using PointEx.Entities.Models;
 using PointEx.Notification.Interfaces;
@@ -18,18 +19,19 @@ namespace PointEx.Service
     {
         private readonly ApplicationUserManager _userManager;
         private readonly IEmailService _emailService;
+        private readonly UrlHelper _urlHelper;
 
         public NotificationService(ApplicationUserManager userManager, IEmailService emailService)
         {
             _userManager = userManager;
             _emailService = emailService;
+            _urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
         }
 
         public async Task SendAccountConfirmationEmail(string userId)
         {
-            var urlhelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
-            var callbackUrl = urlhelper.Action("FirstLogin", "Account", new { area = "", userId = userId, code = code }, protocol: HttpContext.Current.Request.Url.Scheme);
+            var callbackUrl = _urlHelper.Action("FirstLogin", "Account", new { area = "", userId = userId, code = code }, protocol: HttpContext.Current.Request.Url.Scheme);
             await _userManager.SendEmailAsync(userId, "Confirme su Cuenta", "Por favor confirme su cuenta y cambie su contraseña haciendo click <a href=\"" + callbackUrl + "\">aquí</a>");
         }
 
@@ -98,6 +100,8 @@ namespace PointEx.Service
             body = body.Replace("{BeneficiaryName}", beneficiary.Name);
             body = body.Replace("{ExchangeDate}", exchangeDate.ToShortDateString());
             body = body.Replace("{PrizePointsNeeded}", prize.PointsNeeded.ToString());
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -140,6 +144,8 @@ namespace PointEx.Service
             body = body.Replace("{Text}", request.Text);
             body = body.Replace("{Email}", request.Email);
             body = body.Replace("{PhoneNumber}", request.PhoneNumber);
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -158,6 +164,8 @@ namespace PointEx.Service
             body = body.Replace("{Address}", shop.Address);
             body = body.Replace("{Phone}", shop.Phone);
             body = body.Replace("{TownName}", shop.Town.Name);
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -176,6 +184,8 @@ namespace PointEx.Service
             body = body.Replace("{Name}", beneficiary.Name);
             body = body.Replace("{Address}", beneficiary.Address);
             body = body.Replace("{TownName}", beneficiary.Town.Name);
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             if (beneficiary.EducationalInstitutionId.HasValue)
             {
@@ -194,6 +204,9 @@ namespace PointEx.Service
             {
                 body = reader.ReadToEnd();
             }
+
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -228,6 +241,8 @@ namespace PointEx.Service
             }
 
             body = body.Replace("{BenefitName}", benefitName);
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -259,6 +274,8 @@ namespace PointEx.Service
             body = body.Replace("{BenefitName}", benefit.Name);
             body = body.Replace("{BaseUrl}", siteBaseUrl);
             body = body.Replace("{BenefitId}", benefit.Id.ToString());
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }
@@ -271,6 +288,9 @@ namespace PointEx.Service
             {
                 body = reader.ReadToEnd();
             }
+
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
 
             return body;
         }

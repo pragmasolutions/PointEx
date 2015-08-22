@@ -125,6 +125,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.Common.Web\Framework.Common.Web.csproj">
+      <Project>{B9B5DCD6-1E1E-4B47-AF04-FCB2EFBE04E1}</Project>
+      <Name>Framework.Common.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Common\Framework.Common.csproj">
       <Project>{492B8264-0C10-4AFE-A15F-8A82E60ADE68}</Project>
       <Name>Framework.Common</Name>
