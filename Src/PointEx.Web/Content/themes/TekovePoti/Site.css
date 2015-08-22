@@ -136,3 +136,15 @@ h4.benefit-type-info,
 h1.benefit-type-info-detail {
     color: #6E31AA;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #7CA23D!important;
+    border: 1px solid #7CA23D!important;
+}
+
+.navbar-inverse {
+    background-color: #7CA23D;
+    border-color: #7CA23D;
+    color: white !important;
+}
