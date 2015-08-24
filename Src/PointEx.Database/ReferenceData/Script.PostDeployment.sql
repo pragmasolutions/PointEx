@@ -17,3 +17,4 @@ Post-Deployment Script Template
 :r .\BenefitStatus.Data.sql
 :r .\Towns.Data.sql
 :r .\EducationalInstitution.Data.sql
+:r .\Users.Data.sql

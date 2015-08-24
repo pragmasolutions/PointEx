@@ -123,6 +123,7 @@
     <None Include="ReferenceData\EducationalInstitution.Data.sql" />
     <None Include="ReferenceData\Towns.Data.sql" />
     <None Include="PointEx_Azure.Database.publish.xml" />
+    <None Include="ReferenceData\Users.Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
