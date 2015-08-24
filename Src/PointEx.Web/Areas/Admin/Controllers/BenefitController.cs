@@ -106,15 +106,29 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var benefit = _benefitService.GetById(id);
             await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
 
-            return RedirectToAction("RejectedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
+            if (Configuration.AppSettings.SiteBaseUrl.Contains("ApprovedBenefit"))
+            {
+                return RedirectToAction("RejectedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");    
+            }
+            else
+            {
+                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");    
+            }
         }
 
         [HttpPost]
         public ActionResult Rejected(int id)
         {
             _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
-
-            return RedirectToAction("ApprovedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
+            if (Configuration.AppSettings.SiteBaseUrl.Contains("RejectedBenefit"))
+            {
+                return RedirectToAction("ApprovedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
+            }
+            else
+            {
+                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
+            }
+                
         }       
     }
 }

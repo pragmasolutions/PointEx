@@ -96,6 +96,7 @@
     <Compile Include="Alerts\AlertDecoratorResult.cs" />
     <Compile Include="Alerts\AlertExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Helpers\AngularTemplateHelper.cs" />
     <Compile Include="Helpers\BootstrapHelpers.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
