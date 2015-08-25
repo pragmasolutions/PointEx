@@ -9,7 +9,7 @@ namespace PointEx.Service
 {
     public interface IUserService : IServive
     {
-        Task Create(ApplicationUser applicationUser, string roleName);
+        Task Create(ApplicationUser applicationUser, string roleName, string theme);
         void Edit(User user);
         void Delete(string userId);
         IQueryable<User> GetAll();

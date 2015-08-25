@@ -34,7 +34,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(Shop shop, string shopEmail)
+        public async Task Create(Shop shop, string shopEmail, string theme)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -62,7 +62,7 @@ namespace PointEx.Service
 
                     await Uow.CommitAsync();
 
-                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
 
                     trasactionScope.Complete();
                 }

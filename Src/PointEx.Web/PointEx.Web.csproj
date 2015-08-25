@@ -461,6 +461,7 @@
     <Content Include="Content\themes\TekovePoti\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="EmailTemplates\Jovenes\AccountConfirmationEmail.html" />
     <Content Include="EmailTemplates\Jovenes\BenefitApprovedEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitUpdateEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitEmail.html" />
@@ -471,6 +472,7 @@
     <Content Include="EmailTemplates\Jovenes\InfoRequestAutomaticResponseEmail.html" />
     <Content Include="EmailTemplates\Jovenes\InfoRequestToAdminEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PointExchangeConfirmationEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\AccountConfirmationEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\AddBeneficiaryRequest.html" />
     <Content Include="EmailTemplates\TekovePoti\AddBeneficiaryRequestConfirmation.html" />
     <Content Include="EmailTemplates\TekovePoti\AddShopRequest.html" />

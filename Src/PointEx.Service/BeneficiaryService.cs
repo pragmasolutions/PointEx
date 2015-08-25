@@ -39,7 +39,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser)
+        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string theme)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -61,7 +61,7 @@ namespace PointEx.Service
 
                     try
                     {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id,theme);
                     }
                     catch (Exception)
                     {

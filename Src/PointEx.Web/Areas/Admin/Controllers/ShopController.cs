@@ -9,6 +9,7 @@ using PointEx.Service;
 using PointEx.Web.Areas.Admin.Models;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
+using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
@@ -60,7 +61,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             try
             {
-                await _shopService.Create(shop, shopForm.Email);
+                await _shopService.Create(shop, shopForm.Email, AppSettings.Theme);
             }
             catch (ApplicationException ex)
             {

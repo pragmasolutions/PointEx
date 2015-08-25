@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
+using System.Web.Compilation;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
@@ -33,7 +34,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(ApplicationUser applicationUser, string roleName)
+        public async Task Create(ApplicationUser applicationUser, string roleName, string theme)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -55,7 +56,7 @@ namespace PointEx.Service
 
                     try
                     {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
                     }
                     catch (Exception)
                     {

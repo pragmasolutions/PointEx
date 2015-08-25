@@ -74,7 +74,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             {
                 var newRole = MapRoleFromEnum(userForm.RoleId);
 
-                await _userService.Create(user, newRole.Name);
+                await _userService.Create(user, newRole.Name, AppSettings.Theme);
             }
             catch (ApplicationException ex)
             {
