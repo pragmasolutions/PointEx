@@ -59,7 +59,7 @@ namespace PointEx.Web.Models
         public string GetExcelUrl()
         {
             UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            return urlHelper.Action(DonwloadActionPrefix + ReportName, GetRouteValues(ReportTypeEnum.Word));
+            return urlHelper.Action(DonwloadActionPrefix + ReportName, GetRouteValues(ReportTypeEnum.Excel));
         }
 
         public string GetPdfUrl()

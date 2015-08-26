@@ -128,6 +128,23 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.DataVisualization\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.DataVisualization.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -367,72 +384,30 @@
     <Content Include="Content\bootstrap.vertical-tabs.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\front-end\images\header.png" />
-    <Content Include="Content\front-end\images\mail-background.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-beneficiarios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-beneficios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-comercios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-establecimiento.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-premios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner_catalogopremios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner_micuenta.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner-reportes.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner_secciones.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\banner_usuarios.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\profile-man.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\stars.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\pointex-approved.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\pointex-warning.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\front-end\images\mail-background.jpg" />
+    <Content Include="Content\images\banner-beneficiarios.jpg" />
+    <Content Include="Content\images\banner-beneficios.jpg" />
+    <Content Include="Content\images\banner-comercios.jpg" />
+    <Content Include="Content\images\banner-establecimiento.jpg" />
+    <Content Include="Content\images\banner-premios.jpg" />
+    <Content Include="Content\images\banner_catalogopremios.jpg" />
+    <Content Include="Content\images\banner_micuenta.jpg" />
+    <Content Include="Content\images\banner-reportes.jpg" />
+    <Content Include="Content\images\banner_secciones.jpg" />
+    <Content Include="Content\images\banner_usuarios.jpg" />
+    <Content Include="Content\images\profile-man.jpg" />
+    <Content Include="Content\images\stars.png" />
+    <Content Include="Content\images\pointex-approved.jpg" />
+    <Content Include="Content\images\pointex-warning.png" />
     <Content Include="Content\front-end\pointex-search.css" />
     <Content Include="Content\front-end\pointex-prizes.css" />
     <Content Include="Content\front-end\pointex-benefits.css" />
-    <Content Include="Content\images\adobe-acrobat.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\loading100X100.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\microsoft-excel.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\microsoft-word.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\noimage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\images\profile-woman.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\images\adobe-acrobat.png" />
+    <Content Include="Content\images\loading100X100.gif" />
+    <Content Include="Content\images\microsoft-excel.png" />
+    <Content Include="Content\images\microsoft-word.png" />
+    <Content Include="Content\images\noimage.png" />
+    <Content Include="Content\images\profile-woman.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pointex-tables.css" />
     <Content Include="Content\select2.css" />
@@ -443,25 +418,13 @@
     <Content Include="Content\Site.Beneficiary.min.css">
       <DependentUpon>Site.Beneficiary.css</DependentUpon>
     </Content>
-    <Content Include="Content\themes\Jovenes\images\background-img.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\themes\Jovenes\images\background-img.jpg" />
     <Content Include="Content\themes\Jovenes\images\tarjoven.png" />
-    <Content Include="Content\themes\Jovenes\Site.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\themes\TekovePoti\images\back-gradient.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\themes\TekovePoti\images\background-img.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\themes\TekovePoti\Site.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\themes\Jovenes\Site.css" />
+    <Content Include="Content\themes\TekovePoti\images\back-gradient.jpg" />
+    <Content Include="Content\themes\TekovePoti\images\background-img.jpg" />
+    <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png" />
+    <Content Include="Content\themes\TekovePoti\Site.css" />
     <Content Include="EmailTemplates\Jovenes\AccountConfirmationEmail.html" />
     <Content Include="EmailTemplates\Jovenes\BenefitApprovedEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitUpdateEmail.html" />
@@ -612,6 +575,7 @@
     <Content Include="Areas\Admin\Views\Layout\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
     <None Include="Properties\PublishProfiles\tekovepoti.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - FTP.pubxml" />
