@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
+using System.Web.Compilation;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
@@ -33,7 +35,7 @@ namespace PointEx.Service
             Uow = uow;
         }
 
-        public async Task Create(ApplicationUser applicationUser, string roleName)
+        public async Task Create(ApplicationUser applicationUser, string roleName, string theme)
         {
             using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -55,7 +57,7 @@ namespace PointEx.Service
 
                     try
                     {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id);
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
                     }
                     catch (Exception)
                     {
@@ -124,7 +126,7 @@ namespace PointEx.Service
             return results.Entities.Project().To<UserDto>().ToList();
         }
 
-        public List<UserDto> GetAllAdministrators(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<UserDto> GetAllAdministrators(IPrincipal currentUser,  string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria
             {
@@ -134,12 +136,22 @@ namespace PointEx.Service
                 SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "ASC"
             };
 
-
-            Expression<Func<User, bool>> where = x => ((string.IsNullOrEmpty(criteria) || x.UserName.Contains(criteria)) &&
+            Expression<Func<User, bool>> where;
+            if (currentUser.IsInRole(RolesNames.SuperAdmin))
+            {
+                where = x => ((string.IsNullOrEmpty(criteria) || x.UserName.Contains(criteria)) &&
                                                            (string.IsNullOrEmpty(criteria) || x.Email.Contains(criteria)) &&
                                                            (x.Roles.Any(r => r.Name == RolesNames.Admin)
                                                            || x.Roles.Any(r => r.Name == RolesNames.BeneficiaryAdmin)
                                                            || x.Roles.Any(r => r.Name == RolesNames.ShopAdmin)));
+            }
+            else
+            {
+                where = x => ((string.IsNullOrEmpty(criteria) || x.UserName.Contains(criteria)) &&
+                                                           (string.IsNullOrEmpty(criteria) || x.Email.Contains(criteria)) &&
+                                                           (x.Roles.Any(r => r.Name == RolesNames.BeneficiaryAdmin)
+                                                           || x.Roles.Any(r => r.Name == RolesNames.ShopAdmin)));
+            }
 
             var results = Uow.Users.GetAll(pagingCriteria,
                                                     where,

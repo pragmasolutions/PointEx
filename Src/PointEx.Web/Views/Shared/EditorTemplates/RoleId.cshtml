@@ -1,4 +1,5 @@
 ﻿@using Framework.Common.Web.Extensions
+@using PointEx.Security
 @using PointEx.Service
 @model PointEx.Web.Models.UserForm.AdminRoleEnum
 @{
@@ -8,6 +9,12 @@
         new KeyValuePair<int, string>(2, "Administrador de Beneficiarios") ,
         new KeyValuePair<int, string>(3, "Administrador de Comercios") 
     };
+
+    if (!this.User.IsInRole(RolesNames.SuperAdmin) && this.User.IsInRole(RolesNames.Admin))
+    {
+        list.RemoveAt(0);
+    }
+    
     var selectList = list.ToSelectListItem((int)Model, t => t.Key, t => t.Value, t => t.Key.ToString());
 }
 

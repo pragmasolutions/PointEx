@@ -9,7 +9,7 @@ namespace PointEx.Service
 {
     public interface IBeneficiaryService : IServive
     {
-        Task Create(Beneficiary beneficiary, ApplicationUser applicationUser);
+        Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string theme);
         void Edit(Beneficiary beneficiary);
         void Delete(int beneficiaryId);
         IQueryable<Beneficiary> GetAll();

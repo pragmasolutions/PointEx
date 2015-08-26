@@ -33,7 +33,8 @@ namespace PointEx.Notification
             var emailMessage = new SendGridMessage();
 
             emailMessage.AddTo(destinations);
-            emailMessage.From = new System.Net.Mail.MailAddress("no-reply@pointex.net", "PointEx");
+            emailMessage.From = new System.Net.Mail.MailAddress(ConfigurationManager.AppSettings["defaultEmailFromAddress"],
+                                                    ConfigurationManager.AppSettings["fromAddress"]);
             emailMessage.Subject = subject;
             emailMessage.Text = body;
             emailMessage.Html = body;

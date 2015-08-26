@@ -17,10 +17,11 @@ using PointEx.Service;
 using PointEx.Web.Configuration;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
+using PointEx.Web.Infrastructure.Extensions;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = RolesNames.SuperAdmin)]
+    [AuthorizeRoles(RolesNames.SuperAdmin, RolesNames.Admin)]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -35,8 +36,8 @@ namespace PointEx.Web.Areas.Admin.Controllers
         public ActionResult Index(UserListFiltersModel filters)
         {
             int pageTotal;
-
-            var users = _userService.GetAllAdministrators("UserName", "ASC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            
+            var users = _userService.GetAllAdministrators(this.User, "UserName", "ASC", filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<UserDto>(users, filters.Page, DefaultPageSize, pageTotal);
 
@@ -74,7 +75,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             {
                 var newRole = MapRoleFromEnum(userForm.RoleId);
 
-                await _userService.Create(user, newRole.Name);
+                await _userService.Create(user, newRole.Name, AppSettings.Theme);
             }
             catch (ApplicationException ex)
             {

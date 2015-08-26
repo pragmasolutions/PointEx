@@ -28,11 +28,29 @@ namespace PointEx.Service
             _urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
         }
 
-        public async Task SendAccountConfirmationEmail(string userId)
+        public async Task SendAccountConfirmationEmail(string userId, string theme)
         {
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
             var callbackUrl = _urlHelper.Action("FirstLogin", "Account", new { area = "", userId = userId, code = code }, protocol: HttpContext.Current.Request.Url.Scheme);
-            await _userManager.SendEmailAsync(userId, "Confirme su Cuenta", "Por favor confirme su cuenta y cambie su contraseña haciendo click <a href=\"" + callbackUrl + "\">aquí</a>");
+            var body = GetAccountConfirmationEmailBody(theme, callbackUrl);
+            await _userManager.SendEmailAsync(userId, "Confirme su Cuenta", body);
+        }
+
+        private string GetAccountConfirmationEmailBody(string theme, string callback)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/AccountConfirmationEmail.html", theme);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
+            body = body.Replace("{callbackUrl}", callback);
+
+            return body;
         }
 
         public async Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme)

@@ -132,7 +132,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             try
             {
-                await _beneficiaryService.Create(beneficiary, user);
+                await _beneficiaryService.Create(beneficiary, user, AppSettings.Theme);
             }
             catch (ApplicationException ex)
             {

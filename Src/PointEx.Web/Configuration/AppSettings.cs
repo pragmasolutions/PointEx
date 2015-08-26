@@ -25,7 +25,7 @@ namespace PointEx.Web.Configuration
         {
             get { return AppSettings.Theme == ThemeEnum.Jovenes; }
         }
-
+        
         public static string SiteBaseUrl
         {
             get

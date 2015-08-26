@@ -9,7 +9,7 @@ namespace PointEx.Service
 {
     public interface IShopService
     {
-        Task Create(Shop shop, string shopEmail);
+        Task Create(Shop shop, string shopEmail, string theme);
         void Edit(Shop shop);
         void Edit(Shop shop, string shopEmail);
         void Delete(int shopId);

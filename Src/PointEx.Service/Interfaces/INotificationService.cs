@@ -12,7 +12,7 @@ namespace PointEx.Service
     public interface INotificationService
     {
         Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme);
-        Task SendAccountConfirmationEmail(string userId);
+        Task SendAccountConfirmationEmail(string userId, string theme);
         Task SendInformationRequestEmail(InformationRequestModel request, string theme);
         Task SendPendingBenefitEmail(string benefitName, string beneficiaryEmail, bool created, string theme);
         Task SendAddShopRequestEmail(Shop shop, string email, string theme);
