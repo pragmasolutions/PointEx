@@ -28,6 +28,7 @@
     <thead>
         <tr>
             <th>Nombre</th>
+            <th class="text-right">Comercio</th>
             <th class="text-right">Procentaje de Descuento</th>
             <th class="text-right">Tope Porcentaje de Descuento</th>
             <th class="text-right">Tipo</th>
@@ -40,7 +41,8 @@
         @foreach (var benefit in Model.List)
         {
             <tr>
-                <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new { area = "Shop", benefit.Id }, htmlAttributes: null)</td>
+                <td>@Html.ActionLink(benefit.Name, "Detail", "Benefit", routeValues: new {area = "Shop", benefit.Id}, htmlAttributes: null)</td>
+                <td class="text-right">@benefit.ShopName</td>
                 <td class="text-right">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</td>
                 <td class="text-right">@benefit.DiscountPercentageCeiling.GetValueOrDefault().ToString("c2")</td>
                 <td class="text-right">@benefit.BenefitTypeName</td>

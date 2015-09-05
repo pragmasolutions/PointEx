@@ -10,7 +10,7 @@
 <div>
     @Html.BackButton("Detail", "Beneficiary", new { area = "Admin", Model.Beneficiary.Id }, "Volver al detalle")
 
-    @if (AppSettings.Theme == ThemeEnum.Jovenes)
+    @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
     {
         @Html.ActionLink("Crear Tarjeta", "CreateCard", "Beneficiary", routeValues: new { area = "Admin", beneficiaryId = Model.Beneficiary.Id }, htmlAttributes: new { @class = "btn btn-primary" })
     }
@@ -34,7 +34,7 @@
         <tr>
             <th>Fecha de expedición</th>
             <th>Número</th>
-            @if (AppSettings.Theme == ThemeEnum.Jovenes)
+            @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
             {
                 <th>Fecha  de vencimiento</th>
             }
@@ -47,7 +47,7 @@
             <tr>
                 <td>@card.IssueDate.ToShortDateString()</td>
                 <td>@card.Number</td>
-                @if (AppSettings.Theme == ThemeEnum.Jovenes)
+                @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
                 {
                     <td>@card.ExpirationDate.GetValueOrDefault().ToShortDateString()</td>
                 }

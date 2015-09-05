@@ -19,9 +19,9 @@ namespace PointEx.Web.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre y Apellido")]
         public string Name { get; set; }
-
+        
         [Display(Name = "DNI")]
         [Required]
         public string IdentificationNumber { get; set; }
@@ -39,6 +39,10 @@ namespace PointEx.Web.Models
         [Required]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
+
+        [UIHint("Long")]
+        [Display(Name = "Número de Teléfono")]
+        public long? TelephoneNumber { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
         [DataType(DataType.Date)]

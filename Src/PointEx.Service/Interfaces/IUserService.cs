@@ -18,5 +18,6 @@ namespace PointEx.Service
         List<UserDto> GetAllAdministrators(IPrincipal currentUser, string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal);
         User GetById(string id);
         Role GetRoleById(string roleId);
+        List<User> GetUsersBeneficiaryAdmin();
     }
 }

@@ -79,10 +79,6 @@ namespace PointEx.Service
 
             var section = _sectionService.GetById(sectionItems.First().SectionId);
             var currentItems = GetBySectionId(sectionItems.First().SectionId);
-            if (sectionItems.Count + currentItems.Count > section.MaxNumberOfItems)
-            {
-                throw new ApplicationException("El número de item supero el maximo permitido para la sección");
-            }
 
             foreach (var sectionItem in sectionItems)
             {

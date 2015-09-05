@@ -10,5 +10,7 @@ namespace PointEx.Notification.Interfaces
     public interface IEmailService
     {
         Task SendMailAsync(MailMessage message);
+        Task SendMailAsync(MailMessage message, string[] emailsBcc);
+        
     }
 }

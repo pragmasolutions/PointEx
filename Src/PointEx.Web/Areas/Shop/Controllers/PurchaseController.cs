@@ -71,7 +71,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
         public ActionResult ValidateCardNumber(string cardNumber)
         {
-            var validateExpirationDate = AppSettings.Theme == ThemeEnum.Jovenes;
+            var validateExpirationDate = AppSettings.Theme == ThemeEnum.TarjetaVerde;
             return Json(_cardService.ValidateCardNumber(cardNumber, validateExpirationDate), JsonRequestBehavior.AllowGet);
         }
     }

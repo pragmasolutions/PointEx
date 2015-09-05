@@ -17,13 +17,13 @@ namespace PointEx.Web.Configuration
         {
             get
             {
-                return Theme == "Jovenes" ? "TARJETA JÓVEN" : "TEKOVÉ POTÍ";
+                return Theme == "Jovenes" ? "TARJETA VERDE" : "TEKOVÉ POTÍ";
             }
         }
 
         public static bool ShowEducationalInstitution
         {
-            get { return AppSettings.Theme == ThemeEnum.Jovenes; }
+            get { return AppSettings.Theme == ThemeEnum.TarjetaVerde; }
         }
         
         public static string SiteBaseUrl
@@ -47,7 +47,7 @@ namespace PointEx.Web.Configuration
 
     public abstract class ThemeEnum
     {
-        public const string Jovenes = "Jovenes";
+        public const string TarjetaVerde = "Jovenes";
         public const string TekovePoti = "TekovePoti";
     }
 }

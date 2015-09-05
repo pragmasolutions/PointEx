@@ -54,6 +54,7 @@
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Sex" Type="int" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="bigint" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -200,7 +201,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="MaxNumberOfItems" Type="int" />
         </EntityType>
         <EntityType Name="SectionItem">
           <Key>
@@ -1260,6 +1260,7 @@
           <Property Name="IdentificationNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Sex" Type="Int32" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="Int64" />
         </EntityType>
         <Association Name="FK_Beneficiary_AspNetUsers">
           <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
@@ -1517,7 +1518,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="MaxNumberOfItems" Type="Int32" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Section" FromRole="Section" ToRole="SectionItem" />
         </EntityType>
         <EntityType Name="SectionItem">
@@ -1891,6 +1891,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
@@ -2005,7 +2006,6 @@
           <EntitySetMapping Name="Sections">
             <EntityTypeMapping TypeName="PointEx.Data.Section">
               <MappingFragment StoreEntitySet="Section">
-                <ScalarProperty Name="MaxNumberOfItems" ColumnName="MaxNumberOfItems" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

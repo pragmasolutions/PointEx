@@ -7,4 +7,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MaxNumberOfItems" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="47fd6a4a-6ee9-4284-b939-9ad777a46e6c" ChangeDateTime="09/03/2015 01:25:03">
+    <Property Name="ElementName" Value="[dbo].[Beneficiary].[CelNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Beneficiary]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CellNumber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="773c046a-4229-4d42-abb9-ceea49e36fb4" ChangeDateTime="09/03/2015 01:30:54">
+    <Property Name="ElementName" Value="[dbo].[Beneficiary].[CellNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Beneficiary]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TelephoneNumber" />
+  </Operation>
 </Operations>

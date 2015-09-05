@@ -24,7 +24,6 @@
         {
             <tr>
                 <td>@sec.Name</td>
-                <td>@sec.MaxNumberOfItems</td>
                 <td>
                    @Html.ActionLink("Gestionar Items", "Index", "SectionItem", routeValues: new { area = "Admin", sectionId = sec.Id }, htmlAttributes: new { @class = "btn btn-primary" })
                 </td>

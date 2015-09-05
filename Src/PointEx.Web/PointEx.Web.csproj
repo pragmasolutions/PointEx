@@ -759,6 +759,8 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RoleId.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RoleId.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Long.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Long.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

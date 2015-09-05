@@ -20,16 +20,20 @@ namespace PointEx.Service
         private readonly IBeneficiaryService _beneficiaryService;
         private readonly IPrizeService _prizeService;
         private readonly INotificationService _notificationService;
+        private readonly IUserService _userService;
 
         public PointsExchangeService(IPointExUow uow, IClock clock, 
             IBeneficiaryService beneficiaryService, 
             IPrizeService prizeService, 
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IUserService userService)
         {
             _clock = clock;
             _beneficiaryService = beneficiaryService;
             _prizeService = prizeService;
             _notificationService = notificationService;
+            _userService = userService;
+
             Uow = uow;
         }
 
@@ -57,7 +61,15 @@ namespace PointEx.Service
 
                     Uow.PointsExchanges.Add(pointsExchange);
 
-                    await _notificationService.SendPointsExchangeConfirmationEmail(prize, beneficiary, pointsExchange.ExchangeDate, theme);
+                    var users = _userService.GetUsersBeneficiaryAdmin();
+                    string[] emailsAdmin = users.Select(u => u.Email).ToArray();
+                    //users.RemoveAt(0);
+                    //foreach (var userDto in users)
+                    //{
+                    //    emailsAdmin = string.Format("{0};{1}",emailsAdmin, userDto.Email);
+                    //}
+
+                    await _notificationService.SendPointsExchangeConfirmationEmail(prize, beneficiary, emailsAdmin, pointsExchange.ExchangeDate, theme);
 
                     await Uow.CommitAsync();
 

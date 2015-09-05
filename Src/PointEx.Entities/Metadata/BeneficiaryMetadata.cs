@@ -47,6 +47,10 @@ namespace PointEx.Entities
         [DisplayName("Dirección")]
         public string Address { get; set; }
 
+        [DisplayName("Teléfono")]
+        [StringLength(14)]
+        public long? TelephoneNumber { get; set; }
+
         [DisplayName("Escuela")]
         public int? EducationalInstitutionId { get; set; }
 
