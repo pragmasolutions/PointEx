@@ -65,27 +65,28 @@
         <!-- /.container -->
     </nav>
     <!-- Page Content -->
-    <div id="wrapper">
-        <div class="main-background">
-            <div class="container">
-                @RenderSection("banner", required: false)
-                <div style="background-color: #FFF; padding: 5px 20px;">
-
-                    <div class="container alert-container" style="padding-left: 0 !important;"></div>
-                    @RenderSection("ContainerTop", required: false)
-                    <div class="spacer"></div>
-                    <div class="spacer"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            @RenderBody()
-                        </div>
+<div id="wrapper">
+    <div style="position: relative; float: left; height: 100%; width: 200px"></div>
+    <div style="position: relative; float: right; height: 100%; width: 200px"></div>
+    <div class="main-background">
+        <div class="container">
+            @RenderSection("banner", required: false)
+            <div style="background-color: #FFF; padding: 5px 20px; width: 100%">
+                <div class="container alert-container" style="padding-left: 0 !important;"></div>
+                @RenderSection("ContainerTop", required: false)
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
                     </div>
-
-                    <div class="push"></div>
                 </div>
+
+                <div class="push"></div>
             </div>
         </div>
     </div>
+</div>
 
     @Html.Partial("_Footer")
 

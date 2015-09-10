@@ -577,6 +577,7 @@
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
+    <None Include="Properties\PublishProfiles\tekovepoti %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tekovepoti.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - Web Deploy.pubxml" />
