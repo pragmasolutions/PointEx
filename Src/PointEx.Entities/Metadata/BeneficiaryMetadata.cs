@@ -48,7 +48,7 @@ namespace PointEx.Entities
         public string Address { get; set; }
 
         [DisplayName("Teléfono")]
-        [StringLength(14)]
+        [StringLength(10)]
         public long? TelephoneNumber { get; set; }
 
         [DisplayName("Escuela")]
