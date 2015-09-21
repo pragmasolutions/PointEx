@@ -1580,7 +1580,8 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto;
+  margin-left: 9%;  
+  width: 70%;
 }
 @media (min-width: 768px) {
   .container {
@@ -4390,6 +4391,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-right {
     float: right !important;
     margin-right: -15px;
+    padding-top: 25px;
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;

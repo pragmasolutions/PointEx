@@ -201,3 +201,7 @@ Src/PointEx.Data/App.config
 *.config
 Src/PointEx.Database/PointEx.Database.publish.xml
 Src/PointEx.Web/Web.config
+Src/PointEx.Database/PointEx.Database.publish.xml
+Src/PointEx.Web/Web.config
+Src/PointEx.Web/Web.config
+Src/PointEx.Web/Web.config
