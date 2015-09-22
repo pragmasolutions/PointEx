@@ -47,7 +47,7 @@ namespace PointEx.Web.Configuration
 
     public abstract class ThemeEnum
     {
-        public const string TarjetaVerde = "Jovenes";
+        public const string TarjetaVerde = "TarjetaVerde";
         public const string TekovePoti = "TekovePoti";
     }
 }
