@@ -102,6 +102,7 @@ namespace PointEx.Service
             currentBeneficiary.TownId = beneficiary.TownId;
             currentBeneficiary.ModifiedDate = _clock.Now;
             currentBeneficiary.Sex = beneficiary.Sex;
+            currentBeneficiary.TelephoneNumber = beneficiary.TelephoneNumber;
 
             Uow.Beneficiaries.Edit(currentBeneficiary);
             Uow.Commit();

@@ -576,7 +576,9 @@
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\tarjetajoven %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
+    <None Include="Properties\PublishProfiles\tekovepoti %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tekovepoti.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - Web Deploy.pubxml" />
@@ -759,6 +761,8 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RoleId.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RoleId.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Long.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Long.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

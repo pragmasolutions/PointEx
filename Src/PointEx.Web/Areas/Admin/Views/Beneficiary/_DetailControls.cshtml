@@ -31,12 +31,18 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label" for="TelephoneNumber">Número de Teléfono</label>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.TelephoneNumber)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label" for="BirthDate">Fecha de Nacimiento</label>
     <div class="col-md-10">
         @Html.DisplayFor(model => model.BirthDate)
     </div>
 </div>
-@if (AppSettings.Theme == ThemeEnum.Jovenes)
+@if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
 {
     <div class="form-group">
         <label class="col-md-2 control-label" for="EducationalInstitutionId">Establecimiento Educativo</label>

@@ -17,13 +17,13 @@ namespace PointEx.Web.Configuration
         {
             get
             {
-                return Theme == "Jovenes" ? "TARJETA JÓVEN" : "TEKOVÉ POTÍ";
+                return Theme == "Jovenes" ? "TARJETA VERDE" : "TEKOVÉ POTÍ";
             }
         }
 
         public static bool ShowEducationalInstitution
         {
-            get { return AppSettings.Theme == ThemeEnum.Jovenes; }
+            get { return AppSettings.Theme == ThemeEnum.TarjetaVerde; }
         }
         
         public static string SiteBaseUrl

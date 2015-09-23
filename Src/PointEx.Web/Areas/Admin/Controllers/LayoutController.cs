@@ -24,7 +24,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             var role = _currentUser.PointexUser.Roles.First().Name;
             var items = _layoutService.GetAdminMenuItems(role);
-            if (AppSettings.Theme != ThemeEnum.Jovenes)
+            if (AppSettings.Theme != ThemeEnum.TarjetaVerde)
             {
                 items = items.Where(i => i.Text != "Est. Educativos").ToList();
             }

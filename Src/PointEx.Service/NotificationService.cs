@@ -53,15 +53,16 @@ namespace PointEx.Service
             return body;
         }
 
-        public async Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, DateTime exchangeDate, string theme)
+        public async Task SendPointsExchangeConfirmationEmail(Prize prize, Beneficiary beneficiary, string[] emailsAdmin, DateTime exchangeDate, string theme)
         {
             var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], beneficiary.User.Email);
-
+            
+            
             mail.Subject = "Canje de Premio";
             mail.Body = GetPointsExchangeConfirmationEmailBody(prize, beneficiary, exchangeDate, theme);
             mail.IsBodyHtml = true;
 
-            await _emailService.SendMailAsync(mail);
+            await _emailService.SendMailAsync(mail, emailsAdmin);
         }
 
         public async Task SendAddShopRequestEmail(Shop shop, string email, string theme)

@@ -18,6 +18,11 @@ namespace PointEx.Notification
             return SendToSendGridAsync(message.To.Select(x => x.Address), message.Subject, message.Body);
         }
 
+        public Task SendMailAsync(System.Net.Mail.MailMessage message, string[] emailBCC)
+        {
+            return SendToSendGridAsync(message.To.Select(x => x.Address), message.Subject, message.Body, emailBCC);
+        }
+
         public async Task SendAsync(IdentityMessage message)
         {
             await SendToSendGridAsync(message.Destination, message.Subject, message.Body);
@@ -28,11 +33,23 @@ namespace PointEx.Notification
             await SendToSendGridAsync(new List<string>() { destinations }, subject, body);
         }
 
-        private async Task SendToSendGridAsync(IEnumerable<string> destinations, string subject, string body)
+        private async Task SendToSendGridAsync(IEnumerable<string> destinations, string subject, string body, string[] emailsBcc = null)
         {
             var emailMessage = new SendGridMessage();
-
+            
             emailMessage.AddTo(destinations);
+            
+            if (emailsBcc != null)
+            {
+                System.Net.Mail.MailAddress[] bcc = new System.Net.Mail.MailAddress[emailsBcc.Length];
+                for (int i = 0; i < emailsBcc.Length; i++)
+                {
+                    bcc[i] = new System.Net.Mail.MailAddress(emailsBcc[i]);
+                }
+
+                emailMessage.Bcc = bcc;
+            }
+            
             emailMessage.From = new System.Net.Mail.MailAddress(ConfigurationManager.AppSettings["defaultEmailFromAddress"],
                                                     ConfigurationManager.AppSettings["fromAddress"]);
             emailMessage.Subject = subject;

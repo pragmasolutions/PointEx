@@ -22,10 +22,10 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Nombre</th>
+            <th>Nombre y Apellido</th>
             <th>Direccion</th>
             <th>Localidad</th>
-            @if (AppSettings.Theme == ThemeEnum.Jovenes)
+            @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
             {
                 <th>Establecimiento Educativo</th>
             }
@@ -39,7 +39,7 @@
                 <td>@Html.ActionLink(beneficiary.Name, "Detail", "Beneficiary", routeValues: new { area = "Admin", beneficiary.Id }, htmlAttributes: null)</td>
                 <td>TODO</td>
                 <td>@beneficiary.TownName</td>
-                @if (AppSettings.Theme == ThemeEnum.Jovenes)
+                @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
                 {
                     <td>@beneficiary.EducationalInstitutionName</td>
                 }

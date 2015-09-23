@@ -97,10 +97,16 @@ namespace PointEx.Service
         {
             return Uow.Users.Get(u => u.Id == id, s => s.Roles);
         }
-
+        
         public Role GetRoleById(string roleId)
         {
             return Uow.Roles.Get(r => r.Id == roleId);
+        }
+
+        public List<User> GetUsersBeneficiaryAdmin()
+        {
+            return Uow.Users.GetAll().Where(u => u.Roles.Any(r => r.Name == RolesNames.BeneficiaryAdmin)).ToList();
+            
         }
 
         public List<UserDto> GetAll(string sortBy, string sortDirection, string criteria, int pageIndex, int pageSize, out int pageTotal)
