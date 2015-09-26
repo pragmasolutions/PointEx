@@ -106,19 +106,38 @@ namespace PointEx.Web.Controllers
 
         public ActionResult FrequentlyAskedQuestions()
         {
-            return View();
+            if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
+            {
+                return View();    
+            }
+            else
+            {
+                return this.Redirect("/FrequentlyAskedQuestionsTekove");
+            }
         }
 
         public ActionResult TermsAndConditions()
         {
-            return View();
+            if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
+            {
+                return View();
+            }
+            else
+            {
+                return this.Redirect("/TermsAndConditionsTekove");
+            }
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
+            {
+                return View();
+            }
+            else
+            {
+                return this.Redirect("/AboutTekove");
+            }
         }
 
         public ActionResult Contact()

@@ -763,6 +763,9 @@
     <Content Include="Views\Shared\DisplayTemplates\RoleId.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Long.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Long.cshtml" />
+    <Content Include="Views\Home\AboutTekove.cshtml" />
+    <Content Include="Views\Home\FrequentlyAskedQuestionsTekove.cshtml" />
+    <Content Include="Views\Home\TermsAndConditionsTekove.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

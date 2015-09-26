@@ -40,20 +40,20 @@
                 @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
                 {
                     <a href="/Home">
-                        <img src="/Content/themes/Jovenes/images/tarjoven.png" height="100" style="margin-right: 10px;margin-top: 10px" />
+                        <img src="/Content/themes/Jovenes/images/tarjoven.png" height="42" style="margin-right: 10px;margin-top: 10px" />
                     </a>
                     @*@Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 }
                 else
                 {
                     <a href="/Home">
-                        <img src="/Content/themes/TekovePoti/images/TekovePoti-Logo.png" height="100" style="margin-right: 10px;"/>
+                        <img src="/Content/themes/TekovePoti/images/TekovePoti-Logo.png" height="100" style="margin-right: 10px; margin-bottom: 5px"/>
                     </a>
                 }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav public" style="padding-top:25px;">
+                <ul class="nav navbar-nav public paddingTekove">
                     <li>@Html.ActionLink("¿COMO FUNCIONA?", "About", "Home")</li>
                     <li>@Html.ActionLink("ADHERIR MI COMERCIO", "AddMyShop", "Home")</li>
                     <li>@Html.ActionLink("PREGUNTAS FRECUENTES", "FrequentlyAskedQuestions", "Home")</li>

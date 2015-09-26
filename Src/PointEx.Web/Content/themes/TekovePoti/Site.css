@@ -148,3 +148,11 @@ h1.benefit-type-info-detail {
     border-color: #7CA23D;
     color: white !important;
 }
+
+.paddingTekove {
+	padding-top:25px;
+}
+
+body {
+    padding-top: 100px;
+}

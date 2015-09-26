@@ -1,25 +1,47 @@
-﻿@model PointEx.Web.Models.BeneficiaryForm
+﻿@using PointEx.Web.Configuration
+
+@model PointEx.Web.Models.BeneficiaryForm
 @{
     ViewBag.Title = "Solicitud de Alta Beneficiario";
 }
 
 <h3>Solicitud de Alta Beneficiario</h3>
 <hr />
+@if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
+{
+    <p>
+        Tarjeta Verde te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
 
-<p>
-    Tarjeta Jóven te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
+        Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
+    </p>
+    <div class="spacer"></div>
+    <div class="alert alert-info" role="alert">
+        <strong>Requisitos</strong>
+        Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
+        <ul>
+            <li>Requisito 1.</li>
+            <li>Requisito 2.</li>
+        </ul>
+    </div>
+}
+else
+{
+    <p>
+        Tekové Potí te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
 
-    Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
-</p>
-<div class="spacer"></div>
-<div class="alert alert-info" role="alert">
-    <strong>Requisitos</strong>
-    Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
-    <ul>
-        <li>Requisito 1.</li>
-        <li>Requisito 2.</li>
-    </ul>
-</div>
+        Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
+    </p>
+    <div class="spacer"></div>
+    <div class="alert alert-info" role="alert">
+        <strong>Requisitos</strong>
+        Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
+        <ul>
+            <li>Requisito 1.</li>
+            <li>Requisito 2.</li>
+        </ul>
+    </div>
+}                
+
 
 @using (Html.BeginForm("AddBeneficiary", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

@@ -125,3 +125,7 @@ footer {
     color: #FFF;
     padding: 5px 5px 5px 15px;
 }
+
+body {
+    padding-top: 70px;
+}
