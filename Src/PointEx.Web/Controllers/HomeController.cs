@@ -116,11 +116,6 @@ namespace PointEx.Web.Controllers
             }
         }
 
-        public ActionResult FrequentlyAskedQuestionsTekove()
-        {
-            return this.View();
-        }
-
         public ActionResult TermsAndConditions()
         {
             if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
@@ -133,11 +128,6 @@ namespace PointEx.Web.Controllers
             }
         }
 
-        public ActionResult TermsAndConditionsTekove()
-        {
-            return this.View();
-        }
-
         public ActionResult About()
         {
             if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
@@ -148,11 +138,6 @@ namespace PointEx.Web.Controllers
             {
                 return this.View("AboutTekove");
             }
-        }
-
-        public ActionResult AboutTekove()
-        {
-            return this.View();
         }
 
        public ActionResult Contact()
