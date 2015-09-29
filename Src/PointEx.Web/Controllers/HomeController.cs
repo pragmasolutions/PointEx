@@ -112,8 +112,13 @@ namespace PointEx.Web.Controllers
             }
             else
             {
-                return this.Redirect("/FrequentlyAskedQuestionsTekove");
+                return this.View("FrequentlyAskedQuestionsTekove");
             }
+        }
+
+        public ActionResult FrequentlyAskedQuestionsTekove()
+        {
+            return this.View();
         }
 
         public ActionResult TermsAndConditions()
@@ -124,8 +129,13 @@ namespace PointEx.Web.Controllers
             }
             else
             {
-                return this.Redirect("/TermsAndConditionsTekove");
+                return this.View("TermsAndConditionsTekove");
             }
+        }
+
+        public ActionResult TermsAndConditionsTekove()
+        {
+            return this.View();
         }
 
         public ActionResult About()
@@ -136,11 +146,16 @@ namespace PointEx.Web.Controllers
             }
             else
             {
-                return this.Redirect("/AboutTekove");
+                return this.View("AboutTekove");
             }
         }
 
-        public ActionResult Contact()
+        public ActionResult AboutTekove()
+        {
+            return this.View();
+        }
+
+       public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
