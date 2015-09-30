@@ -122,7 +122,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            if ((window.location.href).toString().indexOf("Login") >= 0 || (window.location.href).toString().indexOf("AddBeneficiary") >= 0)
+            if ((window.location.href).toString().indexOf("Login") >= 0
+                || (window.location.href).toString().indexOf("AddBeneficiary") >= 0
+                || (window.location.href).toString().indexOf("About") >= 0
+                || (window.location.href).toString().indexOf("FrequentlyAskedQuestions") >= 0
+                || (window.location.href).toString().indexOf("AddMyShop") >= 0)
             {
                 $(".col-right").addClass("hidden");
                 $("#container").removeClass("container-with-col");
