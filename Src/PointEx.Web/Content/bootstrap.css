@@ -1579,8 +1579,7 @@ pre code {
 .container {
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: 10%;  
+  margin-right: auto;  
   width: 70%;
 }
 @media (min-width: 768px) {
@@ -6371,6 +6370,12 @@ button.close {
 }
 .affix {
   position: fixed;
+}
+.container-without-col{
+    margin-left: auto;  
+}
+.container-with-col{
+    margin-left: 10%;  
 }
 @-ms-viewport {
   width: device-width;

@@ -72,7 +72,7 @@
     <div id="wrapper">
         <div class="main-background">
             @*Colocar los estilos en los css, quitarle en boottrap.css a .container margin-left:auto y poner margin-left:0*@
-            <div class="container" style="position:relative;">                
+            <div id="container" class="container" style="position:relative;">                
                     @RenderSection("banner", required: false)
                     <div style="background-color: #FFF; padding: 5px 20px;">
 
@@ -119,6 +119,21 @@
 
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ((window.location.href).toString().indexOf("Login") >= 0 || (window.location.href).toString().indexOf("AddBeneficiary") >= 0)
+            {
+                $(".col-right").addClass("hidden");
+                $("#container").removeClass("container-with-col");
+                $("#container").addClass("container-without-col");                
+            } else {
+                $(".col-right").removeClass("hidden");
+                $("#container").removeClass("container-without-col");
+                $("#container").addClass("container-with-col");
+            }            
+        });
+    </script>
 
 </body>
 </html>

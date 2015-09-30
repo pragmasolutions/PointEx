@@ -1,5 +1,6 @@
 ﻿body {
     /*font-family: pt sans narrow;*/
+    padding-top: 50px !important;
 }
 
 .public.navbar-nav li:hover {
