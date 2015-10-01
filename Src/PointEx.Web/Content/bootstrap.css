@@ -6372,10 +6372,10 @@ button.close {
   position: fixed;
 }
 .container-without-col{
-    margin-left: auto;  
+    margin-left: auto !important;  
 }
 .container-with-col{
-    margin-left: 10%;  
+    margin-left: 10% !important;  
 }
 @-ms-viewport {
   width: device-width;
