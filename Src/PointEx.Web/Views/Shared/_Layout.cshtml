@@ -71,7 +71,7 @@
     <!-- Page Content -->
     <div id="wrapper">
         <div class="main-background">
-            <div id="container" class="container" style="position: relative;">
+            <div id="container" class="container col-right" style="position: relative;">
                 <div class="left-container col-lg-10">
                     @RenderSection("banner", required: false)
                     <div style="background-color: #FFF; padding: 5px 20px;">
@@ -118,13 +118,9 @@
                 || (window.location.href).toString().indexOf("About") >= 0
                 || (window.location.href).toString().indexOf("FrequentlyAskedQuestions") >= 0
                 || (window.location.href).toString().indexOf("AddMyShop") >= 0) {
-                $(".col-right").addClass("hidden");
-                $("#container").removeClass("container-with-col");
-                $("#container").addClass("container-without-col");
+                $(".col-right").addClass("hidden");                
             } else {
-                $(".col-right").removeClass("hidden");
-                $("#container").removeClass("container-without-col");
-                $("#container").addClass("container-with-col");
+                $(".col-right").removeClass("hidden");                
             }
         });
     </script>

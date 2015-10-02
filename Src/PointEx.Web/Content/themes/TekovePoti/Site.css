@@ -177,11 +177,3 @@ body {
 .loginTekove {
     padding-top: 25px !important;
 }
-
-.container-without-col {
-    margin-left: auto !important;
-}
-
-.container-with-col {
-    margin-left: 10% !important;
-}

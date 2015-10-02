@@ -1580,6 +1580,7 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;  
+  margin-left: auto;
   width: 70%;
 }
 @media (min-width: 768px) {
