@@ -85,10 +85,25 @@ a {
     background-color: #62AB44 !important;
 }
 
-#wrapper .container {
-    background-color: #FFF;
-    background-image: url(/Content/themes/Jovenes/images/background-img.jpg);
-}
+   #wrapper .left-container {
+        background-color: #FFF;
+        /*background-image: url(/Content/themes/Jovenes/images/background-img.jpg);*/
+        -webkit-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+        -moz-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+        -ms-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+        -o-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+        border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+        border-left-width: 15px;
+        border-right-width: 15px;
+        padding: 0;
+        width: 80%
+    }
+
+    #wrapper .rigth-container {
+        display: inline-block;
+        padding: 0;
+        width: 20%
+    }
 
 /* Header */
 .pointex-header {
