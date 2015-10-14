@@ -110,8 +110,27 @@ a {
     background-color: #01781C;
 }
 
+.footer-About {
+	background-image: url('images/slider.png');
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+}
+
+.destacados-home {
+	background-image: url('images/pastilla.png');
+    background-repeat: no-repeat;
+    height: 39px;
+    background-size: cover;
+    background-position: center;
+	margin-bottom: 20px;
+}
+
 footer {
     color: #FFF;
+	background-image: url('images/footer.png');
+	background-repeat: no-repeat;
+    background-size: cover;
 }
 
     footer h3 {
@@ -120,7 +139,7 @@ footer {
 
     footer .footer-above {
         padding-top: 20px;
-        background-color: #01781C;
+        /*background-color: #01781C;*/
     }
 
     footer .footer-col {
@@ -129,7 +148,7 @@ footer {
 
     footer .footer-below {
         padding: 25px 0;
-        background-color: #015507;
+        /*background-color: #015507;*/
     }
 
     footer a:hover {
@@ -137,7 +156,7 @@ footer {
      }
 
 .sub-title {
-    background-color: #00C50B;
+    /*background-color: #00C50B;*/
     color: #FFF;
     padding: 5px 5px 5px 15px;
 }

@@ -42,7 +42,7 @@
                 @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
                 {
                     <a href="/Home">
-                        <img src="/Content/themes/Jovenes/images/tarjoven.png" height="42" style="margin-right: 10px;margin-top: 10px" />
+                        <img src="/Content/themes/Jovenes/images/marcaGrande.png" height="60px" style="margin-right: 10px;margin-top: 10px" />
                     </a>
                     @*@Html.ActionLink(PointEx.Web.Configuration.AppSettings.ThemeTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 }
@@ -94,9 +94,8 @@
         </div>
     </div>
 
-    @*Colocar Footer position:relative*@
-    @Html.Partial("_Footer")
-
+@*Colocar Footer position:relative*@
+        @Html.Partial("_Footer")
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/globalize")
