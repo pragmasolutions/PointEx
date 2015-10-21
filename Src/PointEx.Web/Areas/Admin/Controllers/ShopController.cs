@@ -151,6 +151,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             _shopService.Moderated(id, (int)StatusEnum.Approved);
 
             var shop = _shopService.GetById(id);
+            await _notificationService.SendShopApprovedMail(shop, AppSettings.SiteBaseUrl);
 
             if (Configuration.AppSettings.SiteBaseUrl.Contains("ApprovedShop"))
             {

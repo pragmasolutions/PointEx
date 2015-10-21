@@ -82,9 +82,16 @@ namespace PointEx.Web.Controllers
             shop.Town = _townService.GetById(addMyShopForm.TownId);
             shop.StatusId = StatusEnum.Pending;
 
-            await _shopService.Create(shop, addMyShopForm.Email, AppSettings.Theme);
-            
-            await _notificationService.SendPendingShopEmail(shop.Name, addMyShopForm.Email, true, AppSettings.Theme);
+            try
+            {
+                await _shopService.Create(shop, addMyShopForm.Email, AppSettings.Theme);
+                await _notificationService.SendPendingShopEmail(shop.Name, addMyShopForm.Email, true, AppSettings.Theme);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(addMyShopForm);
+            }
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }
