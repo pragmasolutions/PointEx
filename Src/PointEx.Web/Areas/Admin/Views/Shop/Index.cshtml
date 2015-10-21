@@ -1,4 +1,5 @@
 ﻿@using PagedList.Mvc
+@using PointEx.Entities.Enums
 @model PointEx.Web.Areas.Admin.Models.ShopListModel
 
 @section banner{
@@ -35,6 +36,20 @@
                 <td>@shop.Address</td>
                 <td>@shop.TownName</td>
                 <td>@string.Join(",", shop.Categories)</td>
+                <td class="text-right">
+                    @if (ViewBag.ViewMode == StatusEnum.Pending)
+                    {
+                        <button type="button" class="btn btn-primary" onclick="location.href = '/Admin/Shop/Detail/@shop.Id';">Detalle</button>
+                    }
+                    @if (ViewBag.ViewMode == StatusEnum.Approved)
+                    {
+                        @Html.Partial("Shop/_RejectButton", new ViewDataDictionary { { "Id", shop.Id } })
+                    }
+                    @if (ViewBag.ViewMode == StatusEnum.Rejected)
+                    {
+                        @Html.Partial("Shop/_ApproveButton", new ViewDataDictionary { { "Id", shop.Id } })
+                    }
+                </td>
             </tr>
         }
     </tbody>

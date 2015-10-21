@@ -25,9 +25,30 @@ namespace PointEx.Service
                 new MenuItem()
                 {
                     Text = "Comercios", 
-                    Area = "Admin",
-                    Controller = "Shop",
-                    Action = "Index"
+                     Children = new List<MenuItem>()
+                    {
+                        new MenuItem()
+                        {
+                            Text = "Pendientes", 
+                            Area = "Admin",
+                            Controller = "Shop",
+                            Action = "Index"
+                        },
+                        new MenuItem()
+                        {
+                            Text = "Aprobados", 
+                            Area = "Admin",
+                            Controller = "Shop",
+                            Action = "ApprovedShop"
+                        },
+                        new MenuItem()
+                        {
+                            Text = "Rechazados", 
+                            Area = "Admin",
+                            Controller = "Shop",
+                            Action = "RejectedShop"
+                        },
+                    }
                 },
                 new MenuItem()
                 {

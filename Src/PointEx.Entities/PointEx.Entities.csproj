@@ -75,9 +75,6 @@
     <Compile Include="BenefitFile.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BenefitStatus.cs">
-      <DependentUpon>PointExModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="BenefitType.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
@@ -103,7 +100,7 @@
     <Compile Include="EducationalInstitution.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enums\BenefitStatusEnum.cs" />
+    <Compile Include="Enums\StatusEnum.cs" />
     <Compile Include="Enums\BenefitTypesEnum.cs" />
     <Compile Include="Extensions\Role.cs" />
     <Compile Include="Extensions\EducationalInstitution.cs" />
@@ -180,6 +177,9 @@
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SliderImage.cs">
+      <DependentUpon>PointExModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Status.cs">
       <DependentUpon>PointExModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Town.cs">

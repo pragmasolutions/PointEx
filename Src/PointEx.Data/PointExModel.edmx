@@ -72,7 +72,7 @@
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="BenefitTypeId" Type="int" Nullable="false" />
-          <Property Name="BenefitStatusId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitBranchOffice">
           <Key>
@@ -90,13 +90,6 @@
           <Property Name="BenefitId" Type="int" Nullable="false" />
           <Property Name="FileId" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="BenefitStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="BenefitTypes">
           <Key>
@@ -227,6 +220,7 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ShopCategory">
           <Key>
@@ -245,6 +239,13 @@
           <Property Name="FileId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -289,18 +290,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Benefit_BenefitStatus">
-          <End Role="BenefitStatus" Type="Self.BenefitStatus" Multiplicity="1" />
-          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BenefitStatus">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Benefit">
-              <PropertyRef Name="BenefitStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Benefit_BenefitTypes">
           <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="1" />
           <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
@@ -322,6 +311,18 @@
             </Principal>
             <Dependent Role="Benefit">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benefit_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Benefit" Type="Self.Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,6 +582,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Shop_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Shop_Town">
           <End Role="Town" Type="Self.Town" Multiplicity="1" />
           <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
@@ -693,7 +706,6 @@
           <EntitySet Name="Benefit" EntityType="Self.Benefit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitBranchOffice" EntityType="Self.BenefitBranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitFile" EntityType="Self.BenefitFile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BenefitStatus" EntityType="Self.BenefitStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenefitTypes" EntityType="Self.BenefitTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
@@ -708,6 +720,7 @@
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopCategory" EntityType="Self.ShopCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SliderImage" EntityType="Self.SliderImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Beneficiary_AspNetUsers" Association="Self.FK_Beneficiary_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -721,16 +734,16 @@
             <End Role="Town" EntitySet="Town" />
             <End Role="Beneficiary" EntitySet="Beneficiary" />
           </AssociationSet>
-          <AssociationSet Name="FK_Benefit_BenefitStatus" Association="Self.FK_Benefit_BenefitStatus">
-            <End Role="BenefitStatus" EntitySet="BenefitStatus" />
-            <End Role="Benefit" EntitySet="Benefit" />
-          </AssociationSet>
           <AssociationSet Name="FK_Benefit_BenefitTypes" Association="Self.FK_Benefit_BenefitTypes">
             <End Role="BenefitTypes" EntitySet="BenefitTypes" />
             <End Role="Benefit" EntitySet="Benefit" />
           </AssociationSet>
           <AssociationSet Name="FK_Benefit_Shop" Association="Self.FK_Benefit_Shop">
             <End Role="Shop" EntitySet="Shop" />
+            <End Role="Benefit" EntitySet="Benefit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benefit_Status" Association="Self.FK_Benefit_Status">
+            <End Role="Status" EntitySet="Status" />
             <End Role="Benefit" EntitySet="Benefit" />
           </AssociationSet>
           <AssociationSet Name="FK_BenefitByBranchOffice_Benefit" Association="Self.FK_BenefitByBranchOffice_Benefit">
@@ -816,6 +829,10 @@
           <AssociationSet Name="FK_SectionItem_SliderImage" Association="Self.FK_SectionItem_SliderImage">
             <End Role="SliderImage" EntitySet="SliderImage" />
             <End Role="SectionItem" EntitySet="SectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shop_Status" Association="Self.FK_Shop_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Shop" EntitySet="Shop" />
           </AssociationSet>
           <AssociationSet Name="FK_Shop_Town" Association="Self.FK_Shop_Town">
             <End Role="Town" EntitySet="Town" />
@@ -906,6 +923,8 @@
           <NavigationProperty Name="BranchOffices" Relationship="PointEx.Data.FK_BranchOffice_Shop" FromRole="Shop" ToRole="BranchOffice" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Shop" FromRole="Shop" ToRole="Benefit" />
+          <Property Name="StatusId" Type="PointEx.Data.StatusEnum" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="PointEx.Data.FK_Shop_Status" FromRole="Shop" ToRole="Status" />
         </EntityType>
         <EntityType Name="Town">
           <Key>
@@ -1150,11 +1169,6 @@
             <End Role="SliderImage" EntitySet="SliderImages" />
             <End Role="SectionItem" EntitySet="SectionItems" />
           </AssociationSet>
-          <EntitySet Name="BenefitStatuses" EntityType="PointEx.Data.BenefitStatus" />
-          <AssociationSet Name="FK_Benefit_BenefitStatus" Association="PointEx.Data.FK_Benefit_BenefitStatus">
-            <End Role="BenefitStatu" EntitySet="BenefitStatuses" />
-            <End Role="Benefit" EntitySet="Benefits" />
-          </AssociationSet>
           <FunctionImport Name="RptBeneficiaries" ReturnType="Collection(PointEx.Data.RptBeneficiaries)">
             <Parameter Name="From" Mode="In" Type="DateTime" />
             <Parameter Name="To" Mode="In" Type="DateTime" />
@@ -1162,6 +1176,15 @@
             <Parameter Name="Sex" Mode="In" Type="Int32" />
             <Parameter Name="EducationalInstitutionId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Status" EntityType="PointEx.Data.Status" />
+          <AssociationSet Name="FK_Benefit_Status" Association="PointEx.Data.FK_Benefit_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Benefit" EntitySet="Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shop_Status" Association="PointEx.Data.FK_Shop_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1636,8 +1659,8 @@
           <NavigationProperty Name="BenefitFiles" Relationship="PointEx.Data.FK_BenefitFile_Benefit" FromRole="Benefit" ToRole="BenefitFile" />
           <NavigationProperty Name="Purchases" Relationship="PointEx.Data.FK_Purchase_Benefit" FromRole="Benefit" ToRole="Purchase" />
           <NavigationProperty Name="SectionItems" Relationship="PointEx.Data.FK_SectionItem_Benefit" FromRole="Benefit" ToRole="SectionItem" />
-          <Property Name="BenefitStatusId" Type="PointEx.Data.BenefitStatusEnum" Nullable="false" />
-          <NavigationProperty Name="BenefitStatus" Relationship="PointEx.Data.FK_Benefit_BenefitStatus" FromRole="Benefit" ToRole="BenefitStatu" />
+          <Property Name="StatusId" Type="PointEx.Data.StatusEnum" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="PointEx.Data.FK_Benefit_Status" FromRole="Benefit" ToRole="Status" />
         </EntityType>
         <Association Name="FK_Benefit_BenefitTypes">
           <End Type="PointEx.Data.BenefitType" Role="BenefitType" Multiplicity="1" />
@@ -1747,27 +1770,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BenefitStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="PointEx.Data.BenefitStatusEnum" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_BenefitStatus" FromRole="BenefitStatu" ToRole="Benefit" />
-        </EntityType>
-        <Association Name="FK_Benefit_BenefitStatus">
-          <End Type="PointEx.Data.BenefitStatus" Role="BenefitStatu" Multiplicity="1" />
-          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BenefitStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Benefit">
-              <PropertyRef Name="BenefitStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EnumType Name="BenefitStatusEnum" a:ExternalTypeName="PointEx.Entities.Enums.BenefitStatusEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="StatusEnum" a:ExternalTypeName="PointEx.Entities.Enums.StatusEnum" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         <ComplexType Name="RptBeneficiaries">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="250" />
           <Property Type="Int32" Name="Age" Nullable="true" />
@@ -1775,6 +1778,39 @@
           <Property Type="String" Name="EducationalInstitutionName" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="Town" Nullable="false" MaxLength="250" />
         </ComplexType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="PointEx.Data.StatusEnum" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Status" FromRole="Status" ToRole="Benefit" />
+          <NavigationProperty Name="Shops" Relationship="PointEx.Data.FK_Shop_Status" FromRole="Status" ToRole="Shop" />
+        </EntityType>
+        <Association Name="FK_Benefit_Status">
+          <End Type="PointEx.Data.Status" Role="Status" Multiplicity="1" />
+          <End Type="PointEx.Data.Benefit" Role="Benefit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Benefit">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shop_Status">
+          <End Type="PointEx.Data.Status" Role="Status" Multiplicity="1" />
+          <End Type="PointEx.Data.Shop" Role="Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1823,6 +1859,7 @@
           <EntitySetMapping Name="Shops">
             <EntityTypeMapping TypeName="PointEx.Data.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2092,7 +2129,7 @@
           <EntitySetMapping Name="Benefits">
             <EntityTypeMapping TypeName="PointEx.Data.Benefit">
               <MappingFragment StoreEntitySet="Benefit">
-                <ScalarProperty Name="BenefitStatusId" ColumnName="BenefitStatusId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="BenefitTypeId" ColumnName="BenefitTypeId" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -2119,14 +2156,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BenefitStatuses">
-            <EntityTypeMapping TypeName="PointEx.Data.BenefitStatus">
-              <MappingFragment StoreEntitySet="BenefitStatus">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RptBeneficiaries" FunctionName="PointEx.Data.Store.Rpt_Beneficiaries">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PointEx.Data.RptBeneficiaries">
@@ -2138,6 +2167,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PointEx.Data.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -48,15 +48,15 @@
                 <td class="text-right">@benefit.BenefitTypeName</td>
                 <td class="text-right">@benefit.BenefitStatusName</td>                
                 <td class="text-right"> 
-                    @if (ViewBag.ViewMode == BenefitStatusEnum.Pending)
+                    @if (ViewBag.ViewMode == StatusEnum.Pending)
                     {
                         <button type="button" class="btn btn-primary" onclick="location.href = '/Shop/Benefit/Detail/@benefit.Id';">Detalle</button>
                     }
-                    @if (ViewBag.ViewMode == BenefitStatusEnum.Approved)
+                    @if (ViewBag.ViewMode == StatusEnum.Approved)
                     {
                         @Html.Partial("Benefit/_RejectButton", new ViewDataDictionary { { "Id", benefit.Id } })
                     }
-                    @if (ViewBag.ViewMode == BenefitStatusEnum.Rejected)
+                    @if (ViewBag.ViewMode == StatusEnum.Rejected)
                     {
                         @Html.Partial("Benefit/_ApproveButton", new ViewDataDictionary { { "Id", benefit.Id } })
                     }

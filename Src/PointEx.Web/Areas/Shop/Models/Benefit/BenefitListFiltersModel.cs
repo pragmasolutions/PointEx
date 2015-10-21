@@ -26,7 +26,7 @@ namespace PointEx.Web.Models
 
         [Display(Name = "Estado")]
         [UIHint("BenefitStatusId")]
-        public BenefitStatusEnum? BenefitStatusId { get; set; }        
+        public StatusEnum? BenefitStatusId { get; set; }        
 
         public override RouteValueDictionary GetRouteValues(int page = 1)
         {

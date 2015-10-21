@@ -9,9 +9,11 @@
     [CreatedDate]  DATETIME2 (7)     NOT NULL,
     [ModifiedDate] DATETIME2 (7)     NULL,
 	[IsDeleted]	   BIT NOT NULL DEFAULT 0,
+    [StatusId] INT NOT NULL DEFAULT 2, 
     CONSTRAINT [PK_Shop] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Shop_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id]), 
-    CONSTRAINT [FK_Shop_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id])
+    CONSTRAINT [FK_Shop_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers]([Id]),
+	CONSTRAINT [FK_Shop_Status] FOREIGN KEY ([StatusId]) REFERENCES [dbo].[Status] ([Id])
 );
 
 

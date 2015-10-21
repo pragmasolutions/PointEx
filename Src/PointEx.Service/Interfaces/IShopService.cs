@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Security.Model;
+using PointEx.Entities.Enums;
+using System.Security.Principal;
 
 namespace PointEx.Service
 {
@@ -19,5 +21,8 @@ namespace PointEx.Service
         Shop GetById(int id);
         Shop GetByUserId(string userId);
         void Dispose();
+        List<ShopDto> GetShopByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, StatusEnum status, string criteria,
+            int pageIndex, int pageSize, out int pageTotal);
+        void Moderated(int benefitId, int statusId);
     }
 }
