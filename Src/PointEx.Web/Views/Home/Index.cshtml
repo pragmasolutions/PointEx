@@ -67,14 +67,18 @@
                 <div class="thumbnail">
                     <img src="@benefit.GetDefaultImageUrl(320, 150)" alt="">
                     <div class="caption benifit-short-detail">
+                        <div>
                             <a href="@benefit.GetDetailUrl()" class="benefit-name">@benefit.Shop.Name</a>
+                        </div>
+                        <div>
                             <p class="benefit-description">
                                 @benefit.Description
                             </p>
-                            <span class="benefit-type-info">
+                        </div>
+                        <span class="benefit-type-info">
                                 @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
                                 {
-                                    @benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()
+                                    @benefit.DiscountPercentage.GetValueOrDefault().ToPercentageIntegerString()
                                 }
                                 else
                                 {
