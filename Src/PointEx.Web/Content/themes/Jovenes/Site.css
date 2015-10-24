@@ -180,9 +180,9 @@ footer {
 		margin-left: 10%;
 	}
 
-	.container {
+	/*.container {
 		width: 100%;
-	}
+	}*/
 	.left-container, .col-lg-10 {
 		width: 80%;
 		float: left;
