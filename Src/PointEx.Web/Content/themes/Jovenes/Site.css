@@ -99,14 +99,14 @@ a {
     border-left-width: 15px;
     border-right-width: 15px;
     padding: 0;
-    width: 80%;
+    /*width: 80%;*/
     border-bottom: 0;
 }
 
 #wrapper .rigth-container {
     display: inline-block;
     padding: 0.4%;
-    width: 20%;
+    /*width: 20%;*/
 
 }
 
@@ -173,4 +173,18 @@ footer {
 
 .fb-page {
     padding-top: 3px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-right {
+    float: left !important;
+    margin-left: 10%;
+  }
+}
+
+@media (min-width: 1280px) {
+	.navbar-right {
+		float: right !important;
+		margin-right: -15px;
+	}
 }

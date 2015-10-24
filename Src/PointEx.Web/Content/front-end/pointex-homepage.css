@@ -204,6 +204,10 @@ footer div.footer-below {
     color: #000;
     font-weight: bold;
     font-size: 1.2em;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
 }
 
 

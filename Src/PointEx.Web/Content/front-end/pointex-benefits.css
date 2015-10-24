@@ -1,6 +1,8 @@
 .benefit-description {
-    word-wrap: break-word;
 	text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
 }
 
 .benefit-type-info-detail {
