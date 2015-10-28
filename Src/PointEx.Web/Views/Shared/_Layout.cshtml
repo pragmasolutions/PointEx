@@ -71,7 +71,7 @@
     <!-- Page Content -->
     <div id="wrapper">
         <div class="main-background">
-            <div id="container" class="container" style="position: relative;">
+            <div id="container" class="container">
                 <div class="left-container col-lg-10">
                     @RenderSection("banner", required: false)
                     <div style="background-color: #FFF; padding: 5px 20px;">
@@ -89,7 +89,13 @@
                 </div>
                 <div class="rigth-container col-lg-2">
                     <div class="fb-page" data-href="https://www.facebook.com/direccion.gobiernoprovincialctes" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/direccion.gobiernoprovincialctes"><a href="https://www.facebook.com/direccion.gobiernoprovincialctes">Facebook</a></blockquote></div></div>
+                   
                 </div>
+                <br/>
+                <div></div>
+                <div class="rigth-container col-lg-2">
+                    <a  class="twitter-timeline" href="https://twitter.com/direcdejuventud" data-widget-id="656569976451633152">Tweets por la direcdejuventud.</a>
+                </div>            
             </div>
         </div>
     </div>
@@ -112,11 +118,13 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            if ((window.location.origin).toString() + '/' == window.location.href || window.location.href == (window.location.origin).toString() + '/Home') {
+            if ((window.location.origin).toString() + '/' == window.location.href || window.location.href == (window.location.origin).toString() + '/Home'
+            || window.location.href == (window.location.origin).toString() + '/Home/Index') {
                 $(".rigth-container").removeClass("hidden");
                 $(".left-container").removeClass("col-lg-12");
                 $(".rigth-container").addClass("col-lg-2");
                 $(".left-container").addClass("col-lg-10");
+                $(".left-container").attr("style", "width:80%");
             } else {
                 $(".rigth-container").addClass("hidden");
                 $(".rigth-container").removeClass("col-lg-2");

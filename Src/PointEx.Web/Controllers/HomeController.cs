@@ -12,6 +12,7 @@ using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
 using System.Threading.Tasks;
+using PointEx.Entities.Enums;
 using PointEx.Web.Configuration;
 using PointEx.Web.Infrastructure;
 
@@ -26,13 +27,15 @@ namespace PointEx.Web.Controllers
         private readonly ITownService _townService;
         private readonly IEducationalInstitutionService _educationalInstitutionService;
         private readonly ICurrentUser _currentUser;
+        private readonly IShopService _shopService;
 
         public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
             ICategoryService categoryService, 
             INotificationService notificationService, 
             ITownService townService,
             IEducationalInstitutionService educationalInstitutionService,
-            ICurrentUser currentUser)
+            ICurrentUser currentUser,
+            IShopService shopService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
@@ -41,6 +44,7 @@ namespace PointEx.Web.Controllers
             _townService = townService;
             _educationalInstitutionService = educationalInstitutionService;
             _currentUser = currentUser;
+            _shopService = shopService;
         }
 
         public ActionResult Index()
@@ -76,8 +80,18 @@ namespace PointEx.Web.Controllers
             var shop = addMyShopForm.ToShop();
 
             shop.Town = _townService.GetById(addMyShopForm.TownId);
+            shop.StatusId = StatusEnum.Pending;
 
-            await _notificationService.SendAddShopRequestEmail(shop, addMyShopForm.Email, AppSettings.Theme);
+            try
+            {
+                await _shopService.Create(shop, addMyShopForm.Email, AppSettings.Theme);
+                await _notificationService.SendPendingShopEmail(shop.Name, addMyShopForm.Email, true, AppSettings.Theme);
+            }
+            catch (ApplicationException ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+                return View(addMyShopForm);
+            }
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }

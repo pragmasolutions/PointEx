@@ -89,12 +89,17 @@ footer div.footer-below {
 }
 
 .caption {
-    height: 130px;
+    height: 110px;
     overflow: hidden;
 }
 
     .caption h4 {
         white-space: nowrap;
+    }
+
+	 .caption p {
+		max-height: 37px;
+		overflow: hidden;
     }
 
 .thumbnail img {
@@ -188,15 +193,21 @@ footer div.footer-below {
 
 .benefit-type-info {
     color: #FB362D;
-    
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.7em;
+	position: absolute;
+    bottom: 20px;
+    left: 30px;
 }
 
 .benefit-name {
     color: #000;
     font-weight: bold;
     font-size: 1.2em;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
 }
 
 

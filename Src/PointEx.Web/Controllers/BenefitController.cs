@@ -31,7 +31,7 @@ namespace PointEx.Web.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, BenefitStatusEnum.Approved, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetAll("CreatedDate", "DESC", filters.CategoryId, filters.TownId, filters.ShopId, filters.Criteria, StatusEnum.Approved, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
@@ -49,7 +49,7 @@ namespace PointEx.Web.Controllers
                 return HttpNotFound();
             }
 
-            if (benefit.BenefitStatusId == BenefitStatusEnum.Approved)
+            if (benefit.StatusId == StatusEnum.Approved)
             {
                 var shop = _shopService.GetById(benefit.ShopId);
                 var images = _benefitFileService.GetByBenefitId(benefit.Id);

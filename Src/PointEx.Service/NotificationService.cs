@@ -247,8 +247,6 @@ namespace PointEx.Service
 
             await _emailService.SendMailAsync(mail);
         }
-
-
         private string GetPendingBenefitEmailBody(string benefitName, string theme, string templateName)
         {
             string body = string.Empty;
@@ -265,8 +263,7 @@ namespace PointEx.Service
 
             return body;
         }
-
-
+        
         public async Task SendBenefitApprovedMail(Benefit benefit, string siteBaseUrl)
         {
             var email = benefit.Shop.User.Email;
@@ -279,7 +276,6 @@ namespace PointEx.Service
 
             await _emailService.SendMailAsync(mail);
         }
-
         private string GetBenefitApprovedEmailBody(Benefit benefit, string siteBaseUrl)
         {
             string body = string.Empty;
@@ -298,6 +294,72 @@ namespace PointEx.Service
 
             return body;
         }
+
+        public async Task SendShopApprovedMail(Shop shop, string siteBaseUrl)
+        {
+            var email = shop.User.Email;
+
+            var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], email);
+            mail.Subject = "Comercio Aprobado";
+
+            mail.Body = GetShopApprovedEmailBody(shop, siteBaseUrl);
+            mail.IsBodyHtml = true;
+
+            await _emailService.SendMailAsync(mail);
+        }
+        private string GetShopApprovedEmailBody(Shop shop, string siteBaseUrl)
+        {
+            string body = string.Empty;
+            var theme = ConfigurationManager.AppSettings["Theme"];
+            var templatePath = String.Format("~/EmailTemplates/{0}/{1}.html", theme, "ShopApprovedEmail");
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{ShopName}", shop.Name);
+            body = body.Replace("{BaseUrl}", siteBaseUrl);
+            body = body.Replace("{ShopId}", shop.Id.ToString());
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
+
+            return body;
+        }
+
+        public async Task SendPendingShopEmail(string shopName, string shopEmail, bool created, string theme)
+        {
+            var subject = created
+                ? "Comercio pendiente de aprobación"
+                : "Modificación de comercio pendiente de aprobación";
+            var template = created
+                ? "PendingShopEmail"
+                : "PendingShopUpdateEmail";
+
+
+            var mail = new MailMessage(ConfigurationManager.AppSettings["EmailSentFrom"], shopEmail);
+            mail.Subject = subject;
+            mail.Body = GetPendingShopEmailBody(shopName, theme, template);
+            mail.IsBodyHtml = true;
+
+            await _emailService.SendMailAsync(mail);
+        }
+        private string GetPendingShopEmailBody(string shopName, string theme, string templateName)
+        {
+            string body = string.Empty;
+
+            var templatePath = String.Format("~/EmailTemplates/{0}/{1}.html", theme, templateName);
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{ShopName}", shopName);
+            body = body.Replace("{webURL}", _urlHelper.BaseFullUrl());
+            body = body.Replace("{imageURL}", _urlHelper.ContentFullPath(@"~/Content/themes/Jovenes/images/"));
+
+            return body;
+        }
+        
         private string GetAddBeneficiaryRequestConfirmationEmailBody(string theme)
         {
             string body = string.Empty;

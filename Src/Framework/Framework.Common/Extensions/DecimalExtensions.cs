@@ -9,5 +9,10 @@ namespace Framework.Common.Extentensions
         {
             return (@decimal / 100).ToString("p2");
         }
+
+        public static string ToPercentageIntegerString(this decimal @decimal)
+        {
+            return string.Format("{0}%", Decimal.ToInt32(@decimal));
+        }
     }
 }

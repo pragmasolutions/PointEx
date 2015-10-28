@@ -16,7 +16,9 @@ namespace PointEx.Service
         Task SendInformationRequestEmail(InformationRequestModel request, string theme);
         Task SendPendingBenefitEmail(string benefitName, string beneficiaryEmail, bool created, string theme);
         Task SendAddShopRequestEmail(Shop shop, string email, string theme);
+        Task SendPendingShopEmail(string shopName, string shopEmail, bool created, string theme);
         Task SendAddBeneficiaryRequestEmail(Beneficiary beneficiary, string email, string theme);
         Task SendBenefitApprovedMail(Benefit benefit, string siteBaseUrl);
+        Task SendShopApprovedMail(Shop shop, string siteBaseUrl);
     }
 }

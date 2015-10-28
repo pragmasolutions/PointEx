@@ -2,7 +2,7 @@
 
 namespace PointEx.Entities.Enums
 {
-    public enum BenefitStatusEnum
+    public enum StatusEnum
     {
         [Display(Name = "Pendiente")]
         Pending = 1,

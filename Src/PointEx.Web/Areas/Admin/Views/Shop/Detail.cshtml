@@ -9,19 +9,29 @@
 
 <h3>@PointExResources.ShopDetailTitle</h3>
 @Html.BackButton("Index", "Shop", "Admin")
+@if (ViewBag.ShowApprovalButtons)
+{
+    @Html.Partial("Shop/_RejectButton", new ViewDataDictionary { { "Id", Model.Id } })
+    @Html.Partial("Shop/_ApproveButton", new ViewDataDictionary { { "Id", Model.Id } })
+}
+
+
 <hr />
 <div class="form-horizontal">
     @Html.DisplayForModel()
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @using (Html.BeginForm("Delete", "Shop", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ActionLink("Editar Comercio", "Edit", "Shop", routeValues: new { area = "Admin", Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                <button type="submit" class="btn btn-warning">Eliminar Comercio</button>
-            }
+    @if (!ViewBag.ShowApprovalButtons)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @using (Html.BeginForm("Delete", "Shop", new {id = Model.Id}, FormMethod.Post, new {id = "delete-form"}))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ActionLink("Editar Comercio", "Edit", "Shop", routeValues: new {area = "Admin", Model.Id}, htmlAttributes: new {@class = "btn btn-primary"})
+                    <button type="submit" class="btn btn-warning">Eliminar Comercio</button>
+                }
+            </div>
         </div>
-    </div>
+    }
 </div>
 
 
@@ -32,6 +42,29 @@
             $("#delete-form").on("submit", function () {
                 return confirm("Está seguro que desea eliminar este comercio?  Esta operación no se puede deshacer.");
             });
+
+            $(".approved-form").on("submit", function () {
+                return confirm("Está seguro que desea aprobar este comercio?  Esta operación no se puede deshacer.");
+            });
+
+            $(".rejected-form").on("submit", function () {
+                return confirm("Está seguro que desea rechazar este comercio?  Esta operación no se puede deshacer.");
+            });
         });
     </script>
 }
+
+<style>
+    .rejected-form, .approved-form {
+        display: inline;
+    }
+
+        .rejected-form button {
+            background-color: #FB362D !important;
+            border-color: darkred !important;
+        }
+
+            .rejected-form button:hover {
+                background-color: orangered !important;
+            }
+</style>

@@ -34,7 +34,7 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
         public PointEx.Entities.Enums.BenefitTypesEnum BenefitTypeId { get; set; }
-        public PointEx.Entities.Enums.BenefitStatusEnum BenefitStatusId { get; set; }
+        public PointEx.Entities.Enums.StatusEnum StatusId { get; set; }
     
         public virtual BenefitType BenefitType { get; set; }
         public virtual Shop Shop { get; set; }
@@ -42,6 +42,6 @@ namespace PointEx.Entities
         public virtual ICollection<BenefitFile> BenefitFiles { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<SectionItem> SectionItems { get; set; }
-        public virtual BenefitStatus BenefitStatus { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

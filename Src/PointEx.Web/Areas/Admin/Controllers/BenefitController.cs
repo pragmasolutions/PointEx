@@ -36,13 +36,13 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Pending, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, StatusEnum.Pending, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
             var listModel = new BenefitListModel(pagedList, filters);
 
-            ViewBag.ViewMode = BenefitStatusEnum.Pending;
+            ViewBag.ViewMode = StatusEnum.Pending;
             ViewBag.TabTitle = "Beneficios Pendientes";
             ViewBag.Title = "Beneficios Pendientes de Aprobación";
 
@@ -53,13 +53,13 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Approved, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, StatusEnum.Approved, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
             var listModel = new BenefitListModel(pagedList, filters);
 
-            ViewBag.ViewMode = BenefitStatusEnum.Approved;
+            ViewBag.ViewMode = StatusEnum.Approved;
             ViewBag.TabTitle = "Beneficios Aprobados";
             ViewBag.Title = "Beneficios Aprobados";
 
@@ -70,13 +70,13 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             int pageTotal;
 
-            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, BenefitStatusEnum.Rejected, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+            var benefits = _benefitService.GetBenefitByStatus("CreatedDate", "ASC", filters.CategoryId, filters.TownId, filters.ShopId, StatusEnum.Rejected, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
             var pagedList = new StaticPagedList<BenefitDto>(benefits, filters.Page, DefaultPageSize, pageTotal);
 
             var listModel = new BenefitListModel(pagedList, filters);
 
-            ViewBag.ViewMode = BenefitStatusEnum.Rejected;
+            ViewBag.ViewMode = StatusEnum.Rejected;
             ViewBag.TabTitle = "Beneficios Rechazados";
             ViewBag.Title = "Beneficios Rechazados";
 
@@ -87,7 +87,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         {
             var benefit = _benefitService.GetById(id);
             var benefitForm = BenefitForm.FromBenefit(benefit);
-            ViewBag.IsApproved = benefit.BenefitStatusId == BenefitStatusEnum.Approved;
+            ViewBag.IsApproved = benefit.StatusId == StatusEnum.Approved;
             return View(benefitForm);
         }        
 
@@ -101,7 +101,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult> Approved(int id)
         {
-            _benefitService.Moderated(id, (int)BenefitStatusEnum.Approved);
+            _benefitService.Moderated(id, (int)StatusEnum.Approved);
 
             var benefit = _benefitService.GetById(id);
             await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
@@ -119,7 +119,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Rejected(int id)
         {
-            _benefitService.Moderated(id, (int)BenefitStatusEnum.Rejected);
+            _benefitService.Moderated(id, (int)StatusEnum.Rejected);
             if (Configuration.AppSettings.SiteBaseUrl.Contains("RejectedBenefit"))
             {
                 return RedirectToAction("ApprovedBenefit", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");

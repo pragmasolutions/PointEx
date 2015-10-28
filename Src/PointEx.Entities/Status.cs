@@ -12,16 +12,18 @@ namespace PointEx.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class BenefitStatus
+    public partial class Status
     {
-        public BenefitStatus()
+        public Status()
         {
             this.Benefits = new HashSet<Benefit>();
+            this.Shops = new HashSet<Shop>();
         }
     
-        public PointEx.Entities.Enums.BenefitStatusEnum Id { get; set; }
+        public PointEx.Entities.Enums.StatusEnum Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<Benefit> Benefits { get; set; }
+        public virtual ICollection<Shop> Shops { get; set; }
     }
 }

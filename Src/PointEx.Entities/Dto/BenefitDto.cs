@@ -21,15 +21,15 @@ namespace PointEx.Entities.Dto
         public decimal? DiscountPercentageCeiling { get; set; }
         public int? DefaultFileId { get; set; }
         public string ShopName { get; set; }
-        public BenefitStatusEnum BenefitStatusId { get; set; }
+        public StatusEnum BenefitStatusId { get; set; }
         public string BenefitStatusName 
         { 
             get {
                 switch (BenefitStatusId)
                 {
-                    case BenefitStatusEnum.Approved:
+                    case StatusEnum.Approved:
                         return "Aprobado";
-                    case BenefitStatusEnum.Rejected:
+                    case StatusEnum.Rejected:
                         return "Rechazado";
                     default:
                         return "Pendiente";

@@ -32,6 +32,7 @@ namespace PointEx.Entities
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string Phone { get; set; }
         public bool IsDeleted { get; set; }
+        public PointEx.Entities.Enums.StatusEnum StatusId { get; set; }
     
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual Town Town { get; set; }
@@ -39,5 +40,6 @@ namespace PointEx.Entities
         public virtual User User { get; set; }
         public virtual ICollection<BranchOffice> BranchOffices { get; set; }
         public virtual ICollection<Benefit> Benefits { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

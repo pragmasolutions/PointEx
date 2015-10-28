@@ -37,7 +37,7 @@ namespace PointEx.Service
             return Uow.Benefits.GetAll(b => !b.IsDeleted);
         }
 
-        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, BenefitStatusEnum? benefitStatusId, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, string criteria, StatusEnum? statusId, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -50,7 +50,7 @@ namespace PointEx.Service
                 x =>
                     ((string.IsNullOrEmpty(criteria) || x.Description.Contains(criteria) || x.Name.Contains(criteria) || x.Shop.Name.Contains(criteria)) &&
                      (!shopId.HasValue || x.ShopId == shopId) &&
-                     (!benefitStatusId.HasValue || x.BenefitStatusId == benefitStatusId.Value) &&
+                     (!statusId.HasValue || x.StatusId == statusId.Value) &&
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
@@ -70,12 +70,12 @@ namespace PointEx.Service
         {
             return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, 
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
-                b => b.Shop, b => b.Shop.User, b => b.BenefitType, b => b.BenefitStatus);
+                b => b.Shop, b => b.Shop.User, b => b.BenefitType, b => b.Status);
         }
 
         public IQueryable<Benefit> GetAllByShopId(int shopId)
         {
-            return Uow.Benefits.GetAll(b => b.ShopId == shopId && !b.IsDeleted && b.BenefitStatusId == BenefitStatusEnum.Approved);
+            return Uow.Benefits.GetAll(b => b.ShopId == shopId && !b.IsDeleted && b.StatusId == StatusEnum.Approved);
         }
 
         public Benefit GetByName(string name)
@@ -91,7 +91,7 @@ namespace PointEx.Service
             }
 
             benefit.CreatedDate = _clock.Now;
-            benefit.BenefitStatusId = BenefitStatusEnum.Pending;
+            benefit.StatusId = StatusEnum.Pending;
             Uow.Benefits.Add(benefit);
             Uow.Commit();
         }
@@ -105,7 +105,7 @@ namespace PointEx.Service
 
             var currentBenefit = this.GetById(benefit.Id);
 
-            var sendPendingConfirmationEmail = currentBenefit.BenefitStatusId == BenefitStatusEnum.Approved && currentUser.IsInRole(RolesNames.Shop);
+            var sendPendingConfirmationEmail = currentBenefit.StatusId == StatusEnum.Approved && currentUser.IsInRole(RolesNames.Shop);
 
             if (sendPendingConfirmationEmail)
             {
@@ -131,7 +131,7 @@ namespace PointEx.Service
 
             if (currentUser.IsInRole(RolesNames.Shop))
             {
-                currentBenefit.BenefitStatusId = BenefitStatusEnum.Pending;
+                currentBenefit.StatusId = StatusEnum.Pending;
             }
 
             if ((benefit.BenefitTypeId == BenefitTypesEnum.Discount))
@@ -153,7 +153,7 @@ namespace PointEx.Service
         public void Moderated(int benefitId, int statusId)
         {
             var currentBenefit = this.GetById(benefitId);
-            currentBenefit.BenefitStatusId = (BenefitStatusEnum)statusId;
+            currentBenefit.StatusId = (StatusEnum)statusId;
 
             Uow.Benefits.Edit(currentBenefit);
 
@@ -237,14 +237,14 @@ namespace PointEx.Service
         public IList<Benefit> GetOutstandingBenefits()
         {
             var today = _clock.Now.AddMonths(-3);
-            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && b.BenefitStatusId == BenefitStatusEnum.Approved && !b.IsDeleted,
+            return Uow.Benefits.GetAll(b => (!b.DateTo.HasValue || b.DateTo >= today) && b.StatusId == StatusEnum.Approved && !b.IsDeleted,
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitType,
                 b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();            
         }
 
-        public List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, BenefitStatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        public List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, StatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
         {
             var pagingCriteria = new PagingCriteria();
 
@@ -260,7 +260,7 @@ namespace PointEx.Service
                      (!categoryId.HasValue || x.Shop.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
                      (!townId.HasValue || x.Shop.TownId == townId ||
                      x.BenefitBranchOffices.Any(bo => bo.BranchOffice.TownId == townId)) &&
-                     !x.IsDeleted && x.BenefitStatusId == status);
+                     !x.IsDeleted && x.StatusId == status);
 
             var results = Uow.Benefits.GetAll(pagingCriteria, where,
                 //Includes

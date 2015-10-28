@@ -99,14 +99,14 @@ a {
     border-left-width: 15px;
     border-right-width: 15px;
     padding: 0;
-    width: 80%;
+	/*width: 80%;*/
     border-bottom: 0;
 }
 
 #wrapper .rigth-container {
     display: inline-block;
-    padding: 0;
-    width: 20%;
+	padding: 0.4%;
+	/*width: 20%;*/
 }
 
 /* Header */
@@ -135,8 +135,8 @@ footer {
     color: #FFF;
     background-image: url('/Content/themes/Jovenes/images/footer.png');
     background-repeat: no-repeat;
-    -ms-background-size: cover;
-    background-size: cover;
+    -ms-background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 
 footer h3 {
@@ -174,4 +174,31 @@ footer h3 {
 
 .fb-page {
     padding-top: 3px !important;
+}
+
+@media (min-width: 768px) {
+	.navbar-right {
+		float: left !important;
+		margin-left: 10%;
+	}
+
+	/*.container {
+		width: 100%;
+	}*/
+	.left-container, .col-lg-10 {
+		width: 80%;
+		float: left;
+	}
+	.rigth-container, .col-lg-2 {
+		width: 20%;
+		float: left;
+	}
+}
+
+@media (min-width: 1280px) {
+	.navbar-right {
+		float: right !important;
+		margin-left: -15px;
+		
+	}
 }

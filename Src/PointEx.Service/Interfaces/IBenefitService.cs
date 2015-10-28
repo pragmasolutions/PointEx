@@ -19,7 +19,7 @@ namespace PointEx.Service
         IQueryable<Benefit> GetAllByShopId(int shopId);
 
         List<BenefitDto> GetAll(string sortBy, string sortDirection, int? categoryId,int? townId, int? shopId, string criteria,
-            BenefitStatusEnum? benefitStatusId, int pageIndex, int pageSize, out int pageTotal);
+            StatusEnum? benefitStatusId, int pageIndex, int pageSize, out int pageTotal);
 
         void Create(Benefit benefit);
 
@@ -33,7 +33,7 @@ namespace PointEx.Service
 
         bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId);
 
-        List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, BenefitStatusEnum status, string criteria,
+        List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, StatusEnum status, string criteria,
             int pageIndex, int pageSize, out int pageTotal);        
     }
 }

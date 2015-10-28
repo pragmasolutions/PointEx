@@ -430,7 +430,9 @@
     <Content Include="Content\themes\TekovePoti\images\TekovePoti-Logo.png" />
     <Content Include="Content\themes\TekovePoti\Site.css" />
     <Content Include="EmailTemplates\Jovenes\AccountConfirmationEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\ShopApprovedEmail.html" />
     <Content Include="EmailTemplates\Jovenes\BenefitApprovedEmail.html" />
+    <Content Include="EmailTemplates\Jovenes\PendingShopEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitUpdateEmail.html" />
     <Content Include="EmailTemplates\Jovenes\PendingBenefitEmail.html" />
     <Content Include="EmailTemplates\Jovenes\AddBeneficiaryRequest.html" />
@@ -770,6 +772,8 @@
     <Content Include="Views\Home\AboutTekove.cshtml" />
     <Content Include="Views\Home\FrequentlyAskedQuestionsTekove.cshtml" />
     <Content Include="Views\Home\TermsAndConditionsTekove.cshtml" />
+    <Content Include="Views\Shared\Shop\_RejectButton.cshtml" />
+    <Content Include="Views\Shared\Shop\_ApproveButton.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -67,28 +67,20 @@
                 <div class="thumbnail">
                     <img src="@benefit.GetDefaultImageUrl(320, 150)" alt="">
                     <div class="caption benifit-short-detail">
-                        <table class="all-width">
-                            <tr>
-                                <td>
-                                    <h4>
-                                        <a href="@benefit.GetDetailUrl()" class="benefit-name">@benefit.Shop.Name</a>
-                                    </h4>
-                                </td>
-                                <td style="width: 55px; padding-left: 5px;">
-                                    @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
-                                    {
-                                        <h4 class="benefit-type-info">@benefit.DiscountPercentage.GetValueOrDefault().ToPercentageString()</h4>
-                                    }
-                                    else
-                                    {
-                                        <h4 class="benefit-type-info">@(benefit.BenefitType == null ? string.Empty : benefit.BenefitType.Name)</h4>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
+                        <a href="@benefit.GetDetailUrl()" class="benefit-name">@benefit.Shop.Name</a>
                         <p class="benefit-description">
                             @benefit.Description
                         </p>
+                        <span class="benefit-type-info">
+                                @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
+                                {
+                                    @benefit.DiscountPercentage.GetValueOrDefault().ToPercentageIntegerString()
+                                }
+                                else
+                                {
+                                    @(benefit.BenefitType == null ? string.Empty : benefit.BenefitType.Name)
+                                }
+                        </span>
                     </div>
                     <div class="ratings">
                         @*<p class="pull-right">15 reviews</p>

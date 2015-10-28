@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Status]
+(
+	[Id] INT NOT NULL IDENTITY, 
+    [Name] VARCHAR(50) NOT NULL,
+	CONSTRAINT [PK_Status] PRIMARY KEY ([Id])
+)

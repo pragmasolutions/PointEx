@@ -17,6 +17,8 @@ using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Service.Exceptions;
+using PointEx.Entities.Enums;
+using System.Security.Principal;
 
 namespace PointEx.Service
 {
@@ -62,7 +64,7 @@ namespace PointEx.Service
 
                     await Uow.CommitAsync();
 
-                    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
+                    //await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
 
                     trasactionScope.Complete();
                 }
@@ -103,6 +105,11 @@ namespace PointEx.Service
             if (!string.IsNullOrEmpty(shopEmail))
             {
                 currentShop.User.Email = shopEmail;
+            }
+
+            if (shopEmail != null)
+            {
+                currentShop.StatusId = StatusEnum.Pending;
             }
 
             Uow.Shops.Edit(currentShop);
@@ -212,6 +219,41 @@ namespace PointEx.Service
             }
 
             return true;
+        }
+
+        public List<ShopDto> GetShopByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, StatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        {
+            var pagingCriteria = new PagingCriteria();
+
+            pagingCriteria.PageNumber = pageIndex;
+            pagingCriteria.PageSize = pageSize;
+            pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
+            pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
+
+            Expression<Func<Shop, bool>> where =
+                x =>
+                    ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria) || x.Name.Contains(criteria)) &&
+                     (!categoryId.HasValue || x.ShopCategories.Any(c => c.CategoryId == categoryId)) &&
+                     (!townId.HasValue || x.TownId == townId) &&
+                     !x.IsDeleted && x.StatusId == status);
+
+            var results = Uow.Shops.GetAll(pagingCriteria, where,
+                //Includes
+                b => b.ShopCategories);
+
+            pageTotal = results.PagedMetadata.TotalItemCount;
+
+            return results.Entities.Project().To<ShopDto>().ToList();
+        }
+
+        public void Moderated(int shopId, int statusId)
+        {
+            var currentShop = this.GetById(shopId);
+            currentShop.StatusId = (StatusEnum)statusId;
+
+            Uow.Shops.Edit(currentShop);
+
+            Uow.Commit();
         }
     }
 }

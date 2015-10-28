@@ -117,7 +117,7 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             var b = _benefitService.GetById(uploadImagesForm.Id);
 
-            b.BenefitStatusId = BenefitStatusEnum.Pending;
+            b.StatusId = StatusEnum.Pending;
 
             _benefitService.Edit(b, User, _currentUser.PointexUser.Email, AppSettings.Theme);
             
