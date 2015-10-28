@@ -51,7 +51,7 @@ namespace PointEx.Web.Models
 
         [UIHint("EducationalInstitutionId")]
         [Display(Name = "Establecimiento Educativo")]
-        [Required]
+        //[Required]
         public int? EducationalInstitutionId { get; set; }
 
         //[Display(Name = "Informacion de usuario")]

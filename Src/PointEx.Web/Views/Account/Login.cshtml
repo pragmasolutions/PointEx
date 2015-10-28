@@ -1,7 +1,8 @@
-﻿@using PointEx.Web.Models
+﻿@using PointEx.Web.Configuration
+@using PointEx.Web.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Ingresá a Tarjeta Verde";
+    ViewBag.Title = "Ingresá a " + AppSettings.ThemeTitle;
 }
 
 <h2>@ViewBag.Title.</h2>
