@@ -1,6 +1,4 @@
-﻿
-@model PointEx.Web.Models.BeneficiaryForm
-
+﻿@model PointEx.Web.Models.BeneficiaryForm
 <div class="form-group">
     <label class="col-md-2 control-label" for="Name">Nombre y Apellido</label>
     <div class="col-md-10">
@@ -64,6 +62,8 @@ else
 {
     @Html.HiddenFor(model => model.EducationalInstitutionId)
 }
+
+@Html.HiddenFor(model => model.Theme)
 
 <div class="form-group">
     <label class="col-md-2 control-label" for="Email">E-mail</label>

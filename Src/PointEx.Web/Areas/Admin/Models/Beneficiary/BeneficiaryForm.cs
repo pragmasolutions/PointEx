@@ -7,8 +7,10 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Common.Mapping;
+using Framework.Common.Validation;
 using PointEx.Entities;
 using PointEx.Security.Model;
+using PointEx.Web.Configuration;
 using Resources;
 
 namespace PointEx.Web.Models
@@ -49,13 +51,13 @@ namespace PointEx.Web.Models
         [Required]
         public DateTime? BirthDate { get; set; }
 
+        public string Theme { get; set; }
+
         [UIHint("EducationalInstitutionId")]
         [Display(Name = "Establecimiento Educativo")]
-        //[Required]
+        [RequiredIf("Theme", ThemeEnum.TarjetaVerde, ErrorMessage = "El campo Establecimiento Educativo es requerido")]
         public int? EducationalInstitutionId { get; set; }
 
-        //[Display(Name = "Informacion de usuario")]
-        //public RegisterViewModel RegisterViewModel { get; set; }
 
         [Required]
         [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
