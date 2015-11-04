@@ -75,6 +75,9 @@
         <p class="benefit-description">
             @Model.Benefit.Description
         </p>
+        <p class="benefit-description">
+            Vigencia hasta: @Model.Benefit.DateTo.ToShortDateString()
+        </p>
         <div> @Html.SocialLinkButtons(Model.Benefit.Name, Request.Url.ToString()) </div>
     </div>
     <div class="ratings">
