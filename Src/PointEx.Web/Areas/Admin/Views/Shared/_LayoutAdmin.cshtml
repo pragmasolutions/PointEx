@@ -21,20 +21,20 @@
                 @Html.ActionLink("Administración", "Index", new { area = "Admin", controller = "Shop" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @{ Html.RenderAction("Menu", "Layout", new { area = "Admin"});}
+                @{ Html.RenderAction("Menu", "Layout", new { area = "Admin" });}
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-<div class="container body-content">
-    @RenderSection("banner", required: false)
-    <div class="container alert-container" style="padding-left: 0 !important;"></div>
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; Admin</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderSection("banner", required: false)
+        <div class="container alert-container" style="padding-left: 0 !important;"></div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; Admin</p>
+        </footer>
+    </div>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/globalize")
@@ -45,10 +45,14 @@
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
 
-<style>
-    .alert-success {
-        width: 1170px !important;
-    }
-</style>
+    <style>
+        .alert-success {
+            width: 1170px !important;
+        }
+
+        .loginTekove {
+            padding-top: 0px !important;
+        }
+    </style>
 </body>
 </html>

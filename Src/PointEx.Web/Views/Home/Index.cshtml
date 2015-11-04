@@ -71,6 +71,9 @@
                         <p class="benefit-description">
                             @benefit.Description
                         </p>
+                        <p class="benefit-description">
+                            Vigencia: @benefit.DateTo.ToShortDateString()
+                        </p>
                         <span class="benefit-type-info">
                                 @if (benefit.BenefitTypeId == BenefitTypesEnum.Discount)
                                 {

@@ -98,11 +98,11 @@ a {
 #wrapper .left-container {
     background-color: #FFF;
     /*background-image: url(/Content/themes/Jovenes/images/background-img.jpg);*/
-    -webkit-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+    /*-webkit-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
     -moz-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
     -ms-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
     -o-border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
-    border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;
+    border-image: url(/Content/themes/Jovenes/images/background-img.jpg) 0% 50% stretch;*/
     border-left-width: 15px;
     border-right-width: 15px;
     padding: 0;
@@ -186,7 +186,7 @@ footer {
 @media (min-width: 768px) {
     .navbar-right {
         float: left !important;
-        margin-left: 10%;
+        /*margin-left: 10%;*/
     }
 
     /*.container {

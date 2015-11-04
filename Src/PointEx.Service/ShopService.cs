@@ -64,8 +64,6 @@ namespace PointEx.Service
 
                     await Uow.CommitAsync();
 
-                    //await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
-
                     trasactionScope.Complete();
                 }
                 catch (Exception ex)

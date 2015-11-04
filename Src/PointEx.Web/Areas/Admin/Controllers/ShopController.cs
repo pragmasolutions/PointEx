@@ -73,6 +73,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             {
                 shop.StatusId = StatusEnum.Approved;
                 await _shopService.Create(shop, shopForm.Email, AppSettings.Theme);
+                await _notificationService.SendAccountConfirmationEmail(shop.UserId, AppSettings.Theme);
             }
             catch (ApplicationException ex)
             {
@@ -152,6 +153,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             var shop = _shopService.GetById(id);
             await _notificationService.SendShopApprovedMail(shop, AppSettings.SiteBaseUrl);
+            await _notificationService.SendAccountConfirmationEmail(shop.UserId, AppSettings.Theme);
 
             if (Configuration.AppSettings.SiteBaseUrl.Contains("ApprovedShop"))
             {
