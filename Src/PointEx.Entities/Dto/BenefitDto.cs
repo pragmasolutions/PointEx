@@ -21,11 +21,11 @@ namespace PointEx.Entities.Dto
         public decimal? DiscountPercentageCeiling { get; set; }
         public int? DefaultFileId { get; set; }
         public string ShopName { get; set; }
-        public StatusEnum BenefitStatusId { get; set; }
+        public StatusEnum StatusId { get; set; }
         public string BenefitStatusName 
         { 
             get {
-                switch (BenefitStatusId)
+                switch (StatusId)
                 {
                     case StatusEnum.Approved:
                         return "Aprobado";

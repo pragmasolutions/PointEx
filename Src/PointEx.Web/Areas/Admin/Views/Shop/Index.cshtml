@@ -26,6 +26,7 @@
             <th>Direccion</th>
             <th>Localidad</th>
             <th>Categoria</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -36,6 +37,7 @@
                 <td>@shop.Address</td>
                 <td>@shop.TownName</td>
                 <td>@string.Join(",", shop.Categories)</td>
+                <td>@shop.ShopStatusName</td>
                 <td class="text-right">
                     @if (ViewBag.ViewMode == StatusEnum.Pending)
                     {
