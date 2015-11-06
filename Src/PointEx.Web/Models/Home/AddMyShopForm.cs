@@ -13,6 +13,14 @@ namespace PointEx.Web.Models
 {
     public class AddMyShopForm : IMapFrom<Shop>
     {
+        public AddMyShopForm()
+        {
+            CategoriesSelected = Enumerable.Empty<int>();
+        }
+
+        [HiddenInput]
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
@@ -30,6 +38,11 @@ namespace PointEx.Web.Models
         [Required]
         public int TownId { get; set; }
 
+        [UIHint("Categories")]
+        [Display(Name = "Categorias")]
+        [NotMapped]
+        public IEnumerable<int> CategoriesSelected { get; set; } 
+
         [Required]
         [EmailAddress(ErrorMessageResourceType = typeof(PointExGlobalResources), ErrorMessageResourceName = "EmailAddress", ErrorMessage = null)]
         [Display(Name = "Email")]
@@ -38,6 +51,8 @@ namespace PointEx.Web.Models
         public Shop ToShop()
         {
             var shop = Mapper.Map<AddMyShopForm, Shop>(this);
+            shop.ShopCategories =
+                this.CategoriesSelected.Select(categoryId => new ShopCategory() { CategoryId = categoryId, ShopId = this.Id }).ToArray();            
             return shop;
         }
     }
