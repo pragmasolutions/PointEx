@@ -421,6 +421,7 @@
     <Content Include="Content\themes\Jovenes\images\background-img.jpg" />
     <Content Include="Content\themes\Jovenes\images\footer.png" />
     <Content Include="Content\themes\Jovenes\images\marcaGrande.png" />
+    <Content Include="Content\themes\Jovenes\images\menu.png" />
     <Content Include="Content\themes\Jovenes\images\pastilla.png" />
     <Content Include="Content\themes\Jovenes\images\slider.png" />
     <Content Include="Content\themes\Jovenes\images\tarjoven.png" />
@@ -582,6 +583,7 @@
     <Content Include="Areas\Admin\Views\Layout\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
+    <Content Include="fonts\KRAASH BLACK.TTF" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />

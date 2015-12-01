@@ -1,7 +1,9 @@
-﻿body {
+﻿
+body {
     /*font-family: pt sans narrow;*/
-    padding-top: 67px !important;
+    padding-top: 77px !important;
     background-color: #C4DA70 !important;
+	
 }
 
 .public.navbar-nav li:hover {
@@ -119,6 +121,10 @@ a {
 /* Header */
 .pointex-header {
     background-color: #01781C;
+	/*background-image: url('/Content/themes/Jovenes/images/menu.png');
+	background-repeat: no-repeat;*/
+	height: 77px;
+	font-family: "Krash Blck";
 }
 
 .footer-About {
@@ -136,6 +142,7 @@ a {
     background-size: cover;
     background-position: center;
     margin-bottom: 20px;
+	font-family: "Kraash Black";
 }
 
 footer {
