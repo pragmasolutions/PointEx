@@ -12,11 +12,12 @@
 }
 
 <div class="col-md-3">
-    <p class="lead sub-title">Categorias</p>
+    <a href="@Url.Action("Index", new {WithinReach = true, Area = "Beneficiary", Controller="Prize"})" class="list-group-item">CANJE DE PUNTOS</a>
+    <p class="lead sub-title">CONOCÉ LOS BENEFICIOS</p>
     <div class="list-group categories">
         @foreach (var category in Model.Categories)
         {
-            <a href="@Url.Action("Index", "Benefit", new { categoryId = category.Id })" class="list-group-item"><i class="@category.IconClass"></i> @category.Name</a>
+            <a href="@Url.Action("Index", "Benefit", new {categoryId = category.Id})" class="list-group-item"><i class="@category.IconClass"></i> @category.Name</a>
         }
     </div>
 </div>

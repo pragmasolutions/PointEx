@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
 using PointEx.Entities.Dto;
@@ -30,9 +31,9 @@ namespace PointEx.Web.Areas.Beneficiary.Controllers
             int? maxPointsNeeded = filters.WithinReach ? _currentUser.Beneficiary.Points : (int?)null;
 
             var prizes = _prizeService.GetAll("CreatedDate", "DESC", filters.Criteria, maxPointsNeeded, filters.Page, DefaultPageSize, out pageTotal);
-
+            
             var pagedList = new StaticPagedList<PrizeDto>(prizes, filters.Page, DefaultPageSize, pageTotal);
-
+            
             var listModel = new PrizeListModel(pagedList, filters);
 
             return View(listModel);
