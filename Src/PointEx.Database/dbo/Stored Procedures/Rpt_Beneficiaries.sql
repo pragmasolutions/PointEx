@@ -9,7 +9,9 @@ BEGIN
 	SELECT
 	   Name = B.Name
 	  ,Age = A.Age
-	  ,Sex = CASE WHEN B.Sex = 1 THEN 'MASCULINO' ELSE 'FEMENINO' END
+	  ,Sex = CASE WHEN B.Sex = 1 THEN 'MASCULINO'
+				  WHEN B.Sex = 2 THEN 'FEMENINO' 
+				  ELSE 'OTROS' END
 	  ,EducationalInstitutionName = E.Name 
 	  ,Town = T.Name
 

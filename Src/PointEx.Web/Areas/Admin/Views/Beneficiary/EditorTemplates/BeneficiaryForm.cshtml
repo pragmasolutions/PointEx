@@ -37,6 +37,13 @@
     </div>
 </div>
 <div class="form-group">
+    @Html.BootstrapLabelFor(model => model.Neighborhood)
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Neighborhood)
+        @Html.ValidationMessageFor(model => model.Neighborhood)
+    </div>
+</div>
+<div class="form-group">
     @Html.BootstrapLabelFor(model => model.TelephoneNumber)
     <div class="col-md-10">
         @Html.EditorFor(model => model.TelephoneNumber)

@@ -55,6 +55,7 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Sex" Type="int" Nullable="false" />
           <Property Name="TelephoneNumber" Type="bigint" />
+          <Property Name="Neighborhood" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -1284,6 +1285,7 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Sex" Type="Int32" Nullable="false" />
           <Property Name="TelephoneNumber" Type="Int64" />
+          <Property Name="Neighborhood" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Beneficiary_AspNetUsers">
           <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
@@ -1928,6 +1930,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
                 <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />

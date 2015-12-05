@@ -24,12 +24,8 @@
         <tr>
             <th>Nombre y Apellido</th>
             <th>Direccion</th>
+            <th>Barrio</th>
             <th>Localidad</th>
-            @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
-            {
-                <th>Establecimiento Educativo</th>
-            }
-            
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -37,13 +33,9 @@
         {
             <tr>
                 <td>@Html.ActionLink(beneficiary.Name, "Detail", "Beneficiary", routeValues: new { area = "Admin", beneficiary.Id }, htmlAttributes: null)</td>
-                <td>TODO</td>
+                <td>@beneficiary.Address</td>
+                <td>@beneficiary.Neighborhood</td>
                 <td>@beneficiary.TownName</td>
-                @if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
-                {
-                    <td>@beneficiary.EducationalInstitutionName</td>
-                }
-                
             </tr>
         }
     </tbody>

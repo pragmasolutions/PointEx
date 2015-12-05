@@ -33,6 +33,7 @@ namespace PointEx.Entities
         public bool IsDeleted { get; set; }
         public int Sex { get; set; }
         public Nullable<long> TelephoneNumber { get; set; }
+        public string Neighborhood { get; set; }
     
         public virtual User User { get; set; }
         public virtual EducationalInstitution EducationalInstitution { get; set; }

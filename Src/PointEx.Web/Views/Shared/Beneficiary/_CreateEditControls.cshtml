@@ -35,6 +35,13 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label" for="Neighborhood">Barrio</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Neighborhood)
+        @Html.ValidationMessageFor(model => model.Neighborhood)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label" for="TelephoneNumber">Número de Teléfono</label>
     <div class="col-md-10">
         @Html.EditorFor(model => model.TelephoneNumber)

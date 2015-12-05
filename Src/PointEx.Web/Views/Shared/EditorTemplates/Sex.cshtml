@@ -5,7 +5,8 @@
     var list = new List<KeyValuePair<int, string>>
     {
         new KeyValuePair<int, string>(1, "Masculino") ,
-        new KeyValuePair<int, string>(2, "Femenino") 
+        new KeyValuePair<int, string>(2, "Femenino") ,
+        new KeyValuePair<int, string>(3, "Otros") 
     };
     var selectList = list.ToSelectListItem(Model, t => t.Key, t => t.Value, t => t.Key.ToString());
 }

@@ -56,5 +56,9 @@ namespace PointEx.Entities
 
         [DisplayName("Sexo")]
         public int Sex { get; set; }
+        
+        [DisplayName("Barrio")]
+        [Required(ErrorMessage = null)]
+        public string Neighborhood { get; set; }
     }
 }

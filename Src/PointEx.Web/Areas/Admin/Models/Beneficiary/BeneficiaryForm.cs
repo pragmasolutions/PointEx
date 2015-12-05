@@ -42,6 +42,10 @@ namespace PointEx.Web.Models
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 
+        [Required]
+        [Display(Name = "Barrio")]
+        public string Neighborhood { get; set; }
+
         [UIHint("Long")]
         [Display(Name = "Número de Teléfono")]
         public long? TelephoneNumber { get; set; }

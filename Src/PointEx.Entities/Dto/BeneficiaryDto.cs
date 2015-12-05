@@ -18,6 +18,7 @@ namespace PointEx.Entities.Dto
         public int TownId { get; set; }
         public string TownName { get; set; }
         public string Address { get; set; }
+        public string Neighborhood { get; set; }
         public long? TelephoneNumber { get; set; }
     }
 }
