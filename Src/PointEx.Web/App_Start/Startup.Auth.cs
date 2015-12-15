@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Facebook;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using PointEx.Security.Managers;
@@ -20,7 +24,7 @@ namespace PointEx.Web
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create); 
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -37,7 +41,7 @@ namespace PointEx.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -57,9 +61,59 @@ namespace PointEx.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
+            //var facebookAuthenticationOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions
+            //                      {
+            //                          AppId = "446501508875036",
+            //                          AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba",
+            //                          AuthenticationType = "Facebook",
+            //                          SignInAsAuthenticationType = "ExternalCookie",
+            //                          Provider = new FacebookAuthenticationProvider
+            //                          {
+            //                              OnAuthenticated = async context =>
+            //                              {
+            //                                  context.Identity.AddClaim(
+            //                                  new System.Security.Claims.Claim("FacebookAccessToken",
+            //                                                                       context.AccessToken));
+            //                              }
+            //                          }
+            //                      };
+
+            //facebookAuthenticationOptions.Scope.Add("email");
+            //facebookAuthenticationOptions.Scope.Add("user_birthday");
+            //facebookAuthenticationOptions.Scope.Add("user_hometown");
+            //facebookAuthenticationOptions.Scope.Add("user_location");
+
+            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            string XmlSchemaString = "www.w3.org/.../XMLSchema";
+            FacebookAuthenticationOptions options = new FacebookAuthenticationOptions();
+            options.Scope.Add("email");
+            options.AppId = "446501508875036";
+            options.AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba";
+            options.Provider = new FacebookAuthenticationProvider()
+            {
+                OnAuthenticated = (context) =>
+                {
+                    context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
+                    context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:email", context.Email, XmlSchemaString, "Facebook"));
+                    foreach (var x in context.User)
+                    {
+                        string claimType = string.Format("urn:facebook:{0}", x.Key);
+                        string claimValue = x.Value.ToString();
+                        if (!context.Identity.HasClaim(claimType, claimValue))
+                        {
+                            context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
+                        }
+                    }
+                    return Task.FromResult(0);
+                }
+            };
+            options.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            app.UseFacebookAuthentication(options);
+
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "446501508875036",
+            //   appSecret: "0a61f56bcb59bdc4f5be641f7f24b0ba");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

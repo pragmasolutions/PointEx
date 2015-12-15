@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
 using PointEx.Security.Model;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace PointEx.Service
 {
     public interface IBeneficiaryService : IServive
     {
         Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string theme);
+        Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string theme, ExternalLoginInfo info);
         void Edit(Beneficiary beneficiary);
         void Delete(int beneficiaryId);
         IQueryable<Beneficiary> GetAll();

@@ -66,7 +66,6 @@ namespace PointEx.Web.Controllers
         public ActionResult AddBeneficiary()
         {
             BeneficiaryForm form = new BeneficiaryForm();
-            form.Theme = AppSettings.Theme;
             return View(form);
         }
 

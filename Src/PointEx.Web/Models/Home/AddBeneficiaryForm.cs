@@ -19,7 +19,7 @@ namespace PointEx.Web.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre y Apellido")]
         public string Name { get; set; }
 
         [Display(Name = "DNI")]
@@ -31,9 +31,22 @@ namespace PointEx.Web.Models
         [Required]
         public int TownId { get; set; }
 
+        [UIHint("Sex")]
+        [Display(Name = "Sexo")]
+        [Required]
+        public int Sex { get; set; }
+
         [Required]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "Barrio")]
+        public string Neighborhood { get; set; }
+
+        [UIHint("Long")]
+        [Display(Name = "Número de Teléfono")]
+        public long? TelephoneNumber { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
         [DataType(DataType.Date)]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
@@ -10,6 +11,7 @@ using AutoMapper.QueryableExtensions;
 using Framework.Common.Utility;
 using Framework.Data.Helpers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using PointEx.Data.Interfaces;
 using PointEx.Entities;
 using PointEx.Entities.Dto;
@@ -27,7 +29,7 @@ namespace PointEx.Service
         private readonly ICardService _cardService;
         private readonly IClock _clock;
 
-        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager, 
+        public BeneficiaryService(IPointExUow uow, ApplicationUserManager userManager,
             IPurchaseService purchaseService,
             INotificationService notificationService, IClock clock, ICardService cardService)
         {
@@ -61,7 +63,7 @@ namespace PointEx.Service
 
                     try
                     {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id,theme);
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
                     }
                     catch (Exception)
                     {
@@ -81,6 +83,49 @@ namespace PointEx.Service
                     await Uow.CommitAsync();
 
                     trasactionScope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    trasactionScope.Dispose();
+                    throw ex;
+                }
+            }
+        }
+
+        public async Task Create(Beneficiary beneficiary, ApplicationUser applicationUser, string theme, ExternalLoginInfo info)
+        {
+            using (var trasactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    var result = await _userManager.CreateAsync(applicationUser);
+                    var resultLogin = await _userManager.AddLoginAsync(beneficiary.UserId, info.Login);
+                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
+
+                    try
+                    {
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
+                    }
+                    catch (Exception)
+                    {
+                       
+                    }
+
+                    var card = new Card();
+                    card.IssueDate = _clock.Now;
+                    card.Number = _cardService.GenerateNumber(beneficiary);
+                    card.ExpirationDate = _cardService.CalculateExpirationDate(beneficiary.BirthDate.GetValueOrDefault());
+                    beneficiary.Cards.Add(card);
+
+                    beneficiary.CreatedDate = _clock.Now;
+                    beneficiary.UserId = applicationUser.Id;
+                    Uow.Beneficiaries.Add(beneficiary);
+
+                    await Uow.CommitAsync();
+
+                    trasactionScope.Complete();
+
+                   
                 }
                 catch (Exception ex)
                 {

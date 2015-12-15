@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Facebook;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -11,6 +13,8 @@ using PointEx.Security.Managers;
 using PointEx.Security.Model;
 using PointEx.Web.App_LocalResources;
 using PointEx.Web.Models;
+using PointEx.Service;
+using PointEx.Web.Configuration;
 
 namespace PointEx.Web.Controllers
 {
@@ -19,6 +23,8 @@ namespace PointEx.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ITownService _townService;
+        private readonly IBeneficiaryService _beneficiaryService;
         private IPointExUow _uow;
 
         public AccountController()
@@ -26,10 +32,12 @@ namespace PointEx.Web.Controllers
 
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPointExUow uow)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ITownService townService, IBeneficiaryService beneficiaryService, IPointExUow uow)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _townService = townService;
+            _beneficiaryService = beneficiaryService;
             _uow = uow;
         }
 
@@ -114,10 +122,10 @@ namespace PointEx.Web.Controllers
 
                     if (!string.IsNullOrEmpty(returnUrl))
                         return RedirectToLocal(returnUrl);
-                    
+
                     if (user.Roles.Any(r => r.Name == RolesNames.Admin || r.Name == RolesNames.SuperAdmin))
                         return RedirectToAction("Index", "Shop", new { area = "Admin" });
-                    
+
                     if (user.Roles.Any(r => r.Name == RolesNames.Shop))
                         return RedirectToAction("Index", "Purchase", new { area = "Shop" });
 
@@ -126,7 +134,7 @@ namespace PointEx.Web.Controllers
 
                     if (user.Roles.Any(r => r.Name == RolesNames.ShopAdmin))
                         return RedirectToAction("Index", "Shop", new { area = "Admin" });
-                    
+
                     return RedirectToAction("Index", "Profile", new { area = "Beneficiary" });
 
                 case SignInStatus.LockedOut:
@@ -445,6 +453,13 @@ namespace PointEx.Web.Controllers
                 return RedirectToAction("Login");
             }
 
+            //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
+            //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            var client = new FacebookClient("CAAGWFzvUAxwBANjCarrExVIvvz66zrYDFSyZB85vJWT6haTI24X9Rejjlkl1XH1qjZBDKE214UAmLZAuE1BciddVzZCiAmMj0VPwmWrrEVAzpTN4EMZBtdWh5pl06aJbZACBSccaxWSDIwk4xIZBNFTZCi7LpNK1lHlOXQkq9nUnsIQZB3ZB417UcUuZB7yjnBZAHN4ZD");
+            dynamic data = await client.GetTaskAsync("me");
+
+            Debug.Write(data.id);
+
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -478,24 +493,36 @@ namespace PointEx.Web.Controllers
 
             if (ModelState.IsValid)
             {
+               
+
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
+
+                var beneficiary = model.ToBeneficiary();
+
+                beneficiary.Town = _townService.GetById(model.TownId);
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
+
+
+                //await _beneficiaryService.Create(beneficiary, user, ThemeEnum.TekovePoti, info);
+                //if (resultBeneficiary.Succeeded)
+                //{
+                //    var resultLogin = await UserManager.AddLoginAsync(beneficiary.UserId, info.Login);
+                //    if (resultLogin.Succeeded)
+                //    {
+                //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //        return RedirectToLocal(returnUrl);
+                //    }
+
+                //    AddErrors(resultLogin);
+                //}
+
+                //AddErrors(resultBeneficiary);
             }
 
             ViewBag.ReturnUrl = returnUrl;
