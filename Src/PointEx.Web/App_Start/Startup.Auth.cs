@@ -61,55 +61,48 @@ namespace PointEx.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //var facebookAuthenticationOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions
-            //                      {
-            //                          AppId = "446501508875036",
-            //                          AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba",
-            //                          AuthenticationType = "Facebook",
-            //                          SignInAsAuthenticationType = "ExternalCookie",
-            //                          Provider = new FacebookAuthenticationProvider
-            //                          {
-            //                              OnAuthenticated = async context =>
-            //                              {
-            //                                  context.Identity.AddClaim(
-            //                                  new System.Security.Claims.Claim("FacebookAccessToken",
-            //                                                                       context.AccessToken));
-            //                              }
-            //                          }
-            //                      };
-
-            //facebookAuthenticationOptions.Scope.Add("email");
-            //facebookAuthenticationOptions.Scope.Add("user_birthday");
-            //facebookAuthenticationOptions.Scope.Add("user_hometown");
+            var facebookAuthenticationOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions();
+            facebookAuthenticationOptions.Scope.Add("email");
+            facebookAuthenticationOptions.Scope.Add("user_birthday");
+            //facebookAuthenticationOptions.Scope.Add("user_last_name");
             //facebookAuthenticationOptions.Scope.Add("user_location");
-
-            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
-
-            string XmlSchemaString = "www.w3.org/.../XMLSchema";
-            FacebookAuthenticationOptions options = new FacebookAuthenticationOptions();
-            options.Scope.Add("email");
-            options.AppId = "446501508875036";
-            options.AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba";
-            options.Provider = new FacebookAuthenticationProvider()
+            facebookAuthenticationOptions.AppId = "446501508875036";
+            facebookAuthenticationOptions.AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba";
+            facebookAuthenticationOptions.Provider = new FacebookAuthenticationProvider()
             {
-                OnAuthenticated = (context) =>
+                OnAuthenticated = async context =>
                 {
-                    context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
-                    context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:email", context.Email, XmlSchemaString, "Facebook"));
-                    foreach (var x in context.User)
-                    {
-                        string claimType = string.Format("urn:facebook:{0}", x.Key);
-                        string claimValue = x.Value.ToString();
-                        if (!context.Identity.HasClaim(claimType, claimValue))
-                        {
-                            context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
-                        }
-                    }
-                    return Task.FromResult(0);
+                    context.Identity.AddClaim( new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
                 }
             };
-            options.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
-            app.UseFacebookAuthentication(options);
+
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //string XmlSchemaString = "www.w3.org/.../XMLSchema";
+            //FacebookAuthenticationOptions options = new FacebookAuthenticationOptions();
+            //options.Scope.Add("email");
+            //options.AppId = "446501508875036";
+            //options.AppSecret = "0a61f56bcb59bdc4f5be641f7f24b0ba";
+            //options.Provider = new FacebookAuthenticationProvider()
+            //{
+            //    OnAuthenticated = (context) =>
+            //    {
+            //        context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
+            //        context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:email", context.Email, XmlSchemaString, "Facebook"));
+            //        foreach (var x in context.User)
+            //        {
+            //            string claimType = string.Format("urn:facebook:{0}", x.Key);
+            //            string claimValue = x.Value.ToString();
+            //            if (!context.Identity.HasClaim(claimType, claimValue))
+            //            {
+            //                context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
+            //            }
+            //        }
+            //        return Task.FromResult(0);
+            //    }
+            //};
+            //options.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            //app.UseFacebookAuthentication(options);
 
             //app.UseFacebookAuthentication(
             //   appId: "446501508875036",

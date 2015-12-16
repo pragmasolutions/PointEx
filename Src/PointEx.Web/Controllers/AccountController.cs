@@ -15,6 +15,7 @@ using PointEx.Web.App_LocalResources;
 using PointEx.Web.Models;
 using PointEx.Service;
 using PointEx.Web.Configuration;
+using System.Dynamic;
 
 namespace PointEx.Web.Controllers
 {
@@ -451,17 +452,11 @@ namespace PointEx.Web.Controllers
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
-            }
+            }           
 
-            //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
-            //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
-            var client = new FacebookClient("CAAGWFzvUAxwBANjCarrExVIvvz66zrYDFSyZB85vJWT6haTI24X9Rejjlkl1XH1qjZBDKE214UAmLZAuE1BciddVzZCiAmMj0VPwmWrrEVAzpTN4EMZBtdWh5pl06aJbZACBSccaxWSDIwk4xIZBNFTZCi7LpNK1lHlOXQkq9nUnsIQZB3ZB417UcUuZB7yjnBZAHN4ZD");
-            dynamic data = await client.GetTaskAsync("me");
-
-            Debug.Write(data.id);
-
-            // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            // Sign in the user with this external login provider if the user already has a login
+            
             switch (result)
             {
                 case SignInStatus.Success:
@@ -475,7 +470,12 @@ namespace PointEx.Web.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                     
+                    var access_token = loginInfo.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;            
+                    var client = new FacebookClient(access_token);
+                    dynamic data = client.Get("me");
+
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = data.email });
             }
         }
 
@@ -508,21 +508,20 @@ namespace PointEx.Web.Controllers
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
-
-                //await _beneficiaryService.Create(beneficiary, user, ThemeEnum.TekovePoti, info);
-                //if (resultBeneficiary.Succeeded)
-                //{
-                //    var resultLogin = await UserManager.AddLoginAsync(beneficiary.UserId, info.Login);
-                //    if (resultLogin.Succeeded)
-                //    {
-                //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                //        return RedirectToLocal(returnUrl);
-                //    }
-
-                //    AddErrors(resultLogin);
-                //}
-
-                //AddErrors(resultBeneficiary);
+                try
+                {
+                    await _beneficiaryService.Create(beneficiary, user, ThemeEnum.TekovePoti, info);
+                    var resultLogin = await UserManager.AddLoginAsync(beneficiary.UserId, info.Login);
+                    if (resultLogin.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;   
+                }                
             }
 
             ViewBag.ReturnUrl = returnUrl;

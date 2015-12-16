@@ -99,17 +99,13 @@ namespace PointEx.Service
                 try
                 {
                     var result = await _userManager.CreateAsync(applicationUser);
-                    var resultLogin = await _userManager.AddLoginAsync(beneficiary.UserId, info.Login);
-                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
 
-                    try
+                    if (!result.Succeeded)
                     {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
+                        throw new ApplicationException(result.Errors.FirstOrDefault());
                     }
-                    catch (Exception)
-                    {
-                       
-                    }
+
+                    await _userManager.AddToRoleAsync(applicationUser.Id, RolesNames.Beneficiary);
 
                     var card = new Card();
                     card.IssueDate = _clock.Now;
@@ -122,10 +118,19 @@ namespace PointEx.Service
                     Uow.Beneficiaries.Add(beneficiary);
 
                     await Uow.CommitAsync();
+                                        
+                    var resultLogin = await _userManager.AddLoginAsync(beneficiary.UserId, info.Login);
+                    
+                    try
+                    {
+                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
+                    }
+                    catch (Exception)
+                    {
+                       
+                    }                   
 
-                    trasactionScope.Complete();
-
-                   
+                    trasactionScope.Complete();                   
                 }
                 catch (Exception ex)
                 {
