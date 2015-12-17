@@ -108,7 +108,7 @@ a {
 
     #wrapper .rigth-container {
         display: inline-block;
-        padding: 0;
+        padding: 0.4%;
         /*width: 20%;*/
     }
 
@@ -148,6 +148,11 @@ footer {
     background-color: #D41903;
     color: #FFF;
     padding: 5px 5px 5px 15px;
+}
+
+.fb-page {
+    padding-top: 2% !important;
+    /*padding-left: 5% !important;*/
 }
 
 h4.benefit-type-info,
