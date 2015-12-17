@@ -78,7 +78,7 @@ namespace PointEx.Web.Models
         {
             var form = Mapper.Map<Beneficiary, BeneficiaryForm>(beneficiary);
 
-            form.Email = user.Email;
+            form.Email = beneficiary.User.Email;
 
             return form;
         }

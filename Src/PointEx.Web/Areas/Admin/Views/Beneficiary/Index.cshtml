@@ -1,5 +1,6 @@
 ﻿@using PagedList.Mvc
 @using PointEx.Web.Configuration
+@using PointEx.Entities.Enums
 @model PointEx.Web.Models.BeneficiaryListModel
 
 
@@ -14,7 +15,7 @@
 <div class="spacer">
 </div>
 
-@Html.Partial("_Filters", Model.Filters)
+@Html.Partial("Beneficiary/_Filters", Model.Filters)
 
 <div class="spacer">
 </div>
@@ -26,6 +27,7 @@
             <th>Direccion</th>
             <th>Barrio</th>
             <th>Localidad</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody class="row-link" data-link="row">
@@ -36,6 +38,21 @@
                 <td>@beneficiary.Address</td>
                 <td>@beneficiary.Neighborhood</td>
                 <td>@beneficiary.TownName</td>
+                <td>@beneficiary.BenefitStatusName</td>
+                <td class="text-right">
+                    @if (ViewBag.ViewMode == StatusEnum.Pending)
+                    {
+                        <button type="button" class="btn btn-primary" onclick="location.href = 'Beneficiary/Detail/@beneficiary.Id';">Detalle</button>
+                    }
+                    @if (ViewBag.ViewMode == StatusEnum.Approved)
+                    {
+                        @Html.Partial("Beneficiary/_RejectButton", new ViewDataDictionary { { "Id", beneficiary.Id } })
+                    }
+                    @if (ViewBag.ViewMode == StatusEnum.Rejected)
+                    {
+                        @Html.Partial("Beneficiary/_ApproveButton", new ViewDataDictionary { { "Id", beneficiary.Id } })
+                    }
+                </td>
             </tr>
         }
     </tbody>

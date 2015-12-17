@@ -18,6 +18,7 @@ namespace PointEx.Entities
         {
             this.Benefits = new HashSet<Benefit>();
             this.Shops = new HashSet<Shop>();
+            this.Beneficiaries = new HashSet<Beneficiary>();
         }
     
         public PointEx.Entities.Enums.StatusEnum Id { get; set; }
@@ -25,5 +26,6 @@ namespace PointEx.Entities
     
         public virtual ICollection<Benefit> Benefits { get; set; }
         public virtual ICollection<Shop> Shops { get; set; }
+        public virtual ICollection<Beneficiary> Beneficiaries { get; set; }
     }
 }

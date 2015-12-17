@@ -6,6 +6,7 @@ using PointEx.Entities.Dto;
 using PointEx.Security.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Service
 {
@@ -25,5 +26,9 @@ namespace PointEx.Service
         List<PointTransaction> GetTransactions(int beneficiaryId);
 
         IList<PointsExchange> GetPurchaseByBeneficiaryId(int beneficiaryId);
+
+        void Moderated(int beneficiaryId, int statusId);
+
+        List<BeneficiaryDto> GetBeneficiaryByStatus(string sortBy, string sortDirection, int? townId, StatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal);
     }
 }

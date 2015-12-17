@@ -81,9 +81,30 @@ namespace PointEx.Service
                 new MenuItem()
                 {
                     Text = "Beneficiarios", 
-                    Area = "Admin",
-                    Controller = "Beneficiary",
-                    Action = "Index"
+                    Children = new List<MenuItem>()
+                    {
+                        new MenuItem()
+                        {
+                            Text = "Pendientes", 
+                            Area = "Admin",
+                            Controller = "Beneficiary",
+                            Action = "Index"
+                        },
+                        new MenuItem()
+                        {
+                            Text = "Aprobados", 
+                            Area = "Admin",
+                            Controller = "Beneficiary",
+                            Action = "ApprovedBeneficiary"
+                        },
+                        new MenuItem()
+                        {
+                            Text = "Rechazados", 
+                            Area = "Admin",
+                            Controller = "Beneficiary",
+                            Action = "RejectedBeneficiary"
+                        },
+                    }                   
                 },
                 new MenuItem()
                 {

@@ -61,6 +61,7 @@
         <EntityTypeShape EntityType="PointEx.Data.Status" Width="1.5" PointX="9.375" PointY="0.875" />
         <AssociationConnector Association="PointEx.Data.FK_Benefit_Status" />
         <AssociationConnector Association="PointEx.Data.FK_Shop_Status" />
+        <AssociationConnector Association="PointEx.Data.FK_Beneficiary_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

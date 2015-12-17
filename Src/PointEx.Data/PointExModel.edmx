@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PointEx.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PointEx.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,6 +56,7 @@
           <Property Name="Sex" Type="int" Nullable="false" />
           <Property Name="TelephoneNumber" Type="bigint" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Benefit">
           <Key>
@@ -276,6 +277,18 @@
             </Principal>
             <Dependent Role="Beneficiary">
               <PropertyRef Name="EducationalInstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -729,6 +742,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Beneficiary_EducationalInstitution" Association="Self.FK_Beneficiary_EducationalInstitution">
             <End Role="EducationalInstitution" EntitySet="EducationalInstitution" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Status" Association="Self.FK_Beneficiary_Status">
+            <End Role="Status" EntitySet="Status" />
             <End Role="Beneficiary" EntitySet="Beneficiary" />
           </AssociationSet>
           <AssociationSet Name="FK_Beneficiary_Town" Association="Self.FK_Beneficiary_Town">
@@ -1186,6 +1203,10 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="Shop" EntitySet="Shops" />
           </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Status" Association="PointEx.Data.FK_Beneficiary_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -1286,6 +1307,8 @@
           <Property Name="Sex" Type="Int32" Nullable="false" />
           <Property Name="TelephoneNumber" Type="Int64" />
           <Property Name="Neighborhood" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="PointEx.Data.StatusEnum" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="PointEx.Data.FK_Beneficiary_Status" FromRole="Beneficiary" ToRole="Status" />
         </EntityType>
         <Association Name="FK_Beneficiary_AspNetUsers">
           <End Type="PointEx.Data.User" Role="User" Multiplicity="1" />
@@ -1788,6 +1811,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Benefits" Relationship="PointEx.Data.FK_Benefit_Status" FromRole="Status" ToRole="Benefit" />
           <NavigationProperty Name="Shops" Relationship="PointEx.Data.FK_Shop_Status" FromRole="Status" ToRole="Shop" />
+          <NavigationProperty Name="Beneficiaries" Relationship="PointEx.Data.FK_Beneficiary_Status" FromRole="Status" ToRole="Beneficiary" />
         </EntityType>
         <Association Name="FK_Benefit_Status">
           <End Type="PointEx.Data.Status" Role="Status" Multiplicity="1" />
@@ -1809,6 +1833,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Shop">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Status">
+          <End Type="PointEx.Data.Status" Role="Status" Multiplicity="1" />
+          <End Type="PointEx.Data.Beneficiary" Role="Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1930,6 +1966,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="PointEx.Data.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
                 <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />

@@ -18,6 +18,7 @@ using PointEx.Entities.Dto;
 using PointEx.Security;
 using PointEx.Security.Managers;
 using PointEx.Security.Model;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Service
 {
@@ -76,6 +77,8 @@ namespace PointEx.Service
                     card.ExpirationDate = _cardService.CalculateExpirationDate(beneficiary.BirthDate.GetValueOrDefault());
                     beneficiary.Cards.Add(card);
 
+                    beneficiary.StatusId = Entities.Enums.StatusEnum.Pending;
+
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;
                     Uow.Beneficiaries.Add(beneficiary);
@@ -112,6 +115,8 @@ namespace PointEx.Service
                     card.Number = _cardService.GenerateNumber(beneficiary);
                     card.ExpirationDate = _cardService.CalculateExpirationDate(beneficiary.BirthDate.GetValueOrDefault());
                     beneficiary.Cards.Add(card);
+
+                    beneficiary.StatusId = Entities.Enums.StatusEnum.Pending;
 
                     beneficiary.CreatedDate = _clock.Now;
                     beneficiary.UserId = applicationUser.Id;
@@ -153,6 +158,7 @@ namespace PointEx.Service
             currentBeneficiary.ModifiedDate = _clock.Now;
             currentBeneficiary.Sex = beneficiary.Sex;
             currentBeneficiary.TelephoneNumber = beneficiary.TelephoneNumber;
+            beneficiary.StatusId = Entities.Enums.StatusEnum.Pending;
 
             Uow.Beneficiaries.Edit(currentBeneficiary);
             Uow.Commit();
@@ -170,7 +176,7 @@ namespace PointEx.Service
                     Uow.Cards.Delete(card);
                     beneficiary.Cards.Remove(card);
                 }
-
+                                
                 Uow.Beneficiaries.Delete(beneficiary);
                 Uow.Users.Delete(user);
             }
@@ -265,6 +271,37 @@ namespace PointEx.Service
             }
 
             return true;
+        }
+
+        public void Moderated(int beneficiaryId, int statusId)
+        {
+            var currentBeneficiary = this.GetById(beneficiaryId);
+            currentBeneficiary.StatusId = (StatusEnum)statusId;
+
+            Uow.Beneficiaries.Edit(currentBeneficiary);
+
+            Uow.Commit();
+        }
+
+        public List<BeneficiaryDto> GetBeneficiaryByStatus(string sortBy, string sortDirection, int? townId, StatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
+        {
+            var pagingCriteria = new PagingCriteria();
+
+            pagingCriteria.PageNumber = pageIndex;
+            pagingCriteria.PageSize = pageSize;
+            pagingCriteria.SortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "CreatedDate";
+            pagingCriteria.SortDirection = !string.IsNullOrEmpty(sortDirection) ? sortDirection : "DESC";
+
+            Expression<Func<Beneficiary, bool>> where =
+                x =>
+                    ((string.IsNullOrEmpty(criteria) || x.Name.Contains(criteria) || x.Name.Contains(criteria) || x.Name.Contains(criteria)) &&                     
+                     (!townId.HasValue || x.TownId == townId) && !x.IsDeleted && x.StatusId == status);
+
+            var results = Uow.Beneficiaries.GetAll(pagingCriteria, where);
+
+            pageTotal = results.PagedMetadata.TotalItemCount;
+
+            return results.Entities.Project().To<BeneficiaryDto>().ToList();
         }
     }
 }

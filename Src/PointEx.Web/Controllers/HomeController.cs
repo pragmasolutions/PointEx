@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using PointEx.Entities.Enums;
 using PointEx.Web.Configuration;
 using PointEx.Web.Infrastructure;
+using PointEx.Security.Model;
 
 namespace PointEx.Web.Controllers
 {
@@ -28,6 +29,7 @@ namespace PointEx.Web.Controllers
         private readonly IEducationalInstitutionService _educationalInstitutionService;
         private readonly ICurrentUser _currentUser;
         private readonly IShopService _shopService;
+        private readonly IBeneficiaryService _beneficiaryService;
 
         public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
             ICategoryService categoryService, 
@@ -35,7 +37,8 @@ namespace PointEx.Web.Controllers
             ITownService townService,
             IEducationalInstitutionService educationalInstitutionService,
             ICurrentUser currentUser,
-            IShopService shopService)
+            IShopService shopService,
+            IBeneficiaryService beneficiaryService)
         {
             _sectionItemService = sectionItemService;
             _benefitService = benefitService;
@@ -45,6 +48,7 @@ namespace PointEx.Web.Controllers
             _educationalInstitutionService = educationalInstitutionService;
             _currentUser = currentUser;
             _shopService = shopService;
+            _beneficiaryService = beneficiaryService;
         }
 
         public ActionResult Index()
@@ -107,13 +111,18 @@ namespace PointEx.Web.Controllers
             var beneficiary = addBeneficiaryForm.ToBeneficiary();
 
             beneficiary.Town = _townService.GetById(addBeneficiaryForm.TownId);
+            var user = new ApplicationUser { UserName = addBeneficiaryForm.Email, Email = addBeneficiaryForm.Email };
 
-            if (addBeneficiaryForm.EducationalInstitutionId.HasValue)
+            try
             {
-                beneficiary.EducationalInstitution = _educationalInstitutionService.GetById(addBeneficiaryForm.EducationalInstitutionId.Value);
+                await _beneficiaryService.Create(beneficiary, user, AppSettings.Theme);
+                await _notificationService.SendAddBeneficiaryRequestEmail(beneficiary, addBeneficiaryForm.Email, AppSettings.Theme);
             }
-
-            await _notificationService.SendAddBeneficiaryRequestEmail(beneficiary, addBeneficiaryForm.Email, AppSettings.Theme);
+            catch (Exception)
+            {
+                
+                throw;
+            }            
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }

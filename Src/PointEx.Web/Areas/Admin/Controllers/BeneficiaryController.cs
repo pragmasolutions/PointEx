@@ -11,6 +11,8 @@ using PointEx.Service;
 using PointEx.Web.Configuration;
 using PointEx.Web.Controllers;
 using PointEx.Web.Models;
+using PointEx.Entities.Enums;
+using PointEx.Security;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
@@ -30,14 +32,18 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
         public ActionResult Index(BeneficiaryListFiltersModel filters)
         {
+
             int pageTotal;
 
-            var beneficiarys = _beneficiaryService.GetAll("CreatedDate", "DESC", filters.Criteria, filters.TownId,
-                filters.EducationalInstitutionId, false, filters.Page, DefaultPageSize, out pageTotal);
+            var beneficiaries = _beneficiaryService.GetBeneficiaryByStatus("CreatedDate", "ASC", filters.TownId, StatusEnum.Pending, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
 
-            var pagedList = new StaticPagedList<BeneficiaryDto>(beneficiarys, filters.Page, DefaultPageSize, pageTotal);
+            var pagedList = new StaticPagedList<BeneficiaryDto>(beneficiaries, filters.Page, DefaultPageSize, pageTotal);
 
-            var listModel = new BeneficiaryListModel(pagedList, filters);
+            var listModel = new BeneficiaryListModel(pagedList, filters);            
+
+            ViewBag.ViewMode = StatusEnum.Pending;
+            ViewBag.TabTitle = "Beneficiarios Pendientes";
+            ViewBag.Title = "Beneficiarios Pendientes de Aprobación";            
 
             return View(listModel);
         }
@@ -47,6 +53,9 @@ namespace PointEx.Web.Areas.Admin.Controllers
             var beneficiary = _beneficiaryService.GetById(id);
 
             var beneficiaryForm = BeneficiaryForm.Create(beneficiary, new ApplicationUser());
+            ViewBag.IsApproved = beneficiary.StatusId == StatusEnum.Approved;
+
+            ViewBag.ShowApprovalButtons = User.IsInRole(RolesNames.Admin) && beneficiary.StatusId == StatusEnum.Pending;
 
             return View(beneficiaryForm);
         }
@@ -165,5 +174,72 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index", new BeneficiaryListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Eliminado");
         }
+
+        public ActionResult ApprovedBeneficiary(BeneficiaryListFiltersModel filters)
+        {
+            int pageTotal;
+
+            var beneficiaries = _beneficiaryService.GetBeneficiaryByStatus("CreatedDate", "ASC", filters.TownId, StatusEnum.Approved, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<BeneficiaryDto>(beneficiaries, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new BeneficiaryListModel(pagedList, filters);
+
+            ViewBag.ViewMode = StatusEnum.Approved;
+            ViewBag.TabTitle = "Beneficiarios Aprobados";
+            ViewBag.Title = "Beneficiarios Aprobados";
+
+            return View("Index", listModel);
+        }
+
+        public ActionResult RejectedBeneficiary(BeneficiaryListFiltersModel filters)
+        {
+            int pageTotal;
+
+            var beneficiaries = _beneficiaryService.GetBeneficiaryByStatus("CreatedDate", "ASC", filters.TownId, StatusEnum.Rejected, filters.Criteria, filters.Page, DefaultPageSize, out pageTotal);
+
+            var pagedList = new StaticPagedList<BeneficiaryDto>(beneficiaries, filters.Page, DefaultPageSize, pageTotal);
+
+            var listModel = new BeneficiaryListModel(pagedList, filters);
+
+            ViewBag.ViewMode = StatusEnum.Rejected;
+            ViewBag.TabTitle = "Beneficios Rechazados";
+            ViewBag.Title = "Beneficios Rechazados";
+
+            return View("Index", listModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Approved(int id)
+        {
+            _beneficiaryService.Moderated(id, (int)StatusEnum.Approved);
+
+            var benefit = _beneficiaryService.GetById(id);
+            //await _notificationService.SendBenefitApprovedMail(benefit, AppSettings.SiteBaseUrl);
+
+            if (Configuration.AppSettings.SiteBaseUrl.Contains("ApprovedBeneficiary"))
+            {
+                return RedirectToAction("RejectedBeneficiario", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Aprobado");
+            }
+            else
+            {
+                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Aprobado");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Rejected(int id)
+        {
+            _beneficiaryService.Moderated(id, (int)StatusEnum.Rejected);
+            if (Configuration.AppSettings.SiteBaseUrl.Contains("RejectedBeneficiario"))
+            {
+                return RedirectToAction("ApprovedBeneficiario", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Rechazado");
+            }
+            else
+            {
+                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Aprobado");
+            }
+
+        }       
     }
 }

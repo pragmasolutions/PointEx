@@ -522,11 +522,8 @@ namespace PointEx.Web.Controllers
                 {
                     await _beneficiaryService.Create(beneficiary, user, ThemeEnum.TekovePoti, info);
                     var resultLogin = await UserManager.AddLoginAsync(beneficiary.UserId, info.Login);
-                    if (resultLogin.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("Index", "Home");                    
                 }
                 catch (System.Exception ex)
                 {

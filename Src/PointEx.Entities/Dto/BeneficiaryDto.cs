@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Framework.Common.Mapping;
+using PointEx.Entities.Enums;
 
 namespace PointEx.Entities.Dto
 {
@@ -20,5 +21,21 @@ namespace PointEx.Entities.Dto
         public string Address { get; set; }
         public string Neighborhood { get; set; }
         public long? TelephoneNumber { get; set; }
+        public StatusEnum StatusId { get; set; }
+        public string BenefitStatusName
+        {
+            get
+            {
+                switch (StatusId)
+                {
+                    case StatusEnum.Approved:
+                        return "Aprobado";
+                    case StatusEnum.Rejected:
+                        return "Rechazado";
+                    default:
+                        return "Pendiente";
+                }
+            }
+        }
     }
 }

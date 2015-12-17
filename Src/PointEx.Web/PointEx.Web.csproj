@@ -781,6 +781,9 @@
     <Content Include="Views\Shared\Shop\_RejectButton.cshtml" />
     <Content Include="Views\Shared\Shop\_ApproveButton.cshtml" />
     <Content Include="Views\Shared\ExternalLoginConfirmation\_CreateEditControls.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_ApproveButton.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_Filters.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_RejectButton.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

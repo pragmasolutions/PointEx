@@ -13,10 +13,12 @@
     [Sex] INT NOT NULL DEFAULT 1, 
     [TelephoneNumber] BIGINT NULL, 
     [Neighborhood] VARCHAR(500) NOT NULL, 
+    [StatusId] INT NOT NULL, 
     CONSTRAINT [PK_Beneficiary] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Beneficiary_AspNetUsers] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_Beneficiary_EducationalInstitution] FOREIGN KEY ([EducationalInstitutionId]) REFERENCES [dbo].[EducationalInstitution] ([Id]),
-    CONSTRAINT [FK_Beneficiary_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id])
+    CONSTRAINT [FK_Beneficiary_Town] FOREIGN KEY ([TownId]) REFERENCES [dbo].[Town] ([Id]),
+	CONSTRAINT [FK_Beneficiary_Status] FOREIGN KEY ([StatusId]) REFERENCES [dbo].[Status] ([Id])
 );
 
 

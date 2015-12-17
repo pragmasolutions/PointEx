@@ -34,11 +34,13 @@ namespace PointEx.Entities
         public int Sex { get; set; }
         public Nullable<long> TelephoneNumber { get; set; }
         public string Neighborhood { get; set; }
+        public PointEx.Entities.Enums.StatusEnum StatusId { get; set; }
     
         public virtual User User { get; set; }
         public virtual EducationalInstitution EducationalInstitution { get; set; }
         public virtual Town Town { get; set; }
         public virtual ICollection<Card> Cards { get; set; }
         public virtual ICollection<PointsExchange> PointsExchanges { get; set; }
+        public virtual Status Status { get; set; }
     }
 }
