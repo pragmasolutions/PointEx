@@ -189,4 +189,10 @@
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Intento de ingreso inválido.</value>
   </data>
+  <data name="DetailTyC" xml:space="preserve">
+    <value>Formulario de Términos y Condiciones</value>
+  </data>
+  <data name="FormTyC" xml:space="preserve">
+    <value>Formulario de impresión</value>
+  </data>
 </root>

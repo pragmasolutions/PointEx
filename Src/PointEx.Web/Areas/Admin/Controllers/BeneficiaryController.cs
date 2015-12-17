@@ -60,6 +60,16 @@ namespace PointEx.Web.Areas.Admin.Controllers
             return View(beneficiaryForm);
         }
 
+        public ActionResult DetailTyC(int id)
+        {
+            var beneficiary = _beneficiaryService.GetById(id);
+
+            var beneficiaryForm = BeneficiaryForm.Create(beneficiary, new ApplicationUser());
+            //ViewBag.Beneficiary = beneficiaryForm;
+
+            return View(beneficiaryForm);
+        }
+
         public ActionResult Cards(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);

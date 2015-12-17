@@ -1,0 +1,42 @@
+﻿@model PointEx.Web.Models.BeneficiaryForm
+
+@{
+    ViewBag.Title = PointExResources.FormTyC;
+}
+
+<h3>@PointExResources.DetailTyC</h3>
+
+
+@Html.BackButton("Index", "Beneficiary", "Admin")
+
+<hr />
+<p>
+    ESTO ES UN TEXTO DE PRUEBA DE TERMINOS Y CONDICIONES PARA LOS BENEFICIARIOS DE TEKOVE POTI
+    DATOS DEL BENEFICIARIO:
+
+</p>
+<div class="row">
+    <p class="col-md-6">
+        Firma Responsable
+    </p>
+    <p class="col-md-6">
+        Firma Beneficiario
+    </p>
+</div>
+<div class="row">
+    <p class="col-md-6">
+        ................................................
+    </p>
+    <p class="col-md-6">
+        ................................................
+    </p>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary">Imprimir</button>
+        </div>
+    </div>
+</div>
+

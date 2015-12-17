@@ -587,6 +587,7 @@
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
     <Content Include="fonts\KRAASH BLACK.TTF" />
+    <Content Include="Areas\Admin\Views\Beneficiary\DetailTyC.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
@@ -784,6 +785,7 @@
     <Content Include="Views\Shared\Beneficiary\_ApproveButton.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_Filters.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_RejectButton.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_DetailTyCButton.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
