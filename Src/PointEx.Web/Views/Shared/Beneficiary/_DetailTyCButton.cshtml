@@ -1,8 +1,0 @@
-﻿@using PointEx.Web.Areas.Admin
-
-
-@using (Html.BeginForm("DetailTyC", "Beneficiary", new { area = "Admin", id = @ViewData["Id"] }, FormMethod.Post, new { @class = "approved-form" }))
-{
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Formulario</button>
-}

@@ -277,6 +277,7 @@
     <Compile Include="Areas\Admin\Controllers\PrizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\EducationalInstitutionController.cs" />
     <Compile Include="Areas\Admin\Models\Beneficiary\CreateCardForm.cs" />
+    <Compile Include="Areas\Admin\Models\Beneficiary\TyCFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Report\RerportBeneficiariesFiltersModel.cs" />
     <Compile Include="Areas\Admin\Models\Section\AddSliderImageForm.cs" />
     <Compile Include="Areas\Admin\Models\SliderImage\SliderImageForm.cs" />
@@ -587,7 +588,9 @@
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
     <Content Include="fonts\KRAASH BLACK.TTF" />
-    <Content Include="Areas\Admin\Views\Beneficiary\DetailTyC.cshtml" />
+    <Content Include="Areas\Admin\Views\Beneficiary\TyC.cshtml" />
+    <Content Include="Areas\Admin\Views\Beneficiary\_DownloadButtons.cshtml" />
+    <Content Include="Areas\Admin\Views\Beneficiary\_ReportBox.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tarjetajoven.pubxml" />
@@ -595,6 +598,7 @@
     <None Include="Properties\PublishProfiles\tekovepoti.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tokove - Web Deploy.pubxml" />
+    <Content Include="Reports\TyC.rdl" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\app\create-edit-benefit.js" />
@@ -785,7 +789,7 @@
     <Content Include="Views\Shared\Beneficiary\_ApproveButton.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_Filters.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_RejectButton.cshtml" />
-    <Content Include="Views\Shared\Beneficiary\_DetailTyCButton.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_TyCButton.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

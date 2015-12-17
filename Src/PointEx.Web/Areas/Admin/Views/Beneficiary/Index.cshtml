@@ -46,7 +46,7 @@
                     }
                     @if (ViewBag.ViewMode == StatusEnum.Approved)
                     {
-                        @Html.Partial("Beneficiary/_DetailTyCButton", new ViewDataDictionary { { "Id", beneficiary.Id } })
+                        @Html.Partial("Beneficiary/_TyCButton", new ViewDataDictionary { { "Id", beneficiary.Id } })
                         @Html.Partial("Beneficiary/_RejectButton", new ViewDataDictionary { { "Id", beneficiary.Id } })
                     }
                     @if (ViewBag.ViewMode == StatusEnum.Rejected)

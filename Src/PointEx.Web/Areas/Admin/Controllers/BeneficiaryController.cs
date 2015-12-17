@@ -13,6 +13,7 @@ using PointEx.Web.Controllers;
 using PointEx.Web.Models;
 using PointEx.Entities.Enums;
 using PointEx.Security;
+using Framework.Report;
 
 namespace PointEx.Web.Areas.Admin.Controllers
 {
@@ -59,17 +60,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
 
             return View(beneficiaryForm);
         }
-
-        public ActionResult DetailTyC(int id)
-        {
-            var beneficiary = _beneficiaryService.GetById(id);
-
-            var beneficiaryForm = BeneficiaryForm.Create(beneficiary, new ApplicationUser());
-            //ViewBag.Beneficiary = beneficiaryForm;
-
-            return View(beneficiaryForm);
-        }
-
+               
         public ActionResult Cards(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);
@@ -250,6 +241,38 @@ namespace PointEx.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficiario Aprobado");
             }
 
-        }       
+        }
+
+
+        public ActionResult TyC(int id)
+        {
+            var beneficiary = _beneficiaryService.GetById(id);
+
+            var filters = new TyCFiltersModel();
+            filters.BeneficiaryId = beneficiary.Id;
+            filters.ReportName = "TyC";
+
+            return View(filters);
+        }
+
+        public ActionResult GenerateTyC(TyCFiltersModel filters)
+        {
+            var reporteFactory = new ReportFactory();
+
+            var beneficiary = _beneficiaryService.GetById(filters.BeneficiaryId);
+
+            reporteFactory
+                .SetParameter("Name", beneficiary.Name)
+                .SetParameter("Address", beneficiary.Address)
+                .SetParameter("Town", beneficiary.Town.Name);
+                       
+
+            reporteFactory.SetDataSource("TyCDataSet", null)
+                          .SetFullPath(Server.MapPath("~/Reports/TyC.rdl"));
+
+            byte[] reportFile = reporteFactory.Render(filters.ReportType);
+
+            return File(reportFile, reporteFactory.MimeType);
+        }
     }
 }

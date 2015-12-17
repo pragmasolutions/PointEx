@@ -1,0 +1,9 @@
+﻿@using Framework.Report
+@model PointEx.Web.Models.TyCFiltersModel
+
+<a class="btn btn-default download-report" target="_blank" href="@Model.GetPdfUrl()">
+    <img src="@Url.Content("~/Content/images/adobe-acrobat.png")" />
+</a>
+<a class="btn btn-default download-report" href="@Model.GetWordUrl()">
+    <img src="@Url.Content("~/Content/images/microsoft-word.png")" />
+</a>
