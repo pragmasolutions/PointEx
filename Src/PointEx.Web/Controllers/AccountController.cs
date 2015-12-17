@@ -473,7 +473,9 @@ namespace PointEx.Web.Controllers
                      
                     var access_token = loginInfo.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;            
                     var client = new FacebookClient(access_token);
-                    dynamic data = client.Get("me");
+                    
+                    dynamic data = client.Get("me", new { fields = new[] { "id", "name", "email" }});
+                    
 
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = data.email });
             }
