@@ -16,6 +16,7 @@ using PointEx.Web.Models;
 using PointEx.Service;
 using PointEx.Web.Configuration;
 using System.Dynamic;
+using Microsoft.Ajax.Utilities;
 
 namespace PointEx.Web.Controllers
 {
@@ -473,11 +474,18 @@ namespace PointEx.Web.Controllers
                      
                     var access_token = loginInfo.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;            
                     var client = new FacebookClient(access_token);
-                    
-                    dynamic data = client.Get("me", new { fields = new[] { "id", "name", "email" }});
-                    
 
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = data.email });
+                    dynamic data = client.Get("me", new { fields = new[] { "id", "name", "email", "location", "birthday", "gender" } });
+                    var townId = 0;
+                    
+                    if (data.location != null)
+                    {
+                        var location = data.location.name.ToString();
+                        var cityName = location.Split(',');
+                        townId = _townService.GetByName(cityName[0]).Id;
+                    }
+
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel(data.email, data.name, data.birthday, townId, data.gender));
             }
         }
 

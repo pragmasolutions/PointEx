@@ -3,4 +3,4 @@
 @model int?
 
 
-@Html.TextBox("", Model == 2 ? "Femenino" : "Masculino", new { @class = "form-control", @readonly = true })
+@Html.TextBox("", Model == 1 ? "Masculino": Model == 2 ? "Femenino" : "Otros", new { @class = "form-control", @readonly = true })

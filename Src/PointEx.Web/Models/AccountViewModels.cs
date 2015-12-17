@@ -67,6 +67,21 @@ namespace PointEx.Web.Models
             var beneficiary = Mapper.Map<ExternalLoginConfirmationViewModel, Beneficiary>(this);
             return beneficiary;
         }
+
+        public ExternalLoginConfirmationViewModel() { }
+
+        public ExternalLoginConfirmationViewModel(string email, string name, string birthday, int cityId, string gender)
+        {
+            this.Email = email;
+            this.Name = name;
+            if (birthday != null)
+            {
+                this.BirthDate = Convert.ToDateTime(birthday).Date;
+            }
+            
+            this.TownId = cityId;
+            this.Sex = gender == "male" ? 1 : 2;
+        }
     }
 
     public class ExternalLoginListViewModel

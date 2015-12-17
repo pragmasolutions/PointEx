@@ -62,8 +62,8 @@ namespace PointEx.Web
             //   consumerSecret: "");
 
             var facebookAuthenticationOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions();
-            facebookAuthenticationOptions.Scope.Add("email");
-            facebookAuthenticationOptions.Scope.Add("user_birthday");
+            //facebookAuthenticationOptions.Scope.Add("email");
+            //facebookAuthenticationOptions.Scope.Add("user_birthday");
             //facebookAuthenticationOptions.Scope.Add("user_last_name");
             //facebookAuthenticationOptions.Scope.Add("user_location");
             facebookAuthenticationOptions.AppId = "446501508875036";
@@ -75,7 +75,7 @@ namespace PointEx.Web
                     context.Identity.AddClaim( new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
                 }
             };
-
+            
             app.UseFacebookAuthentication(facebookAuthenticationOptions);
 
             //string XmlSchemaString = "www.w3.org/.../XMLSchema";
