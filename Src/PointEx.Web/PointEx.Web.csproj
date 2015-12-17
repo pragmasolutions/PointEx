@@ -588,7 +588,7 @@
     <Content Include="Areas\Admin\Views\Beneficiary\CreateCard.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DetailControls.cshtml" />
     <Content Include="fonts\KRAASH BLACK.TTF" />
-    <Content Include="Areas\Admin\Views\Beneficiary\TyC.cshtml" />
+    <Content Include="Areas\Admin\Views\Beneficiary\TermsAndConditions.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_DownloadButtons.cshtml" />
     <Content Include="Areas\Admin\Views\Beneficiary\_ReportBox.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
@@ -789,7 +789,7 @@
     <Content Include="Views\Shared\Beneficiary\_ApproveButton.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_Filters.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_RejectButton.cshtml" />
-    <Content Include="Views\Shared\Beneficiary\_TyCButton.cshtml" />
+    <Content Include="Views\Shared\Beneficiary\_TermsAndConditionsButton.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

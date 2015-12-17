@@ -244,18 +244,18 @@ namespace PointEx.Web.Areas.Admin.Controllers
         }
 
 
-        public ActionResult TyC(int id)
+        public ActionResult TermsAndConditions(int id)
         {
             var beneficiary = _beneficiaryService.GetById(id);
 
             var filters = new TyCFiltersModel();
             filters.BeneficiaryId = beneficiary.Id;
-            filters.ReportName = "TyC";
+            filters.ReportName = "TermsAndConditions";
 
             return View(filters);
         }
 
-        public ActionResult GenerateTyC(TyCFiltersModel filters)
+        public ActionResult GenerateTermsAndConditions(TyCFiltersModel filters)
         {
             var reporteFactory = new ReportFactory();
 
