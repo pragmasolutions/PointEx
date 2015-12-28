@@ -790,6 +790,7 @@
     <Content Include="Views\Shared\Beneficiary\_Filters.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_RejectButton.cshtml" />
     <Content Include="Views\Shared\Beneficiary\_TermsAndConditionsButton.cshtml" />
+    <Content Include="Views\Home\GeoSearchBenefit.cshtml" />
     <None Include="Web.tekove.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -34,6 +34,8 @@ namespace PointEx.Service
         bool IsBenefitAvailableForBranchOffice(int benefitId, int branchOfficeId);
 
         List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, StatusEnum status, string criteria,
-            int pageIndex, int pageSize, out int pageTotal);        
+            int pageIndex, int pageSize, out int pageTotal);
+
+        List<BenefitDto> GetNearestBenefits(double latitude, double longitude, double distance);
     }
 }

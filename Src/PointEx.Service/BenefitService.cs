@@ -68,7 +68,7 @@ namespace PointEx.Service
 
         public Benefit GetById(int id)
         {
-            return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted, 
+            return Uow.Benefits.Get(b => b.Id == id && !b.IsDeleted,
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
                 b => b.Shop, b => b.Shop.User, b => b.BenefitType, b => b.Status);
         }
@@ -123,7 +123,7 @@ namespace PointEx.Service
             }
 
             currentBenefit.ModifiedDate = _clock.Now;
-            currentBenefit.Description = benefit.Description;            
+            currentBenefit.Description = benefit.Description;
             currentBenefit.Name = benefit.Name;
             currentBenefit.DateFrom = benefit.DateFrom;
             currentBenefit.DateTo = benefit.DateTo;
@@ -171,7 +171,7 @@ namespace PointEx.Service
                     Uow.SectionItems.Delete(sectionItem);
                 }
 
-                var benefitFiles = Uow.BenefitFiles.GetAll(bf => bf.BenefitId == benefitId,bf => bf.File).ToList();
+                var benefitFiles = Uow.BenefitFiles.GetAll(bf => bf.BenefitId == benefitId, bf => bf.File).ToList();
 
                 foreach (var benefitFile in benefitFiles)
                 {
@@ -241,7 +241,7 @@ namespace PointEx.Service
                 b => b.Purchases,
                 b => b.Shop,
                 b => b.BenefitType,
-                b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();            
+                b => b.BenefitFiles).OrderBy(b => b.Purchases.Count).Take(6).ToList();
         }
 
         public List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, StatusEnum status, string criteria, int pageIndex, int pageSize, out int pageTotal)
@@ -271,6 +271,31 @@ namespace PointEx.Service
             pageTotal = results.PagedMetadata.TotalItemCount;
 
             return results.Entities.Project().To<BenefitDto>().ToList();
+        }
+
+        public List<BenefitDto> GetNearestBenefits(double latitude, double longitude, double distance)
+        {
+            return new List<BenefitDto>();
+        }
+
+        private double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = Deg2Rad(lat2 - lat1);  // deg2rad below
+            var dLon = Deg2Rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        private double Deg2Rad(double deg)
+        {
+            return deg * (Math.PI / 180);
         }
     }
 }
