@@ -6,3 +6,177 @@
             
     </div>    
 </div>
+
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+<div id="askPermission">
+    Nosotros podemos auydarte mejor, si sabemos donde estas. Te gustaria usar la informacion de tu localizacion actual?
+    <input id="yesLocation" type="button" value="Si" />
+    <input id="noLocation" type="button" value="No" />
+</div>
+<div id="autoLocation">
+    <ul>
+        <li>
+            <div style="float:left;width:75px">
+                Latitud
+            </div>
+            <input type="text" id="lat" />
+        </li>
+        <li>
+            <div style="float:left;width:75px">
+                Longitud
+            </div>
+            <input type="text" id="lon" />
+        </li>
+    </ul>
+</div>
+<div id="manualEntry">
+    Por favor ingrese el codigo postal de su ubicacion actual
+    <input type="text" id="manualAddress" style="width:500px" />
+    <input type="button" id="getManualDirections" value="Dar direccion" />
+</div>
+<div id="mapContainer" style="height:500px">
+    <div style="float:left">
+        <div id="directionsMap" style="float:none; position:relative; width:720px;height:400px;">
+        </div>
+    </div>
+    <div id="directionsList" style="float:left; overflow:auto; width:250px;height:400px;">
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    $(function () {
+        var map = null;
+        var directionsManager = null;
+        var location = null;
+        var STORE_LOCATION = "San Jose, CA";
+
+        //$("#autoLocation").hide();
+        //$("#manualEntry").hide();
+
+        $("#yesLocation").click(function () {
+            //$("accessLocation").hide();
+            //$("autoLocation").show();
+            //$("manualLocation").hide();
+            $("#askPermission").hide();
+            loadMap();
+            if (navigator.geolocation) {
+                var options = {
+                    enabledHighAccuracy: true,
+                    timeout: 20000,
+                    maximumAge: 2000
+                }
+                navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
+            } else {
+                alert("La localizacion esta deshabilitada. Si desea utilizar su ubicacion actual, habilite la geolocalizacion en su navegador.")
+            }
+        });
+
+        function loadMap() {
+            if (!map) {
+                map = new Microsoft.Maps.Map(document.getElementById("directionsMap")),
+                    { credentials: "zwneEpYdJIaTmzlb2fjZ~5iaxt2JTbv8Odg1P7ooJAA~AvAEMvwmuzqdM5WcYQl2oqTXk50Wd8fnr0daE1KeNcAB_x6oAkBKvzSiRteJxYMj" }
+            }
+        }
+
+        $("#noLocation").click(function () {
+            showNoLocation();
+        });
+
+        function showNoLocation() {
+            $("#accessLocation").hide();
+            $("#autoLocation").hide();
+            $("#manualEntry").show();
+        }
+
+        function showPosition(position) {
+            //var coordinates = position.coords;
+            //$("autoLocation").show();
+            //$("#lat").val(coordinates.latitude);
+            //$("#lon").val(coordinates.longitude);
+            map.entities.clear();
+            if (position) {
+                location = position.coords;
+                map.setView({ zoom: 15, center: new Microsoft.Maps.Location(location.latitude, location.longitude) });
+            }
+            if (!directionsManager) {
+                Microsoft.Maps.loadModule('Microsoft.Maps.Directions', { callback: createDirectionsManager });
+            }
+            else {
+                createDirectionsManager();
+            }
+        }
+
+        function createDirectionsManager() {
+            var displayMessage;
+            if (!directionsManager) {
+                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+                displayMessage = 'Modulo de direcciones cargado\n';
+                displayMessage += 'Administrador de direcciones cargado';
+            }
+            directionsManager.resetDirections();
+            directionErrorEventObj = Microsoft.Maps.Events.addHandler(directionsManager, 'directionsError', directionsError);
+            directionUpdatedEventObj = Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', directionsUpdated);
+            createDrivingRoute(location);
+        }
+
+        function directionsUpdated() { }
+        function directionsError() { }
+
+        function createDrivingRoute(coords) {
+            if (!directionsManager) {
+                createDirectionsManager();
+            };
+            directionsManager.resetDirections();
+            directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
+            var fromWayPoint = null;
+            if (coords == null) {
+                fromWayPoint = new Microsoft.Maps.Directions.Waypoint({
+                    location: Microsoft.Maps.Location(coords.lattitude, coords.longitude)
+                });
+                directionsManager.addWaypoint(fromWayPoint);
+            }
+            else {
+                fromWayPoint = new Microsoft.Maps.Directions.Waypoint({ address: $('#manualAddress').val() });
+                directionsManager.addWaypoint(fromWayPoint);
+            }
+
+            var toWayPoint = new Microsoft.Maps.Directions.Waypoint({ address: STORE_LOCATION });
+            directionsManager.addWaypoint(toWayPoint);
+
+            directionsManager.setRenderOptions({ itineraryContainer: document.getElementById('#directionsList') });
+            directionsManager.calculateDirections();
+        }
+
+        $('#noLocation').click(function () {
+            $('#askPermission').hide();
+            showManualEntry();
+        });
+
+        function showManualEntry() {
+            $('#manualEntry').show();
+        }
+
+        $('#getManualDirections').click(function () {
+            loadMap();
+            showPosition(null);
+        });
+
+        function positionError(position) {
+            switch (position.code) {
+                case 0:
+                    alert("Ha ocurrido un error inesperado.");
+                case 1:
+                    alert("No se ha dado permiso para acceder a su ubicacion. Verifique la configuracion de su navegador.");
+                case 2:
+                    alert("No se ha podido establecer su ubicacion.");
+                case 3:
+                    alert("El tiempo para obtener su ubicacion a expirado.");
+                default:
+                    break;
+            }
+            alert("Ha ocurrido un error en la posición " + position.code);
+        }
+    });
+</script>
