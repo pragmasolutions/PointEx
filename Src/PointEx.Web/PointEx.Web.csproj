@@ -361,6 +361,7 @@
     <Compile Include="Models\Files\OrderImagesForm.cs" />
     <Compile Include="Models\Files\UploadImagesForm.cs" />
     <Compile Include="Models\Home\AddBeneficiaryForm.cs" />
+    <Compile Include="Models\Home\GeolocalizationModel.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\Home\AddMyShopForm.cs" />
     <Compile Include="Models\HtmlFormBase.cs" />

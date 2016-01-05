@@ -1,182 +1,122 @@
-﻿@{
-    ViewBag.Title = "Search Benefit";
+﻿@using Framework.Common.Extentensions
+@using PointEx.Web.Infrastructure.Extensions
+@using PointEx.Web.Models
+@using PointEx.Entities.Enums
+@model PointEx.Web.Models.GeolocalizationModel
+@{
+    ViewBag.Title = "Home Page";
 }
 <div class="form-horizontal">
     <div class="form-group">
-            
-    </div>    
+
+    </div>
 </div>
-
-<script src="/Scripts/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
-
-<div id="askPermission">
-    Nosotros podemos auydarte mejor, si sabemos donde estas. Te gustaria usar la informacion de tu localizacion actual?
-    <input id="yesLocation" type="button" value="Si" />
-    <input id="noLocation" type="button" value="No" />
+<script src="/Scripts/jquery-2.1.3.js"></script>
+<div id="floating-panel">
+    <input id="address" type="text" style="width:300px">
+    <input id="submit" type="button" value="Geocode">
 </div>
 <div id="autoLocation">
-    <ul>
-        <li>
-            <div style="float:left;width:75px">
-                Latitud
-            </div>
-            <input type="text" id="lat" />
-        </li>
-        <li>
-            <div style="float:left;width:75px">
-                Longitud
-            </div>
-            <input type="text" id="lon" />
-        </li>
-    </ul>
+    <input type="text" id="lat" value="-27.472245" />
+    <input type="text" id="lon" value="-58.840182" />
+    <input type="text" id="formatted_Address" value="Corrientes Argentina" />
 </div>
-<div id="manualEntry">
-    Por favor ingrese el codigo postal de su ubicacion actual
-    <input type="text" id="manualAddress" style="width:500px" />
-    <input type="button" id="getManualDirections" value="Dar direccion" />
-</div>
-<div id="mapContainer" style="height:500px">
-    <div style="float:left">
-        <div id="directionsMap" style="float:none; position:relative; width:720px;height:400px;">
-        </div>
-    </div>
-    <div id="directionsList" style="float:left; overflow:auto; width:250px;height:400px;">
-    </div>
-</div>
+<div id="map" style=" height: 350px;width:400px"></div>
+<script>
 
-<script language="javascript" type="text/javascript">
-    $(function () {
-        var map = null;
-        var directionsManager = null;
-        var location = null;
-        var STORE_LOCATION = "San Jose, CA";
+    var map;
+    var geocoder;
+    var initialLocation;
 
-        //$("#autoLocation").hide();
-        //$("#manualEntry").hide();
+    function positionError(position) {
+        switch (position.code) {
+            case 0:
+                alert("Ha ocurrido un error inesperado.");
+                break;
+            case 1:
+                alert("No se ha dado permiso para acceder a su ubicacion. Verifique la configuracion de su navegador.");
+                break;
+            case 2:
+                alert("No se ha podido establecer su ubicacion.");
+                break;
+            case 3:
+                alert("El tiempo para obtener su ubicacion a expirado.");
+                break;
+            default:
+                break;
+        }
 
-        $("#yesLocation").click(function () {
-            //$("accessLocation").hide();
-            //$("autoLocation").show();
-            //$("manualLocation").hide();
-            $("#askPermission").hide();
-            loadMap();
-            if (navigator.geolocation) {
-                var options = {
-                    enabledHighAccuracy: true,
-                    timeout: 20000,
-                    maximumAge: 2000
-                }
-                navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
-            } else {
-                alert("La localizacion esta deshabilitada. Si desea utilizar su ubicacion actual, habilite la geolocalizacion en su navegador.")
-            }
+        geocodeDefault();
+    }
+
+    function showPosition(position) {
+        $('#lat').val(position.coords.latitude);
+        $('#lon').val(position.coords.longitude);
+        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        map.setCenter(initialLocation);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: initialLocation
         });
+    }
 
-        function loadMap() {
-            if (!map) {
-                map = new Microsoft.Maps.Map(document.getElementById("directionsMap")),
-                    { credentials: "zwneEpYdJIaTmzlb2fjZ~5iaxt2JTbv8Odg1P7ooJAA~AvAEMvwmuzqdM5WcYQl2oqTXk50Wd8fnr0daE1KeNcAB_x6oAkBKvzSiRteJxYMj" }
-            }
-        }
-
-        $("#noLocation").click(function () {
-            showNoLocation();
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: { lat: 0, lng: 0 },
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        geocoder = new google.maps.Geocoder();
 
-        function showNoLocation() {
-            $("#accessLocation").hide();
-            $("#autoLocation").hide();
-            $("#manualEntry").show();
+        if (navigator.geolocation) {
+            var options = {
+                enabledHighAccuracy: true,
+                timeout: 20000,
+                maximumAge: 2000
+            }
+            navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
+        }
+        else {
+            alert("La localizacion esta deshabilitada. Si desea utilizar su ubicacion actual, habilite la geolocalizacion en su navegador.");
+            geocodeDefault();
         }
 
-        function showPosition(position) {
-            //var coordinates = position.coords;
-            //$("autoLocation").show();
-            //$("#lat").val(coordinates.latitude);
-            //$("#lon").val(coordinates.longitude);
-            map.entities.clear();
-            if (position) {
-                location = position.coords;
-                map.setView({ zoom: 15, center: new Microsoft.Maps.Location(location.latitude, location.longitude) });
-            }
-            if (!directionsManager) {
-                Microsoft.Maps.loadModule('Microsoft.Maps.Directions', { callback: createDirectionsManager });
-            }
-            else {
-                createDirectionsManager();
-            }
-        }
+        document.getElementById('submit').addEventListener('click', function () {
+            geocodeAddress();
+        });
+    }
 
-        function createDirectionsManager() {
-            var displayMessage;
-            if (!directionsManager) {
-                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
-                displayMessage = 'Modulo de direcciones cargado\n';
-                displayMessage += 'Administrador de direcciones cargado';
-            }
-            directionsManager.resetDirections();
-            directionErrorEventObj = Microsoft.Maps.Events.addHandler(directionsManager, 'directionsError', directionsError);
-            directionUpdatedEventObj = Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', directionsUpdated);
-            createDrivingRoute(location);
-        }
-
-        function directionsUpdated() { }
-        function directionsError() { }
-
-        function createDrivingRoute(coords) {
-            if (!directionsManager) {
-                createDirectionsManager();
-            };
-            directionsManager.resetDirections();
-            directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
-            var fromWayPoint = null;
-            if (coords == null) {
-                fromWayPoint = new Microsoft.Maps.Directions.Waypoint({
-                    location: Microsoft.Maps.Location(coords.lattitude, coords.longitude)
+    function geocodeDefault() {
+        var address = document.getElementById('formatted_Address').value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
                 });
-                directionsManager.addWaypoint(fromWayPoint);
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
             }
-            else {
-                fromWayPoint = new Microsoft.Maps.Directions.Waypoint({ address: $('#manualAddress').val() });
-                directionsManager.addWaypoint(fromWayPoint);
-            }
-
-            var toWayPoint = new Microsoft.Maps.Directions.Waypoint({ address: STORE_LOCATION });
-            directionsManager.addWaypoint(toWayPoint);
-
-            directionsManager.setRenderOptions({ itineraryContainer: document.getElementById('#directionsList') });
-            directionsManager.calculateDirections();
-        }
-
-        $('#noLocation').click(function () {
-            $('#askPermission').hide();
-            showManualEntry();
         });
+    }
 
-        function showManualEntry() {
-            $('#manualEntry').show();
-        }
-
-        $('#getManualDirections').click(function () {
-            loadMap();
-            showPosition(null);
-        });
-
-        function positionError(position) {
-            switch (position.code) {
-                case 0:
-                    alert("Ha ocurrido un error inesperado.");
-                case 1:
-                    alert("No se ha dado permiso para acceder a su ubicacion. Verifique la configuracion de su navegador.");
-                case 2:
-                    alert("No se ha podido establecer su ubicacion.");
-                case 3:
-                    alert("El tiempo para obtener su ubicacion a expirado.");
-                default:
-                    break;
+    function geocodeAddress() {
+        var address = document.getElementById('address').value;
+        var postfijo = document.getElementById('formatted_Address').value;
+        geocoder.geocode({ 'address': address + ' ' + postfijo }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
             }
-            alert("Ha ocurrido un error en la posición " + position.code);
-        }
-    });
+        });
+    }
+
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsWT3WM2Wkqlcz9aqPhLJ93WPyiXP2Yrc&signed_in=true&callback=initMap" async defer></script>

@@ -273,29 +273,27 @@ namespace PointEx.Service
             return results.Entities.Project().To<BenefitDto>().ToList();
         }
 
-        public List<BenefitDto> GetNearestBenefits(double latitude, double longitude, double distance)
+        public List<BenefitDto> GetNearestBenefits(double latitude, double longitude, int distance)
         {
-            return new List<BenefitDto>();
-        }
+            var pagingCriteria = new PagingCriteria();
 
-        private double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
-        {
-            var R = 6371; // Radius of the earth in km
-            var dLat = Deg2Rad(lat2 - lat1);  // deg2rad below
-            var dLon = Deg2Rad(lon2 - lon1);
-            var a =
-              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-              Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) *
-              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
-              ;
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            var d = R * c; // Distance in km
-            return d;
-        }
+            pagingCriteria.PageNumber = 0;
+            pagingCriteria.PageSize = int.MaxValue;
+            pagingCriteria.SortBy = "CreatedDate";
+            pagingCriteria.SortDirection = "DESC";
 
-        private double Deg2Rad(double deg)
-        {
-            return deg * (Math.PI / 180);
+            Expression<Func<Benefit, bool>> where =
+                x =>(!x.IsDeleted && x.StatusId == StatusEnum.Approved);
+
+            var results = Uow.Benefits.GetAll(pagingCriteria, where,
+                b => b.Shop, 
+                b => b.Shop.ShopCategories,
+                b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
+                b => b.BenefitType);
+
+            var dtoList = results.Entities.Project().To<BenefitDto>().ToList();
+
+            return dtoList.Where(b => b.GetDistanceFromLatLonInKm(latitude, longitude, distance)).ToList();
         }
     }
 }

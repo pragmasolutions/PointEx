@@ -12,6 +12,7 @@ using PointEx.Security;
 using PointEx.Service;
 using PointEx.Web.Models;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using PointEx.Entities.Enums;
 using PointEx.Web.Configuration;
 using PointEx.Web.Infrastructure;
@@ -30,10 +31,11 @@ namespace PointEx.Web.Controllers
         private readonly ICurrentUser _currentUser;
         private readonly IShopService _shopService;
         private readonly IBeneficiaryService _beneficiaryService;
+        private readonly JavaScriptSerializer _serilizer;
 
-        public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService, 
-            ICategoryService categoryService, 
-            INotificationService notificationService, 
+        public HomeController(ISectionItemService sectionItemService, IBenefitService benefitService,
+            ICategoryService categoryService,
+            INotificationService notificationService,
             ITownService townService,
             IEducationalInstitutionService educationalInstitutionService,
             ICurrentUser currentUser,
@@ -49,6 +51,7 @@ namespace PointEx.Web.Controllers
             _currentUser = currentUser;
             _shopService = shopService;
             _beneficiaryService = beneficiaryService;
+            _serilizer = new JavaScriptSerializer();
         }
 
         public ActionResult Index()
@@ -57,7 +60,7 @@ namespace PointEx.Web.Controllers
             var outstandingItems = _benefitService.GetOutstandingBenefits();
             var categories = _categoryService.GetAll().ToList();
 
-            var homeModel = new HomeModel(sliderItems, outstandingItems, categories);            
+            var homeModel = new HomeModel(sliderItems, outstandingItems, categories);
             return View(homeModel);
         }
 
@@ -120,9 +123,9 @@ namespace PointEx.Web.Controllers
             }
             catch (Exception)
             {
-                
+
                 throw;
-            }            
+            }
 
             return RedirectToAction("Index").WithSuccess("Su solicitud ha sido enviada correctamente");
         }
@@ -131,7 +134,7 @@ namespace PointEx.Web.Controllers
         {
             if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
             {
-                return View();    
+                return View();
             }
             else
             {
@@ -163,7 +166,7 @@ namespace PointEx.Web.Controllers
             }
         }
 
-       public ActionResult Contact()
+        public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
@@ -209,7 +212,7 @@ namespace PointEx.Web.Controllers
                 }
                 model.Email = PointExContext.User.Email;
             }
-            
+
             return View(model);
         }
 
@@ -226,6 +229,20 @@ namespace PointEx.Web.Controllers
                 ViewBag.ErrorMessage = "Hubo un error en la solicitud. Por favor intente nuevamente más tarde";
                 return View(model);
             }
+        }
+
+        public ActionResult GeoSearchBenefit()
+        {
+            return View(new GeolocalizationModel(null));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GeoSearchBenefit(double latitude, double longitude, int distance)
+        {
+            var benefits = _benefitService.GetNearestBenefits(latitude, longitude, distance);
+            var geoModel = new GeolocalizationModel(benefits);
+
+            return View(geoModel);
         }
     }
 }
