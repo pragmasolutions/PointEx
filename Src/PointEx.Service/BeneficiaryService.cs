@@ -126,14 +126,14 @@ namespace PointEx.Service
                                         
                     var resultLogin = await _userManager.AddLoginAsync(beneficiary.UserId, info.Login);
                     
-                    try
-                    {
-                        await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
-                    }
-                    catch (Exception)
-                    {
+                    //try
+                    //{
+                    //    await _notificationService.SendAccountConfirmationEmail(applicationUser.Id, theme);
+                    //}
+                    //catch (Exception)
+                    //{
                        
-                    }                   
+                    //}                   
 
                     trasactionScope.Complete();                   
                 }
