@@ -36,6 +36,6 @@ namespace PointEx.Service
         List<BenefitDto> GetBenefitByStatus(string sortBy, string sortDirection, int? categoryId, int? townId, int? shopId, StatusEnum status, string criteria,
             int pageIndex, int pageSize, out int pageTotal);
 
-        List<BenefitDto> GetNearestBenefits(double latitude, double longitude, int distance);
+        Task<List<BenefitDto>> GetNearestBenefits(double latitude, double longitude, int distance);
     }
 }

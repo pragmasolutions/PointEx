@@ -47,16 +47,18 @@ namespace PointEx.Entities.Dto
 
         public bool GetDistanceFromLatLonInKm(double lat2, double lon2, int distance)
         {
-            var r = 6371; // Radius of the earth in km
+            var r = 6371;
+            
             var dLat = Deg2Rad(lat2 - this.ShopLocation.Latitude ?? 0);  // deg2rad below
             var dLon = Deg2Rad(lon2 - this.ShopLocation.Longitude ?? 0);
             var a =
               Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
               Math.Cos(Deg2Rad(this.ShopLocation.Latitude ?? 0)) * Math.Cos(Deg2Rad(lat2)) *
-              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
-              ;
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             var d = r * c; // Distance in km
+            
             return (distance <= d);
         }
 

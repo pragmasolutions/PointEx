@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Principal;
@@ -273,27 +275,26 @@ namespace PointEx.Service
             return results.Entities.Project().To<BenefitDto>().ToList();
         }
 
-        public List<BenefitDto> GetNearestBenefits(double latitude, double longitude, int distance)
+        public Task<List<BenefitDto>> GetNearestBenefits(double latitude, double longitude, int distance)
         {
-            var pagingCriteria = new PagingCriteria();
-
-            pagingCriteria.PageNumber = 0;
-            pagingCriteria.PageSize = int.MaxValue;
-            pagingCriteria.SortBy = "CreatedDate";
-            pagingCriteria.SortDirection = "DESC";
-
             Expression<Func<Benefit, bool>> where =
-                x =>(!x.IsDeleted && x.StatusId == StatusEnum.Approved);
+                x =>!x.IsDeleted && x.StatusId == StatusEnum.Approved;
 
-            var results = Uow.Benefits.GetAll(pagingCriteria, where,
+            var benefits = Uow.Benefits.GetAll(where,
                 b => b.Shop, 
                 b => b.Shop.ShopCategories,
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
                 b => b.BenefitType);
 
-            var dtoList = results.Entities.Project().To<BenefitDto>().ToList();
+            var coord = DbGeography.FromText(String.Format("POINT({0} {1})", latitude.ToString().Replace(",", "."), longitude.ToString().Replace(",", ".")));
 
-            return dtoList.Where(b => b.GetDistanceFromLatLonInKm(latitude, longitude, distance)).ToList();
+            var nearest = (from b in benefits
+                           where b.Shop.Location != null
+                          //&& b.Shop.Location.Distance(coord) <= distance
+                           orderby b.Shop.Location.Distance(coord)
+                           select b);
+
+            return nearest.Project().To<BenefitDto>().ToListAsync();
         }
     }
 }

@@ -239,10 +239,27 @@ namespace PointEx.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> GeoSearchBenefit(double latitude, double longitude, int distance)
         {
-            var benefits = _benefitService.GetNearestBenefits(latitude, longitude, distance);
+            var benefits = await _benefitService.GetNearestBenefits(latitude, longitude, distance);
             var geoModel = new GeolocalizationModel(benefits);
 
             return View(geoModel);
+        }
+
+        public async Task<ActionResult> NearestBenefits(double latitude, double longitude, int distance)
+        {
+            var benefits = await _benefitService.GetNearestBenefits(latitude, longitude, distance);
+
+            var benefitJson = benefits.Select(x => new
+                                                   {
+                                                       latitude = x.ShopLocation.Latitude,
+                                                       longitude = x.ShopLocation.Longitude,
+                                                       shopName = x.ShopName,
+                                                       benefitDescription = x.Description,
+                                                       benefitType = x.BenefitTypeName,
+                                                       benefitDetailsUrl = Url.Action("Detail", "Benefit", new { area = "", id = x.Id }),
+                                                   }).ToList();
+
+            return Json(benefitJson, JsonRequestBehavior.AllowGet);
         }
     }
 }
