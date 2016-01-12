@@ -14,8 +14,14 @@
 <script src="../Scripts/jquery-2.1.3.js"></script>
 <div id="floating-panel">
     <form class="form-inline" id="search-nearest-benefits-form">
-        <input id="address" class="form-control" type="text" style="width: 300px">
-        <input id="submit" type="button" class="btn btn-primary" value="Buscar Beneficios">
+        <div class="row">
+            <div class="form-group col-lg-9">
+                <input id="address" class="form-control" style="max-width: none; width: 100%" type="text">
+            </div>
+            <div class="form-group col-lg-3">
+                <input id="submit" type="button" class="btn btn-primary" value="Buscar Beneficios" data-loading-text="Buscando...">
+            </div>
+        </div>
     </form>
 </div>
 <div id="autoLocation">
@@ -30,6 +36,8 @@
     var map;
     var geocoder;
     var initialLocation;
+
+    var markers = [];
 
     $(function () {
         var input = document.getElementById('address');
@@ -60,27 +68,51 @@
                 break;
         }
 
-        geocodeDefault();
+        centerMapInDefaultLocation();
+    }
+
+    function centerMapInDefaultLocation() {
+        var address = document.getElementById('formatted_Address').value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
     }
 
     function showPosition(position) {
+
+        clearMarkers();
+
         $('#floating-panel').hide();
         $('#autoLocation').hide();
 
         $('#lat').val(position.coords.latitude);
         $('#lon').val(position.coords.longitude);
+
         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
         map.setCenter(initialLocation);
 
         var marker = new google.maps.Marker({
             map: map,
-            position: initialLocation
+            position: initialLocation,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
         });
+
+        markers.push(marker);
 
         getNearestBenfits(position.coords.latitude, position.coords.longitude);
     }
 
     function getNearestBenfits(latitude, longitude) {
+
+        var $btnSubmit = $('#submit');
+
+        $btnSubmit.button('loading');
+
         $.ajax({
             type: "GET",
             url: '/Home/NearestBenefits',
@@ -88,6 +120,11 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (benefits) {
+
+            if (!benefits || benefits.length === 0) {
+                alert("No se encontraron beneficios cercanos");
+                return;
+            }
 
             //add a marker for each benefit
             for (var i = 0; i < benefits.length; i++) {
@@ -121,6 +158,8 @@
                     infowindow: infowindow
                 });
 
+                markers.push(marker);
+
                 marker.addListener('click', function (e) {
                     var markerInfoWindow = this.infowindow;
                     if (markerInfoWindow) {
@@ -128,6 +167,9 @@
                     }
                 });
             }
+        }).
+        always(function () {
+            $btnSubmit.button('reset');
         });
     }
 
@@ -149,7 +191,6 @@
             navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
         } else {
             alert("La localizacion esta deshabilitada. Si desea utilizar su ubicacion actual, habilite la geolocalizacion en su navegador o ingrese su direccion actual en el campo de busqueda y haga click en buscar");
-            //geocodeDefault();
         }
     }
 
@@ -157,11 +198,17 @@
         var address = document.getElementById('formatted_Address').value;
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
+
+                clearMarkers();
+
                 map.setCenter(results[0].geometry.location);
+
                 var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location
                 });
+
+                markers.push(marker);
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -173,15 +220,34 @@
         var postfijo = document.getElementById('formatted_Address').value;
         geocoder.geocode({ 'address': address + ' ' + postfijo }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
+
+                clearMarkers();
+
                 map.setCenter(results[0].geometry.location);
+
                 var marker = new google.maps.Marker({
                     map: map,
-                    position: results[0].geometry.location
+                    position: results[0].geometry.location,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                 });
+
+                markers.push(marker);
 
                 getNearestBenfits(results[0].geometry.location.lat(), results[0].geometry.location.lng());
             }
         });
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearMarkers() {
+        setMapOnAll(null);
     }
 
 </script>
