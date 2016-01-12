@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Spatial;
+using System.Data.Entity.SqlServer;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Principal;
@@ -275,7 +278,7 @@ namespace PointEx.Service
             return results.Entities.Project().To<BenefitDto>().ToList();
         }
 
-        public Task<List<BenefitDto>> GetNearestBenefits(double latitude, double longitude, int distance)
+        public Task<List<BenefitDto>> GetNearestBenefits(double latitude, double longitude, int? distance)
         {
             Expression<Func<Benefit, bool>> where =
                 x =>!x.IsDeleted && x.StatusId == StatusEnum.Approved;
@@ -286,13 +289,17 @@ namespace PointEx.Service
                 b => b.BenefitBranchOffices.Select(bbo => bbo.BranchOffice),
                 b => b.BenefitType);
 
-            var coord = DbGeography.FromText(String.Format("POINT({0} {1})", latitude.ToString().Replace(",", "."), longitude.ToString().Replace(",", ".")));
+            var lon = longitude.ToString(CultureInfo.InvariantCulture);
+            var lat = latitude.ToString(CultureInfo.InvariantCulture);
 
-            var nearest = (from b in benefits
-                           where b.Shop.Location != null
-                          //&& b.Shop.Location.Distance(coord) <= distance
-                           orderby b.Shop.Location.Distance(coord)
-                           select b);
+            distance = distance ?? int.Parse(ConfigurationManager.AppSettings["DefaultNearestLocationDistance"]);
+
+            var point = DbGeography.PointFromText(string.Format("POINT({0} {1})", lon, lat), DbGeography.DefaultCoordinateSystemId);
+
+            var nearest = from b in benefits
+                        let region = point.Buffer(distance)
+                        where b.Shop.Location != null && SqlSpatialFunctions.Filter(b.Shop.Location, region) == true
+                        select b; 
 
             return nearest.Project().To<BenefitDto>().ToListAsync();
         }
