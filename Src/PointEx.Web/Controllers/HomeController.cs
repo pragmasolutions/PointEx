@@ -17,6 +17,7 @@ using PointEx.Entities.Enums;
 using PointEx.Web.Configuration;
 using PointEx.Web.Infrastructure;
 using PointEx.Security.Model;
+using PointEx.Web.Infrastructure.Extensions;
 
 namespace PointEx.Web.Controllers
 {
@@ -257,6 +258,7 @@ namespace PointEx.Web.Controllers
                                                        benefitDescription = x.Description,
                                                        benefitType = x.BenefitTypeName,
                                                        benefitDetailsUrl = Url.Action("Detail", "Benefit", new { area = "", id = x.Id }),
+                                                       benefitImageUrl = x.GetDefaultImageUrl(83, 115)
                                                    }).ToList();
 
             return Json(benefitJson, JsonRequestBehavior.AllowGet);
