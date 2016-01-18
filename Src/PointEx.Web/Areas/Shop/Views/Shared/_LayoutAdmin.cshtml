@@ -7,7 +7,11 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
-
+    <style>
+         footer {
+            background-image: none !important;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
