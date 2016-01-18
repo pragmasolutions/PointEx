@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render(String.Format("~/Themes/{0}/css", PointEx.Web.Configuration.AppSettings.Theme))
     <style>
-         footer {
+        footer {
             background-image: none !important;
         }
     </style>
@@ -28,8 +28,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Sucursales", "Index", new { area = "Shop", controller = "BranchOffice" })</li>
                     <li>@Html.ActionLink("Compras del Dia", "Index", new { area = "Shop", controller = "Purchase" })</li>
-                    <li>@Html.ActionLink("Beneficios", "Index", new {area = "Shop", controller = "Benefit"})</li>
-                    <li>@Html.ActionLink("Editar Perfil", "Edit", new {area = "Shop", controller = "Shop"})</li>
+                    <li>@Html.ActionLink("Beneficios", "Index", new { area = "Shop", controller = "Benefit" })</li>
+                    <li>@Html.ActionLink("Editar Perfil", "Edit", new { area = "Shop", controller = "Shop" })</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -41,15 +41,16 @@
             </div>
         </div>
     </div>
-<div class="container body-content">
-    @RenderSection("banner", required: false)
-    <div class="container alert-container" style="padding-left: 0 !important;"></div>
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; Comercios</p>
-    </footer>
-</div>
+    <div id="container" class="container body-content">
+        @RenderSection("banner", required: false)
+        <div class="container alert-container" style="padding-left: 0 !important;"></div>
+        @RenderBody()
+        <hr/>
+        <footer id="footer">
+            <p>&copy; Comercios</p>
+        </footer>
+    </div>
+   
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/globalize")
@@ -59,5 +60,6 @@
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
     @Html.Partial("_Alerts")
+
 </body>
 </html>
