@@ -1,4 +1,5 @@
-﻿@model PointEx.Web.Models.BenefitForm
+﻿@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.BenefitForm
 @{
     ViewBag.Title = PointExResources.EditBenefitTitle;
 }
@@ -17,7 +18,7 @@
     @Html.EditorForModel()
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Editar Beneficio" name="formSubmit" class="btn btn-default" />
+            <input type="submit" value="Editar Beneficio" name="formSubmit" class="btn btn-default" data-isanyadminuser="@this.CurrentUser().IsAnyAdminUser"/>
         </div>
     </div>
 }

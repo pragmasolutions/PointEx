@@ -7,7 +7,14 @@
 
     $("#create-edit-benefit-form").submit(function () {
 
+        var isAnyAdminUser = $('input[type="submit"]', this).data('isanyadminuser');
+
         if ($('#create-edit-benefit-form').valid()) {
+
+            if (isAnyAdminUser === "True") {
+                return true;
+            }
+
             return confirm("El Beneficio debe ser revisado y aprobado por la administración. Durante dicho periodo el mismo no estará disponible públicamente en el sitio");
         }
 
