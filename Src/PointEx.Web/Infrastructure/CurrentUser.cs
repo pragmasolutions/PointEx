@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using PointEx.Entities;
 using PointEx.Security.Managers;
@@ -63,6 +64,37 @@ namespace PointEx.Web.Infrastructure
         public ApplicationUser User
         {
             get { return _user ?? (_user = _applicationUserManager.FindById(_identity.GetUserId())); }
+        }
+
+        public bool IsAnyAdminUser
+        {
+            get
+            {
+                if (HttpContext.Current == null)
+                {
+                    return false;
+                }
+
+                var httpContextUser = HttpContext.Current.User;
+
+                return httpContextUser.IsInRole(RolesNames.Admin) || httpContextUser.IsInRole(RolesNames.SuperAdmin);
+            }
+        }
+
+
+        public bool IsAnyShopUser
+        {
+            get
+            {
+                if (HttpContext.Current == null)
+                {
+                    return false;
+                }
+
+                var httpContextUser = HttpContext.Current.User;
+
+                return httpContextUser.IsInRole(RolesNames.Shop) || httpContextUser.IsInRole(RolesNames.ShopAdmin);
+            }
         }
     }
 }

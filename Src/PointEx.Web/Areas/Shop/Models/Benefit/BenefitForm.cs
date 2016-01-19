@@ -26,6 +26,12 @@ namespace PointEx.Web.Models
         public int Id { get; set; }
 
         [HiddenInput]
+        public int ShopId { get; set; }
+
+        [HiddenInput]
+        public PointEx.Entities.Enums.StatusEnum StatusId { get; set; }
+
+        [HiddenInput]
         public bool? IsApproved { get; set; }
 
         [Required]

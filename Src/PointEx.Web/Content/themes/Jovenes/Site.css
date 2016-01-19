@@ -121,8 +121,8 @@ a {
 /* Header */
 .pointex-header {
     background-color: #01781C;
-	/*background-image: url('/Content/themes/Jovenes/images/menu.png');
-	background-repeat: no-repeat;*/
+	background-image: url('/Content/themes/Jovenes/images/menu.png');
+	background-repeat: no-repeat;
 	height: 77px;
 	font-family: "Krash Blck";
 }
