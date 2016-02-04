@@ -457,6 +457,7 @@
     <Content Include="EmailTemplates\TekovePoti\InfoRequestAutomaticResponseEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\InfoRequestToAdminEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\PendingBenefitEmail.html" />
+    <Content Include="EmailTemplates\TekovePoti\PendingBenefitUpdateEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\PendingShopEmail.html" />
     <Content Include="EmailTemplates\TekovePoti\PointExchangeConfirmationEmail.html" />
     <Content Include="favicon.ico" />
