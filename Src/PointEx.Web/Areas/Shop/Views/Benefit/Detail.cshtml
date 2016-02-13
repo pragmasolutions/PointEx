@@ -1,4 +1,6 @@
-﻿@model PointEx.Web.Models.BenefitForm
+﻿@using PointEx.Security
+@using PointEx.Web.Infrastructure.Extensions
+@model PointEx.Web.Models.BenefitForm
 @{
     ViewBag.Title = PointExResources.DetailBenefitTitle;
     if (ViewBag.ReturnController == "Admin")
@@ -23,6 +25,16 @@
 
 <hr />
 <div class="form-horizontal">
+    @if (this.CurrentUser().IsAnyAdminUser)
+    {
+        <div class="form-group">
+            @Html.BootstrapLabel("ShopName")
+            <div class="col-md-10">
+                @Html.Display("ShopName")
+            </div>
+        </div>
+    }
+    
     <div class="form-group">
         @Html.BootstrapLabelFor(model => model.Name)
         <div class="col-md-10">
@@ -81,7 +93,7 @@
     {
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @using (Html.BeginForm("Delete", "Benefit", new { id = Model.Id }, FormMethod.Post, new { id = "delete-form" }))
+                @using (Html.BeginForm("Delete", "Benefit", new {id = Model.Id}, FormMethod.Post, new {id = "delete-form"}))
                 {
                     @Html.AntiForgeryToken()
                     <div class="row">

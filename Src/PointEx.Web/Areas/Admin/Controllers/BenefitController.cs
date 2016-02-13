@@ -126,7 +126,7 @@ namespace PointEx.Web.Areas.Admin.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Aprobado");
+                return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Rechazado");
             }
                 
         }       

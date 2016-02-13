@@ -71,6 +71,8 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
             ViewBag.ShowApprovalButtons = User.IsInRole(RolesNames.Admin) && benefit.StatusId == StatusEnum.Pending;
 
+            ViewBag.ShopName = benefit.Shop.Name;
+
             return View(benefitForm);
         }
 
@@ -146,7 +148,23 @@ namespace PointEx.Web.Areas.Shop.Controllers
 
              await _benefitService.Edit(benefit, User, _currentUser.PointexUser.Email, AppSettings.Theme);
 
-            return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess("Beneficio Editado");
+             var successMessage = "Beneficio Editado";  
+
+             if (_currentUser.IsAnyAdminUser)
+            {
+                switch (benefit.StatusId)
+                {
+                    case StatusEnum.Pending:
+                        return RedirectToAction("Index", "Benefit", new {Area = "Admin"}).WithSuccess(successMessage);
+                    case StatusEnum.Approved:
+                        return RedirectToAction("ApprovedBenefit", "Benefit", new { Area = "Admin" }).WithSuccess(successMessage);
+                    case StatusEnum.Rejected:
+                        return RedirectToAction("Rejected", "Benefit", new { Area = "Admin" }).WithSuccess(successMessage);
+
+                }
+            }
+
+             return RedirectToAction("Index", new BenefitListFiltersModel().GetRouteValues()).WithSuccess(successMessage);
         }
 
         [HttpPost, ValidateAntiForgeryToken]

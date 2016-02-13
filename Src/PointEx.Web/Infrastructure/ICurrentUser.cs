@@ -9,5 +9,7 @@ namespace PointEx.Web.Infrastructure
         Beneficiary Beneficiary { get; }
         User PointexUser { get; }
         ApplicationUser User { get; }
-	}
+        bool IsAnyAdminUser { get; }
+        bool IsAnyShopUser { get; }
+    }
 }
