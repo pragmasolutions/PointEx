@@ -14,7 +14,7 @@ using PointEx.Entities.Enums;
 
 namespace PointEx.Web.Models
 {
-    public class BenefitForm : IMapFrom<Benefit>, IValidatableObject
+    public class BenefitForm : IMapFrom<Benefit>
     {
 
         public BenefitForm()
@@ -77,15 +77,6 @@ namespace PointEx.Web.Models
             var form = Mapper.Map<Benefit, BenefitForm>(benefit);
             form.BranchOfficesSelected = benefit.BenefitBranchOffices.Select(bbo => bbo.BranchOfficeId);
             return form;
-        }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (Id != null && BenefitTypeId == BenefitTypesEnum.Discount)
-            {
-                if (!(DiscountPercentage.HasValue && DiscountPercentage.Value > 0 && DiscountPercentageCeiling.HasValue && DiscountPercentageCeiling.Value > 0))
-                yield return new ValidationResult("Debe ingresar los descuentos.");
-            }
         }
     }
 }
