@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Puntos</title>
     @Styles.Render("~/Content/css")
@@ -11,27 +11,27 @@
     @Styles.Render("~/Content/front-end/css")
 </head>
 <body>
-    @Html.Partial("_FacebookInit")
+@Html.Partial("_FacebookInit")
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Puntos", "Index", new {area = "Beneficiary", controller = "Profile"}, new {@class = "navbar-brand"})
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Mi Cuenta", "Index", new { area = "Beneficiary", controller = "Profile" })</li>
-                    <li>@Html.ActionLink("Catálogo de Premios", "Index", new { area = "Beneficiary", controller = "Prize" })</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Puntos", "Index", new {area = "Beneficiary", controller = "Profile"}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Mi Cuenta", "Index", new {area = "Beneficiary", controller = "Profile"})</li>
+                <li>@Html.ActionLink("Catálogo de Premios", "Index", new {area = "Beneficiary", controller = "Prize"})</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
+</div>
 
 <div id="wrapper">
     <div class="main-background">
@@ -42,7 +42,7 @@
                 <table class="layout-container">
                     <tr>
                         <td class="td-menu-lateral">
-                            @{ Html.RenderAction("MenuLateral", "Layout", new { area = "Beneficiary"});}
+                            @{ Html.RenderAction("MenuLateral", "Layout", new {area = "Beneficiary"});}
                         </td>
                         <td>
                             <div class="layout-body">
@@ -76,3 +76,9 @@
 
 </body>
 </html>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.navbar-right').removeClass("loginTekove");
+    });
+</script>

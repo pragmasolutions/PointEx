@@ -18,8 +18,9 @@
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Ingresa usando tu @p.Caption account">@p.AuthenticationType</button>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default fa fa-facebook fa-3x" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Ingresa usando tu cuenta de @p.Caption"></button>
                     }
                 </p>
             </div>
