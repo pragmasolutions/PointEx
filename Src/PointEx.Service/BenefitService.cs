@@ -90,10 +90,10 @@ namespace PointEx.Service
 
         public void Create(Benefit benefit)
         {
-            if (!IsNameAvailable(benefit.Name, benefit.Id))
-            {
-                throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
-            }
+            //if (!IsNameAvailable(benefit.Name, benefit.Id))
+            //{
+            //    throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
+            //}
 
             benefit.CreatedDate = _clock.Now;
             benefit.StatusId = StatusEnum.Pending;
@@ -103,10 +103,10 @@ namespace PointEx.Service
 
         public async Task Edit(Benefit benefit, IPrincipal currentUser, string shopEmail, string theme)
         {
-            if (!IsNameAvailable(benefit.Name, benefit.Id))
-            {
-                throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
-            }
+            //if (!IsNameAvailable(benefit.Name, benefit.Id))
+            //{
+            //    throw new ApplicationException("Un Beneficio con el mismo nombre ya ha sido creado");
+            //}
 
             var currentBenefit = this.GetById(benefit.Id);
 
