@@ -17,7 +17,7 @@ namespace PointEx.Web.Configuration
         {
             get
             {
-                return Theme == ThemeEnum.TarjetaVerde ? "TARJETA VERDE" : "TEKOVÉ POTÍ";
+                return Theme == ThemeEnum.TarjetaVerde ? "TARJETA VERDE" : "TEKOVE POT&Itilde;";
             }
         }
 
