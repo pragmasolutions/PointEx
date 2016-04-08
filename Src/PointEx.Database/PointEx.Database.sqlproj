@@ -125,6 +125,7 @@
     <None Include="PointEx_Azure.Database.publish.xml" />
     <None Include="ReferenceData\Users.Data.sql" />
     <None Include="PointEx.Azure.Rock.publish.xml" />
+    <None Include="Tekove.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="ReferenceData\Script.PostDeployment.sql" />
