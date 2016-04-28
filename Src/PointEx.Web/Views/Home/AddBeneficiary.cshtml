@@ -1,61 +1,47 @@
 ﻿@using PointEx.Web.Configuration
-
+@using PointEx.Web.Models
 @model PointEx.Web.Models.BeneficiaryForm
 @{
     ViewBag.Title = "Solicitud de Alta Beneficiario";
 }
-
 <h3>Solicitud de Alta Beneficiario</h3>
 <hr />
-@if (AppSettings.Theme == ThemeEnum.TarjetaVerde)
-{
-    <p>
-        Tekove Pot&itilde; te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
+<p>
+    Tekove Pot&itilde; te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
 
-        Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
-    </p>
-    <div class="spacer"></div>
-    <div class="alert alert-info" role="alert">
-        <strong>Requisitos</strong>
-        Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
-        <ul>
-            <li>Requisito 1.</li>
-            <li>Requisito 2.</li>
-        </ul>
+    Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
+</p>
+<div class="spacer"></div>
+<div class="alert alert-info" role="alert">
+    <strong>Requisitos</strong>
+    Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
+    <ul>
+        <li>Requisito 1.</li>
+        <li>Requisito 2.</li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("AddBeneficiary", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.Partial("Beneficiary/_CreateEditControls")
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Enviar" class="btn btn-default" />
+                </div>
+            </div>
+        }
     </div>
-}
-else
-{
-    <p>
-        Tekove Pot&itilde; te brinda la posibilidad de hacer llegar tus productos y ofertas a nuestros socios, quienes hoy disfrutan de las mejores propuestas de esparcimiento, salidas gastronómicas, espectáculos, cine y todos los rubros relacionados con tiempo libre en familia.
-
-        Dichos productos y ofertas se comunican a través de publicaciones en el diario y en Internet, las cuales son especialmente pensadas para nuestros socios de manera exclusiva y atractiva, preferentemente en forma de descuento o ahorro en el desembolso de la compra, en todas las formas de pago disponibles y por un lapso a coordinar.
-    </p>
-    <div class="spacer"></div>
-    <div class="alert alert-info" role="alert">
-        <strong>Requisitos</strong>
-        Sólo en caso de cumplir los siguientes requisitos, los interesados podrán completar el formulario a continuación:
-        <ul>
-            <li>Requisito 1.</li>
-            <li>Requisito 2.</li>
-        </ul>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
     </div>
-}                
-
-
-@using (Html.BeginForm("AddBeneficiary", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    @Html.Partial("Beneficiary/_CreateEditControls")
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Enviar" class="btn btn-default" />
-        </div>
-    </div>
-}
-
+</div>
 <div class="spacer"></div>
 <div class="spacer"></div>
